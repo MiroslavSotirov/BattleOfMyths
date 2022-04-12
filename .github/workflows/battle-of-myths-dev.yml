@@ -1,0 +1,88 @@
+name: DEV - Battle of Myths Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GAME_NAME: battle-of-myths
+      BUILDER_TOKEN: ${{ secrets.BUILDER_TOKEN  }}
+      HARBOR_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
+      HARBOR_USERNAME: ${{ secrets.HARBOR_USERNAME }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+          path: BattleOfMyths
+      - uses: actions/checkout@v2
+        with:
+          repository: Elysium-Studios/game-manager
+          token: ${{ env.BUILDER_TOKEN }}
+          path: game-manager
+      - uses: actions/checkout@v2
+        with:
+          repository: Elysium-Studios/infrastructure
+          token: ${{ env.BUILDER_TOKEN }}
+          path: infrastructure
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y cmdtest ffmpeg
+
+      - name: Get Godot
+        uses: wei/wget@v1
+        with:
+          args: https://downloads.tuxfamily.org/godotengine/3.4.2/Godot_v3.4.2-stable_linux_headless.64.zip
+      - run: | 
+          unzip Godot_v3.4.2-stable_linux_headless.64.zip
+      - name: Build BattleOfMyths 
+        run: | 
+          mkdir -p BattleOfMyths/dist/audio; mkdir -p BattleOfMyths/dist/translations && cp game-manager/scripts/* BattleOfMyths/
+          find BattleOfMyths/Audio/ -name '*.wav' -exec cp {} BattleOfMyths/dist/audio \;
+          cd BattleOfMyths/dist/audio && python3 ../../generate_audio_data.py && cd ../../
+          ./pack_translations.sh && cp Translations/export/* dist/translations/
+          node generate_index.js cdn="https://elysium-games.s3.eu-west-1.amazonaws.com/" && mv index.html config.json dist/ && cd ../
+          ./Godot_v3.4.2-stable_linux_headless.64 --path BattleOfMyths/ --export-pack "pck" index.pck && mv BattleOfMyths/index.pck BattleOfMyths/dist/
+      - name: Get version
+        id: tag
+        run: |
+          packageVersion=$(cat BattleOfMyths/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]') && ((packageVersion++))
+          sed -i -e "s/version\":.*/version\": \"${packageVersion}\"/g" BattleOfMyths/package.json
+          echo "::set-output name=new_tag::$packageVersion"
+      - name: Build docker image and push to docker repo
+        run: |
+          docker login harbor.elysiumstudios.se -u ${{ env.HARBOR_USERNAME }} -p ${{ env.HARBOR_PASSWORD }}
+          docker pull harbor.elysiumstudios.se/elysium/nginx-game:latest || true
+          docker build --cache-from "harbor.elysiumstudios.se/elysium/nginx-game:latest" --build-arg "IMAGE_BASE_TAG=latest" --build-arg "BUILD_GAME_NAME=${{ env.GAME_NAME }}" --build-arg "BUILD_GAME_VERSION=${{ steps.tag.outputs.new_tag }}" --pull -t "harbor.elysiumstudios.se/elysium/${{ env.GAME_NAME }}:${{ steps.tag.outputs.new_tag }}" --file BattleOfMyths/Dockerfile BattleOfMyths/dist/
+          docker push "harbor.elysiumstudios.se/elysium/${{ env.GAME_NAME }}:${{ steps.tag.outputs.new_tag }}"
+      - uses: azure/setup-helm@v1
+        with:
+          version: "3.*"
+        id: install
+
+      - name: Update helm version and push to chart repo
+        run: |
+          cd BattleOfMyths/
+          sed -i -e 's/appVersion:.*/appVersion: '${{ steps.tag.outputs.new_tag }}'/g' -e 's/^version:.*/version: '${{ steps.tag.outputs.new_tag }}'/' charts/battle-of-myths/Chart.yaml
+          git config --global user.email "workflow@elysiumstudios.se"
+          git config --global user.name "BattleOfMyths Workflow"
+          git add charts/battle-of-myths/Chart.yaml package.json
+          git commit -m "Deploy BattleOfMyths ${{ steps.tag.outputs.new_tag }}"
+          git push
+          helm plugin install https://github.com/chartmuseum/helm-push.git
+          helm repo add --username=${{ env.HARBOR_USERNAME }} --password=${{ env.HARBOR_PASSWORD }} elysium-charts https://harbor.elysiumstudios.se/chartrepo/elysium/
+          helm cm-push charts/battle-of-myths/ elysium-charts
+          
+      - name: Update BattleOfMyths release in flux repo
+        run: |
+          cd infrastructure/
+          sed -i -e 's/version:.*/version: "${{ steps.tag.outputs.new_tag }}"/g' dev/apps-infra/deployments/battle-of-myths/release.yaml
+          git config --global user.email "workflow@elysiumstudios.se"
+          git config --global user.name "BattleofMyths Workflow"
+          git add dev/apps-infra/deployments/wizardz-world/release.yaml
+          git commit -m "Deploy BattleofMyths ${{ steps.tag.outputs.new_tag }}"
+          git push
