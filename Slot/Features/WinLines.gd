@@ -18,8 +18,8 @@ func _ready():
 	if(!Engine.editor_hint):
 		Globals.register_singleton("WinLines", self);
 		yield(Globals, "allready")
-		rect_position = Globals.singletons["Slot"].get_node("ReelContainer").rect_position;
-		rect_size = Globals.singletons["Slot"].get_node("ReelContainer").rect_size;
+		# rect_position = Globals.singletons["Slot"].get_node("ReelContainer").rect_position;
+		# rect_size = Globals.singletons["Slot"].get_node("ReelContainer").rect_size;
 
 func set_lines_count(n):
 	lines_count = n;

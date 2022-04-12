@@ -47,6 +47,10 @@ func getTilesWithId(tiles, id):
 	
 # setting the actual rendering stuff
 func setTileData(data):
+	print("Rename setTileData");
+	set_tile_data(data);
+
+func set_tile_data(data):
 	self.data = data;
 	if(self.data == null): return
 	
@@ -61,8 +65,10 @@ func setTileData(data):
 	for child in get_children():
 		_setScale(child);
 
+	
 func _setScale(element):
-	element.scale = self.tiledesc.tile_scale * scale_multiplier;
+	pass;
+#	element.scale = self.tiledesc.tile_scale * scale_multiplier;
 #	element.position = self.tiledesc.tile_offset;
 		
 func _setblur(val):
@@ -143,19 +149,19 @@ func show_spine_sprite():
 		$SpineSprite.visible = true;
 		$Image.visible = false;
 		emit_signal("spinespriteshown");
-			
-func show_image():
-	_setScale($Image);
-	if(underneath_fat_tile):
-		$Image.visible = false;
-		$SpineSprite.visible = false;
-	else:
-		$SpineSprite.visible = false;
-		$Image.visible = true;
-		$Image.texture = self.tiledesc.static_image;
-		$Image.position = self.tiledesc.image_offset;
-		$Image.position.y += image_offset * reel.tileDistance;
-		emit_signal("imageshown");
+
+#func show_image():
+#	_setScale($Image);
+#	if(underneath_fat_tile):
+#		$Image.visible = false;
+#		$SpineSprite.visible = false;
+#	else:
+#		$SpineSprite.visible = false;
+#		$Image.visible = true;
+#		$Image.texture = self.tiledesc.static_image;
+#		$Image.position = self.tiledesc.image_offset;
+#		$Image.position.y += image_offset * reel.tileDistance;
+#		emit_signal("imageshown");
 		
 func update_position():
 	var delta = fmod(reel.spinPosition, reel.tileDistance);
@@ -166,6 +172,18 @@ func update_position():
 			+ image_offset * reel.tileDistance \
 			+ delta;
 	
-func _process(_delta):
-	if(reel.spinning): update_position();
+#func _process(_delta):
+#	if(reel.spinning): update_position();
 	
+#########################################################################
+			
+func show_image():
+	_setScale($Image);
+	$SpineSprite.visible = false;
+	$Image.visible = true;
+	$Image.texture = load("res://Textures/test-tiles/tile"+ tiledesc.id as String + ".png");
+#	$Image.texture = self.tiledesc.static_image;
+#	$Image.position = tiledesc.image_offset;
+#	print('width: ', $Image.texture.get_width());
+	$Image.position.y += image_offset * reel.tileDistance;
+	emit_signal("imageshown");

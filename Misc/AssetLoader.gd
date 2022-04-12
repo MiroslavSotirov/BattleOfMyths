@@ -27,6 +27,7 @@ func generate_tile_images():
 		img.flip_y();
 		tile.static_image = ImageTexture.new();
 		tile.static_image.create_from_image(img);
+
 		$Viewport.remove_child(tilescene);
 	$Viewport.queue_free();
 	

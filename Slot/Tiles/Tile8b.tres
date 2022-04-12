@@ -32,6 +32,6 @@ spine_win_anim_animation_repeat = 2
 image_offset = Vector2( 0, 260 )
 image_size = Vector2( 512, 2048 )
 tile_offset = Vector2( 0, 0 )
-tile_scale = Vector2( 1.17, 1.17 )
+tile_scale = Vector2( 1, 1 )
 posible_reels = [  ]
 max_count = 0

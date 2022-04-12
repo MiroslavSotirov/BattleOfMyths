@@ -21,5 +21,4 @@ script = ExtResource( 5 )
 startanimation = "popup"
 
 [node name="Image" type="Sprite" parent="."]
-visible = false
 material = ExtResource( 1 )
