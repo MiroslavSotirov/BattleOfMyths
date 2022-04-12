@@ -1,0 +1,13 @@
+[gd_resource type="SpineAnimationStateDataResource" load_steps=4 format=2]
+
+[ext_resource path="res://Translations/JP/Logo.json" type="SpineSkeletonJsonDataResource" id=1]
+[ext_resource path="res://Translations/JP/Logo.atlas" type="SpineAtlasResource" id=2]
+
+[sub_resource type="SpineSkeletonDataResource" id=1]
+atlas_res = ExtResource( 2 )
+skeleton_json_res = ExtResource( 1 )
+animations = null
+skins = null
+
+[resource]
+skeleton = SubResource( 1 )

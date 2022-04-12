@@ -1,0 +1,113 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Misc/canvasadditive.tres" type="Material" id=1]
+[ext_resource path="res://Textures/particles/PNG (Black background)/scorch_03.png" type="Texture" id=2]
+[ext_resource path="res://Textures/particles/line.png" type="Texture" id=3]
+[ext_resource path="res://UI/trail_2d.gd" type="Script" id=4]
+[ext_resource path="res://Misc/SineWiggle.gd" type="Script" id=5]
+[ext_resource path="res://Textures/particles/PNG (Black background)/flare_01.png" type="Texture" id=6]
+[ext_resource path="res://Textures/particles/PNG (Black background)/prah1.png" type="Texture" id=7]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0.981818 ), 0.0, -0.531751, 0, 0, Vector2( 1, 0.490909 ), -0.516827, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.328125, 0.890625, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.481818 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.640625, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 0.368627, 0.435294, 1, 1, 0.954248, 0.959079, 1, 1 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0.445455 ), 0.0, 1.95455, 0, 0, Vector2( 1, 0.990909 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=6]
+offsets = PoolRealArray( 0, 0.1875, 0.34375, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1 )
+
+[sub_resource type="Gradient" id=7]
+offsets = PoolRealArray( 0, 0.1875, 0.34375, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1 )
+
+[node name="BlueBarFx" type="Node2D"]
+z_index = 2
+
+[node name="Wiggler" type="Node2D" parent="."]
+position = Vector2( 6.31551, -27.7924 )
+script = ExtResource( 5 )
+speed = Vector2( 2.75, 5 )
+size = Vector2( 10, 30 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="Wiggler"]
+material = ExtResource( 1 )
+amount = 30
+local_coords = false
+texture = ExtResource( 7 )
+emission_shape = 1
+emission_sphere_radius = 10.0
+gravity = Vector2( 0, 0 )
+radial_accel = 60.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.2
+scale_amount_curve = SubResource( 1 )
+color = Color( 0.329412, 0.498039, 1, 1 )
+color_ramp = SubResource( 2 )
+
+[node name="Trail" type="Line2D" parent="Wiggler"]
+material = ExtResource( 1 )
+width = 30.0
+width_curve = SubResource( 3 )
+default_color = Color( 0.290196, 0.784314, 1, 1 )
+gradient = SubResource( 8 )
+texture = ExtResource( 3 )
+texture_mode = 2
+joint_mode = 2
+end_cap_mode = 2
+script = ExtResource( 4 )
+lifetime = 1.0
+distance = 10.0
+segments = 100
+
+[node name="HitFx" type="CPUParticles2D" parent="."]
+material = ExtResource( 1 )
+emitting = false
+amount = 4
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource( 2 )
+emission_shape = 1
+emission_sphere_radius = 50.0
+gravity = Vector2( 0, 0 )
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.5
+scale_amount_curve = SubResource( 5 )
+color = Color( 0.470588, 0.603922, 1, 1 )
+color_ramp = SubResource( 6 )
+
+[node name="HitFx2" type="CPUParticles2D" parent="."]
+material = ExtResource( 1 )
+emitting = false
+amount = 15
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.5
+texture = ExtResource( 6 )
+emission_shape = 1
+emission_sphere_radius = 50.0
+spread = 180.0
+gravity = Vector2( 0, 2500 )
+initial_velocity = 750.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.1
+scale_amount_random = 0.15
+color = Color( 0.388235, 0.741176, 1, 1 )
+color_ramp = SubResource( 7 )

@@ -1,0 +1,45 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_add, unshaded;
+uniform vec4 tint : hint_color;
+uniform vec2 dir = vec2(0,0);
+uniform int quality = 4;
+varying vec2 globaldir;
+
+void vertex(){
+	globaldir = mat2(WORLD_MATRIX) * dir;
+	vec2 blurSize = abs(globaldir) * 2.0 * TEXTURE_PIXEL_SIZE;
+	VERTEX *= blurSize + 1.0;
+	UV = (UV - 0.5) * (blurSize + 1.0) + 0.5;
+}
+
+float insideUnitSquare(vec2 v) {
+    vec2 s = step(vec2(0.0), v) - step(vec2(1.0), v);
+    return s.x * s.y;   
+}
+
+void fragment(){
+		
+	float inSquare = insideUnitSquare(UV);
+	float numSamples = inSquare;
+	vec4 col = texture(TEXTURE, UV) * inSquare;
+	vec2 stepSize = globaldir/(float(quality)) * TEXTURE_PIXEL_SIZE;
+	vec2 uv;
+	for(int i = 1; i <= 100; i++){
+		if( i > quality) break;
+		uv = UV + stepSize * float(i);
+		inSquare = insideUnitSquare(uv);
+		numSamples += inSquare;
+		col += texture(TEXTURE, uv) * inSquare;
+		
+		uv = UV - stepSize * float(i);
+		inSquare = insideUnitSquare(uv);
+		numSamples += inSquare;
+		col += texture(TEXTURE, uv) * inSquare;
+	}
+	col.rgb /= numSamples;
+	col.a /= float(quality)*2.0 + 1.0;
+	COLOR = col * tint;
+}"

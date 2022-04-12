@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/Logo.json-8cbc83fba11d778d5288c949a403dc12.spjson"
+
+[deps]
+
+source_file="res://Translations/TR/Logo.json"
+dest_files=[ "res://.import/Logo.json-8cbc83fba11d778d5288c949a403dc12.spjson" ]
+
+[params]
+

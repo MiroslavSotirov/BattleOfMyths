@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Misc/blurmaterial.tres" type="Material" id=1]
+[ext_resource path="res://Slot/Tile.gd" type="Script" id=2]
+[ext_resource path="res://Misc/blurshader.tres" type="Shader" id=3]
+[ext_resource path="res://SpineSpriteExtension.gd" type="Script" id=5]
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 3 )
+shader_param/tint = Color( 1, 1, 1, 1 )
+shader_param/dir = Vector2( 0, 0 )
+shader_param/quality = 30
+
+[node name="Tile" type="Node2D"]
+material = SubResource( 4 )
+script = ExtResource( 2 )
+scale_multiplier = Vector2( 0.5, 0.5 )
+
+[node name="SpineSprite" type="SpineSprite" parent="."]
+script = ExtResource( 5 )
+startanimation = "popup"
+
+[node name="Image" type="Sprite" parent="."]
+visible = false
+material = ExtResource( 1 )

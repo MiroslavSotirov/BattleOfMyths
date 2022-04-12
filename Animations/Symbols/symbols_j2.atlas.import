@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/symbols_j2.atlas-d135e135632018d15064f0d85bc3ff0b.spatlas"
+
+[deps]
+
+source_file="res://Animations/Symbols/symbols_j2.atlas"
+dest_files=[ "res://.import/symbols_j2.atlas-d135e135632018d15064f0d85bc3ff0b.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

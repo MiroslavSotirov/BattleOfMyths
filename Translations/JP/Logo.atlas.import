@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/Logo.atlas-b306d1527dda26fc7912c5d664e52d62.spatlas"
+
+[deps]
+
+source_file="res://Translations/JP/Logo.atlas"
+dest_files=[ "res://.import/Logo.atlas-b306d1527dda26fc7912c5d664e52d62.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

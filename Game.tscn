@@ -1,0 +1,2162 @@
+[gd_scene load_steps=117 format=2]
+
+[ext_resource path="res://Slot/ReelSpinStartAnimation.tres" type="Animation" id=1]
+[ext_resource path="res://Slot/ReelSpinStopAnimation.tres" type="Animation" id=2]
+[ext_resource path="res://Slot/Reel.gd" type="Script" id=3]
+[ext_resource path="res://Slot/Slot.gd" type="Script" id=4]
+[ext_resource path="res://Slot/TileScene.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Game.gd" type="Script" id=6]
+[ext_resource path="res://Misc/Fader.gd" type="Script" id=7]
+[ext_resource path="res://Networking.gd" type="Script" id=8]
+[ext_resource path="res://Textures/slot-ww/SSFrame.webp" type="Texture" id=9]
+[ext_resource path="res://Textures/slot-sh/SSFill.png" type="Texture" id=10]
+[ext_resource path="res://Misc/AssetLoader.gd" type="Script" id=11]
+[ext_resource path="res://Slot/Tiles/Tile7.tres" type="Resource" id=12]
+[ext_resource path="res://Slot/Tiles/Tile2.tres" type="Resource" id=13]
+[ext_resource path="res://BonusScene.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Slot/Tiles/Tile4.tres" type="Resource" id=15]
+[ext_resource path="res://Slot/Tiles/Tile3.tres" type="Resource" id=16]
+[ext_resource path="res://Slot/Tiles/Tile8a.tres" type="Resource" id=17]
+[ext_resource path="res://Slot/Tiles/Tile5.tres" type="Resource" id=18]
+[ext_resource path="res://Slot/Tiles/Tile1.tres" type="Resource" id=19]
+[ext_resource path="res://Slot/Tiles/Tile9a.tres" type="Resource" id=20]
+[ext_resource path="res://Slot/Tiles/Tile8c.tres" type="Resource" id=21]
+[ext_resource path="res://Slot/Tiles/Tile10.tres" type="Resource" id=22]
+[ext_resource path="res://Slot/Tiles/Tile8b.tres" type="Resource" id=23]
+[ext_resource path="res://Slot/Tiles/Tile9b.tres" type="Resource" id=24]
+[ext_resource path="res://Slot/Tiles/Tile6.tres" type="Resource" id=25]
+[ext_resource path="res://Animations/Logo/Logo.json" type="SpineSkeletonJsonDataResource" id=26]
+[ext_resource path="res://Slot/Features/PopupTiles.gd" type="Script" id=27]
+[ext_resource path="res://Slot/TileImageGenerator.tscn" type="PackedScene" id=28]
+[ext_resource path="res://Animations/Logo/Logo.atlas" type="SpineAtlasResource" id=29]
+[ext_resource path="res://Animations/Wins/WinScenes.json" type="SpineSkeletonJsonDataResource" id=30]
+[ext_resource path="res://Animations/Wins/WinScenes.atlas" type="SpineAtlasResource" id=31]
+[ext_resource path="res://Misc/SlotContainerZoom.gd" type="Script" id=32]
+[ext_resource path="res://UI/UI.gd" type="Script" id=33]
+[ext_resource path="res://UI/default_dynfont_big.tres" type="DynamicFont" id=34]
+[ext_resource path="res://ErrorPopup.gd" type="Script" id=35]
+[ext_resource path="res://Slot/Features/Nudger.gd" type="Script" id=36]
+[ext_resource path="res://Slot/Tiles/Tile9c.tres" type="Resource" id=37]
+[ext_resource path="res://Misc/canvasadditive.tres" type="Material" id=39]
+[ext_resource path="res://Textures/slot-ww/SSDividers.png" type="Texture" id=40]
+[ext_resource path="res://Misc/FillBar.gd" type="Script" id=41]
+[ext_resource path="res://Slot/Features/Stateful.gd" type="Script" id=42]
+[ext_resource path="res://Slot/Features/BarsFillFx.gd" type="Script" id=43]
+[ext_resource path="res://SpineSpriteExtension.gd" type="Script" id=44]
+[ext_resource path="res://UI/BackgroundResizer.gd" type="Script" id=45]
+[ext_resource path="res://Misc/LogoResizer.gd" type="Script" id=46]
+[ext_resource path="res://Slot/Features/BlueBarFx.tscn" type="PackedScene" id=47]
+[ext_resource path="res://Textures/slot-ww/BlueFluid.png" type="Texture" id=48]
+[ext_resource path="res://Textures/slot-ww/B1.png" type="Texture" id=49]
+[ext_resource path="res://Textures/slot-ww/BlueFuidTop.png" type="Texture" id=50]
+[ext_resource path="res://Textures/slot-ww/GreenFuidTop.png" type="Texture" id=51]
+[ext_resource path="res://Textures/slot-ww/GreenFluid.png" type="Texture" id=52]
+[ext_resource path="res://Slot/Features/GreenBarFx.tscn" type="PackedScene" id=53]
+[ext_resource path="res://Slot/Scenes/Logo.tscn" type="PackedScene" id=54]
+[ext_resource path="res://Textures/slot-ww/SlotFrameFloorLight.png" type="Texture" id=55]
+[ext_resource path="res://Textures/slot-ww/SlotReflection.png" type="Texture" id=56]
+[ext_resource path="res://Textures/slot-ww/G2.png" type="Texture" id=57]
+[ext_resource path="res://Textures/slot-ww/SlotBacklight2.png" type="Texture" id=58]
+[ext_resource path="res://Textures/slot-ww/SlotBacklight1.png" type="Texture" id=59]
+[ext_resource path="res://Textures/slot-ww/SlotFrameParticles1.png" type="Texture" id=60]
+[ext_resource path="res://Textures/slot-ww/SSFrameGlow.png" type="Texture" id=61]
+[ext_resource path="res://Textures/slot-ww/CBGLass1.png" type="Texture" id=62]
+[ext_resource path="res://Textures/slot-sh/SSFraemDropShadow.png" type="Texture" id=63]
+[ext_resource path="res://Textures/particles/line.png" type="Texture" id=64]
+[ext_resource path="res://Misc/canvasmask.tres" type="Material" id=65]
+[ext_resource path="res://Textures/slot-ww/SSFrameGlowNormalMap.png" type="Texture" id=66]
+[ext_resource path="res://Misc/ClickWaiter.gd" type="Script" id=67]
+[ext_resource path="res://Textures/slot-ww/SlotSceneBGGlow.jpg" type="Texture" id=68]
+[ext_resource path="res://Textures/particles/PNG (Black background)/smoke_06.png" type="Texture" id=69]
+[ext_resource path="res://Slot/Features/NudgeFx.tscn" type="PackedScene" id=70]
+[ext_resource path="res://Misc/LanguageAssetSwapperSpine.gd" type="Script" id=71]
+[ext_resource path="res://Textures/slot-ww/SlotSceneBG.webp" type="Texture" id=72]
+[ext_resource path="res://Misc/LanguageAssetSwapper.gd" type="Script" id=87]
+[ext_resource path="res://base_big_font.tres" type="BitmapFont" id=89]
+[ext_resource path="res://Textures/slot/FT_EXPORT_47.png" type="Texture" id=93]
+[ext_resource path="res://Slot/Features/BigWin.gd" type="Script" id=98]
+[ext_resource path="res://Slot/Features/WinBar.gd" type="Script" id=99]
+[ext_resource path="res://Slot/Features/WinLines.gd" type="Script" id=100]
+[ext_resource path="res://Slot/Features/WinTile.tscn" type="PackedScene" id=101]
+[ext_resource path="res://Slot/Features/WinLineParticles.tscn" type="PackedScene" id=102]
+[ext_resource path="res://AudioSystem.gd" type="Script" id=108]
+[ext_resource path="res://Misc/Singleton.gd" type="Script" id=114]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 128
+
+[sub_resource type="Animation" id=136]
+resource_name = "Idle"
+length = 10.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Glow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0.815686, 0.815686, 0.815686, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=137]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Glow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Gradient" id=138]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Animation" id=129]
+resource_name = "Idle"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -459, -72 ), Vector2( -509, -72 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles1:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.5, 2.5 ), Vector2( 2.75, 2.75 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles1:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 4, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Particles2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.3, 2.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.625, 0.625, 0.625, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0.625, 0.625, 0.625, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Particles2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2.5, 2.7, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -484, -72 ), Vector2( -509, -72 ), Vector2( -459, -72 ), Vector2( -484, -72 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2.5, 2.7, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.675, 2.625 ), Vector2( 2.8, 2.75 ), Vector2( 2.5, 2.5 ), Vector2( 2.675, 2.625 ) ]
+}
+
+[sub_resource type="Animation" id=130]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -459, -72 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles1:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.5, 2.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles1:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Particles2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.625, 0.625, 0.625, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Particles2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -484, -72 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.625, 2.625 ) ]
+}
+
+[sub_resource type="Animation" id=131]
+resource_name = "Idle"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -459, -72 ), Vector2( -509, -72 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles1:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.5, 2.5 ), Vector2( 2.75, 2.75 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles1:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 4, 5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Particles2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.3, 2.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.625, 0.625, 0.625, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 1 ), Color( 0.625, 0.625, 0.625, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Particles2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2.5, 2.7, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -484, -72 ), Vector2( -509, -72 ), Vector2( -459, -72 ), Vector2( -484, -72 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2.5, 2.7, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2.675, 2.625 ), Vector2( 2.75, 2.75 ), Vector2( 2.5, 2.5 ), Vector2( 2.625, 2.625 ) ]
+}
+
+[sub_resource type="Animation" id=132]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Particles1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -459, -72 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Particles1:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.5, 2.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles1:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Particles2:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.625, 0.625, 0.625, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Particles2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -484, -72 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Particles2:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2.625, 2.625 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:bluramount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=127]
+resource_name = "Idle"
+length = 10.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5, 10.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.317647, 0.317647, 0.317647, 1 ), Color( 0.603922, 0.603922, 0.603922, 1 ), Color( 0.317647, 0.317647, 0.317647, 1 ) ]
+}
+
+[sub_resource type="Animation" id=128]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.317647, 0.317647, 0.317647, 1 ) ]
+}
+
+[sub_resource type="Animation" id=134]
+resource_name = "Idle"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1001, 650 ), Vector2( 1028, -650 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Light2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 30, 3 ), Vector2( 30, 5 ), Vector2( 30, 3 ) ]
+}
+
+[sub_resource type="Animation" id=135]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -942, 625 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Light2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 30, 3 ) ]
+}
+
+[sub_resource type="SpineSkeletonDataResource" id=125]
+atlas_res = ExtResource( 29 )
+skeleton_json_res = ExtResource( 26 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=126]
+skeleton = SubResource( 125 )
+
+[sub_resource type="Animation" id=10]
+resource_name = "To_Normal"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.27451, 0.27451, 0.27451, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "To_Winline"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.27451, 0.27451, 0.27451, 1 ) ]
+}
+
+[sub_resource type="Animation" id=94]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=95]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="SpineSkeletonDataResource" id=96]
+atlas_res = ExtResource( 31 )
+skeleton_json_res = ExtResource( 30 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=97]
+skeleton = SubResource( 96 )
+
+[sub_resource type="Animation" id=98]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=99]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=100]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 0.9 ),
+"transitions": PoolRealArray( 1, 2, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4, 0.9 ),
+"transitions": PoolRealArray( 1, 2, 1 ),
+"update": 0,
+"values": [ -100.0, -100.0, 450 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RedGlow:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2, 0.9, 1 ),
+"transitions": PoolRealArray( 0.25, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=101]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:margin_top")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 450 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RedGlow:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=102]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:margin_top")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ -100.0 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RedGlow:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=103]
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:margin_top")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 450 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("RedGlow:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=108]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Slot/LogoMover:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Slot/LogoMover:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=109]
+resource_name = "anticipation_to_normal"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Normal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Background/Normal:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=110]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Normal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Background/Normal:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Slot/LogoMover:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Slot/LogoMover:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Background:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=111]
+resource_name = "normal_to_anticipation"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Normal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Background/Normal:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=112]
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Normal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Background/Normal:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Background:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Slot/LogoMover:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=123]
+resource_name = "normal_to_transparent"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Normal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Background/Normal:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="CanvasItemMaterial" id=113]
+blend_mode = 1
+light_mode = 1
+
+[node name="Game" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 512, 512 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+
+[node name="IntroContainer" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ClickWaiter" type="Control" parent="IntroContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 67 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Centering" type="Control" parent="IntroContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="Sprite" parent="IntroContainer/Centering"]
+scale = Vector2( 0.65, 0.65 )
+texture = ExtResource( 72 )
+
+[node name="CornerFades" type="Node2D" parent="IntroContainer/Centering/BG"]
+
+[node name="TextureRect" type="TextureRect" parent="IntroContainer/Centering/BG/CornerFades"]
+margin_left = -1539.58
+margin_top = -1524.15
+margin_right = -1283.58
+margin_bottom = 1555.85
+rect_pivot_offset = Vector2( 1403.5, 998.347 )
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="IntroContainer/Centering/BG/CornerFades"]
+margin_left = -1152.58
+margin_top = -2212.15
+margin_right = -896.578
+margin_bottom = 867.848
+rect_rotation = 90.0
+rect_pivot_offset = Vector2( 999.347, 1669.5 )
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="IntroContainer/Centering/BG/CornerFades"]
+margin_left = -1537.58
+margin_top = 1553.85
+margin_right = -1281.58
+margin_bottom = 4633.85
+rect_rotation = -89.9999
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect4" type="TextureRect" parent="IntroContainer/Centering/BG/CornerFades"]
+margin_left = 1548.42
+margin_top = 1546.85
+margin_right = 1804.42
+margin_bottom = 4626.85
+rect_rotation = 180.0
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LogoMover" type="Node2D" parent="IntroContainer/Centering"]
+scale = Vector2( 0.65, 0.65 )
+script = ExtResource( 46 )
+scaleoffset = Vector2( 0.7, 0.6 )
+yoffset = Vector2( 0, -150 )
+easing = 1.7
+
+[node name="Logo" parent="IntroContainer/Centering/LogoMover" instance=ExtResource( 54 )]
+scale = Vector2( 1, 1 )
+timescale = 0.5
+
+[node name="LangSwap" type="Node" parent="IntroContainer/Centering/LogoMover/Logo"]
+script = ExtResource( 71 )
+assetname = "Logo.tres"
+node = NodePath("..")
+
+[node name="Press-Anywhere-To-Continue" type="Sprite" parent="IntroContainer/Centering"]
+position = Vector2( 0, 350 )
+scale = Vector2( 0.8, 0.8 )
+
+[node name="SpriteLangSwap" type="Node" parent="IntroContainer/Centering/Press-Anywhere-To-Continue"]
+script = ExtResource( 87 )
+assetname = "PAC.png"
+propertyname = "texture"
+node = NodePath("..")
+
+[node name="SlotContainer" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 512, 512 )
+mouse_filter = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource( 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+zoomamount = Vector2( 0.52, 0.725 )
+yoffset = Vector2( 0, 200 )
+
+[node name="Background" type="Node2D" parent="SlotContainer"]
+script = ExtResource( 45 )
+scale_offset = 0.1
+min_scale = 0.5
+reference = NodePath("..")
+
+[node name="Normal" type="Sprite" parent="SlotContainer/Background"]
+texture = ExtResource( 72 )
+
+[node name="Glow" type="Sprite" parent="SlotContainer/Background"]
+modulate = Color( 0, 0, 0, 1 )
+material = ExtResource( 39 )
+scale = Vector2( 3.01, 3 )
+texture = ExtResource( 68 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Background"]
+anims/Idle = SubResource( 136 )
+anims/RESET = SubResource( 137 )
+
+[node name="Slot" type="Control" parent="SlotContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource( 4 )
+reel_spin_sfx = "Spinning Reel"
+reel_stop_sfx = "Reels Stop"
+reel_stop_volume = 0.35
+availableTiles = [ 1, 2, 3, 4, 5, 6, 7 ]
+reels = [ NodePath("ReelContainer/Reel1"), NodePath("ReelContainer/Reel2"), NodePath("ReelContainer/Reel3"), NodePath("ReelContainer/Reel4"), NodePath("ReelContainer/Reel5") ]
+reelStopDelay = 0.1
+
+[node name="Background" type="Control" parent="SlotContainer/Slot"]
+modulate = Color( 0.27451, 0.27451, 0.27451, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="SlotContainer/Slot/Background"]
+material = ExtResource( 39 )
+position = Vector2( -834, 140 )
+lifetime = 15.0
+preprocess = 15.0
+texture = ExtResource( 69 )
+emission_shape = 2
+emission_rect_extents = Vector2( 500, 500 )
+direction = Vector2( -1, 0 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 10.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.5
+scale_amount_random = 0.3
+color = Color( 0.231373, 0.231373, 0.231373, 1 )
+color_ramp = SubResource( 138 )
+
+[node name="CPUParticles2D2" type="CPUParticles2D" parent="SlotContainer/Slot/Background"]
+material = ExtResource( 39 )
+position = Vector2( 834, 140 )
+lifetime = 15.0
+preprocess = 15.0
+texture = ExtResource( 69 )
+emission_shape = 2
+emission_rect_extents = Vector2( 500, 500 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 10.0
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.5
+scale_amount_random = 0.3
+color = Color( 0.231373, 0.231373, 0.231373, 1 )
+color_ramp = SubResource( 138 )
+
+[node name="ColorRect" type="ColorRect" parent="SlotContainer/Slot/Background"]
+margin_left = -761.0
+margin_top = -373.0
+margin_right = 791.0
+margin_bottom = 482.0
+color = Color( 0, 0, 0, 0.839216 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SsDivider1" type="Sprite" parent="SlotContainer/Slot/Background"]
+position = Vector2( -148.92, 54.2062 )
+scale = Vector2( 1, 1.165 )
+texture = ExtResource( 40 )
+
+[node name="SsDivider2" type="Sprite" parent="SlotContainer/Slot/Background"]
+position = Vector2( -456.96, 54.2063 )
+scale = Vector2( 1, 1.165 )
+texture = ExtResource( 40 )
+
+[node name="SsDivider3" type="Sprite" parent="SlotContainer/Slot/Background"]
+position = Vector2( 144.84, 54.2063 )
+scale = Vector2( 1, 1.165 )
+texture = ExtResource( 40 )
+
+[node name="SsDivider4" type="Sprite" parent="SlotContainer/Slot/Background"]
+position = Vector2( 450.84, 54.2063 )
+scale = Vector2( 1, 1.165 )
+texture = ExtResource( 40 )
+
+[node name="ParticlesLeft" type="Node2D" parent="SlotContainer/Slot/Background"]
+position = Vector2( -331, -159 )
+scale = Vector2( 0.7, 0.7 )
+
+[node name="Particles1" type="Sprite" parent="SlotContainer/Slot/Background/ParticlesLeft"]
+material = ExtResource( 39 )
+position = Vector2( -459, -72 )
+scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 60 )
+
+[node name="Particles2" type="Sprite" parent="SlotContainer/Slot/Background/ParticlesLeft"]
+modulate = Color( 0.625, 0.625, 0.625, 1 )
+material = ExtResource( 39 )
+position = Vector2( -484, -72 )
+scale = Vector2( 2.625, 2.625 )
+texture = ExtResource( 60 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Background/ParticlesLeft"]
+anims/Idle = SubResource( 129 )
+anims/RESET = SubResource( 130 )
+
+[node name="ParticlesRight" type="Node2D" parent="SlotContainer/Slot/Background"]
+position = Vector2( 331, -159 )
+rotation = 3.14159
+scale = Vector2( 0.7, -0.7 )
+
+[node name="Particles1" type="Sprite" parent="SlotContainer/Slot/Background/ParticlesRight"]
+material = ExtResource( 39 )
+position = Vector2( -459, -72 )
+scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 60 )
+
+[node name="Particles2" type="Sprite" parent="SlotContainer/Slot/Background/ParticlesRight"]
+modulate = Color( 0.625, 0.625, 0.625, 1 )
+material = ExtResource( 39 )
+position = Vector2( -484, -72 )
+scale = Vector2( 2.625, 2.625 )
+texture = ExtResource( 60 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Background/ParticlesRight"]
+anims/Idle = SubResource( 131 )
+anims/RESET = SubResource( 132 )
+
+[node name="DropShadow" type="Sprite" parent="SlotContainer/Slot/Background"]
+position = Vector2( 0, 600 )
+texture = ExtResource( 63 )
+
+[node name="SlotFrameFloorLight" type="Sprite" parent="SlotContainer/Slot/Background/DropShadow"]
+position = Vector2( 0, 75 )
+scale = Vector2( 2.5, -2 )
+texture = ExtResource( 55 )
+
+[node name="SlotReflection" type="Sprite" parent="SlotContainer/Slot/Background/DropShadow"]
+material = ExtResource( 39 )
+position = Vector2( 0, 250 )
+scale = Vector2( 1.82, 1.6 )
+texture = ExtResource( 56 )
+
+[node name="ReelContainer" type="Control" parent="SlotContainer/Slot"]
+margin_left = -834.0
+margin_top = -373.0
+margin_right = 829.0
+margin_bottom = 482.0
+rect_clip_content = true
+mouse_filter = 2
+
+[node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 231, 70 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+topOffset = 80.0
+spinSpeed = 3500.0
+tileDistance = 275.0
+topTileCount = 1
+stopExtraDistance = 0
+tileScene = ExtResource( 5 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel1"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel1"]
+anims/RESET = SubResource( 4 )
+anims/ReelSpinStartAnimation = ExtResource( 1 )
+anims/ReelSpinStopAnimation = ExtResource( 2 )
+
+[node name="Reel2" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 531, 70 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+topOffset = 80.0
+spinSpeed = 3500.0
+tileDistance = 275.0
+topTileCount = 1
+stopExtraDistance = 0
+tileScene = ExtResource( 5 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel2"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel2"]
+anims/ReelSpinStartAnimation = ExtResource( 1 )
+anims/ReelSpinStopAnimation = ExtResource( 2 )
+
+[node name="Reel3" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 831, 70 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+topOffset = 80.0
+spinSpeed = 3500.0
+tileDistance = 275.0
+topTileCount = 1
+stopExtraDistance = 0
+tileScene = ExtResource( 5 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel3"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel3"]
+anims/ReelSpinStartAnimation = ExtResource( 1 )
+anims/ReelSpinStopAnimation = ExtResource( 2 )
+
+[node name="Reel4" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 1131, 70 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+topOffset = 80.0
+spinSpeed = 3500.0
+tileDistance = 275.0
+topTileCount = 1
+stopExtraDistance = 0
+tileScene = ExtResource( 5 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel4"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel4"]
+anims/ReelSpinStartAnimation = ExtResource( 1 )
+anims/ReelSpinStopAnimation = ExtResource( 2 )
+
+[node name="Reel5" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 1431, 70 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+topOffset = 80.0
+spinSpeed = 3500.0
+tileDistance = 275.0
+topTileCount = 1
+stopExtraDistance = 0
+tileScene = ExtResource( 5 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel5"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel5"]
+anims/ReelSpinStartAnimation = ExtResource( 1 )
+anims/ReelSpinStopAnimation = ExtResource( 2 )
+
+[node name="NormalOverlap" type="Control" parent="SlotContainer/Slot"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Backlight" type="Node2D" parent="SlotContainer/Slot/NormalOverlap"]
+modulate = Color( 0.317647, 0.317647, 0.317647, 1 )
+
+[node name="SlotBacklight1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/Backlight"]
+material = ExtResource( 39 )
+position = Vector2( -455, 0 )
+scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 59 )
+
+[node name="SlotBacklight2" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/Backlight"]
+material = ExtResource( 39 )
+position = Vector2( 640, -45 )
+scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 58 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/Backlight"]
+anims/Idle = SubResource( 127 )
+anims/RESET = SubResource( 128 )
+
+[node name="SsFrame2" type="Sprite" parent="SlotContainer/Slot/NormalOverlap"]
+position = Vector2( 0, -22 )
+scale = Vector2( 1.15, 1.15 )
+texture = ExtResource( 9 )
+
+[node name="BarBlue" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/SsFrame2"]
+show_behind_parent = true
+position = Vector2( -705.217, -146.957 )
+scale = Vector2( 1, 1.02 )
+script = ExtResource( 41 )
+height_size = 411.0
+initial_amount = 0.0
+minimum_amount = 0.5
+
+[node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
+margin_top = 203.61
+margin_right = 28.0
+margin_bottom = 412.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_clip_content = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/Bar"]
+position = Vector2( 0, -203.61 )
+texture = ExtResource( 48 )
+centered = false
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/Bar/BarContainer"]
+position = Vector2( 12.9999, 422 )
+scale = Vector2( 0.333, 0.333 )
+lifetime = 3.0
+texture = ExtResource( 49 )
+emission_shape = 1
+emission_sphere_radius = 39.0
+direction = Vector2( 0, -1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 294.0
+initial_velocity_random = 0.5
+scale_amount = 3.5
+scale_amount_random = 0.75
+
+[node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/Bar/BarContainer"]
+modulate = Color( 0, 0.0784314, 0.545098, 1 )
+light_mask = 2
+material = ExtResource( 65 )
+texture = ExtResource( 48 )
+centered = false
+
+[node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
+modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
+margin_top = 203.61
+margin_right = 28.0
+margin_bottom = 412.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_clip_content = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/BarHighlight"]
+material = ExtResource( 39 )
+position = Vector2( 0, -203.61 )
+texture = ExtResource( 48 )
+centered = false
+
+[node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
+position = Vector2( 0, 203.61 )
+rotation = -0.0630353
+texture = ExtResource( 50 )
+
+[node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
+texture = ExtResource( 62 )
+centered = false
+
+[node name="BarGreen" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/SsFrame2"]
+show_behind_parent = true
+position = Vector2( 687.826, -146.957 )
+scale = Vector2( 1, 1.02 )
+script = ExtResource( 41 )
+height_size = 411.0
+initial_amount = 0.0
+minimum_amount = 0.5
+
+[node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
+margin_top = 203.61
+margin_right = 28.0
+margin_bottom = 412.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_clip_content = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/Bar"]
+position = Vector2( 0, -203.61 )
+texture = ExtResource( 52 )
+centered = false
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/Bar/BarContainer"]
+position = Vector2( 12.9999, 422 )
+scale = Vector2( 0.333, 0.333 )
+lifetime = 3.0
+texture = ExtResource( 57 )
+emission_shape = 1
+emission_sphere_radius = 39.0
+direction = Vector2( 0, -1 )
+spread = 0.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 294.0
+initial_velocity_random = 0.5
+scale_amount_random = 0.75
+
+[node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/Bar/BarContainer"]
+modulate = Color( 0, 0.0823529, 0.0156863, 1 )
+light_mask = 2
+material = ExtResource( 65 )
+texture = ExtResource( 52 )
+centered = false
+
+[node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
+modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
+margin_top = 203.61
+margin_right = 28.0
+margin_bottom = 412.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_clip_content = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/BarHighlight"]
+material = ExtResource( 39 )
+position = Vector2( 0, -203.61 )
+texture = ExtResource( 52 )
+centered = false
+
+[node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
+position = Vector2( 14.5, 203.61 )
+rotation = -0.0630353
+texture = ExtResource( 51 )
+
+[node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
+texture = ExtResource( 62 )
+centered = false
+
+[node name="Node2D" type="Node2D" parent="SlotContainer/Slot/NormalOverlap"]
+
+[node name="Light2D" type="Light2D" parent="SlotContainer/Slot/NormalOverlap/Node2D"]
+position = Vector2( -942, 625 )
+rotation = 0.523599
+scale = Vector2( 30, 3 )
+texture = ExtResource( 64 )
+energy = 5.0
+range_height = 1.0
+range_z_min = -1121
+range_item_cull_mask = 2
+
+[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/Node2D"]
+light_mask = 2
+material = ExtResource( 65 )
+position = Vector2( 0, -22 )
+scale = Vector2( 2.3, 2.3 )
+texture = ExtResource( 61 )
+normal_map = ExtResource( 66 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/Node2D"]
+anims/Idle = SubResource( 134 )
+anims/RESET = SubResource( 135 )
+
+[node name="LogoMover" type="Node2D" parent="SlotContainer/Slot"]
+scale = Vector2( 0.65, 0.65 )
+script = ExtResource( 46 )
+scaleoffset = Vector2( 0.8, 2 )
+yoffset = Vector2( -450, -950 )
+easing = 3.5
+
+[node name="Logo" parent="SlotContainer/Slot/LogoMover" instance=ExtResource( 54 )]
+animation_state_data_res = SubResource( 126 )
+
+[node name="LangSwap" type="Node" parent="SlotContainer/Slot/LogoMover/Logo"]
+script = ExtResource( 71 )
+assetname = "Logo.tres"
+node = NodePath("..")
+
+[node name="Overlay" type="Control" parent="SlotContainer/Slot"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Features" type="Control" parent="SlotContainer/Slot"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Nudger" type="Node" parent="SlotContainer/Slot/Features"]
+script = ExtResource( 36 )
+nudgefx_scene = ExtResource( 70 )
+nudgefx_sound = "Nudge"
+
+[node name="PopupTiles" type="Node" parent="SlotContainer/Slot/Features"]
+script = ExtResource( 27 )
+
+[node name="Stateful" type="Node" parent="SlotContainer/Slot/Features"]
+script = ExtResource( 42 )
+
+[node name="BarsFillFx" type="Node" parent="SlotContainer/Slot/Features"]
+script = ExtResource( 43 )
+greenfxscene = ExtResource( 53 )
+bluefxscene = ExtResource( 47 )
+offset = Vector2( 4, 5 )
+
+[node name="Tween" type="Tween" parent="SlotContainer/Slot/Features/BarsFillFx"]
+
+[node name="WinlinesFadeAnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot"]
+anims/To_Normal = SubResource( 10 )
+anims/To_Winline = SubResource( 11 )
+script = ExtResource( 114 )
+
+[node name="WinLines" type="Control" parent="SlotContainer/Slot"]
+script = ExtResource( 100 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+lines = [ [ 0, 0, 0, 0, 0 ], [ 0, 0, 1, 2, 2 ], [ 0, 1, 0, 1, 0 ], [ 0, 1, 1, 1, 0 ], [ 0, 1, 2, 1, 0 ], [ 0, 2, 0, 2, 0 ], [ 1, 0, 0, 0, 1 ], [ 1, 0, 1, 0, 1 ], [ 1, 1, 0, 1, 1 ], [ 1, 1, 1, 1, 1 ], [ 1, 1, 2, 1, 1 ], [ 1, 2, 1, 2, 1 ], [ 1, 2, 2, 2, 1 ], [ 2, 0, 1, 0, 2 ], [ 2, 0, 2, 0, 2 ], [ 2, 1, 0, 1, 2 ], [ 2, 1, 1, 1, 2 ], [ 2, 1, 2, 1, 2 ], [ 2, 2, 1, 0, 0 ], [ 2, 2, 2, 2, 2 ] ]
+lines_count = 20
+tile_scene = ExtResource( 101 )
+line_scene = ExtResource( 102 )
+darken_color = Color( 0.27451, 0.27451, 0.27451, 1 )
+
+[node name="LinesContainer" type="Node2D" parent="SlotContainer/Slot/WinLines"]
+
+[node name="TilesContainer" type="Node2D" parent="SlotContainer/Slot/WinLines"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/WinLines"]
+anims/Hide = SubResource( 94 )
+anims/Show = SubResource( 95 )
+
+[node name="BonusScene" parent="SlotContainer" instance=ExtResource( 14 )]
+
+[node name="BigWin" type="Control" parent="SlotContainer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_right = -1024.0
+margin_bottom = -1024.0
+script = ExtResource( 98 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="SlotContainer/BigWin"]
+scale = Vector2( 100, 100 )
+texture = ExtResource( 10 )
+
+[node name="Animation" type="SpineSprite" parent="SlotContainer/BigWin"]
+scale = Vector2( 0.9, 0.9 )
+animation_state_data_res = SubResource( 97 )
+script = ExtResource( 44 )
+skin = "default"
+startanimation = "start_bigwin"
+
+[node name="Glow" type="Sprite" parent="SlotContainer/BigWin"]
+modulate = Color( 1, 1, 1, 0.588235 )
+position = Vector2( 0, 275 )
+scale = Vector2( 4, 4 )
+texture = ExtResource( 93 )
+
+[node name="CounterText" type="Label" parent="SlotContainer/BigWin"]
+margin_top = 174.5
+margin_bottom = 175.5
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = ExtResource( 89 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/BigWin"]
+anims/Hide = SubResource( 98 )
+anims/Show = SubResource( 99 )
+
+[node name="WinBar" type="Control" parent="SlotContainer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_bottom = 550.0
+script = ExtResource( 99 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CounterText" type="Label" parent="SlotContainer/WinBar"]
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = ExtResource( 89 )
+text = "123"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/WinBar"]
+anims/GoDown = SubResource( 100 )
+anims/Hide = SubResource( 101 )
+anims/Show = SubResource( 102 )
+anims/ShowBottom = SubResource( 103 )
+
+[node name="RedGlow" type="Sprite" parent="SlotContainer/WinBar"]
+show_behind_parent = true
+position = Vector2( 0, 100 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 93 )
+
+[node name="RedGlow2" type="Sprite" parent="SlotContainer/WinBar/RedGlow"]
+modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+texture = ExtResource( 93 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer"]
+anims/RESET = SubResource( 108 )
+anims/anticipation_to_normal = SubResource( 109 )
+anims/fs_to_normal = SubResource( 110 )
+anims/normal_to_anticipation = SubResource( 111 )
+anims/normal_to_fs = SubResource( 112 )
+anims/normal_to_transparent = SubResource( 123 )
+
+[node name="UIContainer" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 33 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ErrorPopup" type="Popup" parent="UIContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -100.0
+margin_right = 200.0
+margin_bottom = 100.0
+popup_exclusive = true
+script = ExtResource( 35 )
+
+[node name="Panel" type="Panel" parent="UIContainer/ErrorPopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="UIContainer/ErrorPopup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 34 )
+text = "Error Description"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="UIContainer/ErrorPopup"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 25.0
+margin_top = -100.0
+margin_right = -25.0
+margin_bottom = -25.0
+custom_fonts/font = ExtResource( 34 )
+text = "ok"
+
+[node name="LandscapeUI" type="Control" parent="UIContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PortraitUI" type="Control" parent="UIContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.51978
+margin_top = -2.51978
+margin_right = -2.51978
+margin_bottom = -2.51978
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Networking" type="Node" parent="."]
+script = ExtResource( 8 )
+init_sessionID = "test2"
+game = "wizardz-world"
+mode = "demo"
+operator = "mav"
+currency = "USD"
+force = "InstaWin"
+default_lang = "EN"
+
+[node name="AudioSystem" type="Node" parent="."]
+script = ExtResource( 108 )
+
+[node name="AssetLoader" type="Node" parent="."]
+script = ExtResource( 11 )
+tiles = [ ExtResource( 19 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 25 ), ExtResource( 12 ), ExtResource( 17 ), ExtResource( 23 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 37 ), ExtResource( 22 ) ]
+tile_image_generation_scene = ExtResource( 28 )
+
+[node name="HTTPRequest" type="HTTPRequest" parent="AssetLoader"]
+
+[node name="Viewport" type="Viewport" parent="AssetLoader"]
+size = Vector2( 2, 2 )
+size_override_stretch = true
+transparent_bg = true
+handle_input_locally = false
+usage = 0
+render_target_update_mode = 0
+gui_snap_controls_to_pixels = false
+shadow_atlas_quad_0 = 0
+shadow_atlas_quad_1 = 0
+shadow_atlas_quad_2 = 0
+shadow_atlas_quad_3 = 0
+
+[node name="Fader" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -128.0
+margin_top = -128.0
+margin_right = 128.0
+margin_bottom = 128.0
+input_pass_on_modal_close_click = false
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="Fader"]
+
+[node name="FaderBright" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 113 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -128.0
+margin_top = -128.0
+margin_right = 128.0
+margin_bottom = 128.0
+input_pass_on_modal_close_click = false
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+default = Color( 1, 1, 1, 1 )
+
+[node name="Tween" type="Tween" parent="FaderBright"]
+
+[connection signal="pressed" from="IntroContainer/ClickWaiter" to="." method="on_play_button_pressed"]
+[connection signal="ready" from="SlotContainer/Background/AnimationPlayer" to="SlotContainer/Background/AnimationPlayer" method="play" binds= [ "Idle" ]]
+[connection signal="ready" from="SlotContainer/Slot/Background/ParticlesLeft/AnimationPlayer" to="SlotContainer/Slot/Background/ParticlesLeft/AnimationPlayer" method="play" binds= [ "Idle" ]]
+[connection signal="ready" from="SlotContainer/Slot/Background/ParticlesRight/AnimationPlayer" to="SlotContainer/Slot/Background/ParticlesRight/AnimationPlayer" method="play" binds= [ "Idle" ]]
+[connection signal="ready" from="SlotContainer/Slot/NormalOverlap/Node2D/AnimationPlayer" to="SlotContainer/Slot/NormalOverlap/Node2D/AnimationPlayer" method="play" binds= [ "Idle" ]]
+[connection signal="pressed" from="UIContainer/ErrorPopup/Button" to="UIContainer/ErrorPopup" method="_on_Button_pressed"]
+[connection signal="tween_completed" from="Fader/Tween" to="Fader" method="_tween_completed"]
+[connection signal="tween_completed" from="FaderBright/Tween" to="FaderBright" method="_tween_completed"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Loader/GameLoader.gd" type="Script" id=1]
+
+[node name="LoadingScene" type="Node"]
+script = ExtResource( 1 )
