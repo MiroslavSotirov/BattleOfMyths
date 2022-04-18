@@ -1,4 +1,5 @@
 extends Node
+class_name Game
 
 var round_closed : bool = false;
 var round_ended : bool = true;
@@ -6,19 +7,21 @@ var freespins : int = 0;
 var increase_fs : bool = false;
 var in_freespins : bool = false;
 var fs_ended : bool = false;
+
 var features = [];
 var timer: Timer = Timer.new();
 
 signal ready_to_close_round;
 
 func _ready():
-	Globals.singletons["Fader"].tween(1,1,0);
 	Globals.register_singleton("Game", self);
-	yield(Globals, "allready")
-	Globals.singletons["Stateful"].connect("new_state", self, "update_state")
-	yield(get_tree(),"idle_frame")
-	JS.connect("init", Globals.singletons["Networking"], "init_received");
-	Globals.singletons["Networking"].connect("initcomplete", self, "init_data_received");
+#	Globals.singletons["Fader"].tween(1,1,0);
+#	Globals.register_singleton("Game", self);
+#	yield(Globals, "allready")
+#	Globals.singletons["Stateful"].connect("new_state", self, "update_state")
+#	yield(get_tree(),"idle_frame")
+#	JS.connect("init", Globals.singletons["Networking"], "init_received");
+#	Globals.singletons["Networking"].connect("initcomplete", self, "init_data_received");
 
 func init_data_received():
 	round_closed = true; #Init should close previous round if open
@@ -82,12 +85,13 @@ func show_slot():
 	JS.output("", "elysiumgameshowui");
 
 func _process(delta):
-	if(!JS.enabled && $SlotContainer.visible):		
-		if(Input.is_action_pressed("spin")): start_spin(null, false);
-		if(Input.is_action_pressed("spinforce")): start_spin(null, true);
-		if(Input.is_action_pressed("skip")):
-			if(Globals.canSpin): start_spin();
-			else: try_skip();
+	pass
+#	if(!JS.enabled && $SlotContainer.visible):		
+#		if(Input.is_action_pressed("spin")): start_spin(null, false);
+#		if(Input.is_action_pressed("spinforce")): start_spin(null, true);
+#		if(Input.is_action_pressed("skip")):
+#			if(Globals.canSpin): start_spin();
+#			else: try_skip();
 
 func start_spin(data=null, isforce = false):
 	if(!Globals.canSpin): return;
@@ -134,7 +138,8 @@ func spin_data_received(data):
 		Globals.singletons["Networking"].lastround = data;
 		
 	Globals.singletons["Networking"].update_state(data)
-	end_spin(data);
+	
+	#end_spin(data);
 	
 func end_spin(data):
 	print("End spin");

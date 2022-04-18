@@ -30,11 +30,6 @@ func _ready():
 		}
 	""",true);
 	
-	#var paramsstring = JavaScript.eval("""JSON.stringify(Array.from((new URLSearchParams(window.location.search)).entries()))""", true);
-	#var params = JSON.parse(paramsstring).result;
-	#prints("Parameters:",params);
-	#process_params(params);
-	
 	JavaScript.eval("""window.dispatchEvent(window.Elysium.Game.ReadyEvent)""", true);
 	
 func _process(delta):

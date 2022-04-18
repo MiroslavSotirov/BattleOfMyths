@@ -7,16 +7,12 @@ signal new_state(state, init)
 
 func _ready():
 	Globals.register_singleton("Stateful", self);
-	yield(Globals, "allready");
-	Globals.singletons["Networking"].connect("initcomplete", self, "init_data_received");
-	
-func init_data_received():
-	update_states(true);
 	
 func update_states(init=false):
 	var map = null
-	if("features" in Globals.singletons["Networking"].lastround):
-		for feature in Globals.singletons["Networking"].lastround.features:
+	var data =  Globals.singletons["Networking"].lastround;
+	if("features" in data):
+		for feature in data.features:
 			if(feature.type != "StatefulMap"): continue;
 			map = _convert_map(feature.data.map);
 	if(map == null): return;
@@ -25,6 +21,9 @@ func update_states(init=false):
 		if(current_state_key != null):
 			prints("New map", states)
 			emit_signal("new_state", _get_state(), init);
+		elif(init):
+			switch_to_state(data.defaultTotal, true);
+			
 			
 func switch_to_state(key,init=false):
 	current_state_key = float(key);

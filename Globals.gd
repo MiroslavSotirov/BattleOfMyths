@@ -2,6 +2,7 @@ extends Node
 
 var singletons = {};
 var spindata = {};
+var fsm_data := {};
 
 signal allready;
 signal resolutionchanged(landscape, portrait, ratio, zoom);
@@ -9,6 +10,8 @@ signal configure_bets(bets, defaultbet);
 signal update_balance(new, currency);
 signal update_view(view);
 signal skip;
+
+var round_closed : bool = false;
 
 var currentBet : float;
 
@@ -45,27 +48,22 @@ func on_unfocused(data):
 	
 func loading_done():
 	print("loading done");
-	JS.connect("set_stake", self, "set_stake");
-	connect("configure_bets", self, "configure_bets");
 	yield(get_tree(),"idle_frame")
 	emit_signal("allready");
 	yield(get_tree(),"idle_frame")
 	yield(get_tree(),"idle_frame")
 	_resolution_changed(resolution);
-
-	if(JS.enabled): 
-		JS.output("", "elysiumgamerequestinit");
-	else: 
-		singletons["Networking"].request_init();
 	
 func register_singleton(name, obj):
 	singletons[name] = obj;
+
+func get_fsm_data(key):
+	return fsm_data.get(key, false);
 
 func _process(delta):
 	var res = Vector2(OS.window_size.x, OS.window_size.y); #get_viewport().get_visible_rect().size;
 	if(resolution != res):
 		_resolution_changed(res);
-
 		
 func _resolution_changed(newres : Vector2):
 	#newres *= 2

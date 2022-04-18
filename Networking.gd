@@ -4,8 +4,6 @@ signal initreceived (data);
 signal initcomplete;
 signal spinreceived (data);
 signal closereceived (data);
-signal forcespinreceived (data);
-signal forceclosereceived (data);
 signal fail(errorcode);
 signal success();
 
@@ -14,7 +12,6 @@ export (String) var game : String;
 export (String) var mode : String;
 export (String) var operator : String;
 export (String) var currency : String;
-export (String) var force : String;
 export (String) var default_lang : String;
 
 var sessionID : String= "";
@@ -40,6 +37,7 @@ func _ready():
 	set_token(init_sessionID);
 	connect("fail",self,"on_fail")
 	Globals.register_singleton("Networking", self);
+
 	
 func request_init():
 	if(waiting_for_response): return printerr("Trying to request while waiting for response");
@@ -65,9 +63,7 @@ func init_received(data):
 		
 	lastround.defaultTotal = data.defaultTotal;
 					
-	Globals.emit_signal("configure_bets", 
-		data["totalStakes"], 
-		data["defaultBet"]);
+	Globals.configure_bets(data["totalStakes"], data["defaultBet"]);
 		
 	Globals.emit_signal("update_view", 
 		lastround["view"]);
@@ -112,34 +108,9 @@ func init_received(data):
 	Globals.singletons["Slot"].assign_tiles(screen);
 		
 	JS.output("", "elysiumgameloadingcomplete");
-	emit_signal("initcomplete");	
-		
-func force_freespin(data):
-	if(data["nextAction"] == "freespin"):
-		return true 
-	return false
-
-func force_bonus(data):
-	if(data.has("features")):
-		for feature in data["features"]:
-			if feature["type"] == "InstaWin":
-				return true
-	return false
+	emit_signal("initcomplete");
 	
-func request_force(forcefunc, forcestring = ""):
-	while true:
-		request_spin("forcespinreceived", forcestring);
-		var data = yield(self, "forcespinreceived")
-		update_state(data);
-		if(self.next_action == "finish"):
-			request_close("forceclosereceived");
-			yield(self, "forceclosereceived")
-			self.next_action = "";
-		if(forcefunc.call_func(data)):
-			emit_signal("spinreceived", data)
-			break
-	
-func request_spin(sig = "spinreceived", forcestring = ""):
+func request_spin(sig = "spinreceived"):
 	if(waiting_for_response): return printerr("Trying to request while waiting for response");
 	
 	var data = {
@@ -147,8 +118,7 @@ func request_spin(sig = "spinreceived", forcestring = ""):
 		"stake" : Globals.currentBet,
 		"previousID" : stateID,
 		"action" : "base",
-		"wallet" : wallet,
-		"force" : forcestring,
+		"wallet" : wallet
 	}
 	if(self.next_action == "freespin"):
 		data["action"] = "freespin";
