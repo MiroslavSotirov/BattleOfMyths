@@ -1,4 +1,4 @@
-[gd_scene load_steps=176 format=2]
+[gd_scene load_steps=182 format=2]
 
 [ext_resource path="res://Slot/ReelSpinStartAnimation.tres" type="Animation" id=1]
 [ext_resource path="res://Slot/ReelSpinStopAnimation.tres" type="Animation" id=2]
@@ -1397,6 +1397,7 @@ extends VFSMStateBase
 
 func enter() -> void:
 	Globals.fsm_data[\"spin_start_command\"] = false;
+	Globals.fsm_data[\"wins_shown\"] = false;
 	
 	if(JS.enabled):	
 		JS.connect(\"spinstart\", self, \"start_spin\", [], CONNECT_ONESHOT);
@@ -1537,7 +1538,11 @@ extends VFSMStateBase
 
 
 func enter() -> void:
-	
+	var data = Globals.singletons[\"Networking\"].lastround;
+	var wins = float(data[\"spinWin\"]);
+	if (wins != Globals.singletons[\"WinBar\"].target):
+		Globals.singletons[\"WinBar\"].show_win(wins, false);
+			
 	if(JS.enabled): 
 		JS.connect(\"close\", self, \"close_round_received\", [], CONNECT_ONESHOT);	
 		JS.output(\"\", \"elysiumgameclose\");
@@ -1584,7 +1589,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 8
 name = "Close Error"
-position = Vector2( 2920, 360 )
+position = Vector2( 3000, 320 )
 trigger_ids = [ 13 ]
 custom_script = SubResource( 175 )
 
@@ -1602,7 +1607,8 @@ func update(_object, _delta: float) -> void:
 
 
 func exit() -> void:
-	pass"
+	pass
+"
 
 [sub_resource type="Resource" id=184]
 script = ExtResource( 38 )
@@ -1617,26 +1623,33 @@ script/source = "# State: Show Wins
 extends VFSMStateBase
 
 
-func enter() -> void:
+func enter() -> void:	
 	if(Globals.singletons[\"PopupTiles\"].remaining_tile_count > 0): 
 		yield(Globals.singletons[\"PopupTiles\"], \"popuptilesend\");
 	Globals.singletons[\"PopupTiles\"].clear_all();
 	
 	var data = Globals.singletons[\"Networking\"].lastround;
 	var line_wins = calculate_line_wins(data[\"wins\"]);
-
+	data[\"wins_lines_total\"] = line_wins;
+	
 	JS.output(\"linewin\", \"elysiumgamefeature\");
 	Globals.singletons[\"PopupTiles\"].unpop_all();
 	Globals.singletons[\"Audio\"].play(\"WinLine\")
 	Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
-	yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
-#	if(line_wins >= Globals.singletons[\"BigWin\"].big_win_limit):
-#		JS.output(\"bigwin\", \"elysiumgamefeature\");
-#		Globals.singletons[\"BigWin\"].show_win(line_wins);
-#		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
-#		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
 	
-
+	yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
+	
+	if(line_wins > Globals.singletons[\"BigWin\"].big_win_limit):
+		JS.output(\"bigwin\", \"elysiumgamefeature\");
+		Globals.singletons[\"BigWin\"].show_win(line_wins);
+		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
+		Globals.singletons[\"WinBar\"].set_text(line_wins, false);
+		Globals.fsm_data[\"big_win_shown\"] = true;
+	else:
+		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
+	
+	Globals.fsm_data[\"wins_shown\"] = true;
+	
 func calculate_line_wins(wins):
 	if(wins == null): return 0.0;
 	var n : float = 0.0;
@@ -1660,8 +1673,8 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 12
 name = "Show Line Wins"
-position = Vector2( 2120, 0 )
-trigger_ids = [  ]
+position = Vector2( 2060, 0 )
+trigger_ids = [ 17 ]
 custom_script = SubResource( 189 )
 
 [sub_resource type="GDScript" id=143]
@@ -1931,13 +1944,70 @@ vfsm_id = 16
 name = ""
 action_list = [  ]
 
+[sub_resource type="GDScript" id=194]
+script/source = "# Trigger: Big win shown
+extends VFSMTriggerBase
+
+func enter() -> void:
+	pass
+
+func is_triggered(_object, _delta: float) -> bool:
+	return Globals.get_fsm_data(\"wins_shown\");
+"
+
+[sub_resource type="Resource" id=195]
+script = ExtResource( 75 )
+vfsm_id = 17
+name = "Has Big Win"
+custom_script = SubResource( 194 )
+
+[sub_resource type="GDScript" id=196]
+script/source = "# Trigger: No Big Win
+extends VFSMTriggerBase
+
+
+func enter() -> void:
+	pass
+
+
+func is_triggered(_object, _delta: float) -> bool:
+	var data = Globals.singletons[\"Networking\"].lastround;
+	return Globals.get_fsm_data(\"wins_shown\") && \\
+		data[\"wins_lines_total\"] <= Globals.singletons[\"BigWin\"].big_win_limit;
+"
+
+[sub_resource type="Resource" id=197]
+script = ExtResource( 75 )
+vfsm_id = 18
+name = "No Big Win"
+custom_script = SubResource( 196 )
+
+[sub_resource type="GDScript" id=198]
+script/source = "# Trigger: Big Win End
+extends VFSMTriggerBase
+
+
+func enter() -> void:
+	pass
+
+
+func is_triggered(_object, _delta: float) -> bool:
+	return Globals.get_fsm_data(\"big_win_shown\")
+"
+
+[sub_resource type="Resource" id=199]
+script = ExtResource( 75 )
+vfsm_id = 19
+name = "Big Win End"
+custom_script = SubResource( 198 )
+
 [sub_resource type="Resource" id=147]
 script = ExtResource( 73 )
 start_state_vfsm_id = 0
 start_position = Vector2( -200, 160 )
 states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ), SubResource( 190 ) ]
-triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ) ]
-transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 11, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 15, 7, 11, 14, 7 ]
+triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ), SubResource( 195 ), SubResource( 197 ), SubResource( 199 ) ]
+transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 11, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 15, 7, 11, 14, 12, 12, 17, 7 ]
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -2374,7 +2444,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-margin_top = 207.193
+margin_top = 203.445
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2385,7 +2455,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/Bar"]
-position = Vector2( 0, -207.193 )
+position = Vector2( 0, -203.445 )
 texture = ExtResource( 48 )
 centered = false
 
@@ -2413,7 +2483,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 207.193
+margin_top = 203.445
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2425,13 +2495,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -207.193 )
+position = Vector2( 0, -203.445 )
 texture = ExtResource( 48 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-position = Vector2( 0, 207.193 )
-rotation = 0.0814973
+position = Vector2( 0, 203.445 )
+rotation = -0.00288531
 texture = ExtResource( 50 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
@@ -2448,7 +2518,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-margin_top = 207.193
+margin_top = 203.445
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2459,7 +2529,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/Bar"]
-position = Vector2( 0, -207.193 )
+position = Vector2( 0, -203.445 )
 texture = ExtResource( 52 )
 centered = false
 
@@ -2486,7 +2556,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 207.193
+margin_top = 203.445
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2498,13 +2568,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -207.193 )
+position = Vector2( 0, -203.445 )
 texture = ExtResource( 52 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-position = Vector2( 14.5, 207.193 )
-rotation = 0.0814973
+position = Vector2( 14.5, 203.445 )
+rotation = -0.00288531
 texture = ExtResource( 51 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
