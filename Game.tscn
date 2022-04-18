@@ -1,4 +1,4 @@
-[gd_scene load_steps=173 format=2]
+[gd_scene load_steps=176 format=2]
 
 [ext_resource path="res://Slot/ReelSpinStartAnimation.tres" type="Animation" id=1]
 [ext_resource path="res://Slot/ReelSpinStopAnimation.tres" type="Animation" id=2]
@@ -1387,7 +1387,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 2
 name = "Show Intro"
-position = Vector2( 420, 140 )
+position = Vector2( 520, 140 )
 trigger_ids = [ 2 ]
 custom_script = SubResource( 148 )
 
@@ -1559,7 +1559,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 7
 name = "Close round"
-position = Vector2( 2360, 160 )
+position = Vector2( 2660, 160 )
 trigger_ids = [ 7, 8 ]
 custom_script = SubResource( 166 )
 
@@ -1584,7 +1584,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 8
 name = "Close Error"
-position = Vector2( 1980, 440 )
+position = Vector2( 2920, 360 )
 trigger_ids = [ 13 ]
 custom_script = SubResource( 175 )
 
@@ -1611,6 +1611,58 @@ name = "Wins Check"
 position = Vector2( 1800, 80 )
 trigger_ids = [ 14, 15 ]
 custom_script = SubResource( 183 )
+
+[sub_resource type="GDScript" id=189]
+script/source = "# State: Show Wins
+extends VFSMStateBase
+
+
+func enter() -> void:
+	if(Globals.singletons[\"PopupTiles\"].remaining_tile_count > 0): 
+		yield(Globals.singletons[\"PopupTiles\"], \"popuptilesend\");
+	Globals.singletons[\"PopupTiles\"].clear_all();
+	
+	var data = Globals.singletons[\"Networking\"].lastround;
+	var line_wins = calculate_line_wins(data[\"wins\"]);
+
+	JS.output(\"linewin\", \"elysiumgamefeature\");
+	Globals.singletons[\"PopupTiles\"].unpop_all();
+	Globals.singletons[\"Audio\"].play(\"WinLine\")
+	Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
+	yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
+#	if(line_wins >= Globals.singletons[\"BigWin\"].big_win_limit):
+#		JS.output(\"bigwin\", \"elysiumgamefeature\");
+#		Globals.singletons[\"BigWin\"].show_win(line_wins);
+#		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
+#		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
+	
+
+func calculate_line_wins(wins):
+	if(wins == null): return 0.0;
+	var n : float = 0.0;
+
+	for win in wins: 
+		if(win[\"index\"].findn(\"freespin\")>-1): continue;
+		if(!win.has(\"winline\")): n+=float(win[\"win\"]); #winline 0
+		elif(int(win[\"winline\"]) > -1): n+=float(win[\"win\"]);
+
+	return n;	
+
+func update(_object, _delta: float) -> void:
+	pass
+
+
+func exit() -> void:
+	pass
+"
+
+[sub_resource type="Resource" id=190]
+script = ExtResource( 38 )
+vfsm_id = 12
+name = "Show Line Wins"
+position = Vector2( 2120, 0 )
+trigger_ids = [  ]
+custom_script = SubResource( 189 )
 
 [sub_resource type="GDScript" id=143]
 script/source = "# Trigger: Initialized
@@ -1873,12 +1925,18 @@ vfsm_id = 15
 name = "No wins"
 custom_script = SubResource( 187 )
 
+[sub_resource type="Resource" id=191]
+script = ExtResource( 76 )
+vfsm_id = 16
+name = ""
+action_list = [  ]
+
 [sub_resource type="Resource" id=147]
 script = ExtResource( 73 )
 start_state_vfsm_id = 0
 start_position = Vector2( -200, 160 )
-states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ) ]
-triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ) ]
+states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ), SubResource( 190 ) ]
+triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ) ]
 transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 11, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 15, 7, 11, 14, 7 ]
 
 [node name="Game" type="Control"]
@@ -2316,7 +2374,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-margin_top = 206.894
+margin_top = 207.193
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2327,7 +2385,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/Bar"]
-position = Vector2( 0, -206.894 )
+position = Vector2( 0, -207.193 )
 texture = ExtResource( 48 )
 centered = false
 
@@ -2355,7 +2413,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 206.894
+margin_top = 207.193
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2367,13 +2425,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -206.894 )
+position = Vector2( 0, -207.193 )
 texture = ExtResource( 48 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-position = Vector2( 0, 206.894 )
-rotation = -0.0869904
+position = Vector2( 0, 207.193 )
+rotation = 0.0814973
 texture = ExtResource( 50 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
@@ -2390,7 +2448,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-margin_top = 206.894
+margin_top = 207.193
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2401,7 +2459,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/Bar"]
-position = Vector2( 0, -206.894 )
+position = Vector2( 0, -207.193 )
 texture = ExtResource( 52 )
 centered = false
 
@@ -2428,7 +2486,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 206.894
+margin_top = 207.193
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2440,13 +2498,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -206.894 )
+position = Vector2( 0, -207.193 )
 texture = ExtResource( 52 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-position = Vector2( 14.5, 206.894 )
-rotation = -0.0869904
+position = Vector2( 14.5, 207.193 )
+rotation = 0.0814973
 texture = ExtResource( 51 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
