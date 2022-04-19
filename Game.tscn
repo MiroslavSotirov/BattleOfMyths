@@ -1446,7 +1446,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 4
 name = "Spin error"
-position = Vector2( 1460, 0 )
+position = Vector2( 1000, -300 )
 trigger_ids = [ 4 ]
 custom_script = SubResource( 152 )
 
@@ -1458,7 +1458,7 @@ extends VFSMStateBase
 func enter() -> void:
 	Globals.fsm_data[\"data_received\"] = false;
 	Globals.fsm_data[\"round_closed\"] = false;
-	
+	print('SPIN STATE.......')
 	if(JS.enabled):
 		JS.connect(\"spindata\", self, \"spin_data_received\", [], CONNECT_ONESHOT);
 		JS.output(\"\", \"elysiumgamespinstart\");
@@ -1500,7 +1500,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 5
 name = "Spin Start"
-position = Vector2( 1180, 160 )
+position = Vector2( 1200, -20 )
 trigger_ids = [ 1, 5 ]
 custom_script = SubResource( 154 )
 
@@ -2015,8 +2015,7 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
 script = ExtResource( 6 )
 __meta__ = {
-"_edit_horizontal_guides_": [  ],
-"_edit_use_anchors_": false
+"_edit_horizontal_guides_": [  ]
 }
 
 [node name="IntroContainer" type="Control" parent="."]
@@ -2310,23 +2309,22 @@ scale = Vector2( 1.82, 1.6 )
 texture = ExtResource( 56 )
 
 [node name="ReelContainer" type="Control" parent="SlotContainer/Slot"]
-margin_left = -834.0
-margin_top = -373.0
-margin_right = 829.0
+margin_left = -780.0
+margin_top = -370.0
+margin_right = 780.0
 margin_bottom = 482.0
 rect_clip_content = true
-mouse_filter = 2
 
 [node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 231, 70 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
-topOffset = 80.0
 spinSpeed = 3500.0
 tileDistance = 275.0
 topTileCount = 1
+bottomTileCount = 1
 stopExtraDistance = 0
 tileScene = ExtResource( 5 )
+tile_size = Vector2( 312, 284 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel1"]
 
@@ -2336,15 +2334,17 @@ anims/ReelSpinStartAnimation = ExtResource( 1 )
 anims/ReelSpinStopAnimation = ExtResource( 2 )
 
 [node name="Reel2" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 531, 70 )
+position = Vector2( 312, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
 topOffset = 80.0
 spinSpeed = 3500.0
 tileDistance = 275.0
 topTileCount = 1
+bottomTileCount = 1
 stopExtraDistance = 0
 tileScene = ExtResource( 5 )
+tile_size = Vector2( 312, 284 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel2"]
 
@@ -2353,15 +2353,17 @@ anims/ReelSpinStartAnimation = ExtResource( 1 )
 anims/ReelSpinStopAnimation = ExtResource( 2 )
 
 [node name="Reel3" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 831, 70 )
+position = Vector2( 624, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
 topOffset = 80.0
 spinSpeed = 3500.0
 tileDistance = 275.0
 topTileCount = 1
+bottomTileCount = 1
 stopExtraDistance = 0
 tileScene = ExtResource( 5 )
+tile_size = Vector2( 312, 284 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel3"]
 
@@ -2370,15 +2372,17 @@ anims/ReelSpinStartAnimation = ExtResource( 1 )
 anims/ReelSpinStopAnimation = ExtResource( 2 )
 
 [node name="Reel4" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 1131, 70 )
+position = Vector2( 936, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
 topOffset = 80.0
 spinSpeed = 3500.0
 tileDistance = 275.0
 topTileCount = 1
+bottomTileCount = 2
 stopExtraDistance = 0
 tileScene = ExtResource( 5 )
+tile_size = Vector2( 312, 284 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel4"]
 
@@ -2387,7 +2391,7 @@ anims/ReelSpinStartAnimation = ExtResource( 1 )
 anims/ReelSpinStopAnimation = ExtResource( 2 )
 
 [node name="Reel5" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 1431, 70 )
+position = Vector2( 1471, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
 topOffset = 80.0
@@ -2396,6 +2400,7 @@ tileDistance = 275.0
 topTileCount = 1
 stopExtraDistance = 0
 tileScene = ExtResource( 5 )
+tile_size = Vector2( 312, 284 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel5"]
 
@@ -2444,7 +2449,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-margin_top = 203.445
+margin_top = 203.782
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2455,7 +2460,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/Bar"]
-position = Vector2( 0, -203.445 )
+position = Vector2( 0, -203.782 )
 texture = ExtResource( 48 )
 centered = false
 
@@ -2483,7 +2488,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 203.445
+margin_top = 203.782
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2495,13 +2500,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -203.445 )
+position = Vector2( 0, -203.782 )
 texture = ExtResource( 48 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-position = Vector2( 0, 203.445 )
-rotation = -0.00288531
+position = Vector2( 0, 203.782 )
+rotation = -0.0800447
 texture = ExtResource( 50 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
@@ -2518,7 +2523,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-margin_top = 203.445
+margin_top = 203.782
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2529,7 +2534,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/Bar"]
-position = Vector2( 0, -203.445 )
+position = Vector2( 0, -203.782 )
 texture = ExtResource( 52 )
 centered = false
 
@@ -2556,7 +2561,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 203.445
+margin_top = 203.782
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2568,13 +2573,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -203.445 )
+position = Vector2( 0, -203.782 )
 texture = ExtResource( 52 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-position = Vector2( 14.5, 203.445 )
-rotation = -0.00288531
+position = Vector2( 14.5, 203.782 )
+rotation = -0.0800447
 texture = ExtResource( 51 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
