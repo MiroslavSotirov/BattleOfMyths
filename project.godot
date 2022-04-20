@@ -27,7 +27,12 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Reel",
 "language": "GDScript",
-"path": "res://Slot/Reel.gd"
+"path": "res://Slot/FallingReel.gd"
+}, {
+"base": "Node2D",
+"class": "ReelSpinning",
+"language": "GDScript",
+"path": "res://Slot/ReelSpinning.gd"
 }, {
 "base": "SpineSprite",
 "class": "SpineSpriteExtension",
@@ -119,6 +124,7 @@ _global_script_class_icons={
 "Fader": "",
 "Game": "",
 "Reel": "",
+"ReelSpinning": "",
 "SpineSpriteExtension": "",
 "Stateful": "",
 "Tile": "",

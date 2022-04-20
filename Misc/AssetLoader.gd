@@ -1,6 +1,7 @@
 extends Node
 export(Array) var tiles;
 export(PackedScene) var tile_image_generation_scene;
+
 var language_loaded : bool = false;
 var tiles_generated : bool = false;
 var current_language : String = "";

@@ -102,10 +102,14 @@ func init_received(data):
 	yield(Globals.singletons["AssetLoader"], "tiles_generated");
 	
 	# TODO: heisenbug generator
-	if("init" in lastround["stateID"]):
-		for i in range(len(screen)):
-			screen[i].push_front(screen[i].pop_back());
-	Globals.singletons["Slot"].assign_tiles(screen);
+#	if("init" in lastround["stateID"]):
+#		for i in range(len(screen)):
+#			screen[i].push_front(screen[i].pop_back());
+
+
+#	Globals.singletons["Slot"].assign_tiles(screen);
+	Globals.singletons["Slot"].set_initial_screen(lastround);
+
 		
 	JS.output("", "elysiumgameloadingcomplete");
 	emit_signal("initcomplete");
