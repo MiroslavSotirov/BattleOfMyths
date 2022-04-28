@@ -14,8 +14,8 @@ dest_files=[ "res://.import/SlotBacklight2.png-daf7ac0b8dc6ef103b163b0ea8d3133d.
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.5
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

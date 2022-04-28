@@ -15,7 +15,7 @@ dest_files=[ "res://.import/BonusSceneBG.webp-52c5442c1319456e3adde3a512cd0f3f.s
 [params]
 
 compress/mode=1
-compress/lossy_quality=0.8
+compress/lossy_quality=0.0
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

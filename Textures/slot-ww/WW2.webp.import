@@ -15,7 +15,7 @@ dest_files=[ "res://.import/WW2.webp-dae7effee70bc563e36b25187888bed6.stex" ]
 [params]
 
 compress/mode=1
-compress/lossy_quality=0.8
+compress/lossy_quality=0.0
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
