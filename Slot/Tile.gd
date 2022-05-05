@@ -10,6 +10,7 @@ export (Vector2) var scale_multiplier : Vector2 = Vector2.ONE;
 
 signal spinespriteshown
 signal imageshown
+signal animation_finished
 
 signal ondiscard (tile, pos); #? is this used and for what
 
@@ -20,11 +21,13 @@ var speed: int;
 var _invisible_tile: int = 0
 var _description: TileDescription
 var _id = 0;
+var _hidden = false;
 
 #var speed = 0;
 
 func _ready():
 	_invisible_tile = Globals.singletons["Slot"].invisible_tile;
+	$AnimationPlayer.connect("animation_finished", self, "_on_animation_finished");
 	$Image.material = $Image.material.duplicate();
 	#Globals.singletons["AssetLoader"].connect("tiles_generated", self, "update_tex", [], CONNECT_ONESHOT)
 
@@ -79,6 +82,11 @@ func _setblur(val):
 	
 func get_spine():
 	return $SpineSprite;
+
+func hide():
+	if (_hidden): return;
+	_hidden = true;
+	play_animation('hide', AnimationType.TIMELINE);
 	
 func reel_stopped(index):
 	pass
@@ -119,21 +127,25 @@ func play_animation(name, type = AnimationType.SPINE):
 		return;
 	
 	if (type == AnimationType.TIMELINE):
-		$AnimationPlayer.play(name);
+		if ($AnimationPlayer.has_animation(name)):
+			$AnimationPlayer.play(name);
+		else:
+			_on_animation_finished(name);
 		return;
 
 	print("I don't know what type of animation top play....");
-	
-	
+
+func _on_animation_finished(animation_name):
+	emit_signal("animation_finished", animation_name);
+
 func show_image():
 	if (_description.id == _invisible_tile):
 		$Image.visible = false;
 		emit_signal("imageshown");
 		return;
 
-
-	$Image.texture = load("res://Textures/test-tiles/tile"+ _description.id as String + ".png");
 	
+	$Image.texture = load("res://Textures/test-tiles/tile"+ _description.id as String + ".png");
 	var direction = sign(_id);
 	var x = $Image.texture.get_width() / _description.size_x if _description.size_x > 1 else 0;
 	var y = $Image.texture.get_height() / _description.size_y if _description.size_y > 1 else 0;
@@ -142,7 +154,7 @@ func show_image():
 	$Image.offset.y = -direction * y;
 	$SpineSprite.visible = false;
 	$Image.visible = true;
-	
+	_hidden = false;
 	
 	emit_signal("imageshown");
 

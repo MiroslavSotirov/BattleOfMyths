@@ -28,6 +28,7 @@ signal apply_tile_features(spindata, reeldata);
 signal onstartspin;
 signal onstopping;
 signal onstopped;
+signal ontilesremoved
 
 func _ready():
 	Globals.register_singleton("Slot", self);
@@ -81,6 +82,7 @@ func start_spin():
 	if(self.reel_start_sfx): Globals.singletons["Audio"].play(self.reel_start_sfx);
 	if(self.reel_spin_sfx): Globals.singletons["Audio"].loop(self.reel_spin_sfx);
 	
+	reels_spinning = 0;
 	for reel in reels:
 		yield(get_tree().create_timer(reelStartDelay), "timeout");
 		reel.start_spin();
@@ -107,14 +109,19 @@ func _get_spinning():
 	return reels_spinning > 0;
 	
 func _get_allspinning():
-	return reels_spinning == len(reels);
+	for reel in reels: 
+		if(!reel.is_spinning): return false
+
+	return true;
 	
 func _get_stopped():
-	for reel in reels: if(!reel.stopped): return false;
+#	for reel in reels: if(!reel.stopped): return false;
+#	for reel in reels: print(reel);
 	return true;
 	
 func _get_stopping():
-	for reel in reels: if(reel.stopping): return true;
+#	for reel in reels: if(reel.stopping): return true;
+#	for reel in reels: print(reel);
 	return false;
 	
 #func parse_spin_data(data):
@@ -164,7 +171,38 @@ func get_safe_spin_data():
 		for n in range(reels[i].visibleTileCount):
 			spindata[i].append(self.availableTiles[i]);
 
-	return spindata;
+	return spindata; 
 
 func get_tile_at(x, y):
 	return reels[x].get_tile_at(y);
+	
+func remove_tiles(data):
+	var count = 0;
+	var size = data.keys().size();
+	print("removing tiles ", data);
+	for i in data.keys():
+		count += 1;
+		reels[i].remove_tiles(data[i])
+		print("count ", count, " size ", size);
+		if (count == size):
+			yield(reels[i], "tilesremoved");
+			print("TILES WERE REMOVED slot");
+			emit_signal("ontilesremoved");
+		
+		
+#	print("positions: ", positions);
+#	for p in range(positions.size()):
+#		var position = positions[p]
+#		var i = int(position / reels.size());
+#		var j = fmod(position, 4);
+#		var reel = reels[i];
+##		var tile = get_tile_at(i, j);
+##		tile.hide();
+#		reel.remove_tile(j);
+#		if (p == positions.size() - 1):
+##			reel.connect("tileremoved", self, "_on_tiles_removed", [], CONNECT_ONESHOT);
+#			yield(reel, "tileremoved");
+#			emit_signal("ontilesremoved");
+
+#func _on_tiles_removed():
+#	print("tiles were removed");

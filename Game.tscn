@@ -1,4 +1,4 @@
-[gd_scene load_steps=183 format=2]
+[gd_scene load_steps=187 format=2]
 
 [ext_resource path="res://Slot/ReelSpinStartAnimation.tres" type="Animation" id=1]
 [ext_resource path="res://Slot/ReelSpinStopAnimation.tres" type="Animation" id=2]
@@ -78,6 +78,8 @@
 [ext_resource path="res://addons/visual_fsm/fsm/vfsm_trigger_action.gd" type="Script" id=76]
 [ext_resource path="res://addons/visual_fsm/fsm/vfsm_trigger_timer.gd" type="Script" id=77]
 [ext_resource path="res://Slot/Tiles/Tile0.tres" type="Resource" id=78]
+[ext_resource path="res://Slot/Tiles/Tile11.tres" type="Resource" id=79]
+[ext_resource path="res://Slot/Tiles/Tile12.tres" type="Resource" id=80]
 [ext_resource path="res://Misc/LanguageAssetSwapper.gd" type="Script" id=87]
 [ext_resource path="res://base_big_font.tres" type="BitmapFont" id=89]
 [ext_resource path="res://Textures/slot/FT_EXPORT_47.png" type="Texture" id=93]
@@ -445,6 +447,96 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=200]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=201]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -1339,13 +1431,14 @@ func update(_object, _delta: float) -> void:
 
 
 func exit() -> void:
-	pass"
+	pass
+"
 
 [sub_resource type="Resource" id=142]
 script = ExtResource( 38 )
 vfsm_id = 1
 name = "Init Error"
-position = Vector2( 520, 320 )
+position = Vector2( 440, 480 )
 trigger_ids = [  ]
 custom_script = SubResource( 141 )
 
@@ -1388,7 +1481,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 2
 name = "Show Intro"
-position = Vector2( 520, 140 )
+position = Vector2( 480, 280 )
 trigger_ids = [ 2 ]
 custom_script = SubResource( 148 )
 
@@ -1397,18 +1490,20 @@ script/source = "# State: Ready
 extends VFSMStateBase
 
 func enter() -> void:
+	print(\"READY STATE\");
 	Globals.fsm_data[\"spin_start_command\"] = false;
 	Globals.fsm_data[\"wins_shown\"] = false;
 	
-	if(JS.enabled):	
+	if(JS.enabled):
 		JS.connect(\"spinstart\", self, \"start_spin\", [], CONNECT_ONESHOT);
 
-func start_spin():
+func start_spin(data):
+	print('this is the data...', data);
 	Globals.fsm_data[\"spin_start_command\"] = true;
 
 func update(_object, _delta: float) -> void:
 	if(!JS.enabled):
-		if(Input.is_action_pressed(\"spin\")): start_spin();
+		if(Input.is_action_pressed(\"spin\")): start_spin({});
 
 func exit() -> void:
 	pass
@@ -1418,7 +1513,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 3
 name = "Ready"
-position = Vector2( 840, 160 )
+position = Vector2( 760, -100 )
 trigger_ids = [ 10 ]
 custom_script = SubResource( 150 )
 
@@ -1447,7 +1542,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 4
 name = "Spin error"
-position = Vector2( 1000, -300 )
+position = Vector2( 700, 1020 )
 trigger_ids = [ 4 ]
 custom_script = SubResource( 152 )
 
@@ -1459,7 +1554,7 @@ extends VFSMStateBase
 func enter() -> void:
 	Globals.fsm_data[\"data_received\"] = false;
 	Globals.fsm_data[\"round_closed\"] = false;
-	print('SPIN STATE.......')
+	print('### SPIN START STATE ###');
 	if(JS.enabled):
 		JS.connect(\"spindata\", self, \"spin_data_received\", [], CONNECT_ONESHOT);
 		JS.output(\"\", \"elysiumgamespinstart\");
@@ -1501,7 +1596,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 5
 name = "Spin Start"
-position = Vector2( 1200, -20 )
+position = Vector2( 1080, 340 )
 trigger_ids = [ 1, 5 ]
 custom_script = SubResource( 154 )
 
@@ -1515,7 +1610,9 @@ func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
 	Globals.singletons[\"Slot\"].stop_spin(data);
 	yield(Globals.singletons[\"Slot\"], \"onstopped\");
+	print(\"this is the other data\", data);
 	Globals.fsm_data[\"reels_stopped\"] = true;
+
 
 func update(_object, _delta: float) -> void:
 	pass
@@ -1529,7 +1626,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 6
 name = "Spin Stop"
-position = Vector2( 1460, 160 )
+position = Vector2( 1440, 700 )
 trigger_ids = [ 6 ]
 custom_script = SubResource( 156 )
 
@@ -1537,21 +1634,56 @@ custom_script = SubResource( 156 )
 script/source = "# State: Close round
 extends VFSMStateBase
 
-
 func enter() -> void:
+	print(\"### CLOSE STATE: ###\");
 	var data = Globals.singletons[\"Networking\"].lastround;
-	var wins = float(data[\"spinWin\"]);
-	if (wins != Globals.singletons[\"WinBar\"].target):
-		Globals.singletons[\"WinBar\"].show_win(wins, false);
-			
+	var slot = Globals.singletons.Slot;
+	var wins = data.wins if data.wins != null else [];
+	var tiles_count = slot.reels[0].visible_tiles_count;
+	var win_tiles_positions = {};
+	print('+++++++++++++++++++++++++++++++++++++++++++', data );
+	
+	for win in wins:
+		for position in win.symbol_positions:
+			var i = int(position / tiles_count);
+			var j = fmod(position, tiles_count);
+
+			win_tiles_positions[i] = [] if (not (i in win_tiles_positions)) else win_tiles_positions[i];
+			if (not(j in win_tiles_positions[i])):
+				win_tiles_positions[i].append(j);
+
+	if (win_tiles_positions.keys().size() != 0):
+		slot.remove_tiles(win_tiles_positions); # TODO sort the tiles positions
+#		yield(slot.remove_tiles(win_tiles_positions), \"completed\");
+#	else:
+#		slot.remove_tiles({ 1: [0, 1]}) 
+#		slot.remove_tiles({ 2: [1, 2]}) 
+#		yield(slot.remove_tiles({0: [1, 0], 1: [2]}), \"completed\");
+
+#	var wins = float(data[\"spinWin\"]);
+#	if (wins != Globals.singletons[\"WinBar\"].target):
+#		Globals.singletons[\"WinBar\"].show_win(wins, false);
+
+#	if (win_tiles_positions.size() > 0):
+#		Globals.singletons.Slot.hide_tiles(win_tiles_positions);
+#		yield(Globals.singletons.Slot, \"ontilesremoved\");
+#		print('-------------------------------------------')
+
 	if(JS.enabled): 
-		JS.connect(\"close\", self, \"close_round_received\", [], CONNECT_ONESHOT);	
-		JS.output(\"\", \"elysiumgameclose\");
+		JS.output(\"\", \"elysiumgameroundend\");
+		if (data.nextAction == \"finish\"):
+			JS.connect(\"close\", self, \"close_round_received\", [], CONNECT_ONESHOT);
+			JS.output(\"\", \"elysiumgameclose\");
+		else:
+			yield(slot, \"ontilesremoved\");
+			print(\"TILES WERE REMOVED\")
+			close_round_received();
+		
 	else: 
 		Globals.singletons[\"Networking\"].connect(\"closereceived\", self, \"close_round_received\", [], CONNECT_ONESHOT);
 		Globals.singletons[\"Networking\"].request_close();
 
-func close_round_received(_data=null):
+func close_round_received(_data = null):
 	Globals.fsm_data[\"round_closed\"] = true;
 
 func update(_object, _delta: float) -> void:
@@ -1565,7 +1697,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 7
 name = "Close round"
-position = Vector2( 2660, 160 )
+position = Vector2( 2540, 660 )
 trigger_ids = [ 7, 8 ]
 custom_script = SubResource( 166 )
 
@@ -1590,7 +1722,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 8
 name = "Close Error"
-position = Vector2( 3000, 320 )
+position = Vector2( 1240, 1200 )
 trigger_ids = [ 13 ]
 custom_script = SubResource( 175 )
 
@@ -1600,6 +1732,7 @@ extends VFSMStateBase
 
 
 func enter() -> void:
+	print(\"### WIN STATE: ###\");
 	pass
 
 
@@ -1615,7 +1748,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 11
 name = "Wins Check"
-position = Vector2( 1800, 80 )
+position = Vector2( 1720, 760 )
 trigger_ids = [ 14, 15 ]
 custom_script = SubResource( 183 )
 
@@ -1624,7 +1757,8 @@ script/source = "# State: Show Wins
 extends VFSMStateBase
 
 
-func enter() -> void:	
+func enter() -> void:
+	print(\"### SHOW LINE WINS STATE: ###\");
 #	if(Globals.singletons[\"PopupTiles\"].remaining_tile_count > 0): 
 #		yield(Globals.singletons[\"PopupTiles\"], \"popuptilesend\");
 #	Globals.singletons[\"PopupTiles\"].clear_all();
@@ -1660,7 +1794,7 @@ func calculate_line_wins(wins):
 		if(!win.has(\"winline\")): n+=float(win[\"win\"]); #winline 0
 		elif(int(win[\"winline\"]) > -1): n+=float(win[\"win\"]);
 
-	return n;	
+	return n;
 
 func update(_object, _delta: float) -> void:
 	pass
@@ -1674,7 +1808,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 12
 name = "Show Line Wins"
-position = Vector2( 2060, 0 )
+position = Vector2( 2060, 580 )
 trigger_ids = [ 17 ]
 custom_script = SubResource( 189 )
 
@@ -2056,9 +2190,6 @@ margin_bottom = 1555.85
 rect_pivot_offset = Vector2( 1403.5, 998.347 )
 texture = SubResource( 2 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect2" type="TextureRect" parent="IntroContainer/Centering/BG/CornerFades"]
 margin_left = -1152.58
@@ -2170,7 +2301,7 @@ reel_spin_sfx = "Spinning Reel"
 reel_stop_sfx = "Reels Stop"
 reel_stop_volume = 0.35
 availableTiles = [ 1, 2, 3, 4, 5, 6, 7 ]
-reels = [ NodePath("ReelContainer/Reel1"), NodePath("ReelContainer/Reel2"), NodePath("ReelContainer/Reel3"), NodePath("ReelContainer/Reel4"), NodePath("ReelContainer/Reel5") ]
+reels = [ NodePath("ReelContainer/Reel1"), NodePath("ReelContainer/Reel2"), NodePath("ReelContainer/Reel3"), NodePath("ReelContainer/Reel4"), NodePath("ReelContainer/Reel5"), NodePath("ReelContainer/Reel6") ]
 reelStopDelay = 0.1
 
 [node name="Background" type="Control" parent="SlotContainer/Slot"]
@@ -2316,10 +2447,11 @@ rect_clip_content = true
 [node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
 bottom_tiles_count = 0
 tileScene = ExtResource( 5 )
-tile_size = Vector2( 312, 284 )
-bluramount = 0.0
+tile_size = Vector2( 260, 213 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel1"]
 
@@ -2332,9 +2464,11 @@ anims/ReelSpinStopAnimation = ExtResource( 2 )
 position = Vector2( 312, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
 bottom_tiles_count = 0
 tileScene = ExtResource( 5 )
-tile_size = Vector2( 312, 284 )
+tile_size = Vector2( 260, 213 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel2"]
 
@@ -2346,10 +2480,11 @@ anims/ReelSpinStopAnimation = ExtResource( 2 )
 position = Vector2( 624, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
-top_tiles_count = 2
+top_tiles_count = 4
+visible_tiles_count = 4
 bottom_tiles_count = 0
 tileScene = ExtResource( 5 )
-tile_size = Vector2( 312, 284 )
+tile_size = Vector2( 260, 213 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel3"]
 
@@ -2361,9 +2496,11 @@ anims/ReelSpinStopAnimation = ExtResource( 2 )
 position = Vector2( 936, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
 bottom_tiles_count = 0
 tileScene = ExtResource( 5 )
-tile_size = Vector2( 312, 284 )
+tile_size = Vector2( 260, 213 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel4"]
 
@@ -2375,15 +2512,33 @@ anims/ReelSpinStopAnimation = ExtResource( 2 )
 position = Vector2( 1471, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
 bottom_tiles_count = 0
 tileScene = ExtResource( 5 )
-tile_size = Vector2( 312, 284 )
+tile_size = Vector2( 260, 213 )
 
 [node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel5"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel5"]
 anims/ReelSpinStartAnimation = ExtResource( 1 )
 anims/ReelSpinStopAnimation = ExtResource( 2 )
+
+[node name="Reel6" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 1471, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
+bottom_tiles_count = 0
+tileScene = ExtResource( 5 )
+tile_size = Vector2( 260, 213 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel6"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel6"]
+anims/ReelSpinStartAnimation = SubResource( 200 )
+anims/ReelSpinStopAnimation = SubResource( 201 )
 
 [node name="NormalOverlap" type="Control" parent="SlotContainer/Slot"]
 anchor_right = 1.0
@@ -2426,7 +2581,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-margin_top = 206.428
+margin_top = 205.639
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2437,7 +2592,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/Bar"]
-position = Vector2( 0, -206.428 )
+position = Vector2( 0, -205.639 )
 texture = ExtResource( 48 )
 centered = false
 
@@ -2465,7 +2620,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 206.428
+margin_top = 205.639
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2477,13 +2632,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -206.428 )
+position = Vector2( 0, -205.639 )
 texture = ExtResource( 48 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-position = Vector2( 0, 206.428 )
-rotation = 0.0703496
+position = Vector2( 0, 205.639 )
+rotation = -0.0117841
 texture = ExtResource( 50 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
@@ -2500,7 +2655,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-margin_top = 206.428
+margin_top = 205.639
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2511,7 +2666,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/Bar"]
-position = Vector2( 0, -206.428 )
+position = Vector2( 0, -205.639 )
 texture = ExtResource( 52 )
 centered = false
 
@@ -2538,7 +2693,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 206.428
+margin_top = 205.639
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2550,13 +2705,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -206.428 )
+position = Vector2( 0, -205.639 )
 texture = ExtResource( 52 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-position = Vector2( 14.5, 206.428 )
-rotation = 0.0703496
+position = Vector2( 14.5, 205.639 )
+rotation = -0.0117841
 texture = ExtResource( 51 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
@@ -2827,7 +2982,7 @@ __meta__ = {
 [node name="Networking" type="Node" parent="."]
 script = ExtResource( 8 )
 init_sessionID = "test5"
-game = "wizardz-world"
+game = "battle-of-myths"
 mode = "demo"
 operator = "mav"
 currency = "USD"
@@ -2838,7 +2993,7 @@ script = ExtResource( 108 )
 
 [node name="AssetLoader" type="Node" parent="."]
 script = ExtResource( 11 )
-tiles = [ ExtResource( 19 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 25 ), ExtResource( 12 ), ExtResource( 17 ), ExtResource( 23 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 37 ), ExtResource( 22 ), ExtResource( 78 ) ]
+tiles = [ ExtResource( 19 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 25 ), ExtResource( 12 ), ExtResource( 17 ), ExtResource( 23 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 37 ), ExtResource( 22 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 80 ) ]
 tile_image_generation_scene = ExtResource( 28 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="AssetLoader"]
