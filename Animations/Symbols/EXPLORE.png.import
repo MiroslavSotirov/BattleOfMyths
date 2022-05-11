@@ -1,0 +1,35 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/EXPLORE.png-78c4876be66b500c4d922fb8b4a3e18f.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Animations/Symbols/EXPLORE.png"
+dest_files=[ "res://.import/EXPLORE.png-78c4876be66b500c4d922fb8b4a3e18f.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.8
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=true
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+process/normal_map_invert_y=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

@@ -3,6 +3,7 @@ extends Node
 var assets = [];
 
 func _ready():
+	return;
 	yield(get_tree().create_timer(10.0), "timeout");	
 	var success = ProjectSettings.load_resource_pack("res://Quality/High.pck", true)
 	yield(get_tree(),"idle_frame");

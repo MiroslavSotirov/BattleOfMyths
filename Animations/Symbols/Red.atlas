@@ -1,0 +1,17 @@
+Red.png
+size:451,185
+filter:Linear,Linear
+red/12_base
+bounds:2,2,204,181
+offsets:1,1,206,183
+red/12_dropshadow
+bounds:208,51,130,132
+offsets:1,1,132,134
+red/12_gold
+bounds:340,83,109,100
+offsets:1,1,111,102
+red/12_stone
+bounds:340,3,78,78
+star
+bounds:208,2,46,47
+offsets:6,3,55,54

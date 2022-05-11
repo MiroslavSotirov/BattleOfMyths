@@ -1,0 +1,81 @@
+Princess popup.png
+size:1971,380
+filter:Linear,Linear
+princes Normal/4_base
+bounds:1385,12,203,182
+offsets:1,1,205,184
+princes popup/3_base
+bounds:1590,12,203,182
+offsets:1,1,205,184
+princes popup/3_body
+bounds:1873,39,91,114
+offsets:0,63,91,177
+princes popup/3_dress
+bounds:313,105,163,68
+offsets:1,1,165,70
+princes popup/3_eyebrows
+bounds:1873,2,96,35
+offsets:1,1,98,37
+princes popup/3_eyeclosed
+bounds:450,21,35,33
+offsets:0,1,35,34
+rotate:90
+princes popup/3_hairback
+bounds:313,15,88,135
+rotate:90
+princes popup/3_hairback2
+bounds:1797,155,58,152
+rotate:90
+princes popup/3_hairfront
+bounds:1797,215,147,163
+princes popup/3_hairpins
+bounds:2,23,176,101
+princes popup/3_hand
+bounds:1795,18,76,135
+offsets:1,0,77,137
+princes popup/3_head
+bounds:180,17,107,131
+rotate:90
+princes popup/3_lotus
+bounds:478,112,64,61
+offsets:1,1,66,63
+princes popup/3_mouth2
+bounds:450,58,45,32
+offsets:1,1,48,34
+rotate:90
+princes popup/fbf/fbf_00
+bounds:561,16,204,178
+offsets:0,0,204,183
+princes popup/fbf/fbf_01
+bounds:561,196,204,182
+offsets:0,0,204,183
+princes popup/fbf/fbf_02
+bounds:767,196,204,182
+offsets:0,0,204,183
+princes popup/fbf/fbf_03
+bounds:973,196,204,182
+offsets:0,0,204,183
+princes popup/fbf/fbf_04
+bounds:1179,196,204,182
+offsets:0,0,204,183
+princes popup/fbf/fbf_05
+bounds:1385,196,204,182
+offsets:0,0,204,183
+princes popup/fbf/fbf_06
+bounds:1591,196,204,182
+offsets:0,0,204,183
+princes popup/fbf/fbf_07
+bounds:767,12,204,182
+offsets:0,0,204,183
+princes popup/fbf/fbf_08
+bounds:973,12,204,182
+offsets:0,0,204,183
+princes popup/fbf/fbf_09
+bounds:1179,12,204,182
+offsets:0,0,204,183
+princes popup/glow2
+bounds:2,126,304,252
+offsets:1,1,306,255
+tubu
+bounds:308,175,251,203
+offsets:55,73,360,360

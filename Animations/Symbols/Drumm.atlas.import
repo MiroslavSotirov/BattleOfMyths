@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/Drumm.atlas-c4eb9448f2641f1edd8f393385b60f36.spatlas"
+
+[deps]
+
+source_file="res://Animations/Symbols/Drumm.atlas"
+dest_files=[ "res://.import/Drumm.atlas-c4eb9448f2641f1edd8f393385b60f36.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

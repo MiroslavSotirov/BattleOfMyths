@@ -3,6 +3,7 @@ export (String) var assetname = "";
 export (NodePath) var node;
 
 func _ready():
+	return
 	yield(Globals, "allready");
 	if(Globals.singletons["AssetLoader"].language_loaded):
 		on_lang_changed(Globals.current_language);

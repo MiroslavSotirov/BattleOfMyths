@@ -10,11 +10,6 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "BarsFillFx",
-"language": "GDScript",
-"path": "res://Slot/Features/BarsFillFx.gd"
-}, {
-"base": "Node",
 "class": "ExportTest",
 "language": "GDScript",
 "path": "res://Quality/QualityExporter.gd"
@@ -120,7 +115,6 @@ _global_script_classes=[ {
 "path": "res://Slot/Features/WinTile.gd"
 } ]
 _global_script_class_icons={
-"BarsFillFx": "",
 "ExportTest": "",
 "Fader": "",
 "Game": "",

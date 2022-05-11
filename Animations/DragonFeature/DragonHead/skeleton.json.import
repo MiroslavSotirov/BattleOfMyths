@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/skeleton.json-84549eb59d4b39fbf419ebb12655c2d3.spjson"
+
+[deps]
+
+source_file="res://Animations/DragonFeature/DragonHead/skeleton.json"
+dest_files=[ "res://.import/skeleton.json-84549eb59d4b39fbf419ebb12655c2d3.spjson" ]
+
+[params]
+

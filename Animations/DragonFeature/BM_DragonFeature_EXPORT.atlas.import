@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/BM_DragonFeature_EXPORT.atlas-2636d7a216296c0dedb893d8b0264053.spatlas"
+
+[deps]
+
+source_file="res://Animations/DragonFeature/BM_DragonFeature_EXPORT.atlas"
+dest_files=[ "res://.import/BM_DragonFeature_EXPORT.atlas-2636d7a216296c0dedb893d8b0264053.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

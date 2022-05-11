@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/Princess popup.atlas-d339e17557e363c245a912d46afa5055.spatlas"
+
+[deps]
+
+source_file="res://Animations/Symbols/Princess popup.atlas"
+dest_files=[ "res://.import/Princess popup.atlas-d339e17557e363c245a912d46afa5055.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

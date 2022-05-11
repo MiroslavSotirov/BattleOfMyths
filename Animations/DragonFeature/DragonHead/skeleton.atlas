@@ -1,0 +1,12 @@
+skeleton.png
+size:429,174
+filter:Linear,Linear
+scale:0.8
+Dragonhead/DragonHeadBottom
+bounds:245,61,180,111
+Dragonhead/DragonHeadTop
+bounds:2,3,241,169
+Dragonhead/DragonHeadTop2
+bounds:245,21,182,38
+Dragonhead/eye
+bounds:245,2,18,17
