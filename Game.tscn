@@ -1372,6 +1372,7 @@ func enter() -> void:
 		Globals.singletons[\"Networking\"].request_init();
 	
 func init_data_received():
+
 	Globals.round_closed = true; #Init should close previous round if open
 	
 	Globals.singletons[\"Stateful\"].update_states(true);
@@ -1490,15 +1491,19 @@ script/source = "# State: Ready
 extends VFSMStateBase
 
 func enter() -> void:
-	print(\"READY STATE\");
+	print(\"### READY STATE ###\");
+
 	Globals.fsm_data[\"spin_start_command\"] = false;
 	Globals.fsm_data[\"wins_shown\"] = false;
 	
 	if(JS.enabled):
 		JS.connect(\"spinstart\", self, \"start_spin\", [], CONNECT_ONESHOT);
+#	else:
+	var data = Globals.singletons[\"Networking\"].lastround;
+	print(data);
+
 
 func start_spin(data):
-	print('this is the data...', data);
 	Globals.fsm_data[\"spin_start_command\"] = true;
 
 func update(_object, _delta: float) -> void:
@@ -1513,7 +1518,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 3
 name = "Ready"
-position = Vector2( 760, -100 )
+position = Vector2( 860, -100 )
 trigger_ids = [ 10 ]
 custom_script = SubResource( 150 )
 
@@ -1569,16 +1574,18 @@ func enter() -> void:
 		
 	if(Globals.singletons[\"WinBar\"].shown):
 		Globals.singletons[\"WinBar\"].hide();
-		
-	Globals.singletons[\"Slot\"].start_spin();
 
+	var is_cascading = Globals.singletons[\"Networking\"].lastround && Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
+	if(!is_cascading):
+		Globals.singletons[\"Slot\"].start_spin();
 		
 func spin_data_received(data):
+	print(\"SPIN DATA WAS RECIEVED\", data)
 	if(\"code\" in data || \"hasError\" in data): return;
-	
+	var is_cascading = Globals.singletons[\"Networking\"].lastround && Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
+	print(\"IS CASCADNIG \", is_cascading)
 	if(JS.enabled): Globals.singletons[\"Networking\"].lastround = data;
-		
-	if(!Globals.singletons[\"Slot\"].allspinning):
+	if(!is_cascading && !Globals.singletons[\"Slot\"].allspinning):
 		yield(Globals.singletons[\"Slot\"], \"onstartspin\");
 				
 	Globals.singletons[\"Networking\"].update_state(data)
@@ -1596,7 +1603,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 5
 name = "Spin Start"
-position = Vector2( 1080, 340 )
+position = Vector2( 1220, 220 )
 trigger_ids = [ 1, 5 ]
 custom_script = SubResource( 154 )
 
@@ -1606,14 +1613,16 @@ extends VFSMStateBase
 
 
 func enter() -> void:
+	print(\"### SPIN STOP STATE: ###\");
 	Globals.fsm_data[\"reels_stopped\"] = false;
 	var data = Globals.singletons[\"Networking\"].lastround;
-	Globals.singletons[\"Slot\"].stop_spin(data);
-	yield(Globals.singletons[\"Slot\"], \"onstopped\");
-	print(\"this is the other data\", data);
+
+	if (data.action == \"cascade\"):
+		yield(Globals.singletons[\"Slot\"].add_data(data), \"completed\");
+	else:
+		yield(Globals.singletons[\"Slot\"].stop_spin(data), \"completed\");
+
 	Globals.fsm_data[\"reels_stopped\"] = true;
-
-
 func update(_object, _delta: float) -> void:
 	pass
 
@@ -1626,7 +1635,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 6
 name = "Spin Stop"
-position = Vector2( 1440, 700 )
+position = Vector2( 1480, 680 )
 trigger_ids = [ 6 ]
 custom_script = SubResource( 156 )
 
@@ -1641,7 +1650,6 @@ func enter() -> void:
 	var wins = data.wins if data.wins != null else [];
 	var tiles_count = slot.reels[0].visible_tiles_count;
 	var win_tiles_positions = {};
-	print('+++++++++++++++++++++++++++++++++++++++++++', data );
 	
 	for win in wins:
 		for position in win.symbol_positions:
@@ -1653,35 +1661,28 @@ func enter() -> void:
 				win_tiles_positions[i].append(j);
 
 	if (win_tiles_positions.keys().size() != 0):
-		slot.remove_tiles(win_tiles_positions); # TODO sort the tiles positions
-#		yield(slot.remove_tiles(win_tiles_positions), \"completed\");
-#	else:
-#		slot.remove_tiles({ 1: [0, 1]}) 
-#		slot.remove_tiles({ 2: [1, 2]}) 
-#		yield(slot.remove_tiles({0: [1, 0], 1: [2]}), \"completed\");
+		slot.remove_tiles(win_tiles_positions);
 
-#	var wins = float(data[\"spinWin\"]);
-#	if (wins != Globals.singletons[\"WinBar\"].target):
-#		Globals.singletons[\"WinBar\"].show_win(wins, false);
-
-#	if (win_tiles_positions.size() > 0):
-#		Globals.singletons.Slot.hide_tiles(win_tiles_positions);
-#		yield(Globals.singletons.Slot, \"ontilesremoved\");
-#		print('-------------------------------------------')
 
 	if(JS.enabled): 
-		JS.output(\"\", \"elysiumgameroundend\");
 		if (data.nextAction == \"finish\"):
+			JS.output(\"\", \"elysiumgameroundend\");
 			JS.connect(\"close\", self, \"close_round_received\", [], CONNECT_ONESHOT);
 			JS.output(\"\", \"elysiumgameclose\");
 		else:
 			yield(slot, \"ontilesremoved\");
-			print(\"TILES WERE REMOVED\")
+			JS.output(\"\", \"elysiumgameroundend\");
 			close_round_received();
-		
+
+#		JS.output(\"\", \"elysiumgameroundend\");
+
 	else: 
-		Globals.singletons[\"Networking\"].connect(\"closereceived\", self, \"close_round_received\", [], CONNECT_ONESHOT);
-		Globals.singletons[\"Networking\"].request_close();
+		if (data.nextAction == \"finish\"):
+			Globals.singletons[\"Networking\"].connect(\"closereceived\", self, \"close_round_received\", [], CONNECT_ONESHOT);
+			Globals.singletons[\"Networking\"].request_close();
+		else:
+			yield(slot, \"ontilesremoved\");
+			close_round_received();
 
 func close_round_received(_data = null):
 	Globals.fsm_data[\"round_closed\"] = true;
@@ -1748,7 +1749,7 @@ func exit() -> void:
 script = ExtResource( 38 )
 vfsm_id = 11
 name = "Wins Check"
-position = Vector2( 1720, 760 )
+position = Vector2( 1760, 780 )
 trigger_ids = [ 14, 15 ]
 custom_script = SubResource( 183 )
 
@@ -2480,7 +2481,7 @@ anims/ReelSpinStopAnimation = ExtResource( 2 )
 position = Vector2( 624, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
-top_tiles_count = 4
+top_tiles_count = 0
 visible_tiles_count = 4
 bottom_tiles_count = 0
 tileScene = ExtResource( 5 )
@@ -2581,7 +2582,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-margin_top = 205.639
+margin_top = 206.557
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2592,7 +2593,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/Bar"]
-position = Vector2( 0, -205.639 )
+position = Vector2( 0, -206.557 )
 texture = ExtResource( 48 )
 centered = false
 
@@ -2620,7 +2621,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 205.639
+margin_top = 206.557
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2632,13 +2633,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -205.639 )
+position = Vector2( 0, -206.557 )
 texture = ExtResource( 48 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
-position = Vector2( 0, 205.639 )
-rotation = -0.0117841
+position = Vector2( 0, 206.557 )
+rotation = -0.0769923
 texture = ExtResource( 50 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarBlue"]
@@ -2655,7 +2656,7 @@ initial_amount = 0.0
 minimum_amount = 0.5
 
 [node name="Bar" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-margin_top = 205.639
+margin_top = 206.557
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2666,7 +2667,7 @@ __meta__ = {
 }
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/Bar"]
-position = Vector2( 0, -205.639 )
+position = Vector2( 0, -206.557 )
 texture = ExtResource( 52 )
 centered = false
 
@@ -2693,7 +2694,7 @@ centered = false
 
 [node name="BarHighlight" type="Control" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
 modulate = Color( 5.55112e-15, 5.55112e-15, 5.55112e-15, 1 )
-margin_top = 205.639
+margin_top = 206.557
 margin_right = 28.0
 margin_bottom = 412.0
 grow_horizontal = 2
@@ -2705,13 +2706,13 @@ __meta__ = {
 
 [node name="BarContainer" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen/BarHighlight"]
 material = ExtResource( 39 )
-position = Vector2( 0, -205.639 )
+position = Vector2( 0, -206.557 )
 texture = ExtResource( 52 )
 centered = false
 
 [node name="BarCap" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]
-position = Vector2( 14.5, 205.639 )
-rotation = -0.0117841
+position = Vector2( 14.5, 206.557 )
+rotation = -0.0769923
 texture = ExtResource( 51 )
 
 [node name="CbgLass1" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/SsFrame2/BarGreen"]

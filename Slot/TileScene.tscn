@@ -43,8 +43,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=6]
 resource_name = "hide"
-length = 0.75
-step = 0.05
+length = 0.32
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("Image:scale")
 tracks/0/interp = 2
@@ -52,8 +52,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.7, 0.75 ),
-"transitions": PoolRealArray( 6.06286, 0.15932, 26.9087, 1 ),
+"times": PoolRealArray( 0, 0.2, 0.31, 0.32 ),
+"transitions": PoolRealArray( 6.06286, 1.36604, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 0, 0 ), Vector2( 1, 1 ) ]
 }
@@ -64,10 +64,24 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.7 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.31 ),
+"transitions": PoolRealArray( 1, 15.455 ),
 "update": 1,
 "values": [ true, false ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.28 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "\"hide_end\"" ],
+"method": "emit_signal"
+} ]
 }
 
 [node name="Tile" type="Node2D"]
@@ -81,7 +95,6 @@ startanimation = "popup"
 
 [node name="Image" type="Sprite" parent="."]
 material = ExtResource( 1 )
-position = Vector2( 0, -0.071696 )
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

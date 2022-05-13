@@ -10,6 +10,7 @@ export (Vector2) var scale_multiplier : Vector2 = Vector2.ONE;
 
 signal spinespriteshown
 signal imageshown
+signal hide_end
 signal animation_finished
 
 signal ondiscard (tile, pos); #? is this used and for what
@@ -84,9 +85,10 @@ func get_spine():
 	return $SpineSprite;
 
 func hide():
-	if (_hidden): return;
+	if (_hidden): return Promise.resolve();
 	_hidden = true;
 	play_animation('hide', AnimationType.TIMELINE);
+	yield(self, "animation_finished");
 	
 func reel_stopped(index):
 	pass

@@ -59,6 +59,10 @@ func register_singleton(name, obj):
 
 func get_fsm_data(key):
 	return fsm_data.get(key, false);
+	
+func create_coroutine_timer(time):
+	yield(get_tree().create_timer(time), "timeout");
+	return time;
 
 func _process(delta):
 	var res = Vector2(OS.window_size.x, OS.window_size.y); #get_viewport().get_visible_rect().size;

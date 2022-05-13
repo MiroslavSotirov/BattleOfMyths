@@ -156,6 +156,8 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 
 Globals="*res://Globals.gd"
 JS="*res://JSComms/JS.gd"
+Promise="*res://Promise.gd"
+Mapper="*res://Mapper.gd"
 
 [debug]
 

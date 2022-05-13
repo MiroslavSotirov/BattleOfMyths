@@ -16,8 +16,8 @@ export (int) var invisible_tile = 0;
 
 var allspinning : bool setget , _get_allspinning;
 var spinning : bool setget , _get_spinning;
-var stopped : bool setget , _get_stopped;
-var stopping : bool setget , _get_stopping;
+#var stopped : bool setget , _get_stopped;
+#var stopping : bool setget , _get_stopping;
 
 var targetdata : Array = [];
 var reels_spinning : int = 0;
@@ -37,10 +37,7 @@ func _ready():
 	yield(Globals, "allready")
 	for i in range(len(reels)):
 		reels[i] = get_node(reels[i]);
-#		reels[i].slot = self;
-#		reels[i].index = i;
 		reels[i].initialize(i, availableTiles);
-		# reels[i].connect("onstoppinganim", self, "_on_reel_stopping_anim");
 		reels[i].connect("onstopped", self, "_on_reel_stopped");
 
 	Globals.visible_tiles_count = reels[0].visible_tiles_count;
@@ -65,7 +62,7 @@ func _on_reel_stopping_anim(index):
 		
 func _on_reel_stopped(index):
 	reels_spinning -= 1;
-	if(reels_spinning == 0): emit_signal("onstopped");
+#	if(reels_spinning == 0): emit_signal("onstopped");
 
 func _test_spin_start_set(val):
 	if(!val): return;
@@ -87,23 +84,18 @@ func start_spin():
 		yield(get_tree().create_timer(reelStartDelay), "timeout");
 		reel.start_spin();
 		reels_spinning += 1;
-	
-	
+
 	emit_signal("onstartspin");
 	
 func stop_spin(data = null):
-	var end_data = parse_spin_data(data) if data != null else get_safe_spin_data();
-#	yield(get_tree().create_timer(5), "timeout");
-	for i in range(len(reels)):
-		reels[i].stop_spin(end_data[i]);
+	var end_data = parse_spin_data(data);
+	var promises = [];
 
-#	if (self.stopping || self.stopped): return;
-#
-#	targetdata = parse_spin_data(data) if data != null else get_safe_spin_data();
-#	for i in range(len(reels)):
-#		reels[i].stop_spin(targetdata[i]);
-#		yield(get_tree().create_timer(reelStopDelay), "timeout")
-#	emit_signal("onstopping");
+	for i in range(len(reels)):
+		promises.push_back(reels[i].stop_spin(end_data[i]));
+
+	yield(Promise.all(promises), "completed");
+	emit_signal("onstopped");
 
 func _get_spinning():
 	return reels_spinning > 0;
@@ -114,28 +106,18 @@ func _get_allspinning():
 
 	return true;
 	
-func _get_stopped():
+#func _get_stopped():
 #	for reel in reels: if(!reel.stopped): return false;
 #	for reel in reels: print(reel);
-	return true;
+#	return true;
 	
-func _get_stopping():
+#func _get_stopping():
 #	for reel in reels: if(reel.stopping): return true;
 #	for reel in reels: print(reel);
-	return false;
+#	return false;
 	
-#func parse_spin_data(data):
-#	var spindata = [];
-#	for reelids in data["view"]:
-#		var reeldata = [];
-#		for tileid in reelids:
-#			reeldata.append(TileData.new(tileid))
-#		spindata.append(reeldata);
-#
-#	emit_signal("apply_tile_features", data, spindata);
-#
-#	return spindata;
 func parse_spin_data(data):
+	if (data == null): return get_safe_spin_data();
 	if (!("view" in data)): return get_safe_spin_data();
 #	emit_signal("apply_tile_features", data, spind ata); #TODO check what this signal is doing
 	if (!("features" in data)): return data.view;
@@ -175,34 +157,21 @@ func get_safe_spin_data():
 
 func get_tile_at(x, y):
 	return reels[x].get_tile_at(y);
-	
-func remove_tiles(data):
-	var count = 0;
-	var size = data.keys().size();
-	print("removing tiles ", data);
-	for i in data.keys():
-		count += 1;
-		reels[i].remove_tiles(data[i])
-		print("count ", count, " size ", size);
-		if (count == size):
-			yield(reels[i], "tilesremoved");
-			print("TILES WERE REMOVED slot");
-			emit_signal("ontilesremoved");
-		
-		
-#	print("positions: ", positions);
-#	for p in range(positions.size()):
-#		var position = positions[p]
-#		var i = int(position / reels.size());
-#		var j = fmod(position, 4);
-#		var reel = reels[i];
-##		var tile = get_tile_at(i, j);
-##		tile.hide();
-#		reel.remove_tile(j);
-#		if (p == positions.size() - 1):
-##			reel.connect("tileremoved", self, "_on_tiles_removed", [], CONNECT_ONESHOT);
-#			yield(reel, "tileremoved");
-#			emit_signal("ontilesremoved");
 
-#func _on_tiles_removed():
-#	print("tiles were removed");
+func add_data(data):
+	var end_data = parse_spin_data(data);
+#	var end_data = data;
+
+	var size = end_data.size();
+	var promises = Mapper.callOnElements(reels, "add_tiles", end_data);
+
+	yield(Promise.all(promises), "completed");
+
+func remove_tiles(data):
+	print("removing tiles ", data);
+	var promises = [];
+	for i in data.keys():
+		promises.push_back(reels[i].remove_tiles(data[i]));
+	
+	yield(Promise.all(promises), "completed");
+	emit_signal("ontilesremoved");
