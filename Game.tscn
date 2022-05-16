@@ -1,10 +1,10 @@
-[gd_scene load_steps=223 format=2]
+[gd_scene load_steps=163 format=2]
 
-[ext_resource path="res://Slot/ReelSpinStartAnimation.tres" type="Animation" id=1]
-[ext_resource path="res://Slot/ReelSpinStopAnimation.tres" type="Animation" id=2]
-[ext_resource path="res://Slot/Reel.gd" type="Script" id=3]
+[ext_resource path="res://Scenario.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Animations/DragonFeature/DragonHead/skeleton.json" type="SpineSkeletonJsonDataResource" id=2]
+[ext_resource path="res://Slot/FallingReel.gd" type="Script" id=3]
 [ext_resource path="res://Slot/Slot.gd" type="Script" id=4]
-[ext_resource path="res://Slot/TileScene.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Textures/slot-bm/line_green2.png" type="Texture" id=5]
 [ext_resource path="res://Game.gd" type="Script" id=6]
 [ext_resource path="res://Misc/Fader.gd" type="Script" id=7]
 [ext_resource path="res://Networking.gd" type="Script" id=8]
@@ -16,14 +16,8 @@
 [ext_resource path="res://Textures/particles/PNG (Black background)/prah1.png" type="Texture" id=14]
 [ext_resource path="res://Slot/Tiles/Tile4.tres" type="Resource" id=15]
 [ext_resource path="res://Slot/Tiles/Tile3.tres" type="Resource" id=16]
-[ext_resource path="res://Slot/Tiles/Tile8a.tres" type="Resource" id=17]
 [ext_resource path="res://Slot/Tiles/Tile5.tres" type="Resource" id=18]
 [ext_resource path="res://Slot/Tiles/Tile1.tres" type="Resource" id=19]
-[ext_resource path="res://Slot/Tiles/Tile9a.tres" type="Resource" id=20]
-[ext_resource path="res://Slot/Tiles/Tile8c.tres" type="Resource" id=21]
-[ext_resource path="res://Slot/Tiles/Tile10.tres" type="Resource" id=22]
-[ext_resource path="res://Slot/Tiles/Tile8b.tres" type="Resource" id=23]
-[ext_resource path="res://Slot/Tiles/Tile9b.tres" type="Resource" id=24]
 [ext_resource path="res://Slot/Tiles/Tile6.tres" type="Resource" id=25]
 [ext_resource path="res://Animations/Logo/Logo.json" type="SpineSkeletonJsonDataResource" id=26]
 [ext_resource path="res://Slot/Features/PopupTiles.gd" type="Script" id=27]
@@ -36,8 +30,6 @@
 [ext_resource path="res://UI/default_dynfont_big.tres" type="DynamicFont" id=34]
 [ext_resource path="res://ErrorPopup.gd" type="Script" id=35]
 [ext_resource path="res://Slot/Features/Nudger.gd" type="Script" id=36]
-[ext_resource path="res://Slot/Tiles/Tile9c.tres" type="Resource" id=37]
-[ext_resource path="res://addons/visual_fsm/fsm/vfsm_state.gd" type="Script" id=38]
 [ext_resource path="res://Misc/canvasadditive.tres" type="Material" id=39]
 [ext_resource path="res://Textures/slot-bm/DSceenFrame.png" type="Texture" id=40]
 [ext_resource path="res://Misc/SegmentBar.gd" type="Script" id=41]
@@ -69,17 +61,12 @@
 [ext_resource path="res://Misc/ClickWaiter.gd" type="Script" id=67]
 [ext_resource path="res://Textures/slot-bm/SlotSceneBG.jpg" type="Texture" id=68]
 [ext_resource path="res://Textures/slot-bm/FrameDropShadow2.png" type="Texture" id=69]
-[ext_resource path="res://Animations/DragonFeature/DragonHead/skeleton.json" type="SpineSkeletonJsonDataResource" id=70]
+[ext_resource path="res://Slot/TileScene.tscn" type="PackedScene" id=70]
 [ext_resource path="res://Misc/LanguageAssetSwapperSpine.gd" type="Script" id=71]
 [ext_resource path="res://Textures/slot-bm/BarsShadowOverlayDragon.png" type="Texture" id=72]
-[ext_resource path="res://addons/visual_fsm/fsm/vfsm.gd" type="Script" id=73]
-[ext_resource path="res://addons/visual_fsm/visual_fsm.gd" type="Script" id=74]
-[ext_resource path="res://addons/visual_fsm/fsm/vfsm_trigger_script.gd" type="Script" id=75]
-[ext_resource path="res://addons/visual_fsm/fsm/vfsm_trigger_action.gd" type="Script" id=76]
-[ext_resource path="res://addons/visual_fsm/fsm/vfsm_trigger_timer.gd" type="Script" id=77]
 [ext_resource path="res://Quality/QualityLoader.gd" type="Script" id=78]
 [ext_resource path="res://Textures/slot-bm/WhiteBarLeft.png" type="Texture" id=79]
-[ext_resource path="res://Textures/slot-bm/line_green2.png" type="Texture" id=80]
+[ext_resource path="res://Slot/Tiles/Tile0.tres" type="Resource" id=80]
 [ext_resource path="res://Textures/slot-bm/SlotSceneFRAME.png" type="Texture" id=83]
 [ext_resource path="res://Misc/LanguageAssetSwapper.gd" type="Script" id=87]
 [ext_resource path="res://base_big_font.tres" type="BitmapFont" id=89]
@@ -404,21 +391,6 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 2.625, 2.625 ) ]
-}
-
-[sub_resource type="Animation" id=4]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:bluramount")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=219]
@@ -1651,6 +1623,561 @@ tracks/1/keys = {
 "values": [ Vector2( 30, 3 ) ]
 }
 
+[sub_resource type="Animation" id=296]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:bluramount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=297]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=298]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=299]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=300]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=301]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=302]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=303]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=304]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=305]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=306]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=307]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=308]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
 [sub_resource type="SpineSkeletonDataResource" id=125]
 atlas_res = ExtResource( 29 )
 skeleton_json_res = ExtResource( 26 )
@@ -2399,7 +2926,7 @@ colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1 )
 
 [sub_resource type="SpineSkeletonDataResource" id=290]
 atlas_res = ExtResource( 66 )
-skeleton_json_res = ExtResource( 70 )
+skeleton_json_res = ExtResource( 2 )
 animations = null
 skins = null
 
@@ -2415,757 +2942,6 @@ colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 [sub_resource type="CanvasItemMaterial" id=113]
 blend_mode = 1
 light_mode = 1
-
-[sub_resource type="GDScript" id=139]
-script/source = "# State: Initialize
-extends VFSMStateBase
-
-func enter() -> void:
-	Globals.singletons[\"Fader\"].tween(1,1,0);
-	yield(Globals, \"allready\")
-	Globals.singletons[\"Stateful\"].connect(\"new_state\", self, \"update_state\")
-	yield(Globals.get_tree(),\"idle_frame\")
-	JS.connect(\"init\", Globals.singletons[\"Networking\"], \"init_received\", [], CONNECT_ONESHOT);
-	Globals.singletons[\"Networking\"].connect(\"initcomplete\", self, \"init_data_received\", [], CONNECT_ONESHOT);
-	Globals.singletons[\"Networking\"].connect(\"fail\", self, \"error_received\");
-	JS.connect(\"set_stake\", self, \"set_stake\");
-	Globals.connect(\"configure_bets\", self, \"configure_bets\");
-	
-	if(JS.enabled): 
-		JS.output(\"\", \"elysiumgamerequestinit\");
-	else: 
-		Globals.singletons[\"Networking\"].request_init();
-	
-func init_data_received():
-	Globals.round_closed = true; #Init should close previous round if open
-	
-	Globals.singletons[\"Stateful\"].update_states(true);
-	Globals.update_win_configs(Globals.singletons[\"Networking\"].lastround.defaultTotal);
-	
-	Globals.singletons[\"Fader\"].tween(1,0,0.5);
-	Globals.fsm_data[\"initialized\"] = true;
-	
-func error_received():
-	Globals.fsm_data[\"network_error\"] = true;
-
-func update(_object, _delta: float) -> void:
-	pass
-
-func exit() -> void:
-	pass
-
-func update_state(state, init):
-	var bar1 = 0.0;
-	var bar2 = 0.0;
-	
-	if(state.has(\"counter1\")):
-		bar1 = float(state[\"counter1\"])/float(state[\"max1\"]);
-
-	if(state.has(\"counter2\")):
-		bar2 = float(state[\"counter2\"])/float(state[\"max2\"]);
- 
-	if(init || !Globals.singletons[\"Bonus\"].has_feature(Globals.singletons[\"Networking\"].lastround)):
-		if(bar1 >= 1.0 || bar2 >= 1.0): 
-			bar1 = 0.0;
-			bar2 = 0.0;
-		
-	#Globals.singletons[\"BarGreen\"].target_amount = bar1;
-	#Globals.singletons[\"BarBlue\"].target_amount = bar2;
-
-"
-
-[sub_resource type="Resource" id=140]
-script = ExtResource( 38 )
-vfsm_id = 0
-name = "Initialize"
-position = Vector2( 120, 140 )
-trigger_ids = [ 0, 8 ]
-custom_script = SubResource( 139 )
-
-[sub_resource type="GDScript" id=141]
-script/source = "# State: Show Error
-extends VFSMStateBase
-
-
-func enter() -> void:
-	pass
-
-
-func update(_object, _delta: float) -> void:
-	pass
-
-
-func exit() -> void:
-	pass"
-
-[sub_resource type="Resource" id=142]
-script = ExtResource( 38 )
-vfsm_id = 1
-name = "Init Error"
-position = Vector2( 520, 320 )
-trigger_ids = [  ]
-custom_script = SubResource( 141 )
-
-[sub_resource type="GDScript" id=148]
-script/source = "# State: Show Intro
-extends VFSMStateBase
-
-func enter() -> void:
-	var introcontainer = Globals.singletons[\"Game\"].get_node(\"IntroContainer\");
-	var clickwaiter = introcontainer.get_node(\"ClickWaiter\");
-	clickwaiter.connect(\"pressed\", self, \"clicked\", [], CONNECT_ONESHOT);
-	clickwaiter.enabled = true;	
-	
-	introcontainer.get_node(\"Centering/LogoMover/Logo\").play_anim_then_loop(\"popup\", \"idle\");
-
-func clicked():	
-	Globals.singletons[\"Fader\"].tween(0.0,1.0,1.0);
-	yield(Globals.singletons[\"Fader\"], \"done\")
-	
-	var lastround = Globals.singletons[\"Networking\"].lastround;
-	
-	Globals.singletons[\"Game\"].get_node(\"IntroContainer\").queue_free();	
-	Globals.singletons[\"Game\"].get_node(\"SlotContainer\").visible = true;
-	Globals.singletons[\"Game\"].get_node(\"UIContainer\").visible = true;
-		
-	Globals.singletons[\"Fader\"].tween(1.0,0.0,0.5);
-	yield(Globals.singletons[\"Fader\"], \"done\");
-		
-	Globals.fsm_data[\"intro_clicked\"] = true;
-	JS.output(\"\", \"elysiumgameshowui\");
-
-func update(_object, _delta: float) -> void:
-	pass
-
-func exit() -> void:
-	pass
-"
-
-[sub_resource type="Resource" id=149]
-script = ExtResource( 38 )
-vfsm_id = 2
-name = "Show Intro"
-position = Vector2( 520, 160 )
-trigger_ids = [ 2 ]
-custom_script = SubResource( 148 )
-
-[sub_resource type="GDScript" id=150]
-script/source = "# State: Ready
-extends VFSMStateBase
-
-func enter() -> void:
-	Globals.fsm_data[\"spin_start_command\"] = false;
-	Globals.fsm_data[\"wins_shown\"] = false;
-	
-	if(JS.enabled):	
-		JS.connect(\"spinstart\", self, \"start_spin\", [], CONNECT_ONESHOT);
-
-func start_spin():
-	Globals.fsm_data[\"spin_start_command\"] = true;
-
-func update(_object, _delta: float) -> void:
-	if(!JS.enabled):
-		if(Input.is_action_pressed(\"spin\")): start_spin();
-
-func exit() -> void:
-	pass
-"
-
-[sub_resource type="Resource" id=151]
-script = ExtResource( 38 )
-vfsm_id = 3
-name = "Ready"
-position = Vector2( 840, 160 )
-trigger_ids = [ 10 ]
-custom_script = SubResource( 150 )
-
-[sub_resource type="GDScript" id=152]
-script/source = "# State: Spin error
-extends VFSMStateBase
-
-
-func enter() -> void:
-	Globals.fsm_data[\"data_received\"] = true;
-	Globals.fsm_data[\"round_closed\"] = true;
-	Globals.fsm_data[\"reels_stopped\"] = false;
-	Globals.singletons[\"Slot\"].stop_spin();
-	yield(Globals.singletons[\"Slot\"], \"onstopped\");
-	Globals.fsm_data[\"reels_stopped\"] = true;
-
-func update(_object, _delta: float) -> void:
-	pass
-
-
-func exit() -> void:
-	pass
-"
-
-[sub_resource type="Resource" id=153]
-script = ExtResource( 38 )
-vfsm_id = 4
-name = "Spin error"
-position = Vector2( 1460, 0 )
-trigger_ids = [ 4 ]
-custom_script = SubResource( 152 )
-
-[sub_resource type="GDScript" id=154]
-script/source = "# State: Spin Start
-extends VFSMStateBase
-
-
-func enter() -> void:
-	Globals.fsm_data[\"data_received\"] = false;
-	Globals.fsm_data[\"round_closed\"] = false;
-	
-	if(JS.enabled):
-		JS.connect(\"spindata\", self, \"spin_data_received\", [], CONNECT_ONESHOT);
-		JS.output(\"\", \"elysiumgamespinstart\");
-	else:
-		Globals.singletons[\"Networking\"].connect(\"spinreceived\", self, \"spin_data_received\", [], CONNECT_ONESHOT);
-		Globals.singletons[\"Networking\"].request_spin();
-		
-	Globals.singletons[\"PopupTiles\"].unpop_all();
-	
-	if(Globals.singletons[\"WinLines\"].shown):
-		Globals.singletons[\"WinLines\"].hide_lines();
-		
-	if(Globals.singletons[\"WinBar\"].shown):
-		Globals.singletons[\"WinBar\"].hide();
-		
-	Globals.singletons[\"Slot\"].start_spin();
-
-		
-func spin_data_received(data):
-	if(\"code\" in data || \"hasError\" in data): return;
-	
-	if(JS.enabled): Globals.singletons[\"Networking\"].lastround = data;
-		
-	if(!Globals.singletons[\"Slot\"].allspinning):
-		yield(Globals.singletons[\"Slot\"], \"onstartspin\");
-				
-	Globals.singletons[\"Networking\"].update_state(data)
-	Globals.fsm_data[\"data_received\"] = true;
-	
-func update(_object, _delta: float) -> void:
-	pass
-
-
-func exit() -> void:
-	pass
-"
-
-[sub_resource type="Resource" id=155]
-script = ExtResource( 38 )
-vfsm_id = 5
-name = "Spin Start"
-position = Vector2( 1180, 160 )
-trigger_ids = [ 1, 5 ]
-custom_script = SubResource( 154 )
-
-[sub_resource type="GDScript" id=156]
-script/source = "# State: Spin Stop
-extends VFSMStateBase
-
-
-func enter() -> void:
-	Globals.fsm_data[\"reels_stopped\"] = false;
-	var data = Globals.singletons[\"Networking\"].lastround;
-	Globals.singletons[\"Slot\"].stop_spin(data);
-	yield(Globals.singletons[\"Slot\"], \"onstopped\");
-	Globals.fsm_data[\"reels_stopped\"] = true;
-
-func update(_object, _delta: float) -> void:
-	pass
-
-
-func exit() -> void:
-	pass
-"
-
-[sub_resource type="Resource" id=157]
-script = ExtResource( 38 )
-vfsm_id = 6
-name = "Spin Stop"
-position = Vector2( 1460, 160 )
-trigger_ids = [ 6 ]
-custom_script = SubResource( 156 )
-
-[sub_resource type="GDScript" id=166]
-script/source = "# State: Close round
-extends VFSMStateBase
-
-
-func enter() -> void:
-	var data = Globals.singletons[\"Networking\"].lastround;
-	var wins = float(data[\"spinWin\"]);
-	if (wins != Globals.singletons[\"WinBar\"].target):
-		Globals.singletons[\"WinBar\"].show_win(wins, false);
-			
-	if(JS.enabled): 
-		JS.connect(\"close\", self, \"close_round_received\", [], CONNECT_ONESHOT);	
-		JS.output(\"\", \"elysiumgameclose\");
-	else: 
-		Globals.singletons[\"Networking\"].connect(\"closereceived\", self, \"close_round_received\", [], CONNECT_ONESHOT);
-		Globals.singletons[\"Networking\"].request_close();
-
-func close_round_received(_data=null):
-	Globals.fsm_data[\"round_closed\"] = true;
-
-func update(_object, _delta: float) -> void:
-	pass
-
-func exit() -> void:
-	pass
-"
-
-[sub_resource type="Resource" id=167]
-script = ExtResource( 38 )
-vfsm_id = 7
-name = "Close round"
-position = Vector2( 2660, 160 )
-trigger_ids = [ 7, 8 ]
-custom_script = SubResource( 166 )
-
-[sub_resource type="GDScript" id=175]
-script/source = "# State: Close Error
-extends VFSMStateBase
-
-
-func enter() -> void:
-	Globals.fsm_data[\"data_received\"] = true;
-	Globals.fsm_data[\"round_closed\"] = true;
-
-func update(_object, _delta: float) -> void:
-	pass
-
-
-func exit() -> void:
-	pass
-"
-
-[sub_resource type="Resource" id=176]
-script = ExtResource( 38 )
-vfsm_id = 8
-name = "Close Error"
-position = Vector2( 3000, 320 )
-trigger_ids = [ 13 ]
-custom_script = SubResource( 175 )
-
-[sub_resource type="GDScript" id=183]
-script/source = "# State: Wins Check
-extends VFSMStateBase
-
-
-func enter() -> void:
-	pass
-
-
-func update(_object, _delta: float) -> void:
-	pass
-
-
-func exit() -> void:
-	pass
-"
-
-[sub_resource type="Resource" id=184]
-script = ExtResource( 38 )
-vfsm_id = 11
-name = "Wins Check"
-position = Vector2( 1800, 80 )
-trigger_ids = [ 14, 15 ]
-custom_script = SubResource( 183 )
-
-[sub_resource type="GDScript" id=189]
-script/source = "# State: Show Wins
-extends VFSMStateBase
-
-
-func enter() -> void:	
-	if(Globals.singletons[\"PopupTiles\"].remaining_tile_count > 0): 
-		yield(Globals.singletons[\"PopupTiles\"], \"popuptilesend\");
-	Globals.singletons[\"PopupTiles\"].clear_all();
-	
-	var data = Globals.singletons[\"Networking\"].lastround;
-	var line_wins = calculate_line_wins(data[\"wins\"]);
-	data[\"wins_lines_total\"] = line_wins;
-	
-	JS.output(\"linewin\", \"elysiumgamefeature\");
-	Globals.singletons[\"PopupTiles\"].unpop_all();
-	Globals.singletons[\"Audio\"].play(\"WinLine\")
-	Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
-	
-	yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
-	
-	if(line_wins > Globals.singletons[\"BigWin\"].big_win_limit):
-		JS.output(\"bigwin\", \"elysiumgamefeature\");
-		Globals.singletons[\"BigWin\"].show_win(line_wins);
-		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
-		Globals.singletons[\"WinBar\"].set_text(line_wins, false);
-		Globals.fsm_data[\"big_win_shown\"] = true;
-	else:
-		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
-	
-	Globals.fsm_data[\"wins_shown\"] = true;
-	
-func calculate_line_wins(wins):
-	if(wins == null): return 0.0;
-	var n : float = 0.0;
-
-	for win in wins: 
-		if(win[\"index\"].findn(\"freespin\")>-1): continue;
-		if(!win.has(\"winline\")): n+=float(win[\"win\"]); #winline 0
-		elif(int(win[\"winline\"]) > -1): n+=float(win[\"win\"]);
-
-	return n;	
-
-func update(_object, _delta: float) -> void:
-	pass
-
-
-func exit() -> void:
-	pass
-"
-
-[sub_resource type="Resource" id=190]
-script = ExtResource( 38 )
-vfsm_id = 12
-name = "Show Line Wins"
-position = Vector2( 2060, 0 )
-trigger_ids = [ 17 ]
-custom_script = SubResource( 189 )
-
-[sub_resource type="GDScript" id=143]
-script/source = "# Trigger: Initialized
-extends VFSMTriggerBase
-
-func enter() -> void:
-	pass
-	
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"initialized\");
-
-"
-
-[sub_resource type="Resource" id=144]
-script = ExtResource( 75 )
-vfsm_id = 0
-name = "Initialized"
-custom_script = SubResource( 143 )
-
-[sub_resource type="GDScript" id=145]
-script/source = "# Trigger: Error
-extends VFSMTriggerBase
-
-func enter() -> void:
-	pass
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"network_error\");
-"
-
-[sub_resource type="Resource" id=146]
-script = ExtResource( 75 )
-vfsm_id = 1
-name = "Error"
-custom_script = SubResource( 145 )
-
-[sub_resource type="GDScript" id=158]
-script/source = "# Trigger: Click
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"intro_clicked\");
-"
-
-[sub_resource type="Resource" id=159]
-script = ExtResource( 75 )
-vfsm_id = 2
-name = "Click"
-custom_script = SubResource( 158 )
-
-[sub_resource type="GDScript" id=160]
-script/source = "# Trigger: Start Spin command
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.fsm_data[\"start_spin_command\"]
-"
-
-[sub_resource type="Resource" id=161]
-script = ExtResource( 75 )
-vfsm_id = 3
-name = "Start Spin"
-custom_script = SubResource( 160 )
-
-[sub_resource type="GDScript" id=162]
-script/source = "# Trigger: Reels stopped
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	return false
-"
-
-[sub_resource type="Resource" id=163]
-script = ExtResource( 75 )
-vfsm_id = 4
-name = "Reels stopped"
-custom_script = SubResource( 162 )
-
-[sub_resource type="GDScript" id=164]
-script/source = "# Trigger: Spin started
-extends VFSMTriggerBase
-
-func enter() -> void:
-	pass
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"data_received\");
-"
-
-[sub_resource type="Resource" id=165]
-script = ExtResource( 75 )
-vfsm_id = 5
-name = "Spin started"
-custom_script = SubResource( 164 )
-
-[sub_resource type="GDScript" id=168]
-script/source = "# Trigger: Spin stopped
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"reels_stopped\");
-"
-
-[sub_resource type="Resource" id=169]
-script = ExtResource( 75 )
-vfsm_id = 6
-name = "Spin stopped"
-custom_script = SubResource( 168 )
-
-[sub_resource type="GDScript" id=170]
-script/source = "# Trigger: Round closed
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"round_closed\");
-"
-
-[sub_resource type="Resource" id=171]
-script = ExtResource( 75 )
-vfsm_id = 7
-name = "Round closed"
-custom_script = SubResource( 170 )
-
-[sub_resource type="GDScript" id=172]
-script/source = "# Trigger: Error
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"network_error\");
-"
-
-[sub_resource type="Resource" id=173]
-script = ExtResource( 75 )
-vfsm_id = 8
-name = "Error"
-custom_script = SubResource( 172 )
-
-[sub_resource type="Resource" id=174]
-script = ExtResource( 76 )
-vfsm_id = 9
-name = ""
-action_list = [  ]
-
-[sub_resource type="GDScript" id=177]
-script/source = "# Trigger: Spin Start Command
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"spin_start_command\");
-"
-
-[sub_resource type="Resource" id=178]
-script = ExtResource( 75 )
-vfsm_id = 10
-name = "Spin Start Command"
-custom_script = SubResource( 177 )
-
-[sub_resource type="Resource" id=179]
-script = ExtResource( 77 )
-vfsm_id = 11
-name = ""
-duration = 0.0
-
-[sub_resource type="Resource" id=180]
-script = ExtResource( 76 )
-vfsm_id = 12
-name = ""
-action_list = [  ]
-
-[sub_resource type="GDScript" id=181]
-script/source = "# Trigger: Continue
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	return true
-"
-
-[sub_resource type="Resource" id=182]
-script = ExtResource( 75 )
-vfsm_id = 13
-name = "Continue"
-custom_script = SubResource( 181 )
-
-[sub_resource type="GDScript" id=185]
-script/source = "# Trigger: Has Wins
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	var data = Globals.singletons[\"Networking\"].lastround;
-	return float(data[\"spinWin\"]) > 0.0;
-"
-
-[sub_resource type="Resource" id=186]
-script = ExtResource( 75 )
-vfsm_id = 14
-name = "Has Wins"
-custom_script = SubResource( 185 )
-
-[sub_resource type="GDScript" id=187]
-script/source = "# Trigger: No wins
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	var data = Globals.singletons[\"Networking\"].lastround;
-	return float(data[\"spinWin\"]) == 0.0;
-"
-
-[sub_resource type="Resource" id=188]
-script = ExtResource( 75 )
-vfsm_id = 15
-name = "No wins"
-custom_script = SubResource( 187 )
-
-[sub_resource type="Resource" id=191]
-script = ExtResource( 76 )
-vfsm_id = 16
-name = ""
-action_list = [  ]
-
-[sub_resource type="GDScript" id=194]
-script/source = "# Trigger: Big win shown
-extends VFSMTriggerBase
-
-func enter() -> void:
-	pass
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"wins_shown\");
-"
-
-[sub_resource type="Resource" id=195]
-script = ExtResource( 75 )
-vfsm_id = 17
-name = "Has Big Win"
-custom_script = SubResource( 194 )
-
-[sub_resource type="GDScript" id=196]
-script/source = "# Trigger: No Big Win
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	var data = Globals.singletons[\"Networking\"].lastround;
-	return Globals.get_fsm_data(\"wins_shown\") && \\
-		data[\"wins_lines_total\"] <= Globals.singletons[\"BigWin\"].big_win_limit;
-"
-
-[sub_resource type="Resource" id=197]
-script = ExtResource( 75 )
-vfsm_id = 18
-name = "No Big Win"
-custom_script = SubResource( 196 )
-
-[sub_resource type="GDScript" id=198]
-script/source = "# Trigger: Big Win End
-extends VFSMTriggerBase
-
-
-func enter() -> void:
-	pass
-
-
-func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"big_win_shown\")
-"
-
-[sub_resource type="Resource" id=199]
-script = ExtResource( 75 )
-vfsm_id = 19
-name = "Big Win End"
-custom_script = SubResource( 198 )
-
-[sub_resource type="Resource" id=147]
-script = ExtResource( 73 )
-start_state_vfsm_id = 0
-start_position = Vector2( -200, 160 )
-states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ), SubResource( 190 ) ]
-triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ), SubResource( 195 ), SubResource( 197 ), SubResource( 199 ) ]
-transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 11, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 15, 7, 11, 14, 12, 12, 17, 7 ]
 
 [node name="Game" type="Control"]
 anchor_right = 1.0
@@ -3339,7 +3115,7 @@ reel_spin_sfx = "Spinning Reel"
 reel_stop_sfx = "Reels Stop"
 reel_stop_volume = 0.35
 availableTiles = [ 1, 2, 3, 4, 5, 6, 7 ]
-reels = [ NodePath("ReelContainer/Reel1"), NodePath("ReelContainer/Reel2"), NodePath("ReelContainer/Reel3"), NodePath("ReelContainer/Reel4"), NodePath("ReelContainer/Reel5") ]
+reels = [ NodePath("ReelContainer/Reel1"), NodePath("ReelContainer/Reel2"), NodePath("ReelContainer/Reel3"), NodePath("ReelContainer/Reel4"), NodePath("ReelContainer/Reel5"), NodePath("ReelContainer/Reel6") ]
 reelStopDelay = 0.1
 
 [node name="Background" type="Control" parent="SlotContainer/Slot"]
@@ -3397,100 +3173,6 @@ texture = SubResource( 245 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Background/ParticlesRight"]
 anims/Idle = SubResource( 131 )
 anims/RESET = SubResource( 132 )
-
-[node name="ReelContainer" type="Control" parent="SlotContainer/Slot"]
-margin_left = -834.0
-margin_top = -373.0
-margin_right = 829.0
-margin_bottom = 482.0
-rect_clip_content = true
-mouse_filter = 2
-
-[node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 231, 70 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-topOffset = 80.0
-spinSpeed = 3500.0
-tileDistance = 275.0
-topTileCount = 1
-stopExtraDistance = 0
-tileScene = ExtResource( 5 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel1"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel1"]
-anims/RESET = SubResource( 4 )
-anims/ReelSpinStartAnimation = ExtResource( 1 )
-anims/ReelSpinStopAnimation = ExtResource( 2 )
-
-[node name="Reel2" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 531, 70 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-topOffset = 80.0
-spinSpeed = 3500.0
-tileDistance = 275.0
-topTileCount = 1
-stopExtraDistance = 0
-tileScene = ExtResource( 5 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel2"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel2"]
-anims/ReelSpinStartAnimation = ExtResource( 1 )
-anims/ReelSpinStopAnimation = ExtResource( 2 )
-
-[node name="Reel3" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 831, 70 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-topOffset = 80.0
-spinSpeed = 3500.0
-tileDistance = 275.0
-topTileCount = 1
-stopExtraDistance = 0
-tileScene = ExtResource( 5 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel3"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel3"]
-anims/ReelSpinStartAnimation = ExtResource( 1 )
-anims/ReelSpinStopAnimation = ExtResource( 2 )
-
-[node name="Reel4" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 1131, 70 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-topOffset = 80.0
-spinSpeed = 3500.0
-tileDistance = 275.0
-topTileCount = 1
-stopExtraDistance = 0
-tileScene = ExtResource( 5 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel4"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel4"]
-anims/ReelSpinStartAnimation = ExtResource( 1 )
-anims/ReelSpinStopAnimation = ExtResource( 2 )
-
-[node name="Reel5" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 1431, 70 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-topOffset = 80.0
-spinSpeed = 3500.0
-tileDistance = 275.0
-topTileCount = 1
-stopExtraDistance = 0
-tileScene = ExtResource( 5 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel5"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel5"]
-anims/ReelSpinStartAnimation = ExtResource( 1 )
-anims/ReelSpinStopAnimation = ExtResource( 2 )
 
 [node name="NormalOverlap" type="Control" parent="SlotContainer/Slot"]
 anchor_right = 1.0
@@ -3740,6 +3422,112 @@ scale = Vector2( 2.3, 2.3 )
 anims/Idle = SubResource( 134 )
 anims/RESET = SubResource( 135 )
 
+[node name="ReelContainer" type="Control" parent="SlotContainer/Slot"]
+margin_left = -780.0
+margin_top = -370.0
+margin_right = 780.0
+margin_bottom = 482.0
+rect_clip_content = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
+bottom_tiles_count = 0
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 260, 213 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel1"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel1"]
+anims/RESET = SubResource( 296 )
+anims/ReelSpinStartAnimation = SubResource( 297 )
+anims/ReelSpinStopAnimation = SubResource( 298 )
+
+[node name="Reel2" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 312, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
+bottom_tiles_count = 0
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 260, 213 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel2"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel2"]
+anims/ReelSpinStartAnimation = SubResource( 299 )
+anims/ReelSpinStopAnimation = SubResource( 300 )
+
+[node name="Reel3" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 624, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
+bottom_tiles_count = 0
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 260, 213 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel3"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel3"]
+anims/ReelSpinStartAnimation = SubResource( 301 )
+anims/ReelSpinStopAnimation = SubResource( 302 )
+
+[node name="Reel4" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 936, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
+bottom_tiles_count = 0
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 260, 213 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel4"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel4"]
+anims/ReelSpinStartAnimation = SubResource( 303 )
+anims/ReelSpinStopAnimation = SubResource( 304 )
+
+[node name="Reel5" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 1471, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
+bottom_tiles_count = 0
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 260, 213 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel5"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel5"]
+anims/ReelSpinStartAnimation = SubResource( 305 )
+anims/ReelSpinStopAnimation = SubResource( 306 )
+
+[node name="Reel6" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 1471, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+top_tiles_count = 0
+visible_tiles_count = 4
+bottom_tiles_count = 0
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 260, 213 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel6"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel6"]
+anims/ReelSpinStartAnimation = SubResource( 307 )
+anims/ReelSpinStopAnimation = SubResource( 308 )
+
 [node name="LogoMover" type="Node2D" parent="SlotContainer/Slot"]
 scale = Vector2( 0.65, 0.65 )
 script = ExtResource( 46 )
@@ -3906,7 +3694,7 @@ width = 75.0
 width_curve = SubResource( 293 )
 default_color = Color( 0.313726, 1, 0, 1 )
 gradient = SubResource( 260 )
-texture = ExtResource( 80 )
+texture = ExtResource( 5 )
 texture_mode = 2
 joint_mode = 2
 script = ExtResource( 47 )
@@ -3915,6 +3703,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin" type="Node2D" parent="SlotContainer/DragonFollower"]
+position = Vector2( 39.9785, 1.1464 )
 script = ExtResource( 43 )
 speed = Vector2( 5, 5 )
 size = Vector2( 40, 35 )
@@ -3934,7 +3723,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin2" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( -47.9576, -24.6012 )
+position = Vector2( 49.8534, -17.6351 )
 script = ExtResource( 43 )
 speed = Vector2( 4, 7.51 )
 size = Vector2( -50, 25 )
@@ -3954,7 +3743,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin3" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( 19.9654, 36.1595 )
+position = Vector2( -22.3036, 25.7402 )
 script = ExtResource( 43 )
 speed = Vector2( 7, 12 )
 size = Vector2( 23, -40 )
@@ -4069,7 +3858,7 @@ __meta__ = {
 [node name="Networking" type="Node" parent="."]
 script = ExtResource( 8 )
 init_sessionID = "test5"
-game = "wizardz-world"
+game = "battle-of-myths"
 mode = "demo"
 operator = "mav"
 currency = "USD"
@@ -4080,7 +3869,7 @@ script = ExtResource( 108 )
 
 [node name="AssetLoader" type="Node" parent="."]
 script = ExtResource( 11 )
-tiles = [ ExtResource( 19 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 25 ), ExtResource( 12 ), ExtResource( 17 ), ExtResource( 23 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 24 ), ExtResource( 37 ), ExtResource( 22 ) ]
+tiles = [ ExtResource( 80 ), ExtResource( 19 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 25 ), ExtResource( 12 ) ]
 tile_image_generation_scene = ExtResource( 28 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="AssetLoader"]
@@ -4136,9 +3925,7 @@ default = Color( 1, 1, 1, 1 )
 
 [node name="Tween" type="Tween" parent="FaderBright"]
 
-[node name="Scenario" type="Node" parent="."]
-script = ExtResource( 74 )
-finite_state_machine = SubResource( 147 )
+[node name="Scenario" parent="." instance=ExtResource( 1 )]
 
 [connection signal="ready" from="SlotContainer/Slot/Background/ParticlesLeft/AnimationPlayer" to="SlotContainer/Slot/Background/ParticlesLeft/AnimationPlayer" method="play" binds= [ "Idle" ]]
 [connection signal="ready" from="SlotContainer/Slot/Background/ParticlesRight/AnimationPlayer" to="SlotContainer/Slot/Background/ParticlesRight/AnimationPlayer" method="play" binds= [ "Idle" ]]

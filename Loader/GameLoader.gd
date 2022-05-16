@@ -22,7 +22,7 @@ func _process(time):
 			update_progress()
 		else: # Error during loading.
 			prints("ERROR", err);
-			
+
 func update_progress():
 	var progress = lerp(0.0,0.9,float(loader.get_stage()) / loader.get_stage_count());
 	if(JS.enabled):

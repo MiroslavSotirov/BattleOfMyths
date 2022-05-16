@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Misc/blurmaterial.tres" type="Material" id=1]
 [ext_resource path="res://Slot/Tile.gd" type="Script" id=2]
 [ext_resource path="res://Misc/blurshader.tres" type="Shader" id=3]
+[ext_resource path="res://Textures/test-tiles/tile1.png" type="Texture" id=4]
 [ext_resource path="res://SpineSpriteExtension.gd" type="Script" id=5]
 
 [sub_resource type="ShaderMaterial" id=4]
@@ -10,6 +11,78 @@ shader = ExtResource( 3 )
 shader_param/tint = Color( 1, 1, 1, 1 )
 shader_param/dir = Vector2( 0, 0 )
 shader_param/quality = 30
+
+[sub_resource type="Animation" id=5]
+resource_name = "drop"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Image:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.15, 0.25, 0.35, 0.4, 0.45, 0.5 ),
+"transitions": PoolRealArray( 1, 0.3605, 3.86375, 0.2, 1.7411, 0.2, 2.63901 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -30 ), Vector2( 0, 0 ), Vector2( 0, -5 ), Vector2( 0, 0 ), Vector2( 0, -2 ), Vector2( 0, -0.071696 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Image:rotation_degrees")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.15, 0.25, 0.35, 0.4 ),
+"transitions": PoolRealArray( 1, 0.287175, 24.2515, 0.267943, 29.857 ),
+"update": 0,
+"values": [ 0.0, -1.5, 0.0, 0.5, 0.0 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "hide"
+length = 0.32
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Image:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.31, 0.32 ),
+"transitions": PoolRealArray( 6.06286, 1.36604, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1.5 ), Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Image:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.31 ),
+"transitions": PoolRealArray( 1, 15.455 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.28 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "\"hide_end\"" ],
+"method": "emit_signal"
+} ]
+}
 
 [node name="Tile" type="Node2D"]
 material = SubResource( 4 )
@@ -21,5 +94,9 @@ script = ExtResource( 5 )
 startanimation = "popup"
 
 [node name="Image" type="Sprite" parent="."]
-visible = false
 material = ExtResource( 1 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/drop = SubResource( 5 )
+anims/hide = SubResource( 6 )
