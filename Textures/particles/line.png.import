@@ -14,8 +14,8 @@ dest_files=[ "res://.import/line.png-121b395c25b3d5fa6082d644729a06d3.stex" ]
 
 [params]
 
-compress/mode=1
-compress/lossy_quality=1.0
+compress/mode=0
+compress/lossy_quality=0.8
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
