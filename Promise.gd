@@ -9,7 +9,7 @@ static func resolve(res = null):
 	var promise = Promise.duplicate();
 	promise.call_deferred("_resolve", res);
 
-	return promise;
+	return yield(promise, "completed");
 
 static func race(coroutines: Array):
 	var promise = Promise.duplicate();
@@ -25,7 +25,7 @@ static func all(coroutines: Array):
 	for i in range(coroutines.size()):
 		var coroutine = coroutines[i];
 		promise.awaiting_count += 1;
-		
+
 		if coroutine.is_valid():
 			promise.results.append(null);
 			

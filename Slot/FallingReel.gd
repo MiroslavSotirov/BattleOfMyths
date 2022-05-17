@@ -4,14 +4,15 @@ class_name FallingReel
 
 export (float) var blurMultiplier : float;
 export (float) var bluramount : float setget set_bluramount;
-export (int) var top_tiles_count : int = 3;
-export (int) var visible_tiles_count : int = 3;
-export (int) var bottom_tiles_count : int = 3;
- 
+
+export (int) var topTileCount : int = 0;
+export (int) var visibleTilesCount : int = 4;
+export (int) var bottomTileCount : int = 0;
+
 export (Array) var targetData : Array;
 export (PackedScene) var tileScene;
 
-export (bool) var auto_arange = true;
+export (bool) var auto_arrange = true;
 export (Vector2) var tile_size = Vector2.ZERO;
 
 signal onstartspin;
@@ -52,7 +53,7 @@ var _filling: bool = false; # true when the screen is being filled with the new 
 ###############################################
 
 func get_tile_at(y):
-	return self.tiles[top_tiles_count + y];
+	return self.tiles[topTileCount + y];
 
 func set_bluramount(val):
 #	for tile in currentTiles: tile.blur = val * blurMultiplier;
@@ -62,32 +63,32 @@ func _start_spin_anim_end():
 	pass
 
 func initialize(index, posibleTiles):
-	_tiles_count = top_tiles_count + visible_tiles_count + bottom_tiles_count;
+	_tiles_count = topTileCount + visibleTilesCount + bottomTileCount;
 	self.index = index;
-	self._position = visible_tiles_count + bottom_tiles_count - 1;
+	self._position = visibleTilesCount + bottomTileCount - 1;
 	self._start_position = self._position;
 	self._posible_tiles = posibleTiles;
 
-	if (auto_arange):
+	if (auto_arrange):
 		position.x = index * tile_size.x;
 	
 	for i in range(_tiles_count):
 		var tile = tileScene.instance();
 		$TileContainer.add_child(tile);
 
-	for i in range(visible_tiles_count):
+	for i in range(visibleTilesCount):
 		_tiles_natural_positions.append(Vector2(0, i * tile_size.y + tile_size.y / 2));
 
 func set_initial_screen(server_data):
 	var ids = _reverse_data(server_data);
-	var top = _generate_random_data(top_tiles_count);
-	var bottom = _generate_random_data(bottom_tiles_count);
+	var top = _generate_random_data(topTileCount);
+	var bottom = _generate_random_data(bottomTileCount);
 	var data = bottom + ids + top;
 	
 	_add_to_buffer(data);
 
 	for i in range(self.tiles.size()):
-		_set_tile(self.tiles[i], i - top_tiles_count);
+		_set_tile(self.tiles[i], i - topTileCount);
 
 func shift():
 	_spinning = true;
@@ -96,7 +97,7 @@ func shift():
 	
 func start_spin():
 	for i in range(self.tiles.size()):
-		_set_tile(self.tiles[i], i - top_tiles_count);
+		_set_tile(self.tiles[i], i - topTileCount);
 
 	_spinning = true;
 	_start_position = _position;
@@ -105,17 +106,17 @@ func start_spin():
 	
 func stop_spin(server_data):
 	var data = _reverse_data(server_data);
-	var top = _generate_random_data(top_tiles_count);
+	var top = _generate_random_data(topTileCount);
 	
 	_add_to_buffer(data + top);
 
 	if (!_filling): yield(self, "oncleared");
 
 	_stopping = true;
-	_position = _buffer.size() - top_tiles_count - 1;
+	_position = _buffer.size() - topTileCount - 1;
 
 	for i in range(self._visible_tiles.size()): 
-		_set_tile(self._visible_tiles[i], i, Vector2(0, (-visible_tiles_count - 2) * tile_size.y));
+		_set_tile(self._visible_tiles[i], i, Vector2(0, (-visibleTilesCount - 2) * tile_size.y));
 	
 	call_deferred("_fill");
 	yield(self, "onstopped");
@@ -131,7 +132,7 @@ func add_tiles(data):
 
 	_removed_tiles = [];
 	shift();
-	yield(self, "onstopped");
+	return yield(self, "onstopped");
 	
 func remove_tiles(indexes):
 	indexes.sort();
@@ -147,7 +148,7 @@ func remove_tiles(indexes):
 
 func _get_tiles_offset(removed_tiles):
 	var offsets = [];
-	for i in range(visible_tiles_count):
+	for i in range(visibleTilesCount):
 		offsets.append(Vector2(0, 0));
 
 	for index in removed_tiles:
@@ -187,13 +188,13 @@ func _process(delta):
 	if (!_spinning): return;
 
 	_time = _time + delta;
-	var slot_egde = tile_size.y * (visible_tiles_count + 1 + 2) - tile_size.y / 2;
+	var slot_egde = tile_size.y * (visibleTilesCount + 1 + 2) - tile_size.y / 2;
 	var delay_per_tile = 0.05;
 	var fallen_tiles = 0;
 	
-	for i in range(visible_tiles_count):
-		if ((visible_tiles_count - i) * delay_per_tile > _time): continue;
-		var tile = self.tiles[i + top_tiles_count];
+	for i in range(visibleTilesCount):
+		if ((visibleTilesCount - i) * delay_per_tile > _time): continue;
+		var tile = self.tiles[i + topTileCount];
 		var limit = _tiles_natural_positions[i].y if _filling else slot_egde;
 
 		if (tile.position.y >= limit):
@@ -203,7 +204,7 @@ func _process(delta):
 			tile.speed = min(_max_speed, tile.speed + delta * _acceleration);
 			tile.update_position(Vector2(0, min(limit - tile.position.y, tile.speed)));
 
-	if (fallen_tiles == visible_tiles_count):
+	if (fallen_tiles == visibleTilesCount):
 		_on_clear();
 
 func _on_drop(tile, i):
@@ -222,7 +223,7 @@ func _on_stoppped():
 	for i in range(self.tiles.size()):
 		var tile = self.tiles[i]
 #		tile.speed = _initial_speed;
-		_set_tile(tile, i - top_tiles_count);
+		_set_tile(tile, i - topTileCount);
 
 	emit_signal("onstopped", self.index);
 
@@ -248,7 +249,7 @@ func _get_tiles():
 	return $TileContainer.get_children()
 	
 func _get_visible_tiles():
-	return self.tiles.slice(top_tiles_count, visible_tiles_count + top_tiles_count - 1);
+	return self.tiles.slice(topTileCount, visibleTilesCount + topTileCount - 1);
 
 func _get_is_spinning():
 	return _spinning;

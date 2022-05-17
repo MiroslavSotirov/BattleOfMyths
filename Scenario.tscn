@@ -37,7 +37,7 @@ func init_data_received():
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
 	
-func error_received():
+func error_received(error_id=-1):
 	Globals.fsm_data[\"network_error\"] = true;
 
 func update(_object, _delta: float) -> void:
@@ -156,8 +156,7 @@ func enter() -> void:
 		JS.connect(\"spinstart\", self, \"start_spin\", [], CONNECT_ONESHOT);
 #	else:
 	var data = Globals.singletons[\"Networking\"].lastround;
-	print(data);
-
+	prints(\"PREVIOUS ROUND:::\", data);
 
 func start_spin(data):
 	Globals.fsm_data[\"spin_start_command\"] = true;
@@ -231,7 +230,10 @@ func enter() -> void:
 	if(Globals.singletons[\"WinBar\"].shown):
 		Globals.singletons[\"WinBar\"].hide();
 
-	var is_cascading = Globals.singletons[\"Networking\"].lastround && Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
+	var is_cascading = \\
+		Globals.singletons[\"Networking\"].lastround \\
+		&& Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
+	
 	if(!is_cascading):
 		Globals.singletons[\"Slot\"].start_spin();
 		
@@ -304,7 +306,7 @@ func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
 	var slot = Globals.singletons.Slot;
 	var wins = data.wins if data.wins != null else [];
-	var tiles_count = slot.reels[0].visible_tiles_count;
+	var tiles_count = slot.reels[0].visibleTilesCount;
 	var win_tiles_positions = {};
 	
 	for win in wins:
@@ -319,7 +321,6 @@ func enter() -> void:
 	if (win_tiles_positions.keys().size() != 0):
 		slot.remove_tiles(win_tiles_positions);
 
-
 	if(JS.enabled): 
 		if (data.nextAction == \"finish\"):
 			JS.output(\"\", \"elysiumgameroundend\");
@@ -330,7 +331,7 @@ func enter() -> void:
 			JS.output(\"\", \"elysiumgameroundend\");
 			close_round_received();
 
-#		JS.output(\"\", \"elysiumgameroundend\");
+#		JS.output(\"\", \"elysiumgameroundend\")`;
 
 	else: 
 		if (data.nextAction == \"finish\"):

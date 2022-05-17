@@ -61,12 +61,12 @@ func show_line(positions, lineid):
 	
 	for pos in positions:
 		#TODO: dynamic
-		var y = int(pos)%Globals.visible_tiles_count;
-		var x = floor(pos/Globals.visible_tiles_count);		
+		var y = int(pos)%Globals.visibleTilesCount;
+		var x = floor(pos/Globals.visibleTilesCount);		
 		var tile = Globals.singletons["Slot"].get_tile_at(x,y);
 		if(tile.fat_tile): 
 			tile = tile.fat_tile;
-			pos = (tile.reelIndex * Globals.visible_tiles_count) + tile.tileIndex;
+			pos = (tile.reelIndex * Globals.visibleTilesCount) + tile.tileIndex;
 		tiles_to_hide.erase(tile);
 		if(!shown_tiles.has(pos)): 
 			shown_tiles.append(pos);

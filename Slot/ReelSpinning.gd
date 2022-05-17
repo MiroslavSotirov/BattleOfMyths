@@ -12,7 +12,7 @@ export (float) var spinSpeed : float = 10;
 export (float) var spinSpeedMultiplier : float = 0;
 export (float) var tileDistance : float = 150;
 export (int) var topTileCount : int = 3;
-export (int) var visibleTileCount : int = 3;
+export (int) var visibleTilesCount : int = 3;
 export (int) var bottomTileCount : int = 3;
 export (int) var stopExtraDistance : int = 5;
 export (Array) var targetData : Array;
@@ -76,9 +76,9 @@ func _start_spin_anim_end():
 
 #####################################################################
 func initialize(index, posibleTiles):
-	_tiles_count = topTileCount + visibleTileCount + bottomTileCount;
+	_tiles_count = topTileCount + visibleTilesCount + bottomTileCount;
 	self.index = index;
-	self._position = visibleTileCount + bottomTileCount - 1;
+	self._position = visibleTilesCount + bottomTileCount - 1;
 	self._start_position = self._position;
 	self._posible_tiles = posibleTiles;
 	
@@ -148,7 +148,7 @@ func _on_stoppped():
 	emit_signal("onstopped", self.index);
 
 func _moveTo(pos):
-	var reel_hight = tile_size.y * (visibleTileCount + bottomTileCount);
+	var reel_hight = tile_size.y * (visibleTilesCount + bottomTileCount);
 	var limit = reel_hight - tile_size.y / 2;
 	var tiles = $TileContainer.get_children();
 	var distance = (pos - _start_position) * tile_size.y;

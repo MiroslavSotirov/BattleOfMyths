@@ -126,6 +126,8 @@ func request_spin(sig = "spinreceived"):
 	}
 	if(self.next_action == "freespin"):
 		data["action"] = "freespin";
+	if(self.next_action == "cascade"):
+		data["action"] = "cascade";
 		
 	htmlpost("/v2/rgs/play2", JSON.print(data), sig);
 	data = yield(self, sig);
@@ -214,7 +216,7 @@ func _request(method, url, body, finsignal):
 			if( response_code >= 400 ):
 				emit_signal("fail", response_code)
 			elif(_response.has("code")):
-				emit_signal("fail", _response["code"]);
+				emit_signal("fail", int(_response.code));
 			else:
 				emit_signal(finsignal, _response);
 		else:
@@ -251,11 +253,10 @@ func update_state(state):
 			self.next_action = "";
 		elif(state["action"] == "freespin" && self.stateID != self.roundID):
 			self.next_action = "freespin";
-	
 	#if("totalStake" in state):
 	#	Globals.update_win_configs(float(state["totalStake"]));
 			
-func on_fail(errcode):
+func on_fail(errcode=-1):
 	#Globals.singletons["UI"].show_error(str(errcode));
 	if(errcode == 900):
 		#JSON parse failure

@@ -25,8 +25,8 @@ var zoom_resolution_to : float = 1024;
 var landscaperatio : float = 16.0/9.0;
 var portraitratio : float = 9.0/20.0;
 
-var visible_reels_count : int = 0;
-var visible_tiles_count : int = 0;
+var visibleReelsCount : int = 0;
+var visibleTilesCount : int = 0;
 var canSpin : bool setget ,check_can_spin;
 
 var current_language = "NONE";

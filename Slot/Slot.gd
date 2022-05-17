@@ -40,8 +40,8 @@ func _ready():
 		reels[i].initialize(i, availableTiles);
 		reels[i].connect("onstopped", self, "_on_reel_stopped");
 
-	Globals.visible_tiles_count = reels[0].visible_tiles_count;
-	Globals.visible_reels_count = len(reels);
+	Globals.visibleTilesCount = reels[0].visibleTilesCount;
+	Globals.visibleReelsCount = len(reels);
 
 #func assign_tiles(tiles_array):
 #	if (tiles_array.size() != reels.size()):
@@ -126,7 +126,7 @@ func parse_spin_data(data):
 
 	for feature in data.features:
 		if(feature.type == "FatTile"):
-			var tiles_count = reels[feature.data.x].visible_tiles_count;
+			var tiles_count = reels[feature.data.x].visibleTilesCount;
 			var height = tiles_count - abs(feature.data.y);
 			var width = feature.data.w;
 			var direction = 1 if feature.data.y + feature.data.h <= tiles_count else -1;
@@ -150,7 +150,7 @@ func get_safe_spin_data():
 	var spindata = [];
 	for i in range(len(reels)):
 		spindata.append([]);
-		for n in range(reels[i].visibleTileCount):
+		for n in range(reels[i].visibleTilesCount):
 			spindata[i].append(self.availableTiles[i]);
 
 	return spindata; 

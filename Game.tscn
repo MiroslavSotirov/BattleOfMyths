@@ -1,4 +1,4 @@
-[gd_scene load_steps=163 format=2]
+[gd_scene load_steps=168 format=2]
 
 [ext_resource path="res://Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Animations/DragonFeature/DragonHead/skeleton.json" type="SpineSkeletonJsonDataResource" id=2]
@@ -16,8 +16,13 @@
 [ext_resource path="res://Textures/particles/PNG (Black background)/prah1.png" type="Texture" id=14]
 [ext_resource path="res://Slot/Tiles/Tile4.tres" type="Resource" id=15]
 [ext_resource path="res://Slot/Tiles/Tile3.tres" type="Resource" id=16]
+[ext_resource path="res://Slot/Tiles/Tile9.tres" type="Resource" id=17]
 [ext_resource path="res://Slot/Tiles/Tile5.tres" type="Resource" id=18]
 [ext_resource path="res://Slot/Tiles/Tile1.tres" type="Resource" id=19]
+[ext_resource path="res://Slot/Tiles/Tile8.tres" type="Resource" id=20]
+[ext_resource path="res://Slot/Tiles/Tile10.tres" type="Resource" id=21]
+[ext_resource path="res://Slot/Tiles/Tile11.tres" type="Resource" id=22]
+[ext_resource path="res://Slot/Tiles/Tile12.tres" type="Resource" id=23]
 [ext_resource path="res://Slot/Tiles/Tile6.tres" type="Resource" id=25]
 [ext_resource path="res://Animations/Logo/Logo.json" type="SpineSkeletonJsonDataResource" id=26]
 [ext_resource path="res://Slot/Features/PopupTiles.gd" type="Script" id=27]
@@ -3435,9 +3440,6 @@ __meta__ = {
 [node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
 script = ExtResource( 3 )
 blurMultiplier = 100.0
-top_tiles_count = 0
-visible_tiles_count = 4
-bottom_tiles_count = 0
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 260, 213 )
 
@@ -3452,9 +3454,6 @@ anims/ReelSpinStopAnimation = SubResource( 298 )
 position = Vector2( 312, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
-top_tiles_count = 0
-visible_tiles_count = 4
-bottom_tiles_count = 0
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 260, 213 )
 
@@ -3468,9 +3467,6 @@ anims/ReelSpinStopAnimation = SubResource( 300 )
 position = Vector2( 624, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
-top_tiles_count = 0
-visible_tiles_count = 4
-bottom_tiles_count = 0
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 260, 213 )
 
@@ -3484,9 +3480,6 @@ anims/ReelSpinStopAnimation = SubResource( 302 )
 position = Vector2( 936, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
-top_tiles_count = 0
-visible_tiles_count = 4
-bottom_tiles_count = 0
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 260, 213 )
 
@@ -3500,9 +3493,6 @@ anims/ReelSpinStopAnimation = SubResource( 304 )
 position = Vector2( 1471, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
-top_tiles_count = 0
-visible_tiles_count = 4
-bottom_tiles_count = 0
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 260, 213 )
 
@@ -3516,9 +3506,6 @@ anims/ReelSpinStopAnimation = SubResource( 306 )
 position = Vector2( 1471, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
-top_tiles_count = 0
-visible_tiles_count = 4
-bottom_tiles_count = 0
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 260, 213 )
 
@@ -3703,7 +3690,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( 39.9785, 1.1464 )
+position = Vector2( -12.4515, 33.2611 )
 script = ExtResource( 43 )
 speed = Vector2( 5, 5 )
 size = Vector2( 40, 35 )
@@ -3723,7 +3710,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin2" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( 49.8534, -17.6351 )
+position = Vector2( -40.7027, -18.5267 )
 script = ExtResource( 43 )
 speed = Vector2( 4, 7.51 )
 size = Vector2( -50, 25 )
@@ -3743,7 +3730,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin3" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( -22.3036, 25.7402 )
+position = Vector2( 14.4243, -38.6091 )
 script = ExtResource( 43 )
 speed = Vector2( 7, 12 )
 size = Vector2( 23, -40 )
@@ -3857,7 +3844,7 @@ __meta__ = {
 
 [node name="Networking" type="Node" parent="."]
 script = ExtResource( 8 )
-init_sessionID = "test5"
+init_sessionID = "test9"
 game = "battle-of-myths"
 mode = "demo"
 operator = "mav"
@@ -3869,7 +3856,7 @@ script = ExtResource( 108 )
 
 [node name="AssetLoader" type="Node" parent="."]
 script = ExtResource( 11 )
-tiles = [ ExtResource( 80 ), ExtResource( 19 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 25 ), ExtResource( 12 ) ]
+tiles = [ ExtResource( 80 ), ExtResource( 19 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 25 ), ExtResource( 12 ), ExtResource( 20 ), ExtResource( 17 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ]
 tile_image_generation_scene = ExtResource( 28 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="AssetLoader"]
