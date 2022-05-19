@@ -1,0 +1,17 @@
+green.png
+size:450,185
+filter:Linear,Linear
+green/14_base
+bounds:2,2,203,181
+offsets:1,1,205,183
+green/14_dropshadow
+bounds:207,51,130,132
+offsets:1,1,132,134
+green/14_gold
+bounds:339,83,109,100
+offsets:1,1,111,102
+green/14_stone
+bounds:339,3,78,78
+star
+bounds:207,2,46,47
+offsets:6,3,55,54

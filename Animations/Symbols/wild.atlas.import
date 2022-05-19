@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/wild.atlas-a6a0ce7ce1d419bf86f86c721ab188f6.spatlas"
+
+[deps]
+
+source_file="res://Animations/Symbols/wild.atlas"
+dest_files=[ "res://.import/wild.atlas-a6a0ce7ce1d419bf86f86c721ab188f6.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

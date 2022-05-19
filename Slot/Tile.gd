@@ -27,6 +27,7 @@ var _hidden = false;
 func _ready():
 	_invisible_tile = Globals.singletons["Slot"].invisible_tile;
 	$AnimationPlayer.connect("animation_finished", self, "_on_animation_finished");
+	$SpineSprite.connect("animation_complete", self, "_on_animation_finished");
 	$Image.material = $Image.material.duplicate();
 	#Globals.singletons["AssetLoader"].connect("tiles_generated", self, "update_tex", [], CONNECT_ONESHOT)
 
@@ -82,16 +83,29 @@ func _setblur(val):
 func get_spine():
 	return $SpineSprite;
 
-func hide():
+func hide(animation = "hide", animationType = AnimationType.TIMELINE):
 	if (_hidden): return Promise.resolve();
 	_hidden = true;
-	play_animation('hide', AnimationType.TIMELINE);
+	play_animation(animation, animationType);
 	return yield(self, "animation_finished");
 	
 func reel_stopped(index):
 	pass
 
-#func show_spine_sprite():
+func show_spine_sprite():
+	print("showing the sprite sheet");
+#	print(self._description.spine_data);
+#		$SpineSprite.position = self.tiledesc.image_offset;
+##		$SpineSprite.position.y += image_offset * reel.tileDistance;
+	$SpineSprite.set_new_state_data(self._description.spine_data);
+	$SpineSprite.visible = true;
+	$Image.visible = false;
+#		$SpineSprite.visible = false;
+#	yield(VisualServer,"frame_post_draw");
+#		$SpineSprite.visible = true;
+#		$Image.visible = false;
+#		emit_signal("spinespriteshown");
+	
 #	_setScale($SpineSprite);
 #	if(underneath_fat_tile): 
 #		$SpineSprite.visible = false;
@@ -119,11 +133,13 @@ func reel_stopped(index):
 #		$Image.position = self.tiledesc.image_offset;
 #		$Image.position.y += image_offset * reel.tileDistance;
 #		emit_signal("imageshown");
-		
+
 #########################################################################
 func play_animation(name, type = AnimationType.SPINE):
 	if (type == AnimationType.SPINE):
-		print("I am playing spine animation....");
+#		print("I am playing spine animation....", name);
+		show_spine_sprite();
+		$SpineSprite.play_anim(name, false);
 		return;
 	
 	if (type == AnimationType.TIMELINE):
@@ -135,8 +151,12 @@ func play_animation(name, type = AnimationType.SPINE):
 
 	print("I don't know what type of animation top play....");
 
-func _on_animation_finished(animation_name):
-	emit_signal("animation_finished", animation_name);
+func _on_animation_finished(name, track = null, __ = null):
+	if (track == null):
+		emit_signal("animation_finished", name);
+	else:
+		var spine_anim_name = track.get_animation().get_anim_name();
+		emit_signal("animation_finished", spine_anim_name);
 
 func show_image():
 	if (_description.id == _invisible_tile):
@@ -145,7 +165,8 @@ func show_image():
 		return;
 
 	
-	$Image.texture = load("res://Textures/test-tiles/tile"+ _description.id as String + ".png");
+#	$Image.texture = load("res://Textures/test-tiles/tile"+ _description.id as String + ".png");
+	$Image.texture = self._description.static_image;
 	var direction = sign(_id);
 	var x = $Image.texture.get_width() / _description.size_x if _description.size_x > 1 else 0;
 	var y = $Image.texture.get_height() / _description.size_y if _description.size_y > 1 else 0;

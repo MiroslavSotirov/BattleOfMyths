@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/princess-popup.json-f67773d92b0639116572170e5a69e827.spjson"
+
+[deps]
+
+source_file="res://Animations/Symbols/princess-popup.json"
+dest_files=[ "res://.import/princess-popup.json-f67773d92b0639116572170e5a69e827.spjson" ]
+
+[params]
+

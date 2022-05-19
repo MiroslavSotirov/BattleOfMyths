@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/blue.atlas-cf4431881524511f5ab6b61c81374d4d.spatlas"
+
+[deps]
+
+source_file="res://Animations/Symbols/blue.atlas"
+dest_files=[ "res://.import/blue.atlas-cf4431881524511f5ab6b61c81374d4d.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

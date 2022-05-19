@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/tiger.atlas-d85b0c9a3557bf6a405bcac9efbb2f41.spatlas"
+
+[deps]
+
+source_file="res://Animations/Symbols/tiger.atlas"
+dest_files=[ "res://.import/tiger.atlas-d85b0c9a3557bf6a405bcac9efbb2f41.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

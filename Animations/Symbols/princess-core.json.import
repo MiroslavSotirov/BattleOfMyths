@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/princess-core.json-6082f720b47adbd68f13aa687de29d24.spjson"
+
+[deps]
+
+source_file="res://Animations/Symbols/princess-core.json"
+dest_files=[ "res://.import/princess-core.json-6082f720b47adbd68f13aa687de29d24.spjson" ]
+
+[params]
+

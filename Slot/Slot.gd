@@ -117,6 +117,8 @@ func _get_allspinning():
 #	return false;
 	
 func parse_spin_data(data):
+#	return [[7,7,7,7], [8,8,8,8], [9,9,9,9], [10,10,10,10], [11,11,11,11], [12,12,12,12]];
+
 	if (data == null): return get_safe_spin_data();
 	if (!("view" in data)): return get_safe_spin_data();
 #	emit_signal("apply_tile_features", data, spind ata); #TODO check what this signal is doing
@@ -160,15 +162,12 @@ func get_tile_at(x, y):
 
 func add_data(data):
 	var end_data = parse_spin_data(data);
-#	var end_data = data;
-
 	var size = end_data.size();
 	var promises = Mapper.callOnElements(reels, "add_tiles", end_data);
 
 	yield(Promise.all(promises), "completed");
 
 func remove_tiles(data):
-	print("removing tiles ", data);
 	var promises = [];
 	for i in data.keys():
 		promises.push_back(reels[i].remove_tiles(data[i]));

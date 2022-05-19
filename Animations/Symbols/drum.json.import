@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/drum.json-99825e4dfd714a468487004b8bd38f47.spjson"
+
+[deps]
+
+source_file="res://Animations/Symbols/drum.json"
+dest_files=[ "res://.import/drum.json-99825e4dfd714a468487004b8bd38f47.spjson" ]
+
+[params]
+

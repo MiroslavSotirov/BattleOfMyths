@@ -142,7 +142,7 @@ func remove_tiles(indexes):
 	var promises = [];
 	for index in indexes:
 		var tile = self._visible_tiles[index];
-		promises.push_back(tile.hide());
+		promises.push_back(tile.hide("explore", Tile.AnimationType.SPINE));
 
 	yield(Promise.all(promises), "completed");
 
@@ -183,6 +183,7 @@ func _set_tile (tile, tile_index = 0, offest = Vector2.ZERO):
 
 	tile.set_tile(id, Vector2(x, y));
 	tile.show_image();
+#	tile.show_spine_sprite();
 	
 func _process(delta):
 	if (!_spinning): return;
