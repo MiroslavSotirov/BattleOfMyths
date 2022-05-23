@@ -3690,7 +3690,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( -12.4515, 33.2611 )
+position = Vector2( -3.28624, -34.8817 )
 script = ExtResource( 43 )
 speed = Vector2( 5, 5 )
 size = Vector2( 40, 35 )
@@ -3710,7 +3710,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin2" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( -40.7027, -18.5267 )
+position = Vector2( -47.4947, 24.5633 )
 script = ExtResource( 43 )
 speed = Vector2( 4, 7.51 )
 size = Vector2( -50, 25 )
@@ -3730,7 +3730,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin3" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( 14.4243, -38.6091 )
+position = Vector2( 15.6421, 39.9173 )
 script = ExtResource( 43 )
 speed = Vector2( 7, 12 )
 size = Vector2( 23, -40 )
