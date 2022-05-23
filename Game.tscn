@@ -3188,6 +3188,21 @@ rect_clip_content = true
 [node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 203, 182 )
 
@@ -3202,6 +3217,21 @@ anims/ReelSpinStopAnimation = SubResource( 298 )
 position = Vector2( 312, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 203, 182 )
 
@@ -3215,6 +3245,21 @@ anims/ReelSpinStopAnimation = SubResource( 300 )
 position = Vector2( 624, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 203, 182 )
 
@@ -3228,6 +3273,21 @@ anims/ReelSpinStopAnimation = SubResource( 302 )
 position = Vector2( 936, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 203, 182 )
 
@@ -3241,6 +3301,21 @@ anims/ReelSpinStopAnimation = SubResource( 304 )
 position = Vector2( 1471, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 203, 182 )
 
@@ -3254,6 +3329,21 @@ anims/ReelSpinStopAnimation = SubResource( 306 )
 position = Vector2( 1471, 0 )
 script = ExtResource( 3 )
 blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
 tileScene = ExtResource( 70 )
 tile_size = Vector2( 203, 182 )
 

@@ -167,6 +167,13 @@ func add_data(data):
 
 	yield(Promise.all(promises), "completed");
 
+func popup_tiles(data):
+	var promises = [];
+	for i in data.keys():
+		promises.push_back(reels[i].popup_tiles(data[i]));
+	
+	yield(Promise.all(promises), "completed");
+
 func remove_tiles(data):
 	var promises = [];
 	for i in data.keys():

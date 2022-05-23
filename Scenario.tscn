@@ -319,6 +319,7 @@ func enter() -> void:
 				win_tiles_positions[i].append(j);
 
 	if (win_tiles_positions.keys().size() != 0):
+		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
 		slot.remove_tiles(win_tiles_positions);
 
 	if(JS.enabled): 
