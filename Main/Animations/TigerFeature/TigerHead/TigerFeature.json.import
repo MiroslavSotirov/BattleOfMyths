@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/TigerFeature.json-9945edf6cb35e8fe2ca767fc7c64646d.spjson"
+
+[deps]
+
+source_file="res://Main/Animations/TigerFeature/TigerHead/TigerFeature.json"
+dest_files=[ "res://.import/TigerFeature.json-9945edf6cb35e8fe2ca767fc7c64646d.spjson" ]
+
+[params]
+

@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/Lotus.atlas-3467f6d13a6300057d68d5bcbfe36086.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/Lotus.atlas"
+dest_files=[ "res://.import/Lotus.atlas-3467f6d13a6300057d68d5bcbfe36086.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

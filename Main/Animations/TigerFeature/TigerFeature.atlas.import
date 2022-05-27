@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/TigerFeature.atlas-0c99326944c787d9fe94f883fd8d894d.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/TigerFeature/TigerFeature.atlas"
+dest_files=[ "res://.import/TigerFeature.atlas-0c99326944c787d9fe94f883fd8d894d.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

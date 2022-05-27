@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Main/SpineSpriteExtension.gd" type="Script" id=1]
+
+[node name="TileImageGenerator" type="SpineSprite"]
+script = ExtResource( 1 )
+loop = false
+timescale = 0.0

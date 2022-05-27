@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/Dragon.json-824ecdfde320f77a8abe8c012a0e3e8b.spjson"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/Dragon.json"
+dest_files=[ "res://.import/Dragon.json-824ecdfde320f77a8abe8c012a0e3e8b.spjson" ]
+
+[params]
+

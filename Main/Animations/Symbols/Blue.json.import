@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/Blue.json-b3c684f4e5e3e6c616875dd5adf47d64.spjson"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/Blue.json"
+dest_files=[ "res://.import/Blue.json-b3c684f4e5e3e6c616875dd5adf47d64.spjson" ]
+
+[params]
+

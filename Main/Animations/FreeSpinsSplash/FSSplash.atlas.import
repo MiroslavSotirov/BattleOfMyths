@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/FSSplash.atlas-51b5eb76bbaf96d5b7633506216ad111.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/FreeSpinsSplash/FSSplash.atlas"
+dest_files=[ "res://.import/FSSplash.atlas-51b5eb76bbaf96d5b7633506216ad111.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/Craw.json-aefe09fc381d31308d5eddb2f95ea783.spjson"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/Craw.json"
+dest_files=[ "res://.import/Craw.json-aefe09fc381d31308d5eddb2f95ea783.spjson" ]
+
+[params]
+

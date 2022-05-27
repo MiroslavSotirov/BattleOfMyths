@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/Craw.atlas-1816573bdd513b0dd530db917d996ea0.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/Craw.atlas"
+dest_files=[ "res://.import/Craw.atlas-1816573bdd513b0dd530db917d996ea0.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

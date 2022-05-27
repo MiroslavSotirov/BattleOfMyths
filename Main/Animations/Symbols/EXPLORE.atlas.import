@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/EXPLORE.atlas-549907afbaa669b75eb626c3bcbe07bc.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/EXPLORE.atlas"
+dest_files=[ "res://.import/EXPLORE.atlas-549907afbaa669b75eb626c3bcbe07bc.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

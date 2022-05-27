@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/Princess normal.atlas-eab7e6a477aa5207cf52a4ec8fc2001f.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/Princess normal.atlas"
+dest_files=[ "res://.import/Princess normal.atlas-eab7e6a477aa5207cf52a4ec8fc2001f.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

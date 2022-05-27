@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/Dragon.atlas-a8ec2a0b76c11a85ca2fd4df0fff3a35.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/Dragon.atlas"
+dest_files=[ "res://.import/Dragon.atlas-a8ec2a0b76c11a85ca2fd4df0fff3a35.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

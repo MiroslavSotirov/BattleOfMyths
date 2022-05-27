@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/characters3.atlas-1fdc04aea6f88fa23ecd10cc98bb33aa.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/Characters/characters3.atlas"
+dest_files=[ "res://.import/characters3.atlas-1fdc04aea6f88fa23ecd10cc98bb33aa.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

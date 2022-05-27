@@ -1,0 +1,37 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://Main/Slot/TileDescription.gd" type="Script" id=1]
+[ext_resource path="res://Main/Animations/Symbols/symbol_book.json" type="SpineSkeletonJsonDataResource" id=2]
+[ext_resource path="res://Main/Animations/Symbols/symbol_book.atlas" type="SpineAtlasResource" id=3]
+
+[sub_resource type="SpineSkeletonDataResource" id=1]
+atlas_res = ExtResource( 3 )
+skeleton_json_res = ExtResource( 2 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=2]
+skeleton = SubResource( 1 )
+
+[resource]
+script = ExtResource( 1 )
+id = 7
+size_x = 1
+size_y = 1
+spine_data = SubResource( 2 )
+popup = false
+popup_z_change = false
+popup_wait = false
+image_creation_animation = "popup"
+spine_popup_anim = ""
+spine_popup_anim_speed = 1.0
+popup_sfx = ""
+spine_idle_anim = ""
+spine_win_anim = ""
+spine_win_anim_animation_repeat = -1
+image_offset = Vector2( 0, 0 )
+image_size = Vector2( 512, 512 )
+tile_offset = Vector2( 0, 0 )
+tile_scale = Vector2( 1, 1 )
+posible_reels = [  ]
+max_count = 0

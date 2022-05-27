@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/FATWILD.atlas-f9f5a2093278392970ad435e4bb35bcb.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/FATWILD.atlas"
+dest_files=[ "res://.import/FATWILD.atlas-f9f5a2093278392970ad435e4bb35bcb.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

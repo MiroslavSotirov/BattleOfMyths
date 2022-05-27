@@ -10,59 +10,74 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
-"class": "ExportTest",
+"class": "AssetLoader",
 "language": "GDScript",
-"path": "res://Quality/QualityExporter.gd"
+"path": "res://Loader/AssetLoader.gd"
 }, {
 "base": "Control",
 "class": "Fader",
 "language": "GDScript",
-"path": "res://Misc/Fader.gd"
+"path": "res://Main/Misc/Fader.gd"
 }, {
 "base": "Reel",
 "class": "FallingReel",
 "language": "GDScript",
-"path": "res://Slot/FallingReel.gd"
+"path": "res://Main/Slot/FallingReel.gd"
 }, {
 "base": "Node",
 "class": "Game",
 "language": "GDScript",
-"path": "res://Game.gd"
+"path": "res://Main/Game.gd"
+}, {
+"base": "Node",
+"class": "LoadingSystem",
+"language": "GDScript",
+"path": "res://Loader/LoadingSystem.gd"
+}, {
+"base": "Node",
+"class": "PackageExporter",
+"language": "GDScript",
+"path": "res://Loader/PackageExporter.gd"
+}, {
+"base": "Node",
+"class": "PackageLoader",
+"language": "GDScript",
+"path": "res://Loader/PackageLoader.gd"
 }, {
 "base": "Node2D",
 "class": "Reel",
 "language": "GDScript",
-"path": "res://Slot/Reel.gd"
+"path": "res://Main/Slot/Reel.gd"
 }, {
 "base": "Reel",
 "class": "ReelSpinning",
 "language": "GDScript",
-"path": "res://Slot/ReelSpinning.gd"
+"path": "res://Main/Slot/ReelSpinning.gd"
 }, {
 "base": "SpineSprite",
 "class": "SpineSpriteExtension",
 "language": "GDScript",
-"path": "res://SpineSpriteExtension.gd"
+"path": "res://Main/SpineSpriteExtension.gd"
 }, {
 "base": "Node",
 "class": "Stateful",
 "language": "GDScript",
-"path": "res://Slot/Features/Stateful.gd"
+"path": "res://Main/Slot/Features/Stateful.gd"
 }, {
 "base": "Node2D",
 "class": "Tile",
 "language": "GDScript",
-"path": "res://Slot/Tile.gd"
+"path": "res://Main/Slot/Tile.gd"
 }, {
 "base": "Object",
 "class": "TileData",
 "language": "GDScript",
-"path": "res://Slot/TileData.gd"
+"path": "res://Main/Slot/TileData.gd"
 }, {
 "base": "Resource",
 "class": "TileDescription",
 "language": "GDScript",
-"path": "res://Slot/TileDescription.gd"
+"path": "res://Main/Slot/TileDescription.gd"
 }, {
 "base": "Resource",
 "class": "VFSM",
@@ -122,13 +137,16 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "WinTile",
 "language": "GDScript",
-"path": "res://Slot/Features/WinTile.gd"
+"path": "res://Main/Slot/Features/WinTile.gd"
 } ]
 _global_script_class_icons={
-"ExportTest": "",
+"AssetLoader": "",
 "Fader": "",
 "FallingReel": "",
 "Game": "",
+"LoadingSystem": "",
+"PackageExporter": "",
+"PackageLoader": "",
 "Reel": "",
 "ReelSpinning": "",
 "SpineSpriteExtension": "",
@@ -160,10 +178,10 @@ boot_splash/bg_color=Color( 0, 0, 0, 1 )
 
 [autoload]
 
-Globals="*res://Globals.gd"
-JS="*res://JSComms/JS.gd"
-Promise="*res://Promise.gd"
-Mapper="*res://Mapper.gd"
+Globals="*res://Loader/Globals.gd"
+JS="*res://Loader/JSComms/JS.gd"
+Promise="*res://Loader/Promise.gd"
+Mapper="*res://Loader/Mapper.gd"
 
 [debug]
 
@@ -181,7 +199,7 @@ enabled=PoolStringArray( "res://addons/BitmapFontEasy/plugin.cfg", "res://addons
 
 [gui]
 
-theme/custom_font="res://UI/default_dynfont.tres"
+theme/custom_font="res://Main/UI/default_dynfont.tres"
 
 [importer_defaults]
 
@@ -266,4 +284,4 @@ quality/reflections/atlas_size=0
 quality/reflections/atlas_subdiv=0
 quality/filters/use_fxaa=true
 quality/depth/hdr.mobile=true
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://Main/default_env.tres"

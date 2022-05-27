@@ -1,6 +1,22 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Loader/GameLoader.gd" type="Script" id=1]
+[ext_resource path="res://Loader/LoadingSystem.gd" type="Script" id=1]
+[ext_resource path="res://Loader/LoadingScene.gd" type="Script" id=2]
+[ext_resource path="res://Loader/PackageExporter.gd" type="Script" id=3]
 
 [node name="LoadingScene" type="Node"]
+script = ExtResource( 2 )
+
+[node name="LoadingSystem" type="Node" parent="."]
 script = ExtResource( 1 )
+required_packages = [ "main" ]
+
+[node name="PackageExporters" type="Node" parent="."]
+
+[node name="loader" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Loader" ]
+
+[node name="main" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Main" ]
