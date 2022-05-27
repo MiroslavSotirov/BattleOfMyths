@@ -13,10 +13,11 @@ required_packages = [ "main" ]
 
 [node name="PackageExporters" type="Node" parent="."]
 
-[node name="loader" type="Node" parent="PackageExporters"]
+[node name="index" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
 targetpaths = [ "res://Loader" ]
+is_loader = true
 
 [node name="main" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Main" ]
+targetpaths = [ "res://Main", "res://addons/visual_fsm", "res://addons/BitmapFontEasy" ]

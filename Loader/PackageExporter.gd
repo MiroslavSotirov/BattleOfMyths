@@ -4,6 +4,7 @@ class_name PackageExporter
 
 export(Array,String,DIR) var targetpaths : Array;
 export(Array,String,DIR) var ignorepaths : Array;
+export(bool) var is_loader : bool = false;
 
 func _get_tool_buttons(): return ["export_pck"]
 
@@ -19,19 +20,16 @@ func _ready():
 
 func export_pck():
 	prints("Exporting", name);
-	for path in targetpaths:
-		pack(path);
 	
-func pack(folder):
-	print(folder);
-	var files = get_dir_contents(folder);
-
 	var valid_extensions = ["png", "jpg", "webp", "tscn", "tres", "gd", "ttf", "json"];
 	var paths = {};
-	var folderpath = "res://Quality/"+folder+"/";
-	for path in files:			
-		if(!valid_extensions.has(path.get_extension())): continue
-		paths[path] = path;
+	
+	for folder in targetpaths:
+		print(folder);
+		var files = get_dir_contents(folder);
+		for path in files:
+			if(!valid_extensions.has(path.get_extension())): continue
+			paths[path] = path;
 		#var asset = load(path);
 		#if(asset is StreamTexture):
 		#	var orgimg = load(path.replace(folderpath, "res://"));
@@ -40,12 +38,19 @@ func pack(folder):
 		#	paths[path] = path.replace(folderpath, "res://");
 
 	var packer = PCKPacker.new()
-	var pckname = "res://Packages/"+name+".pck";
+	var pckname = "res://packages/"+name+".pck";
 	packer.pck_start(pckname);
 			
 	for path in paths.keys(): 
 		print(path, " -> ", paths[path])
 		packer.add_file(paths[path], path)
+		
+	if(is_loader):
+		ProjectSettings.save_custom("res://project.binary")
+		#packer.add_file("res://project.godot", "res://project.godot")
+		#print("res://project.godot -> res://project.godot")
+		packer.add_file("res://project.binary", "res://project.binary")
+		print("res://project.binary -> res://project.binary")
 		
 	packer.flush()
 	
