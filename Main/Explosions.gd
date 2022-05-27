@@ -2,7 +2,7 @@ extends Control;
 
 export(Resource) var spine_data;
 
-var SpineSprite = load("res://SpineSpriteExtension.gd");
+var SpineSprite = load("res://Main/SpineSpriteExtension.gd");
 
 func _ready():
 	Globals.register_singleton("Explosions", self);

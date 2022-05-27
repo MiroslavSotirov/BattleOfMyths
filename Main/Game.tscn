@@ -1,4 +1,4 @@
-[gd_scene load_steps=152 format=2]
+[gd_scene load_steps=157 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/Animations/DragonFeature/DragonHead/skeleton.json" type="SpineSkeletonJsonDataResource" id=2]
@@ -10,6 +10,9 @@
 [ext_resource path="res://Main/Networking.gd" type="Script" id=8]
 [ext_resource path="res://Main/Textures/slot-bm/DragonSceenBackground.jpg" type="Texture" id=9]
 [ext_resource path="res://Main/Textures/slot-bm/WhiteBar.png" type="Texture" id=10]
+[ext_resource path="res://Main/Animations/Symbols/EXPLORE.json" type="SpineSkeletonJsonDataResource" id=11]
+[ext_resource path="res://Main/Animations/Symbols/EXPLORE.atlas" type="SpineAtlasResource" id=12]
+[ext_resource path="res://Main/Explosions.gd" type="Script" id=13]
 [ext_resource path="res://Main/Textures/particles/PNG (Black background)/prah1.png" type="Texture" id=14]
 [ext_resource path="res://Main/Animations/Logo/Logo.json" type="SpineSkeletonJsonDataResource" id=26]
 [ext_resource path="res://Main/Slot/Features/PopupTiles.gd" type="Script" id=27]
@@ -380,6 +383,561 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 2.625, 2.625 ) ]
+}
+
+[sub_resource type="Animation" id=296]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:bluramount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=297]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=298]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=299]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=300]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=301]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=302]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=303]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=304]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=305]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=306]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=307]
+resource_name = "ReelSpinStartAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.25 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.25 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_start_spin_anim_end"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:bluramount")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.05, 0.95 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=308]
+resource_name = "ReelSpinStopAnimation"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:spinSpeedMultiplier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.55 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_stop_spin_anim_end"
+} ]
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath(".:spinPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.15, 0.55 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:bluramount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=219]
@@ -1612,561 +2170,6 @@ tracks/1/keys = {
 "values": [ Vector2( 30, 3 ) ]
 }
 
-[sub_resource type="Animation" id=296]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:bluramount")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
-[sub_resource type="Animation" id=297]
-resource_name = "ReelSpinStartAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.25 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.25 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_start_spin_anim_end"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:bluramount")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.05, 0.95 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-
-[sub_resource type="Animation" id=298]
-resource_name = "ReelSpinStopAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.55 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_stop_spin_anim_end"
-} ]
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath(".:spinPositionOffset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.15, 0.55 )
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:bluramount")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
-[sub_resource type="Animation" id=299]
-resource_name = "ReelSpinStartAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.25 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.25 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_start_spin_anim_end"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:bluramount")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.05, 0.95 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-
-[sub_resource type="Animation" id=300]
-resource_name = "ReelSpinStopAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.55 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_stop_spin_anim_end"
-} ]
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath(".:spinPositionOffset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.15, 0.55 )
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:bluramount")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
-[sub_resource type="Animation" id=301]
-resource_name = "ReelSpinStartAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.25 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.25 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_start_spin_anim_end"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:bluramount")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.05, 0.95 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-
-[sub_resource type="Animation" id=302]
-resource_name = "ReelSpinStopAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.55 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_stop_spin_anim_end"
-} ]
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath(".:spinPositionOffset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.15, 0.55 )
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:bluramount")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
-[sub_resource type="Animation" id=303]
-resource_name = "ReelSpinStartAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.25 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.25 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_start_spin_anim_end"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:bluramount")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.05, 0.95 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-
-[sub_resource type="Animation" id=304]
-resource_name = "ReelSpinStopAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.55 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_stop_spin_anim_end"
-} ]
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath(".:spinPositionOffset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.15, 0.55 )
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:bluramount")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
-[sub_resource type="Animation" id=305]
-resource_name = "ReelSpinStartAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.25 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.25 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_start_spin_anim_end"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:bluramount")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.05, 0.95 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-
-[sub_resource type="Animation" id=306]
-resource_name = "ReelSpinStopAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.55 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_stop_spin_anim_end"
-} ]
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath(".:spinPositionOffset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.15, 0.55 )
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:bluramount")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
-[sub_resource type="Animation" id=307]
-resource_name = "ReelSpinStartAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.25 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.25 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_start_spin_anim_end"
-} ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:bluramount")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.05, 0.95 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-
-[sub_resource type="Animation" id=308]
-resource_name = "ReelSpinStopAnimation"
-step = 0.05
-tracks/0/type = "bezier"
-tracks/0/path = NodePath(".:spinSpeedMultiplier")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0 )
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0.55 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "_stop_spin_anim_end"
-} ]
-}
-tracks/2/type = "bezier"
-tracks/2/path = NodePath(".:spinPositionOffset")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"points": PoolRealArray( 0, 0, 0, 0, 0, 50, 0, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
-"times": PoolRealArray( 0, 0.15, 0.55 )
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath(".:bluramount")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0.0 ]
-}
-
 [sub_resource type="SpineSkeletonDataResource" id=125]
 atlas_res = ExtResource( 29 )
 skeleton_json_res = ExtResource( 26 )
@@ -2256,6 +2259,15 @@ tracks/0/keys = {
 "update": 1,
 "values": [ true ]
 }
+
+[sub_resource type="SpineSkeletonDataResource" id=309]
+atlas_res = ExtResource( 12 )
+skeleton_json_res = ExtResource( 11 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=310]
+skeleton = SubResource( 309 )
 
 [sub_resource type="SpineSkeletonDataResource" id=96]
 atlas_res = ExtResource( 31 )
@@ -3096,9 +3108,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 reel_spin_sfx = "Spinning Reel"
 reel_stop_sfx = "Reels Stop"
 reel_stop_volume = 0.35
@@ -3115,8 +3124,8 @@ __meta__ = {
 }
 
 [node name="DSceenReels" type="Sprite" parent="SlotContainer/Slot/Background"]
-position = Vector2( -7, 25 )
-scale = Vector2( 4.5, 4.7 )
+position = Vector2( -7, 29 )
+scale = Vector2( 3.98, 3.94 )
 texture = ExtResource( 56 )
 
 [node name="ParticlesLeft" type="Node2D" parent="SlotContainer/Slot/Background"]
@@ -3162,6 +3171,181 @@ texture = SubResource( 245 )
 anims/Idle = SubResource( 131 )
 anims/RESET = SubResource( 132 )
 
+[node name="ReelContainer" type="Control" parent="SlotContainer/Slot"]
+margin_left = -612.0
+margin_top = -333.0
+margin_right = 624.0
+margin_bottom = 395.0
+rect_clip_content = true
+
+[node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 203, 182 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel1"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel1"]
+anims/RESET = SubResource( 296 )
+anims/ReelSpinStartAnimation = SubResource( 297 )
+anims/ReelSpinStopAnimation = SubResource( 298 )
+
+[node name="Reel2" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 312, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 203, 182 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel2"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel2"]
+anims/ReelSpinStartAnimation = SubResource( 299 )
+anims/ReelSpinStopAnimation = SubResource( 300 )
+
+[node name="Reel3" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 624, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 203, 182 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel3"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel3"]
+anims/ReelSpinStartAnimation = SubResource( 301 )
+anims/ReelSpinStopAnimation = SubResource( 302 )
+
+[node name="Reel4" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 936, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 203, 182 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel4"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel4"]
+anims/ReelSpinStartAnimation = SubResource( 303 )
+anims/ReelSpinStopAnimation = SubResource( 304 )
+
+[node name="Reel5" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 1471, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 203, 182 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel5"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel5"]
+anims/ReelSpinStartAnimation = SubResource( 305 )
+anims/ReelSpinStopAnimation = SubResource( 306 )
+
+[node name="Reel6" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
+position = Vector2( 1471, 0 )
+script = ExtResource( 3 )
+blurMultiplier = 100.0
+animations = {
+"drop": {
+"name": "drop",
+"type": 1
+},
+"hide": {
+"name": "explore",
+"type": 0
+},
+"popup": {
+"loop": false,
+"name": "popup",
+"type": 0
+}
+}
+tileScene = ExtResource( 70 )
+tile_size = Vector2( 203, 182 )
+
+[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel6"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel6"]
+anims/ReelSpinStartAnimation = SubResource( 307 )
+anims/ReelSpinStopAnimation = SubResource( 308 )
+
 [node name="NormalOverlap" type="Control" parent="SlotContainer/Slot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -3171,7 +3355,6 @@ __meta__ = {
 
 [node name="NormalSlotFrame" type="Sprite" parent="SlotContainer/Slot/NormalOverlap"]
 position = Vector2( 0, -22 )
-scale = Vector2( 1.15, 1.15 )
 texture = ExtResource( 83 )
 
 [node name="GameBar" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame"]
@@ -3356,7 +3539,6 @@ texture = ExtResource( 58 )
 [node name="DragonSlotFrame" type="Sprite" parent="SlotContainer/Slot/NormalOverlap"]
 visible = false
 position = Vector2( 0, -22 )
-scale = Vector2( 1.15, 1.15 )
 texture = ExtResource( 40 )
 
 [node name="Backlight" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/DragonSlotFrame"]
@@ -3373,7 +3555,6 @@ texture = ExtResource( 62 )
 [node name="TigerSlotFrame" type="Sprite" parent="SlotContainer/Slot/NormalOverlap"]
 visible = false
 position = Vector2( 0, 1 )
-scale = Vector2( 1.15, 1.15 )
 texture = ExtResource( 49 )
 
 [node name="Backlight" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/TigerSlotFrame"]
@@ -3409,94 +3590,6 @@ scale = Vector2( 2.3, 2.3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/Light"]
 anims/Idle = SubResource( 134 )
 anims/RESET = SubResource( 135 )
-
-[node name="ReelContainer" type="Control" parent="SlotContainer/Slot"]
-margin_left = -780.0
-margin_top = -370.0
-margin_right = 780.0
-margin_bottom = 482.0
-rect_clip_content = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-tileScene = ExtResource( 70 )
-tile_size = Vector2( 260, 213 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel1"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel1"]
-anims/RESET = SubResource( 296 )
-anims/ReelSpinStartAnimation = SubResource( 297 )
-anims/ReelSpinStopAnimation = SubResource( 298 )
-
-[node name="Reel2" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 312, 0 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-tileScene = ExtResource( 70 )
-tile_size = Vector2( 260, 213 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel2"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel2"]
-anims/ReelSpinStartAnimation = SubResource( 299 )
-anims/ReelSpinStopAnimation = SubResource( 300 )
-
-[node name="Reel3" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 624, 0 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-tileScene = ExtResource( 70 )
-tile_size = Vector2( 260, 213 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel3"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel3"]
-anims/ReelSpinStartAnimation = SubResource( 301 )
-anims/ReelSpinStopAnimation = SubResource( 302 )
-
-[node name="Reel4" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 936, 0 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-tileScene = ExtResource( 70 )
-tile_size = Vector2( 260, 213 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel4"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel4"]
-anims/ReelSpinStartAnimation = SubResource( 303 )
-anims/ReelSpinStopAnimation = SubResource( 304 )
-
-[node name="Reel5" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 1471, 0 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-tileScene = ExtResource( 70 )
-tile_size = Vector2( 260, 213 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel5"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel5"]
-anims/ReelSpinStartAnimation = SubResource( 305 )
-anims/ReelSpinStopAnimation = SubResource( 306 )
-
-[node name="Reel6" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
-position = Vector2( 1471, 0 )
-script = ExtResource( 3 )
-blurMultiplier = 100.0
-tileScene = ExtResource( 70 )
-tile_size = Vector2( 260, 213 )
-
-[node name="TileContainer" type="Node2D" parent="SlotContainer/Slot/ReelContainer/Reel6"]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/ReelContainer/Reel6"]
-anims/ReelSpinStartAnimation = SubResource( 307 )
-anims/ReelSpinStopAnimation = SubResource( 308 )
 
 [node name="LogoMover" type="Node2D" parent="SlotContainer/Slot"]
 scale = Vector2( 0.65, 0.65 )
@@ -3563,6 +3656,14 @@ darken_color = Color( 0.27451, 0.27451, 0.27451, 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/WinLines"]
 anims/Hide = SubResource( 94 )
 anims/Show = SubResource( 95 )
+
+[node name="Explosions" type="Control" parent="SlotContainer/Slot"]
+margin_left = -612.0
+margin_top = -333.0
+margin_right = 624.0
+margin_bottom = 395.0
+script = ExtResource( 13 )
+spine_data = SubResource( 310 )
 
 [node name="BigWin" type="Control" parent="SlotContainer"]
 visible = false
@@ -3673,7 +3774,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( 1.37558, 34.9793 )
+position = Vector2( 38.4944, -9.51238 )
 script = ExtResource( 43 )
 speed = Vector2( 5, 5 )
 size = Vector2( 40, 35 )
@@ -3693,7 +3794,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin2" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( -41.1121, -22.0699 )
+position = Vector2( -44.8358, 8.47523 )
 script = ExtResource( 43 )
 speed = Vector2( 4, 7.51 )
 size = Vector2( -50, 25 )
@@ -3713,7 +3814,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin3" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( -22.7008, -15.4437 )
+position = Vector2( -2.97384, 17.2788 )
 script = ExtResource( 43 )
 speed = Vector2( 7, 12 )
 size = Vector2( 23, -40 )
