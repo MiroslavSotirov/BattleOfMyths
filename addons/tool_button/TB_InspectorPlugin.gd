@@ -15,6 +15,7 @@ func can_handle(object):
 	return cache_methods[object] or object.has_method("_get_tool_buttons")
 
 func parse_category(object, category):
+	return;
 	match category:
 		# automatic buttons
 		"Node", "Resource":
