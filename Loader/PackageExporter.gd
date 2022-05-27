@@ -21,15 +21,28 @@ func _ready():
 func export_pck():
 	prints("Exporting", name);
 	
-	var valid_extensions = ["png", "jpg", "webp", "tscn", "tres", "gd", "ttf", "json"];
+	var valid_extensions = ["png", "jpg", "webp", "tscn", "tres", "gd", "ttf", "json", "atlas", "txt"];
 	var paths = {};
 	
 	for folder in targetpaths:
-		print(folder);
 		var files = get_dir_contents(folder);
-		for path in files:
-			if(!valid_extensions.has(path.get_extension())): continue
-			paths[path] = path;
+		for path in files:	
+			if(!valid_extensions.has(path.get_extension())): continue;
+			var import = path+".import";
+			
+			if(files.has(import)):
+				paths[import] = import;
+				var file = File.new()
+				file.open(import, File.READ)
+				var content = file.get_as_text()
+				file.close()
+				var l = content.find('dest_files=[ "')
+				var r = content.find('" ]', l)
+				var importpath = content.substr(l, r-l).lstrip('dest_files=[ "');
+				paths[importpath] = importpath
+			else:
+				paths[path] = path;
+
 		#var asset = load(path);
 		#if(asset is StreamTexture):
 		#	var orgimg = load(path.replace(folderpath, "res://"));
@@ -42,7 +55,7 @@ func export_pck():
 	packer.pck_start(pckname);
 			
 	for path in paths.keys(): 
-		print(path, " -> ", paths[path])
+		#print(path, " -> ", paths[path])
 		packer.add_file(paths[path], path)
 		
 	if(is_loader):
