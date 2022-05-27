@@ -1,0 +1,1 @@
+{"atlas_data":"skeleton.png\nsize:429,174\nfilter:Linear,Linear\nscale:0.8\nDragonhead/DragonHeadBottom\nbounds:245,61,180,111\nDragonhead/DragonHeadTop\nbounds:2,3,241,169\nDragonhead/DragonHeadTop2\nbounds:245,21,182,38\nDragonhead/eye\nbounds:245,2,18,17\n","normal_texture_prefix":"n","source_path":"res://Main/Animations/DragonFeature/DragonHead/skeleton.atlas"}
