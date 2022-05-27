@@ -129,7 +129,7 @@ func set_language(lang : String):
 	lang = lang.to_upper();
 	prints("LANGUAGE SET TO ",lang);
 	current_language = lang;
-	singletons["AssetLoader"].download_language(lang);
+#	singletons["AssetLoader"].download_language(lang);
 	
 func configure_bets(bets, defaultbet):
 	currentBet = float(defaultbet);

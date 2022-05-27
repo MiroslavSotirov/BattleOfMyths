@@ -25,13 +25,12 @@ static func all(coroutines: Array):
 	for i in range(coroutines.size()):
 		var coroutine = coroutines[i];
 		promise.awaiting_count += 1;
+		promise.results.append(null);
 
 		if coroutine.is_valid():
-			promise.results.append(null);
-			
 			coroutine.connect("completed", promise, "_resolve_all", [i]);
 		else:
-			promise._all_coroutine_completed(coroutine, i);
+			promise._resolve_all(null, i);
 
 	return promise;
 

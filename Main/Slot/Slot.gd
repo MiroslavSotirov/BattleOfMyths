@@ -52,13 +52,12 @@ func _ready():
 
 func set_initial_screen(data):
 	var init_data = parse_spin_data(data);
-	#	yield(get_tree().create_timer(5), "timeout");
 	for i in range(len(reels)):
 		reels[i].set_initial_screen(init_data[i]);
 	
-func _on_reel_stopping_anim(index):
-		if(index == len(self.reels) - 1):
-			Globals.singletons["Audio"].fade(reel_spin_sfx, 1, 0, 300)
+#func _on_reel_stopping_anim(index):
+#		if(index == len(self.reels) - 1):
+#			Globals.singletons["Audio"].fade(reel_spin_sfx, 1, 0, 300)
 		
 func _on_reel_stopped(index):
 	reels_spinning -= 1;
@@ -92,6 +91,7 @@ func stop_spin(data = null):
 	var promises = [];
 
 	for i in range(len(reels)):
+#		yield(get_tree().create_timer(reelStopDelay), "timeout");
 		promises.push_back(reels[i].stop_spin(end_data[i]));
 
 	yield(Promise.all(promises), "completed");
@@ -117,6 +117,8 @@ func _get_allspinning():
 #	return false;
 	
 func parse_spin_data(data):
+#	return [ [-101,0,0,0],[0,0,0,0], [0,0,0,0], [0,0,0,0], [0,0,0,0], [1,1,1,1]];
+
 	if (data == null): return get_safe_spin_data();
 	if (!("view" in data)): return get_safe_spin_data();
 #	emit_signal("apply_tile_features", data, spind ata); #TODO check what this signal is doing
@@ -160,15 +162,19 @@ func get_tile_at(x, y):
 
 func add_data(data):
 	var end_data = parse_spin_data(data);
-#	var end_data = data;
-
 	var size = end_data.size();
 	var promises = Mapper.callOnElements(reels, "add_tiles", end_data);
 
 	yield(Promise.all(promises), "completed");
 
+func popup_tiles(data):
+	var promises = [];
+	for i in data.keys():
+		promises.push_back(reels[i].popup_tiles(data[i]));
+	
+	yield(Promise.all(promises), "completed");
+
 func remove_tiles(data):
-	print("removing tiles ", data);
 	var promises = [];
 	for i in data.keys():
 		promises.push_back(reels[i].remove_tiles(data[i]));

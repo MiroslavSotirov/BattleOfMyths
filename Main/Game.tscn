@@ -1,4 +1,4 @@
-[gd_scene load_steps=167 format=2]
+[gd_scene load_steps=152 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/Animations/DragonFeature/DragonHead/skeleton.json" type="SpineSkeletonJsonDataResource" id=2]
@@ -10,22 +10,9 @@
 [ext_resource path="res://Main/Networking.gd" type="Script" id=8]
 [ext_resource path="res://Main/Textures/slot-bm/DragonSceenBackground.jpg" type="Texture" id=9]
 [ext_resource path="res://Main/Textures/slot-bm/WhiteBar.png" type="Texture" id=10]
-[ext_resource path="res://Main/Slot/Tiles/Tile7.tres" type="Resource" id=12]
-[ext_resource path="res://Main/Slot/Tiles/Tile2.tres" type="Resource" id=13]
 [ext_resource path="res://Main/Textures/particles/PNG (Black background)/prah1.png" type="Texture" id=14]
-[ext_resource path="res://Main/Slot/Tiles/Tile4.tres" type="Resource" id=15]
-[ext_resource path="res://Main/Slot/Tiles/Tile3.tres" type="Resource" id=16]
-[ext_resource path="res://Main/Slot/Tiles/Tile9.tres" type="Resource" id=17]
-[ext_resource path="res://Main/Slot/Tiles/Tile5.tres" type="Resource" id=18]
-[ext_resource path="res://Main/Slot/Tiles/Tile1.tres" type="Resource" id=19]
-[ext_resource path="res://Main/Slot/Tiles/Tile8.tres" type="Resource" id=20]
-[ext_resource path="res://Main/Slot/Tiles/Tile10.tres" type="Resource" id=21]
-[ext_resource path="res://Main/Slot/Tiles/Tile11.tres" type="Resource" id=22]
-[ext_resource path="res://Main/Slot/Tiles/Tile12.tres" type="Resource" id=23]
-[ext_resource path="res://Main/Slot/Tiles/Tile6.tres" type="Resource" id=25]
 [ext_resource path="res://Main/Animations/Logo/Logo.json" type="SpineSkeletonJsonDataResource" id=26]
 [ext_resource path="res://Main/Slot/Features/PopupTiles.gd" type="Script" id=27]
-[ext_resource path="res://Main/Slot/TileImageGenerator.tscn" type="PackedScene" id=28]
 [ext_resource path="res://Main/Animations/Logo/Logo.atlas" type="SpineAtlasResource" id=29]
 [ext_resource path="res://Main/Animations/Wins/WinScenes.json" type="SpineSkeletonJsonDataResource" id=30]
 [ext_resource path="res://Main/Animations/Wins/WinScenes.atlas" type="SpineAtlasResource" id=31]
@@ -69,7 +56,6 @@
 [ext_resource path="res://Main/Misc/LanguageAssetSwapperSpine.gd" type="Script" id=71]
 [ext_resource path="res://Main/Textures/slot-bm/BarsShadowOverlayDragon.png" type="Texture" id=72]
 [ext_resource path="res://Main/Textures/slot-bm/WhiteBarLeft.png" type="Texture" id=79]
-[ext_resource path="res://Main/Slot/Tiles/Tile0.tres" type="Resource" id=80]
 [ext_resource path="res://Main/Textures/slot-bm/SlotSceneFRAME.png" type="Texture" id=83]
 [ext_resource path="res://Main/Misc/LanguageAssetSwapper.gd" type="Script" id=87]
 [ext_resource path="res://Main/base_big_font.tres" type="BitmapFont" id=89]
@@ -2942,69 +2928,6 @@ _data = [ Vector2( 0, 0.536364 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 
 [sub_resource type="Gradient" id=294]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GDScript" id=309]
-script/source = "extends Node
-export(Array) var tiles;
-export(PackedScene) var tile_image_generation_scene;
-
-var language_loaded : bool = false;
-var tiles_generated : bool = false;
-var current_language : String = \"\";
-
-signal lang_downloaded (lang);
-signal tiles_generated;
-
-func _ready():
-	Globals.register_singleton(\"AssetLoader\", self);
-	
-func generate_tile_images():
-	for tile in tiles:
-		var tilescene = tile_image_generation_scene.instance();
-		tilescene.set_new_state_data(tile.spine_data);
-		tilescene.play_anim(tile.image_creation_animation, false);
-		yield(VisualServer, \"frame_pre_draw\");
-		$Viewport.size = tile.image_size;
-		$Viewport.add_child(tilescene)
-		tilescene.position = (tile.image_size/2);
-		yield(get_tree(),\"idle_frame\");
-		$Viewport.render_target_update_mode = Viewport.UPDATE_ONCE;
-		yield(VisualServer, \"frame_post_draw\")
-		var img = $Viewport.get_texture().get_data();
-		img.flip_y();
-		tile.static_image = ImageTexture.new();
-		tile.static_image.create_from_image(img);
-		$Viewport.remove_child(tilescene);
-	$Viewport.queue_free();
-	
-	emit_signal(\"tiles_generated\");
-	
-func download_language(lang):
-	if(JS.enabled):
-		lang = lang.to_upper();
-
-		var path = JS.get_path()+\"translations/\"+lang+\".pck\";
-		prints(path);
-		$HTTPRequest.download_file = \"res://\"+lang+\".pck\";
-		$HTTPRequest.request(path);
-		var res = yield($HTTPRequest, \"request_completed\");
-		#result, response_code, headers, body
-		if(res[0] != 0):
-			prints(\"Error downloading language \", res[0], lang, \"falling back to EN\");
-			download_language(\"EN\");
-			return;
-			
-		ProjectSettings.load_resource_pack(\"res://\"+lang+\".pck\")
-		language_loaded = true;
-		emit_signal(\"lang_downloaded\", lang);
-		prints(\"LOADED NEW LANGUAGE \", lang);
-	else:
-		ProjectSettings.load_resource_pack(\"res://Translations/export/\"+lang+\".pck\")
-		language_loaded = true;
-		yield(get_tree(), \"idle_frame\");
-		emit_signal(\"lang_downloaded\", lang);
-		prints(\"LOADED NEW LANGUAGE \", lang);
-"
-
 [sub_resource type="CanvasItemMaterial" id=113]
 blend_mode = 1
 light_mode = 1
@@ -3015,8 +2938,7 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
 script = ExtResource( 6 )
 __meta__ = {
-"_edit_horizontal_guides_": [  ],
-"_edit_use_anchors_": false
+"_edit_horizontal_guides_": [  ]
 }
 
 [node name="IntroContainer" type="Control" parent="."]
@@ -3751,7 +3673,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( 27.9739, -25.0174 )
+position = Vector2( 1.37558, 34.9793 )
 script = ExtResource( 43 )
 speed = Vector2( 5, 5 )
 size = Vector2( 40, 35 )
@@ -3771,7 +3693,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin2" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( -49.9566, -24.9552 )
+position = Vector2( -41.1121, -22.0699 )
 script = ExtResource( 43 )
 speed = Vector2( 4, 7.51 )
 size = Vector2( -50, 25 )
@@ -3791,7 +3713,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin3" type="Node2D" parent="SlotContainer/DragonFollower"]
-position = Vector2( 12.9837, -28.8025 )
+position = Vector2( -22.7008, -15.4437 )
 script = ExtResource( 43 )
 speed = Vector2( 7, 12 )
 size = Vector2( 23, -40 )
@@ -3914,26 +3836,6 @@ default_lang = "EN"
 
 [node name="AudioSystem" type="Node" parent="."]
 script = ExtResource( 108 )
-
-[node name="AssetLoader" type="Node" parent="."]
-script = SubResource( 309 )
-tiles = [ ExtResource( 80 ), ExtResource( 19 ), ExtResource( 13 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 18 ), ExtResource( 25 ), ExtResource( 12 ), ExtResource( 20 ), ExtResource( 17 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ) ]
-tile_image_generation_scene = ExtResource( 28 )
-
-[node name="HTTPRequest" type="HTTPRequest" parent="AssetLoader"]
-
-[node name="Viewport" type="Viewport" parent="AssetLoader"]
-size = Vector2( 2, 2 )
-size_override_stretch = true
-transparent_bg = true
-handle_input_locally = false
-usage = 0
-render_target_update_mode = 0
-gui_snap_controls_to_pixels = false
-shadow_atlas_quad_0 = 0
-shadow_atlas_quad_1 = 0
-shadow_atlas_quad_2 = 0
-shadow_atlas_quad_3 = 0
 
 [node name="Fader" type="ColorRect" parent="."]
 visible = false

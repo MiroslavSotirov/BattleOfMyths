@@ -319,16 +319,21 @@ func enter() -> void:
 				win_tiles_positions[i].append(j);
 
 	if (win_tiles_positions.keys().size() != 0):
+		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
 		slot.remove_tiles(win_tiles_positions);
+		yield(Globals.singletons.Explosions.show_at(win_tiles_positions, slot.reels), \"completed\");
 
 	if(JS.enabled): 
+		print(\"JS is enabled\");
 		if (data.nextAction == \"finish\"):
 			JS.output(\"\", \"elysiumgameroundend\");
 			JS.connect(\"close\", self, \"close_round_received\", [], CONNECT_ONESHOT);
 			JS.output(\"\", \"elysiumgameclose\");
 		else:
-			yield(slot, \"ontilesremoved\");
+#			yield(slot, \"ontilesremoved\");
+			yield(Globals.get_tree(),\"idle_frame\")
 			JS.output(\"\", \"elysiumgameroundend\");
+			print(\"closing the round\");
 			close_round_received();
 
 #		JS.output(\"\", \"elysiumgameroundend\")`;
@@ -338,7 +343,7 @@ func enter() -> void:
 			Globals.singletons[\"Networking\"].connect(\"closereceived\", self, \"close_round_received\", [], CONNECT_ONESHOT);
 			Globals.singletons[\"Networking\"].request_close();
 		else:
-			yield(slot, \"ontilesremoved\");
+#			yield(slot, \"ontilesremoved\");
 			close_round_received();
 
 func close_round_received(_data = null):

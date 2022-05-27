@@ -13,85 +13,72 @@ signal imageshown
 signal hide_end
 signal animation_finished(name);
 
-#var reel;
-#var data;
 var speed: int;
-#var tiledesc : TileDescription;
+
 var _invisible_tile: int = 0
 var _description: TileDescription
 var _id = 0;
 var _hidden = false;
 
-#var speed = 0;
-
 func _ready():
 	_invisible_tile = Globals.singletons["Slot"].invisible_tile;
 	$AnimationPlayer.connect("animation_finished", self, "_on_animation_finished");
+	$SpineSprite.connect("animation_complete", self, "_on_animation_finished");
 	$Image.material = $Image.material.duplicate();
 	#Globals.singletons["AssetLoader"].connect("tiles_generated", self, "update_tex", [], CONNECT_ONESHOT)
 
-#func init():
-	#connect("visibility_changed", self, "_on_visibility_changed");
-#	reel.connect("onstartspin", self, "reel_startspin");
-#	reel.connect("onstoppinganim", self, "reel_stopping");
-#	reel.connect("onstopped", self, "reel_stopped");
-
-func getTilesWithId(tiles, id):
-	var filteredTiles = [];
-	for tile in tiles:
-		if (tile.id == abs(id)):
-			filteredTiles.append(tile);
-
-	if (len(filteredTiles) == 0):
-		push_error("no tile with id" + id as String);
-		return tiles;
-
-	return filteredTiles;
-	
-# setting the actual rendering stuff
-#func setTileData(data):
-#	print("Rename setTileData");
-#	set_tile_data(data);
-
 func set_tile(id, initial_position):
 	# there could be more than one tile for the same tile id, though most of the time is one
-	var posibleTiles = getTilesWithId(Globals.tiles, abs(id))
+	var posibleTiles = _get_tiles_with_id(Globals.tiles, abs(id))
 	var variant  = randi() % len(posibleTiles);
+
 	_description = posibleTiles[variant];
+	$SpineSprite.scale.x = _description.tile_scale.x;
+	$SpineSprite.scale.y = _description.tile_scale.y;
+	$Image.scale.x = _description.tile_scale.x;
+	$Image.scale.y = _description.tile_scale.y;
+	if (abs(id) != abs(_id)): 
+		$SpineSprite.set_new_state_data(_description.spine_data);
+	else:
+		#TODO check for better approach
+		$SpineSprite.reset_pose();
+		
 	_id = id;
 
 	position = initial_position 
-
-	for child in get_children():
-		_setScale(child);
-
-#	if(self.data.feature != null && is_instance_valid(self.data.feature)): 
-#		self.data.feature.init(self);
-
-func _setScale(element):
-	pass;
-#	element.scale = self.tiledesc.tile_scale * scale_multiplier;
-#	element.position = self.tiledesc.tile_offset;
-		
-func _setblur(val):
-	if(_id == _invisible_tile): return;
-	blur = val;
-	$Image.material.set_shader_param( "dir", Vector2(0.0, blur));
-	$Image.material.set_shader_param( "quality", int(blur)/15);
 	
 func get_spine():
 	return $SpineSprite;
 
-func hide():
+func hide(animationType = AnimationType.SPINE, animation = "hide"):
 	if (_hidden): return Promise.resolve();
 	_hidden = true;
-	play_animation('hide', AnimationType.TIMELINE);
+	play_animation(animationType, animation);
 	return yield(self, "animation_finished");
-	
+
+func popup(animationType = AnimationType.SPINE, animation = "popup", loop = true):
+	play_animation(animationType, animation, loop);
+	return yield(self, "animation_finished");
+
 func reel_stopped(index):
 	pass
 
-#func show_spine_sprite():
+func show_spine_sprite():
+	print("showing the sprite sheet");
+	if ($SpineSprite.visible || _description.id == _invisible_tile): return;
+#	print(self._description.spine_data);
+#		$SpineSprite.position = self.tiledesc.image_offset;
+##		$SpineSprite.position.y += image_offset * reel.tileDistance;
+	$SpineSprite.visible = false;
+	yield(VisualServer,"frame_post_draw");
+	$SpineSprite.visible = true;
+	$Image.visible = false;
+#		$SpineSprite.visible = false;
+#	yield(VisualServer,"frame_post_draw");
+#		$SpineSprite.visible = true;
+#		$Image.visible = false;
+#		emit_signal("spinespriteshown");
+	
 #	_setScale($SpineSprite);
 #	if(underneath_fat_tile): 
 #		$SpineSprite.visible = false;
@@ -119,24 +106,37 @@ func reel_stopped(index):
 #		$Image.position = self.tiledesc.image_offset;
 #		$Image.position.y += image_offset * reel.tileDistance;
 #		emit_signal("imageshown");
-		
+
 #########################################################################
-func play_animation(name, type = AnimationType.SPINE):
+func play_animation(type = AnimationType.SPINE, name = null, loop = false, timescale_override = null, has_delay = true):
+	if (_description.id == _invisible_tile):
+		return call_deferred("_on_animation_finished", name);
+
+	if (name == null):
+		push_error("no animation name provied");
+		return;
+
 	if (type == AnimationType.SPINE):
-		print("I am playing spine animation....");
+#		print("I am playing spine animation....", name);
+		show_spine_sprite();
+		$SpineSprite.play_anim(name, loop, timescale_override, has_delay);
 		return;
 	
 	if (type == AnimationType.TIMELINE):
 		if ($AnimationPlayer.has_animation(name)):
 			$AnimationPlayer.play(name);
 		else:
-			_on_animation_finished(name);
-		return;
+			call_deferred("_on_animation_finished", name);
+	return;
 
 	print("I don't know what type of animation top play....");
 
-func _on_animation_finished(animation_name):
-	emit_signal("animation_finished", animation_name);
+func _on_animation_finished(name, track = null, __ = null):
+	if (track == null):
+		emit_signal("animation_finished", name);
+	else:
+		var spine_anim_name = track.get_animation().get_anim_name();
+		emit_signal("animation_finished", spine_anim_name);
 
 func show_image():
 	if (_description.id == _invisible_tile):
@@ -144,13 +144,23 @@ func show_image():
 		emit_signal("imageshown");
 		return;
 	
-	$Image.texture = load("res://Main/Textures/test-tiles/tile"+ _description.id as String + ".png");
+#	$Image.texture = load("res://Textures/test-tiles/tile"+ _description.id as String + ".png");
+	$Image.texture = self._description.static_image;
 	var direction = sign(_id);
-	var x = $Image.texture.get_width() / _description.size_x if _description.size_x > 1 else 0;
-	var y = $Image.texture.get_height() / _description.size_y if _description.size_y > 1 else 0;
+	var tile_width = _description.image_size.x / _description.size_x;
+	var tile_height = _description.image_size.y / _description.size_y;
 
-	$Image.offset.x = x;
+	var x = tile_width / 2 * (_description.size_x - 1) if _description.size_x > 1 else 0;
+	var y = tile_height / 2 * (_description.size_y - 1) if _description.size_y > 1 else 0;
+
+	$Image.offset.x = -direction * x;
 	$Image.offset.y = -direction * y;
+	$SpineSprite.position.x = (-direction * x) * _description.tile_scale.x;
+	$SpineSprite.position.y = (-direction * y) * _description.tile_scale.y;
+	
+#	$SpineSprite.visible = true;
+#	$Image.visible = false;
+	
 	$SpineSprite.visible = false;
 	$Image.visible = true;
 	_hidden = false;
@@ -162,3 +172,26 @@ func update_position(pos):
 	position.y += pos.y;
 	
 	return position;
+
+func _setScale(element):
+	pass;
+#	element.scale = self.tiledesc.tile_scale * scale_multiplier;
+#	element.position = self.tiledesc.tile_offset;
+		
+func _setblur(val):
+	if(_id == _invisible_tile): return;
+	blur = val;
+	$Image.material.set_shader_param( "dir", Vector2(0.0, blur));
+	$Image.material.set_shader_param( "quality", int(blur)/15);
+	
+func _get_tiles_with_id(tiles, id):
+	var filteredTiles = [];
+	for tile in tiles:
+		if (tile.id == abs(id)):
+			filteredTiles.append(tile);
+
+	if (len(filteredTiles) == 0):
+		push_error("no tile with id" + id as String);
+		return tiles;
+
+	return filteredTiles;

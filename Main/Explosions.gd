@@ -1,0 +1,30 @@
+extends Control;
+
+export(Resource) var spine_data;
+
+var SpineSprite = load("res://SpineSpriteExtension.gd");
+
+func _ready():
+	Globals.register_singleton("Explosions", self);
+
+func show_at(data, reels):
+	var explosionPromises = [];
+	for index in data.keys():
+		var reel = reels[index];
+		for i in data[index]:
+			var position = reel.get_tile_position(i);
+			explosionPromises.append(_add_explosion(position));
+
+	return Promise.all(explosionPromises);
+
+func _add_explosion(position):
+	var explotion = SpineSprite.new();
+	explotion.scale.x = 0.5;
+	explotion.scale.y = 0.5;
+	explotion.set_new_state_data(spine_data);
+	self.add_child(explotion);
+	explotion.position = position;
+	explotion.play_anim('explore', false);
+	
+	yield(explotion, "animation_complete");
+	self.remove_child(explotion);

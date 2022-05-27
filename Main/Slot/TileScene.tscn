@@ -23,10 +23,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.15, 0.25, 0.35, 0.4, 0.45, 0.5 ),
-"transitions": PoolRealArray( 1, 0.3605, 3.86375, 0.2, 1.7411, 0.2, 2.63901 ),
+"times": PoolRealArray( 0, 0.15, 0.25, 0.35, 0.4 ),
+"transitions": PoolRealArray( 1, 0.0466517, 17.1484, 0.0329877, 17.7531 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -30 ), Vector2( 0, 0 ), Vector2( 0, -5 ), Vector2( 0, 0 ), Vector2( 0, -2 ), Vector2( 0, -0.071696 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, -5 ), Vector2( 0, 0 ), Vector2( 0, -1 ), Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Image:rotation_degrees")
@@ -38,7 +38,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.15, 0.25, 0.35, 0.4 ),
 "transitions": PoolRealArray( 1, 0.287175, 24.2515, 0.267943, 29.857 ),
 "update": 0,
-"values": [ 0.0, -1.5, 0.0, 0.5, 0.0 ]
+"values": [ 0.0, -0.7, 0.0, 0.5, 0.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -79,7 +79,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0.28 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
-"args": [ "\"hide_end\"" ],
+"args": [ "hide_end" ],
 "method": "emit_signal"
 } ]
 }

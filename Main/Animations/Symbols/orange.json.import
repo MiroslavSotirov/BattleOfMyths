@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/orange.json-ca5ceeb242c2ef655a843eb351921045.spjson"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/orange.json"
+dest_files=[ "res://.import/orange.json-ca5ceeb242c2ef655a843eb351921045.spjson" ]
+
+[params]
+

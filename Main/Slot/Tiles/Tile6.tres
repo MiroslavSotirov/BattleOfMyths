@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://Main/Slot/TileDescription.gd" type="Script" id=1]
-[ext_resource path="res://Main/Animations/Symbols/symbol_ball.json" type="SpineSkeletonJsonDataResource" id=2]
-[ext_resource path="res://Main/Animations/Symbols/symbol_ball.atlas" type="SpineAtlasResource" id=3]
+[ext_resource path="res://Main/Animations/Symbols/orb.atlas" type="SpineAtlasResource" id=2]
+[ext_resource path="res://Main/Animations/Symbols/orb.json" type="SpineSkeletonJsonDataResource" id=3]
 
 [sub_resource type="SpineSkeletonDataResource" id=1]
-atlas_res = ExtResource( 3 )
-skeleton_json_res = ExtResource( 2 )
+atlas_res = ExtResource( 2 )
+skeleton_json_res = ExtResource( 3 )
 animations = null
 skins = null
 

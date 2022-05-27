@@ -95,11 +95,11 @@ func init_received(data):
 		Globals.currency_position = data["currency"]["position"] == "left";
 		Globals.currency_code = data["currency"]["code"];
 		
-	yield(Globals.singletons["AssetLoader"], "lang_downloaded");
+#	yield(Globals.singletons["AssetLoader"], "lang_downloaded");
 		
-	Globals.singletons["AssetLoader"].generate_tile_images();
+#	Globals.singletons["AssetLoader"].generate_tile_images();
 	
-	yield(Globals.singletons["AssetLoader"], "tiles_generated");
+#	yield(Globals.singletons["AssetLoader"], "tiles_generated");
 	
 	# TODO: heisenbug generator
 #	if("init" in lastround["stateID"]):

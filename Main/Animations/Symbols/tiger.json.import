@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/tiger.json-ca654c330908d6c9f7ac789c2873860d.spjson"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/tiger.json"
+dest_files=[ "res://.import/tiger.json-ca654c330908d6c9f7ac789c2873860d.spjson" ]
+
+[params]
+

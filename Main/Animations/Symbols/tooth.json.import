@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/tooth.json-ac1f4532a0717ee92b6ae48ac779941c.spjson"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/tooth.json"
+dest_files=[ "res://.import/tooth.json-ac1f4532a0717ee92b6ae48ac779941c.spjson" ]
+
+[params]
+

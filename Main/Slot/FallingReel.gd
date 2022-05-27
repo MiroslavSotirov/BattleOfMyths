@@ -1,6 +1,5 @@
 extends Reel
 class_name FallingReel
-#const TileData = preload("TileData.gd")
 
 export (float) var blurMultiplier : float;
 export (float) var bluramount : float setget set_bluramount;
@@ -8,6 +7,16 @@ export (float) var bluramount : float setget set_bluramount;
 export (int) var topTileCount : int = 0;
 export (int) var visibleTilesCount : int = 4;
 export (int) var bottomTileCount : int = 0;
+export (Dictionary) var animations = {
+	popup = { name = "popup", loop = false, type = Tile.AnimationType.SPINE },
+	hide = { name = "hide", type = Tile.AnimationType.SPINE },
+	drop = { name = "drop", type = Tile.AnimationType.TIMELINE }
+};
+
+export (float) var delayPerTile = 0.05;
+export (int) var acceleration = 380;
+export (int) var maxSpeed = 200;
+export (int) var initialSpeed = 0;
 
 export (Array) var targetData : Array;
 export (PackedScene) var tileScene;
@@ -22,12 +31,11 @@ signal onstopped;
 signal oncleared;
 
 var tiles: Array setget , _get_tiles;
+var index : int = 0;
 var is_spinning: bool setget , _get_is_spinning;
 
 var _buffer = []; 
 var _position = 0;
-var _start_position = 0;
-var _tiles_count = 0;
 var _visible_tiles: Array setget , _get_visible_tiles;
 var _removed_tiles = [];
 
@@ -35,25 +43,23 @@ var _posible_tiles = [];
 var _spinning: bool = false
 var _stopping: bool = false;
 var _tiles_natural_positions = [];
-
-var _initial_speed = 0;
-var _speed = _initial_speed;
-var _acceleration = 120;
-var _max_speed = 100;
-
-var spinning : bool = false;
-var stopped : bool = true;
-var stopping : bool = false;
-
-var index : int = 0;
+var _speed = initialSpeed;
 var _time = 0;
-
-################ FALLING TILES ################
+var _edges = { tiles = [], slot = 0 }; # the farthest a tile can fall
 var _filling: bool = false; # true when the screen is being filled with the new tiles /the spin result/
-###############################################
 
-func get_tile_at(y):
-	return self.tiles[topTileCount + y];
+#var spinning : bool = false;
+#var stopped : bool = true;
+#var stopping : bool = false;
+
+func get_tile_at(index):
+	return self.tiles[topTileCount + index];
+
+# returns the tile position relative to the slot
+func get_tile_position(index):
+	var tile = get_tile_at(index);
+
+	return Vector2(tile.position.x + position.x, tile.position.y);
 
 func set_bluramount(val):
 #	for tile in currentTiles: tile.blur = val * blurMultiplier;
@@ -63,21 +69,21 @@ func _start_spin_anim_end():
 	pass
 
 func initialize(index, posibleTiles):
-	_tiles_count = topTileCount + visibleTilesCount + bottomTileCount;
+	var tiles_count = topTileCount + visibleTilesCount + bottomTileCount;
 	self.index = index;
 	self._position = visibleTilesCount + bottomTileCount - 1;
-	self._start_position = self._position;
 	self._posible_tiles = posibleTiles;
-
+	
 	if (auto_arrange):
 		position.x = index * tile_size.x;
 	
-	for i in range(_tiles_count):
+	for i in range(tiles_count):
 		var tile = tileScene.instance();
 		$TileContainer.add_child(tile);
-
+	
+	_edges.slot = tile_size.y * (visibleTilesCount) + tile_size.y / 2;
 	for i in range(visibleTilesCount):
-		_tiles_natural_positions.append(Vector2(0, i * tile_size.y + tile_size.y / 2));
+		_edges.tiles.append(i * tile_size.y + tile_size.y / 2);
 
 func set_initial_screen(server_data):
 	var ids = _reverse_data(server_data);
@@ -97,13 +103,12 @@ func shift():
 	
 func start_spin():
 	for i in range(self.tiles.size()):
+		self.tiles[i].speed = initialSpeed;
 		_set_tile(self.tiles[i], i - topTileCount);
 
 	_spinning = true;
-	_start_position = _position;
 	_removed_tiles = [];
-#	$AnimationPlayer.play("ReelSpinStartAnimation");
-	
+
 func stop_spin(server_data):
 	var data = _reverse_data(server_data);
 	var top = _generate_random_data(topTileCount);
@@ -142,10 +147,19 @@ func remove_tiles(indexes):
 	var promises = [];
 	for index in indexes:
 		var tile = self._visible_tiles[index];
-		promises.push_back(tile.hide());
+		promises.push_back(tile.hide(animations.hide.type, animations.hide.name));
 
 	yield(Promise.all(promises), "completed");
 
+func popup_tiles(indexes):
+	var promises = [];
+	for index in indexes:
+		var tile = self._visible_tiles[index];
+		var animation = animations.popup;
+		promises.push_back(tile.popup(animation.type, animation.name, animation.loop));
+
+	yield(Promise.all(promises), "completed");
+	
 func _get_tiles_offset(removed_tiles):
 	var offsets = [];
 	for i in range(visibleTilesCount):
@@ -183,46 +197,43 @@ func _set_tile (tile, tile_index = 0, offest = Vector2.ZERO):
 
 	tile.set_tile(id, Vector2(x, y));
 	tile.show_image();
-	
+
 func _process(delta):
 	if (!_spinning): return;
-
-	_time = _time + delta;
-	var slot_egde = tile_size.y * (visibleTilesCount + 1 + 2) - tile_size.y / 2;
-	var delay_per_tile = 0.05;
-	var fallen_tiles = 0;
 	
+	var fallen_tiles = 0;
+	_time = _time + delta;
+
 	for i in range(visibleTilesCount):
-		if ((visibleTilesCount - i) * delay_per_tile > _time): continue;
+		if ((visibleTilesCount - i) * delayPerTile > _time): continue;
 		var tile = self.tiles[i + topTileCount];
-		var limit = _tiles_natural_positions[i].y if _filling else slot_egde;
+		var limit = _edges.tiles[i] if _filling else _edges.slot;
 
 		if (tile.position.y >= limit):
 			_on_drop(tile, i);
 			fallen_tiles += 1;
 		else:
-			tile.speed = min(_max_speed, tile.speed + delta * _acceleration);
+			tile.speed = min(maxSpeed, tile.speed + delta * acceleration);
 			tile.update_position(Vector2(0, min(limit - tile.position.y, tile.speed)));
 
 	if (fallen_tiles == visibleTilesCount):
 		_on_clear();
 
 func _on_drop(tile, i):
-	if (_filling && tile.speed > 0): 
-		tile.play_animation("drop", Tile.AnimationType.TIMELINE);
-	tile.speed = _initial_speed;
+	if (_filling && tile.speed > initialSpeed): 
+		tile.play_animation(animations.drop.type, animations.drop.name);
+
+	tile.speed = initialSpeed;
 	
 func _on_stoppped():
 	_spinning = false;
 	_stopping = false;
 	_time = 0;
-#	_speed = _initial_speed;
 
 #	TODO 0.5 is the duration of the drop animation
 	yield(get_tree().create_timer(0.5), "timeout");
 	for i in range(self.tiles.size()):
 		var tile = self.tiles[i]
-#		tile.speed = _initial_speed;
 		_set_tile(tile, i - topTileCount);
 
 	emit_signal("onstopped", self.index);
@@ -254,7 +265,6 @@ func _get_visible_tiles():
 func _get_is_spinning():
 	return _spinning;
 
-################ FALLING TILES ################
 func _fill():
 	_filling = true;
 	
@@ -265,4 +275,3 @@ func _on_clear():
 	else:
 		_filling = false;
 		_on_stoppped();
-		

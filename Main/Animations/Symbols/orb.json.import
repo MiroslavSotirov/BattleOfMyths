@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/orb.json-5d6ca7df1bd776d24f5de41740f18291.spjson"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/orb.json"
+dest_files=[ "res://.import/orb.json-5d6ca7df1bd776d24f5de41740f18291.spjson" ]
+
+[params]
+

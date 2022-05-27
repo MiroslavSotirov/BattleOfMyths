@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/orb.atlas-80123d2773180771f2ff5c494fd2b733.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/orb.atlas"
+dest_files=[ "res://.import/orb.atlas-80123d2773180771f2ff5c494fd2b733.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

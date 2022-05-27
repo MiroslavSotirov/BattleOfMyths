@@ -1,0 +1,14 @@
+[remap]
+
+importer="raiix.spine_runtime.atlas"
+type="SpineAtlasResource"
+path="res://.import/green.atlas-e8d946fec3b0eb19f94c5a634354a41a.spatlas"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/green.atlas"
+dest_files=[ "res://.import/green.atlas-e8d946fec3b0eb19f94c5a634354a41a.spatlas" ]
+
+[params]
+
+normal_texture_prefix="n"

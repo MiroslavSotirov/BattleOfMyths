@@ -45,7 +45,7 @@ func set_children_material():
 			elif(custom_material_additive != null && blend_mode >= 1):
 				child.set_material(custom_material_additive.duplicate());
 	
-func set_new_state_data(data, newskin=null, playanim=false):
+func set_new_state_data(data, newskin = null, playanim = false):
 	self.animation_state_data_res = data;
 	#yield(VisualServer, "frame_post_draw");
 	if(newskin): set_skin(newskin);	
@@ -89,4 +89,3 @@ func reset_pose():
 	if(get_skeleton()): 
 		get_skeleton().set_bones_to_setup_pose();
 		get_skeleton().set_slots_to_setup_pose();
-

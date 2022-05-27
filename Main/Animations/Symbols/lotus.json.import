@@ -1,0 +1,13 @@
+[remap]
+
+importer="raiix.spine_runtime.json"
+type="SpineSkeletonJsonDataResource"
+path="res://.import/lotus.json-fad51a424dd67e6afb6f33750b2ceab8.spjson"
+
+[deps]
+
+source_file="res://Main/Animations/Symbols/lotus.json"
+dest_files=[ "res://.import/lotus.json-fad51a424dd67e6afb6f33750b2ceab8.spjson" ]
+
+[params]
+
