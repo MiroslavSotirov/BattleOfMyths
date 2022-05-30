@@ -154,6 +154,7 @@ func enter() -> void:
 
 	Globals.fsm_data[\"spin_start_command\"] = false;
 	Globals.fsm_data[\"wins_shown\"] = false;
+	Globals.fsm_data[\"activated_special_tiles\"] = [];
 	
 	if(JS.enabled):
 		JS.connect(\"spinstart\", self, \"start_spin\", [], CONNECT_ONESHOT);
@@ -272,18 +273,45 @@ custom_script = SubResource( 154 )
 script/source = "# State: Spin Stop
 extends VFSMStateBase
 
-
 func enter() -> void:
 	print(\"### SPIN STOP STATE: ###\");
 	Globals.fsm_data[\"reels_stopped\"] = false;
 	var data = Globals.singletons[\"Networking\"].lastround;
-
+	
 	if (data.action == \"cascade\"):
 		yield(Globals.singletons[\"Slot\"].add_data(data), \"completed\");
 	else:
 		yield(Globals.singletons[\"Slot\"].stop_spin(data), \"completed\");
-
+	
+	var tiger_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(11);
+	var dragon_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(12);
+		
+	var special_tiles_count = len(tiger_tiles) + len(dragon_tiles);
+	if(len(Globals.fsm_data[\"activated_special_tiles\"]) != special_tiles_count):
+		var target = Globals.singletons[\"SegmentBar\"].get_current_bar();
+		for tigertile in tiger_tiles:
+			if(Globals.fsm_data[\"activated_special_tiles\"].has(tigertile)): continue;
+			var fx = load(\"res://Main/Slot/BonusScene/RedFx.tscn\").instance();
+			fx.target = target;
+			Globals.singletons[\"Slot\"].add_child(fx);
+			fx.global_position = tigertile.global_position;
+			Globals.fsm_data[\"activated_special_tiles\"].append(tigertile);
+			
+		for dragontile in dragon_tiles:
+			if(Globals.fsm_data[\"activated_special_tiles\"].has(dragontile)): continue;
+			var fx = load(\"res://Main/Slot/BonusScene/GreenFx.tscn\").instance();
+			fx.target = target;
+			Globals.singletons[\"Slot\"].add_child(fx);
+			fx.global_position = dragontile.global_position;
+			Globals.fsm_data[\"activated_special_tiles\"].append(dragontile);
+			
+		yield(Globals.get_tree().create_timer(1.0), \"timeout\");
+		
+	if(Globals.singletons[\"Stateful\"].should_update_state()):
+		Globals.singletons[\"Stateful\"].update_states();	
+		
 	Globals.fsm_data[\"reels_stopped\"] = true;
+	
 func update(_object, _delta: float) -> void:
 	pass
 
@@ -325,8 +353,6 @@ func enter() -> void:
 		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
 		slot.remove_tiles(win_tiles_positions);
 		yield(Globals.singletons.Explosions.show_at(win_tiles_positions, slot.reels), \"completed\");
-	
-	Globals.singletons[\"Stateful\"].update_states();
 	
 	if(JS.enabled): 
 		print(\"JS is enabled\");

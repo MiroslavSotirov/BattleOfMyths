@@ -9,6 +9,12 @@ func _ready():
 	if(!Engine.editor_hint):
 		Globals.register_singleton("SegmentBar", self);
 	set_amount(amount);
+	
+func get_bar(i):
+	return get_node_or_null(str(i));
+
+func get_current_bar():
+	return get_bar(amount);
 
 func set_amount(v):
 	if(!is_instance_valid(self)): return;
@@ -16,7 +22,7 @@ func set_amount(v):
 	amount = v;
 	for i in range(nodecount):
 		if(!_bars.has(i) && get_node(str(i))): _bars[i] = true;
-		var bar = get_node(str(i));
+		var bar = get_bar(i);
 		if(bar == null): continue;
 		var player = bar.get_node("AnimationPlayer");
 		if(_bars[i]):

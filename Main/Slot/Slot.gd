@@ -175,6 +175,11 @@ func replace_tiles(data):
 		reels[i].replace_all_tiles(data[i]);
 #		promises.push_back(reels[i].popup_tiles(data[i]));
 
+func get_tiles_with_id(id):
+	var tiles = [];
+	for reel in reels:
+		tiles.append_array(reel.get_tiles_with_id(id));
+	return tiles;
 	
 func popup_tiles(data):
 	var promises = [];

@@ -30,7 +30,7 @@ signal onstoppinganim;
 signal onstopped;
 signal oncleared;
 
-var tiles: Array setget , _get_tiles;
+var tiles : Array setget , _get_tiles;
 var index : int = 0;
 var is_spinning: bool setget , _get_is_spinning;
 
@@ -178,6 +178,13 @@ func popup_tiles(indexes):
 		promises.push_back(tile.popup(animation.type, animation.name, animation.loop));
 
 	yield(Promise.all(promises), "completed");
+	
+func get_tiles_with_id(id):
+	var tiles = [];
+	for tile in self.tiles:
+		if(tile.id == id): tiles.append(tile);
+	prints(tiles, id);
+	return tiles;
 	
 func _get_tiles_offset(removed_tiles):
 	var offsets = [];

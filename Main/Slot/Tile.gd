@@ -17,7 +17,7 @@ var speed: int;
 
 var _invisible_tile: int = 0
 var _description: TileDescription
-var _id = 0;
+var id = 0;
 var _hidden = false;
 
 func _ready():
@@ -27,9 +27,9 @@ func _ready():
 	$Image.material = $Image.material.duplicate();
 	#Globals.singletons["AssetLoader"].connect("tiles_generated", self, "update_tex", [], CONNECT_ONESHOT)
 
-func set_tile(id, initial_position):
+func set_tile(_id, initial_position):
 	# there could be more than one tile for the same tile id, though most of the time is one
-	var posibleTiles = _get_tiles_with_id(Globals.tiles, abs(id))
+	var posibleTiles = _get_tiles_with_id(Globals.tiles, abs(_id))
 	var variant  = randi() % len(posibleTiles);
 
 	_description = posibleTiles[variant];
@@ -37,13 +37,13 @@ func set_tile(id, initial_position):
 	$SpineSprite.scale.y = _description.tile_scale.y;
 	$Image.scale.x = _description.tile_scale.x;
 	$Image.scale.y = _description.tile_scale.y;
-	if (abs(id) != abs(_id)): 
+	if (abs(_id) != abs(id)): 
 		$SpineSprite.set_new_state_data(_description.spine_data);
 	else:
 		#TODO check for better approach
 		$SpineSprite.reset_pose();
 		
-	_id = id;
+	id = _id;
 
 	position = initial_position 
 	
@@ -146,7 +146,7 @@ func show_image():
 	
 #	$Image.texture = load("res://Textures/test-tiles/tile"+ _description.id as String + ".png");
 	$Image.texture = self._description.static_image;
-	var direction = sign(_id);
+	var direction = sign(id);
 	var tile_width = _description.image_size.x / _description.size_x;
 	var tile_height = _description.image_size.y / _description.size_y;
 
@@ -179,7 +179,7 @@ func _setScale(element):
 #	element.position = self.tiledesc.tile_offset;
 		
 func _setblur(val):
-	if(_id == _invisible_tile): return;
+	if(id == _invisible_tile): return;
 	blur = val;
 	$Image.material.set_shader_param( "dir", Vector2(0.0, blur));
 	$Image.material.set_shader_param( "quality", int(blur)/15);
