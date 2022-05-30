@@ -167,6 +167,15 @@ func add_data(data):
 
 	yield(Promise.all(promises), "completed");
 
+func replace_tile(reel, tile_index, new_id):
+	reels[reel].replace_tile(tile_index, new_id);
+
+func replace_tiles(data):
+	for i in data.keys():
+		reels[i].replace_all_tiles(data[i]);
+#		promises.push_back(reels[i].popup_tiles(data[i]));
+
+	
 func popup_tiles(data):
 	var promises = [];
 	for i in data.keys():

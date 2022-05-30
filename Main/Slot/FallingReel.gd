@@ -126,6 +126,25 @@ func stop_spin(server_data):
 	call_deferred("_fill");
 	yield(self, "onstopped");
 
+func replace_all_tiles(ids):
+	if (ids.size() != visibleTilesCount):
+		var err = "expected %s of new tile ids, got %s";
+		push_error(err % [visibleTilesCount, ids.size()]);
+		return;
+		
+	for i in range(ids.size()):
+		print("i ", i,  "id ", ids[i])
+		replace_tile(i, ids[i]);
+
+func replace_tile(index, newId):
+	if (_spinning):
+		push_error("Tiles can be replaced only on a stopped reel");
+		return;
+		
+	var i = int(_position) - index;
+	_buffer[i] = newId;
+	_set_tile(self._visible_tiles[index], index);
+	
 func add_tiles(data):
 	if (_removed_tiles.size() == 0): return Promise.resolve();
 	var new_tiles = _reverse_data(data.slice(0, _removed_tiles.size() - 1));
