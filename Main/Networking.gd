@@ -95,6 +95,9 @@ func init_received(data):
 		Globals.currency_position = data["currency"]["position"] == "left";
 		Globals.currency_code = data["currency"]["code"];
 		
+	if("featureConfigs" in data): 
+		lastround["featureConfigs"] = data.featureConfigs;
+		
 #	yield(Globals.singletons["AssetLoader"], "lang_downloaded");
 		
 #	Globals.singletons["AssetLoader"].generate_tile_images();

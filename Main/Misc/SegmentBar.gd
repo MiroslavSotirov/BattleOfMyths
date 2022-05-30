@@ -6,15 +6,17 @@ export (int) var nodecount : int = 5;
 var _bars = {};
 
 func _ready():
+	Globals.register_singleton("SegmentBar", self);
 	set_amount(amount);
 
 func set_amount(v):
 	if(!is_instance_valid(self)): return;
+	if(get_parent()==null): return;
 	amount = v;
 	for i in range(nodecount):
 		if(!_bars.has(i) && get_node(str(i))): _bars[i] = true;
 		var bar = get_node(str(i));
-		
+		if(bar == null): continue;
 		var player = bar.get_node("AnimationPlayer");
 		if(_bars[i]):
 			if( i > amount ): 

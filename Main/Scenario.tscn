@@ -28,11 +28,18 @@ func enter() -> void:
 		Globals.singletons[\"Networking\"].request_init();
 	
 func init_data_received():
-
 	Globals.round_closed = true; #Init should close previous round if open
 	
-	Globals.singletons[\"Stateful\"].update_states(true);
+	if(\"featureConfigs\" in Globals.singletons[\"Networking\"].lastround):
+		for cfg in Globals.singletons[\"Networking\"].lastround.featureConfigs:
+			if(\"ScatterMax\" in cfg.data): Globals.fsm_data[\"barMax\"] = int(cfg.data.ScatterMax);
+			if(\"ScatterMin\" in cfg.data): Globals.fsm_data[\"barMin\"] = int(cfg.data.ScatterMin);
+			
+		Globals.singletons[\"Stateful\"].update_states(true);
+	else:
+		print(\"NO FEATURE CONFIGS!!! STATEFUL MIGHT NOT WORK CORRECTLY\")
 	Globals.update_win_configs(Globals.singletons[\"Networking\"].lastround.defaultTotal);
+	
 	
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
@@ -47,21 +54,15 @@ func exit() -> void:
 	pass
 
 func update_state(state, init):
-	var bar1 = 0.0;
-	var bar2 = 0.0;
+	var bar = 0;
 	
-	if(state.has(\"counter1\")):
-		bar1 = float(state[\"counter1\"])/float(state[\"max1\"]);
-
-	if(state.has(\"counter2\")):
-		bar2 = float(state[\"counter2\"])/float(state[\"max2\"]);
- 
-	if(init || !Globals.singletons[\"Bonus\"].has_feature(Globals.singletons[\"Networking\"].lastround)):
-		if(bar1 >= 1.0 || bar2 >= 1.0): 
-			bar1 = 0.0;
-			bar2 = 0.0;
+	if(state.has(\"counter\")):
+		bar = state[\"counter\"]-Globals.fsm_data[\"barMin\"];
 		
-	#Globals.singletons[\"BarGreen\"].target_amount = bar1;
+	if(init):
+		bar = clamp(bar, Globals.fsm_data[\"barMin\"], Globals.fsm_data[\"barMax\"]);
+		
+	Globals.singletons[\"SegmentBar\"].amount = bar-1;
 	#Globals.singletons[\"BarBlue\"].target_amount = bar2;
 
 "
@@ -108,6 +109,8 @@ func enter() -> void:
 	var clickwaiter = introcontainer.get_node(\"ClickWaiter\");
 	clickwaiter.connect(\"pressed\", self, \"clicked\", [], CONNECT_ONESHOT);
 	clickwaiter.enabled = true;	
+	
+	#Globals.singletons[\"SegmentBar\"].set_amount();
 	
 	introcontainer.get_node(\"Centering/LogoMover/Logo\").play_anim_then_loop(\"popup\", \"idle\");
 
@@ -322,7 +325,9 @@ func enter() -> void:
 		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
 		slot.remove_tiles(win_tiles_positions);
 		yield(Globals.singletons.Explosions.show_at(win_tiles_positions, slot.reels), \"completed\");
-
+	
+	Globals.singletons[\"Stateful\"].update_states();
+	
 	if(JS.enabled): 
 		print(\"JS is enabled\");
 		if (data.nextAction == \"finish\"):

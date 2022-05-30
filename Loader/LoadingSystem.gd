@@ -72,9 +72,11 @@ func is_pck_loaded(name):
 	return self;
 
 func show_loading_screen(name):
-	get_tree().paused = true;	
+	get_tree().paused = true;
+	print("WAITING...");
 	while yield(self.is_pck_loaded(name), "package_loaded") != name: pass
 	get_tree().paused = false;
+	print("DONE!");
 
 #while yield(PackageLoader.is_pck_loaded(name), "package_loaded") != name: pass
 #var bonus = load(bonuspath);
