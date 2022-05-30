@@ -6,7 +6,8 @@ export (int) var nodecount : int = 5;
 var _bars = {};
 
 func _ready():
-	Globals.register_singleton("SegmentBar", self);
+	if(!Engine.editor_hint):
+		Globals.register_singleton("SegmentBar", self);
 	set_amount(amount);
 
 func set_amount(v):
