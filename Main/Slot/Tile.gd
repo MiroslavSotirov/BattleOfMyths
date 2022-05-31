@@ -44,7 +44,6 @@ func set_tile(_id, initial_position):
 		$SpineSprite.reset_pose();
 		
 	id = _id;
-
 	position = initial_position 
 	
 func get_spine():

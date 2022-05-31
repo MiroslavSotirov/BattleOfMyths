@@ -14,7 +14,7 @@ func get_bar(i):
 	return get_node_or_null(str(i));
 
 func get_current_bar():
-	return get_bar(amount);
+	return get_bar(amount+1);
 
 func set_amount(v):
 	if(!is_instance_valid(self)): return;

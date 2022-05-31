@@ -3879,6 +3879,9 @@ margin_top = -333.0
 margin_right = 624.0
 margin_bottom = 395.0
 rect_clip_content = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
 script = ExtResource( 3 )

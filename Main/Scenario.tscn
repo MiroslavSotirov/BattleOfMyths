@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=70 format=2]
 
 [ext_resource path="res://addons/visual_fsm/fsm/vfsm_state.gd" type="Script" id=1]
 [ext_resource path="res://addons/visual_fsm/fsm/vfsm.gd" type="Script" id=2]
@@ -218,6 +218,10 @@ extends VFSMStateBase
 func enter() -> void:
 	Globals.fsm_data[\"data_received\"] = false;
 	Globals.fsm_data[\"round_closed\"] = false;
+	Globals.fsm_data[\"princess_feature_completed\"] = false;
+	Globals.fsm_data[\"dragon_feature_completed\"] = false;
+	Globals.fsm_data[\"tiger_feature_completed\"] = false;
+	
 	print('### SPIN START STATE ###');
 	if(JS.enabled):
 		JS.connect(\"spindata\", self, \"spin_data_received\", [], CONNECT_ONESHOT);
@@ -297,6 +301,7 @@ func enter() -> void:
 			fx.global_position = tigertile.global_position;
 			fx.set_points(fx.global_position, target.global_position)
 			Globals.fsm_data[\"activated_special_tiles\"].append(tigertile);
+			tigertile.popup(Tile.AnimationType.SPINE,\"popup\",false);
 			
 		for dragontile in dragon_tiles:
 			if(Globals.fsm_data[\"activated_special_tiles\"].has(dragontile)): continue;
@@ -306,6 +311,7 @@ func enter() -> void:
 			fx.global_position = dragontile.global_position;
 			fx.set_points(fx.global_position, target.global_position)
 			Globals.fsm_data[\"activated_special_tiles\"].append(dragontile);
+			dragontile.popup(Tile.AnimationType.SPINE,\"popup\",false);
 			
 		yield(Globals.get_tree().create_timer(1.0), \"timeout\");
 		
@@ -326,7 +332,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 6
 name = "Spin Stop"
-position = Vector2( 1480, 680 )
+position = Vector2( 1340, 580 )
 trigger_ids = [ 6 ]
 custom_script = SubResource( 156 )
 
@@ -444,7 +450,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 11
 name = "Wins Check"
-position = Vector2( 1760, 780 )
+position = Vector2( 2060, 640 )
 trigger_ids = [ 14, 15 ]
 custom_script = SubResource( 183 )
 
@@ -504,9 +510,57 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 12
 name = "Show Line Wins"
-position = Vector2( 2060, 580 )
+position = Vector2( 2340, 580 )
 trigger_ids = [ 17 ]
 custom_script = SubResource( 189 )
+
+[sub_resource type="GDScript" id=200]
+script/source = "# State: Princess Feature
+extends VFSMStateBase
+
+
+func enter() -> void:
+	var data = Globals.singletons[\"Networking\"].lastround;
+	var featuredata = null;
+	for feature in data.features: 
+		if(feature.type == \"ReplaceTile\" && feature.data.tileid == 9):
+			featuredata = feature;
+			break;
+	
+	if(featuredata == null):
+		Globals.fsm_data[\"princess_feature_completed\"] = true;
+		return;
+		
+	var princesstiles = Globals.singletons[\"Slot\"].get_tiles_with_id(9);
+	for tile in princesstiles:
+		tile.popup(Tile.AnimationType.SPINE,\"popup\",false);
+		
+	yield(Globals.get_tree().create_timer(0.5), \"timeout\");
+
+	var wildtiles = [];
+	for pos in featuredata.data.positions:
+		var y = int(pos)%Globals.visibleTilesCount;
+		var x = floor(pos/Globals.visibleTilesCount);		
+		var tile = Globals.singletons[\"Slot\"].replace_tile(x, y, featuredata.data.replacewithid);
+	
+	yield(Globals.get_tree().create_timer(2.0), \"timeout\");
+	Globals.fsm_data[\"princess_feature_completed\"] = true;
+
+func update(_object, _delta: float) -> void:
+	pass
+
+
+func exit() -> void:
+	pass
+"
+
+[sub_resource type="Resource" id=201]
+script = ExtResource( 1 )
+vfsm_id = 13
+name = "Princess Feature"
+position = Vector2( 1620, 600 )
+trigger_ids = [ 20 ]
+custom_script = SubResource( 200 )
 
 [sub_resource type="GDScript" id=143]
 script/source = "# Trigger: Initialized
@@ -832,13 +886,32 @@ vfsm_id = 19
 name = "Big Win End"
 custom_script = SubResource( 198 )
 
+[sub_resource type="GDScript" id=202]
+script/source = "# Trigger: Princess Feature Done
+extends VFSMTriggerBase
+
+
+func enter() -> void:
+	pass
+
+
+func is_triggered(_object, _delta: float) -> bool:
+	return Globals.fsm_data[\"princess_feature_completed\"];
+"
+
+[sub_resource type="Resource" id=203]
+script = ExtResource( 5 )
+vfsm_id = 20
+name = "Princess Feature Done"
+custom_script = SubResource( 202 )
+
 [sub_resource type="Resource" id=147]
 script = ExtResource( 2 )
 start_state_vfsm_id = 0
 start_position = Vector2( -200, 160 )
-states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ), SubResource( 190 ) ]
-triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ), SubResource( 195 ), SubResource( 197 ), SubResource( 199 ) ]
-transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 11, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 15, 7, 11, 14, 12, 12, 17, 7 ]
+states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ), SubResource( 190 ), SubResource( 201 ) ]
+triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ), SubResource( 195 ), SubResource( 197 ), SubResource( 199 ), SubResource( 203 ) ]
+transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 13, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 15, 7, 11, 14, 12, 12, 17, 7, 13, 20, 11 ]
 
 [node name="Scenario" type="Node"]
 script = ExtResource( 3 )

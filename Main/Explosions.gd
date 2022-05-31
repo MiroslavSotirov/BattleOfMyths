@@ -19,8 +19,9 @@ func show_at(data, reels):
 
 func _add_explosion(position):
 	var explotion = SpineSprite.new();
-	explotion.scale.x = 0.5;
-	explotion.scale.y = 0.5;
+	explotion.scale.x = 0.4 + randf() * 0.2;
+	explotion.scale.y = 0.4 + randf() * 0.2;
+	explotion.rotation = randf() * TAU;
 	explotion.set_new_state_data(spine_data);
 	self.add_child(explotion);
 	explotion.position = position;
