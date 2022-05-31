@@ -183,7 +183,6 @@ func get_tiles_with_id(id):
 	var tiles = [];
 	for tile in self.tiles:
 		if(tile.id == id): tiles.append(tile);
-	prints(tiles, id);
 	return tiles;
 	
 func _get_tiles_offset(removed_tiles):

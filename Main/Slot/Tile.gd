@@ -63,7 +63,7 @@ func reel_stopped(index):
 	pass
 
 func show_spine_sprite():
-	print("showing the sprite sheet");
+	#print("showing the sprite sheet");
 	if ($SpineSprite.visible || _description.id == _invisible_tile): return;
 #	print(self._description.spine_data);
 #		$SpineSprite.position = self.tiledesc.image_offset;
