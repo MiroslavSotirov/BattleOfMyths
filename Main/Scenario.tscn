@@ -295,6 +295,7 @@ func enter() -> void:
 			fx.target = target;
 			Globals.singletons[\"Slot\"].add_child(fx);
 			fx.global_position = tigertile.global_position;
+			fx.set_points(fx.global_position, target.global_position)
 			Globals.fsm_data[\"activated_special_tiles\"].append(tigertile);
 			
 		for dragontile in dragon_tiles:
@@ -303,6 +304,7 @@ func enter() -> void:
 			fx.target = target;
 			Globals.singletons[\"Slot\"].add_child(fx);
 			fx.global_position = dragontile.global_position;
+			fx.set_points(fx.global_position, target.global_position)
 			Globals.fsm_data[\"activated_special_tiles\"].append(dragontile);
 			
 		yield(Globals.get_tree().create_timer(1.0), \"timeout\");

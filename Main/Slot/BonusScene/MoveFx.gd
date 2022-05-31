@@ -4,11 +4,11 @@ var target;
 
 var f := 0.0;
 var points = [];
-
-func _ready():
-	points.append(global_position);
-	points.append(target.global_position+(Vector2(randf()-0.5, randf()-0.5)*100.0));
-	points.append(target.global_position);
+	
+func set_points(start,end):
+	points.append(start);
+	points.append(end+(Vector2(randf()-0.5, randf()-0.5)*500.0));
+	points.append(end);
 	
 func _process(delta):
 	f += delta;
