@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Main/Textures/slot-bm/line_green2.png" type="Texture" id=1]
 [ext_resource path="res://Main/Misc/canvasadditive.tres" type="Material" id=2]
@@ -33,18 +33,62 @@ _data = [ Vector2( 0, 0.536364 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 
 [sub_resource type="Gradient" id=294]
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
+[sub_resource type="Animation" id=296]
+resource_name = "Hide"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=297]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=298]
+resource_name = "Show"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="DragonFollower" type="Node2D"]
-visible = false
+modulate = Color( 1, 1, 1, 0 )
 script = ExtResource( 10 )
 
 [node name="Line2D" type="Line2D" parent="."]
-points = PoolVector2Array( 34, 586 )
 width = 75.0
 width_curve = SubResource( 293 )
-default_color = Color( 0.313726, 1, 0, 1 )
+default_color = Color( 1, 1, 1, 1 )
 gradient = SubResource( 260 )
 texture = ExtResource( 1 )
-texture_mode = 2
+texture_mode = 1
 joint_mode = 2
 script = ExtResource( 8 )
 lifetime = 1.0
@@ -52,19 +96,18 @@ distance = 10.0
 segments = 50
 
 [node name="Spin" type="Node2D" parent="."]
-position = Vector2( -14.1871, -32.7246 )
+position = Vector2( -32.0468, -20.9453 )
 script = ExtResource( 5 )
 speed = Vector2( 5, 5 )
 size = Vector2( 40, 35 )
 
 [node name="Line2D" type="Line2D" parent="Spin"]
 material = ExtResource( 2 )
-points = PoolVector2Array( 34, 586 )
 width = 30.0
-default_color = Color( 0.313726, 1, 0, 1 )
+default_color = Color( 1, 1, 1, 1 )
 gradient = SubResource( 260 )
 texture = ExtResource( 4 )
-texture_mode = 2
+texture_mode = 1
 joint_mode = 2
 script = ExtResource( 8 )
 lifetime = 0.75
@@ -72,16 +115,15 @@ distance = 10.0
 segments = 50
 
 [node name="Spin2" type="Node2D" parent="."]
-position = Vector2( -19.2697, -22.7165 )
+position = Vector2( 25.6878, 24.6393 )
 script = ExtResource( 5 )
 speed = Vector2( 4, 7.51 )
 size = Vector2( -50, 25 )
 
 [node name="Line2D" type="Line2D" parent="Spin2"]
 material = ExtResource( 2 )
-points = PoolVector2Array( 34, 586 )
 width = 20.0
-default_color = Color( 0.313726, 1, 0, 1 )
+default_color = Color( 1, 1, 1, 1 )
 gradient = SubResource( 260 )
 texture = ExtResource( 4 )
 texture_mode = 2
@@ -92,16 +134,15 @@ distance = 10.0
 segments = 50
 
 [node name="Spin3" type="Node2D" parent="."]
-position = Vector2( 12.5168, 37.437 )
+position = Vector2( -2.01359, -19.9766 )
 script = ExtResource( 5 )
 speed = Vector2( 7, 12 )
 size = Vector2( 23, -40 )
 
 [node name="Line2D" type="Line2D" parent="Spin3"]
 material = ExtResource( 2 )
-points = PoolVector2Array( 34, 586 )
 width = 20.0
-default_color = Color( 0.313726, 1, 0, 1 )
+default_color = Color( 1, 1, 1, 1 )
 gradient = SubResource( 260 )
 texture = ExtResource( 4 )
 texture_mode = 2
@@ -112,7 +153,6 @@ distance = 10.0
 segments = 50
 
 [node name="SpineSpriteExtension" type="SpineSprite" parent="."]
-rotation = -3.14159
 z_index = 1
 animation_state_data_res = SubResource( 291 )
 script = ExtResource( 9 )
@@ -134,3 +174,8 @@ scale_amount = 0.5
 scale_amount_curve = SubResource( 295 )
 color = Color( 0.784314, 0.964706, 0, 1 )
 color_ramp = SubResource( 294 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Hide = SubResource( 296 )
+anims/RESET = SubResource( 297 )
+anims/Show = SubResource( 298 )

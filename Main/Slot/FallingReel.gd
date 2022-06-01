@@ -58,8 +58,8 @@ func get_tile_at(index):
 # returns the tile position relative to the slot
 func get_tile_position(index):
 	var tile = get_tile_at(index);
-
-	return Vector2(tile.position.x + position.x, tile.position.y);
+	return tile.global_position;
+	#return Vector2(tile.position.x + position.x, tile.position.y);
 
 func set_bluramount(val):
 #	for tile in currentTiles: tile.blur = val * blurMultiplier;

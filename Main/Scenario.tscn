@@ -253,7 +253,7 @@ func spin_data_received(data):
 	if(JS.enabled): Globals.singletons[\"Networking\"].lastround = data;
 	if(!is_cascading && !Globals.singletons[\"Slot\"].allspinning):
 		yield(Globals.singletons[\"Slot\"], \"onstartspin\");
-				
+	
 	Globals.singletons[\"Networking\"].update_state(data)
 	Globals.fsm_data[\"data_received\"] = true;
 	
@@ -292,7 +292,7 @@ func enter() -> void:
 		
 	var special_tiles_count = len(tiger_tiles) + len(dragon_tiles);
 	if(len(Globals.fsm_data[\"activated_special_tiles\"]) != special_tiles_count):
-		var target = Globals.singletons[\"SegmentBar\"].get_current_bar();
+		var target = Globals.singletons[\"SegmentBar\"].get_current_bar(1);
 		for tigertile in tiger_tiles:
 			if(Globals.fsm_data[\"activated_special_tiles\"].has(tigertile)): continue;
 			var fx = load(\"res://Main/Slot/BonusScene/RedFx.tscn\").instance();
@@ -302,7 +302,8 @@ func enter() -> void:
 			fx.set_points(fx.global_position, target.global_position)
 			Globals.fsm_data[\"activated_special_tiles\"].append(tigertile);
 			tigertile.popup(Tile.AnimationType.SPINE,\"popup\",false);
-			
+		
+		target = Globals.singletons[\"SegmentBar\"].get_current_bar(-1);
 		for dragontile in dragon_tiles:
 			if(Globals.fsm_data[\"activated_special_tiles\"].has(dragontile)): continue;
 			var fx = load(\"res://Main/Slot/BonusScene/GreenFx.tscn\").instance();
@@ -571,7 +572,9 @@ extends VFSMStateBase
 
 func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
-	var featuredata = null;
+	#var featuredata = null;
+	var featuredata = {\"data\":{\"positions\":[0, 5, 8, 13], \"replacewithid\":10, \"tileid\":10}, \"id\":5, \"type\":\"ReplaceTile\"};
+	
 	for feature in data.features: 
 		if(feature.type == \"ReplaceTile\" && feature.data.tileid == 10):
 			featuredata = feature;
@@ -580,15 +583,41 @@ func enter() -> void:
 	if(featuredata == null):
 		Globals.fsm_data[\"dragon_feature_completed\"] = true;
 		return;
+		
 	print(\"DRAGON FEATURE\")
 	
-	var wildtiles = [];
+	var positions = [];
+	var startpos = Globals.singletons[\"Slot\"].get_tile_global_position(0,randi()%Globals.visibleTilesCount)-Vector2(200.0, 0.0);
+	positions.append(startpos)
 	for pos in featuredata.data.positions:
 		var y = int(pos)%Globals.visibleTilesCount;
-		var x = floor(pos/Globals.visibleTilesCount);		
-		var tile = Globals.singletons[\"Slot\"].replace_tile(x, y, featuredata.data.replacewithid);
+		var x = floor(pos/Globals.visibleTilesCount);
+		positions.append(Globals.singletons[\"Slot\"].get_tile_global_position(x,y));
+
+	var lastpos = Globals.singletons[\"Slot\"].get_tile_global_position(Globals.visibleReelsCount-1,randi()%Globals.visibleTilesCount)+Vector2(200.0, 0.0);
+	positions.append(lastpos)
 	
-	yield(Globals.get_tree().create_timer(1.0), \"timeout\");
+	var dragon = load(\"res://Main/Slot/BonusScene/DragonFollower.tscn\").instance();
+	Globals.singletons[\"Slot\"].add_child(dragon);
+	dragon.global_position = positions[0];
+	dragon.init(positions);
+	dragon.play(\"Show\");
+	
+	for i in len(positions)-1:
+		prints(\"Dragon targetpos\", dragon.global_position)
+		while(dragon.global_position.distance_to(positions[i]) > 10.0):
+			yield(Globals.get_tree(), \"idle_frame\");
+		if(i == 0): continue;
+		var pos = featuredata.data.positions[i-1];
+		var y = int(pos)%Globals.visibleTilesCount;
+		var x = floor(pos/Globals.visibleTilesCount);
+		Globals.singletons[\"Slot\"].replace_tile(x, y, featuredata.data.replacewithid);
+	
+	dragon.play(\"Hide\");
+	while(dragon.global_position.distance_to(lastpos) > 10.0):
+		yield(Globals.get_tree(), \"idle_frame\");
+		
+	dragon.queue_free();
 	Globals.fsm_data[\"dragon_feature_completed\"] = true;
 
 
@@ -630,7 +659,7 @@ func enter() -> void:
 	for pos in featuredata.data.positions:
 		var y = int(pos)%Globals.visibleTilesCount;
 		var x = floor(pos/Globals.visibleTilesCount);		
-		var tile = Globals.singletons[\"Slot\"].replace_tile(x, y, featuredata.data.replacewithid);
+		Globals.singletons[\"Slot\"].replace_tile(x, y, featuredata.data.replacewithid);
 	
 	yield(Globals.get_tree().create_timer(1.0), \"timeout\");
 	Globals.fsm_data[\"tiger_feature_completed\"] = true;

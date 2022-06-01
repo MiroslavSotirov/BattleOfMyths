@@ -195,3 +195,9 @@ func remove_tiles(data):
 	
 	yield(Promise.all(promises), "completed");
 	emit_signal("ontilesremoved");
+	
+func get_tile_position(reelindex,tileindex):
+	return reels[reelindex].get_tile_position(tileindex);
+
+func get_tile_global_position(reelindex,tileindex):
+	return get_tile_position(reelindex, tileindex);
