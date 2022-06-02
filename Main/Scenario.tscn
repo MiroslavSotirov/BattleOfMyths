@@ -250,6 +250,10 @@ func spin_data_received(data):
 	if(\"code\" in data || \"hasError\" in data): return;
 	var is_cascading = Globals.singletons[\"Networking\"].lastround && Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
 	print(\"IS CASCADNIG \", is_cascading)
+	
+	if(data.roundMultiplier < Globals.singletons[\"WinMultiplier\"].multiplier):
+		Globals.singletons[\"WinMultiplier\"].set_multiplier(data.roundMultiplier);
+	
 	if(JS.enabled): Globals.singletons[\"Networking\"].lastround = data;
 	if(!is_cascading && !Globals.singletons[\"Slot\"].allspinning):
 		yield(Globals.singletons[\"Slot\"], \"onstartspin\");
@@ -400,7 +404,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 7
 name = "Close round"
-position = Vector2( 2540, 660 )
+position = Vector2( 2680, 680 )
 trigger_ids = [ 7, 8 ]
 custom_script = SubResource( 166 )
 
@@ -462,29 +466,33 @@ extends VFSMStateBase
 
 func enter() -> void:
 	print(\"### SHOW LINE WINS STATE: ###\");
+
 #	if(Globals.singletons[\"PopupTiles\"].remaining_tile_count > 0): 
 #		yield(Globals.singletons[\"PopupTiles\"], \"popuptilesend\");
 #	Globals.singletons[\"PopupTiles\"].clear_all();
 #
-#	var data = Globals.singletons[\"Networking\"].lastround;
-#	var line_wins = calculate_line_wins(data[\"wins\"]);
-#	data[\"wins_lines_total\"] = line_wins;
-#
-#	JS.output(\"linewin\", \"elysiumgamefeature\");
-#	Globals.singletons[\"PopupTiles\"].unpop_all();
-#	Globals.singletons[\"Audio\"].play(\"WinLine\")
-#	Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
-#
-#	yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
-#
-#	if(line_wins > Globals.singletons[\"BigWin\"].big_win_limit):
-#		JS.output(\"bigwin\", \"elysiumgamefeature\");
-#		Globals.singletons[\"BigWin\"].show_win(line_wins);
-#		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
-#		Globals.singletons[\"WinBar\"].set_text(line_wins, false);
-#		Globals.fsm_data[\"big_win_shown\"] = true;
-#	else:
-#		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
+	var data = Globals.singletons[\"Networking\"].lastround;
+	
+	Globals.singletons[\"WinMultiplier\"].set_multiplier(data.roundMultiplier);
+	
+	var line_wins = calculate_line_wins(data[\"wins\"]);
+	data[\"wins_lines_total\"] = line_wins;
+
+	JS.output(\"linewin\", \"elysiumgamefeature\");
+	Globals.singletons[\"PopupTiles\"].unpop_all();
+	Globals.singletons[\"Audio\"].play(\"WinLine\")
+	Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
+
+	yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
+
+	if(line_wins > Globals.singletons[\"BigWin\"].big_win_limit):
+		JS.output(\"bigwin\", \"elysiumgamefeature\");
+		Globals.singletons[\"BigWin\"].show_win(line_wins);
+		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
+		Globals.singletons[\"WinBar\"].set_text(line_wins, false);
+		Globals.fsm_data[\"big_win_shown\"] = true;
+	else:
+		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
 	
 	Globals.fsm_data[\"wins_shown\"] = true;
 	

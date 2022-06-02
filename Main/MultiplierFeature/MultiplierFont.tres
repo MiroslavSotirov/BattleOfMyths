@@ -1,0 +1,26 @@
+[gd_resource type="BitmapFont" load_steps=12 format=2]
+
+[ext_resource path="res://addons/BitmapFontEasy/bmpfonthelper.gd" type="Script" id=1]
+[ext_resource path="res://Main/MultiplierFeature/font/1.png" type="Texture" id=2]
+[ext_resource path="res://Main/MultiplierFeature/font/3.png" type="Texture" id=3]
+[ext_resource path="res://Main/MultiplierFeature/font/4.png" type="Texture" id=4]
+[ext_resource path="res://Main/MultiplierFeature/font/2.png" type="Texture" id=5]
+[ext_resource path="res://Main/MultiplierFeature/font/o.png" type="Texture" id=6]
+[ext_resource path="res://Main/MultiplierFeature/font/8.png" type="Texture" id=7]
+[ext_resource path="res://Main/MultiplierFeature/font/5.png" type="Texture" id=8]
+[ext_resource path="res://Main/MultiplierFeature/font/7.png" type="Texture" id=9]
+[ext_resource path="res://Main/MultiplierFeature/font/6.png" type="Texture" id=10]
+[ext_resource path="res://Main/MultiplierFeature/font/9.png" type="Texture" id=11]
+
+[resource]
+textures = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 6 ) ]
+chars = PoolIntArray( 48, 9, 0, 0, 86, 137, -15, 0, 60, 56, 7, 0, 0, 86, 137, -15, 0, 60, 57, 8, 0, 0, 86, 137, -15, 0, 60, 49, 0, 0, 0, 86, 137, -15, 0, 60, 50, 1, 0, 0, 86, 137, -15, 0, 60, 51, 2, 0, 0, 86, 137, -15, 0, 60, 52, 3, 0, 0, 86, 137, -15, 0, 60, 53, 4, 0, 0, 86, 137, -15, 0, 60, 54, 5, 0, 0, 86, 137, -15, 0, 60, 55, 6, 0, 0, 86, 137, -15, 0, 60 )
+script = ExtResource( 1 )
+charset = [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" ]
+textureSet = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 6 ) ]
+globalOffset = Vector2( -15, 0 )
+globalAdvance = 60.0
+letterSpecificOffset = {
+}
+letterSpecificAdvance = {
+}
