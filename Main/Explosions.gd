@@ -24,7 +24,7 @@ func _add_explosion(position):
 	explotion.rotation = randf() * TAU;
 	explotion.set_new_state_data(spine_data);
 	self.add_child(explotion);
-	explotion.position = position;
+	explotion.global_position = position;
 	explotion.play_anim('explore', false);
 	
 	yield(explotion, "animation_complete");
