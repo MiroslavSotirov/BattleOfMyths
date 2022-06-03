@@ -39,12 +39,15 @@ func export_pck(distribution=false):
 	var packer = PCKPacker.new()
 	var pckname = "";
 	if(distribution):
-		if(is_translation): pckname = "res://dist/translations/"+name+".pck";
-		else: pckname = "res://dist/packages/"+name+".pck";
-		if(is_loader): pckname = "res://dist/"+name+".pck";
+		if(is_translation): pckname = "res://dist/translations/";
+		else: pckname = "res://dist/packages/";
+		if(is_loader): pckname = "res://dist/";
 	else:
-		if(is_translation): pckname = "res://Translations/export/"+name+".pck";
-		else: pckname = "res://packages/"+name+".pck";
+		if(is_translation): pckname = "res://Translations/export/";
+		else: pckname = "res://packages/";
+	Directory.new().make_dir_recursive(pckname);
+	pckname += name+".pck";
+	 
 	packer.pck_start(pckname);
 			
 	for path in paths.keys(): 
