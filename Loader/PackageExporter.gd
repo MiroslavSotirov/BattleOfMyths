@@ -5,6 +5,7 @@ class_name PackageExporter
 export(Array,String,DIR) var targetpaths : Array;
 export(Array,String,DIR) var ignorepaths : Array;
 export(bool) var is_loader : bool = false;
+export(bool) var is_translation : bool = false;
 
 signal export_completed;
 
@@ -36,7 +37,9 @@ func export_pck():
 				paths[path] = path;
 
 	var packer = PCKPacker.new()
-	var pckname = "res://packages/"+name+".pck";
+	var pckname = "";
+	if(is_translation): pckname = "res://Translations/export/"+name+".pck";
+	else: pckname = "res://packages/"+name+".pck";
 	packer.pck_start(pckname);
 			
 	for path in paths.keys(): 

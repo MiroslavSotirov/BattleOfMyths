@@ -23,3 +23,7 @@ is_loader = true
 [node name="main" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
 targetpaths = [ "res://Main", "res://addons/visual_fsm", "res://addons/BitmapFontEasy" ]
+
+[node name="EN" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+is_translation = true
