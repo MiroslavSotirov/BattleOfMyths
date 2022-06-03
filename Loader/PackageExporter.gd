@@ -6,17 +6,9 @@ export(Array,String,DIR) var targetpaths : Array;
 export(Array,String,DIR) var ignorepaths : Array;
 export(bool) var is_loader : bool = false;
 
-func _get_tool_buttons(): return ["export_pck"]
+signal export_completed;
 
-func _ready():
-	var do_export = false;
-	for argument in OS.get_cmdline_args():
-		if(argument == "-export_pck"): 
-			do_export = true;
-			break;
-		
-	if(do_export):
-		export_pck();
+func _get_tool_buttons(): return ["export_pck"]
 
 func export_pck():
 	prints("Exporting", name);
@@ -43,13 +35,6 @@ func export_pck():
 			else:
 				paths[path] = path;
 
-		#var asset = load(path);
-		#if(asset is StreamTexture):
-		#	var orgimg = load(path.replace(folderpath, "res://"));
-		#	paths[asset.load_path] = orgimg.load_path;
-		#elif(asset is Texture): 
-		#	paths[path] = path.replace(folderpath, "res://");
-
 	var packer = PCKPacker.new()
 	var pckname = "res://packages/"+name+".pck";
 	packer.pck_start(pckname);
@@ -61,13 +46,12 @@ func export_pck():
 	if(is_loader):
 		ProjectSettings.save_custom("res://project.binary")
 		#packer.add_file("res://project.godot", "res://project.godot")
-		#print("res://project.godot -> res://project.godot")
 		packer.add_file("res://project.binary", "res://project.binary")
-		print("res://project.binary -> res://project.binary")
+
 		
 	packer.flush()
-	
-	print("done")	
+	print("done")
+	emit_signal("export_completed");
 
 func get_dir_contents(rootPath: String) -> Array:
 	var files = []

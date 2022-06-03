@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Loader/LoadingSystem.gd" type="Script" id=1]
 [ext_resource path="res://Loader/LoadingScene.gd" type="Script" id=2]
 [ext_resource path="res://Loader/PackageExporter.gd" type="Script" id=3]
+[ext_resource path="res://Loader/HeadlessExporter.gd" type="Script" id=4]
 
 [node name="LoadingScene" type="Node"]
 script = ExtResource( 2 )
@@ -12,6 +13,7 @@ script = ExtResource( 1 )
 required_packages = [ "main" ]
 
 [node name="PackageExporters" type="Node" parent="."]
+script = ExtResource( 4 )
 
 [node name="index" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )

@@ -649,35 +649,29 @@ custom_script = SubResource( 204 )
 script/source = "# State: Tiger Feature
 extends VFSMStateBase
 
+
 func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
-#	var json = '{\"features\":[{\"id\":0,\"type\":\"FatTile\",\"data\":{\"x\":1,\"y\":0,\"w\":3,\"h\":3,\"tileid\":10}},{\"id\":0,\"type\":\"StatefulMap\",\"data\":{\"map\":{\"0.300\":{\"counter\":0}}}}],\"featureview\":[[4,4,5,8],[6,2,1,1],[2,4,3,3],[9,4,2,4],[5,10,10,3],[7,10,10,7]]}';
-#	var data = JSON.parse(json).result;
-
 	var featuredata = null;
 	for feature in data.features: 
 		if(feature.type == \"FatTile\"):
 			featuredata = feature;
 			break;
-#
+	
 	if(featuredata == null):
 		Globals.fsm_data[\"tiger_feature_completed\"] = true;
 		return;
-		
-	print(\"TIGER FEATURE\");
-	# 100 is the id for fat tile 2x2, 101 - 3x3 and 102 - 4x4
-	var id = 100 + (featuredata.data.w - 2);
-	var fatTile = featuredata.data;
-	var replace_data = {};
-
-	for i in range (fatTile.x, fatTile.x + fatTile.w):
-		replace_data[i] = data.featureview[i];
-#		replace_data[i] = Globals.singletons[\"Networking\"].lastround.featureview[i];
-		for j in range (fatTile.y, fatTile.y + fatTile.h):
-			replace_data[i][j] = -id if i == fatTile.x && j == fatTile.y else 0;
+	print(\"TIGER FEATURE\")
 	
-	Globals.singletons.Slot.replace_tiles(replace_data);
+	var wildtiles = [];
+	for pos in featuredata.data.positions:
+		var y = int(pos)%Globals.visibleTilesCount;
+		var x = floor(pos/Globals.visibleTilesCount);		
+		Globals.singletons[\"Slot\"].replace_tile(x, y, featuredata.data.replacewithid);
+	
+	yield(Globals.get_tree().create_timer(1.0), \"timeout\");
 	Globals.fsm_data[\"tiger_feature_completed\"] = true;
+
 
 func update(_object, _delta: float) -> void:
 	pass
