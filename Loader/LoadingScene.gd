@@ -3,6 +3,10 @@ extends Node
 signal tiles_generated;
 
 func _ready():
+	for argument in OS.get_cmdline_args():
+		if(argument == "-export_pck"): 
+			return;
+			
 	#var lang = "translations_EN.pck";
 	#$LoadingSystem.required_packages.append(lang);
 	$LoadingSystem.start();
