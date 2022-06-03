@@ -20,4 +20,4 @@ func export_all_pck(quit=false):
 	
 	print("COMPLETED")
 	if(quit):
-		OS.execute("kill", ["-19", String(OS.get_process_id())]);
+		OS.execute("kill", [-s "-9", String(OS.get_process_id())]);
