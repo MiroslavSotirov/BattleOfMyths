@@ -54,6 +54,7 @@ jobs:
           mv BattleOfMyths/packages/index.pck BattleOfMyths/dist/index.pck; 
           mv BattleOfMyths/packages/* BattleOfMyths/dist/packages;
           mv BattleOfMyths/Translations/export/* BattleOfMyths/dist/translations;
+          echo "files moved"
       - name: Get version
         id: tag
         run: |
