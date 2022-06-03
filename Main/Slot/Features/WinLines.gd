@@ -45,20 +45,20 @@ func show_lines(windata):
 			win["winline"] = 0;
 		show_line(win["symbol_positions"], int(win["winline"]));
 		yield(get_tree().create_timer(0.1), "timeout")
-	
+
 	hide_nonline_tiles();
 		
 	emit_signal("ShowEnd");
 		
 func show_line(positions, lineid):
 	var line_positions = [];
-	
+
 	var linex = 0
 	for pos in lines[lineid]:
 		var tile = Globals.singletons["Slot"].get_tile_at(linex,pos);
 		line_positions.append(tile);
 		linex += 1;
-	
+
 	for pos in positions:
 		#TODO: dynamic
 		var y = int(pos)%Globals.visibleTilesCount;
@@ -75,7 +75,7 @@ func show_line(positions, lineid):
 			wintile.tile = tile;
 			#wintile.position = tile.position;
 			wintile.init();
-	
+
 	var winline = line_scene.instance();
 	$LinesContainer.add_child(winline);
 	winline.global_position = line_positions[0].global_position;

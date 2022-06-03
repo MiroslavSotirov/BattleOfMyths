@@ -96,7 +96,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin" type="Node2D" parent="."]
-position = Vector2( -32.0468, -20.9453 )
+position = Vector2( 37.0927, 13.0997 )
 script = ExtResource( 5 )
 speed = Vector2( 5, 5 )
 size = Vector2( 40, 35 )
@@ -115,7 +115,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin2" type="Node2D" parent="."]
-position = Vector2( 25.6878, 24.6393 )
+position = Vector2( 46.8427, -7.42002 )
 script = ExtResource( 5 )
 speed = Vector2( 4, 7.51 )
 size = Vector2( -50, 25 )
@@ -134,7 +134,7 @@ distance = 10.0
 segments = 50
 
 [node name="Spin3" type="Node2D" parent="."]
-position = Vector2( -2.01359, -19.9766 )
+position = Vector2( -17.0172, -5.70002 )
 script = ExtResource( 5 )
 speed = Vector2( 7, 12 )
 size = Vector2( 23, -40 )

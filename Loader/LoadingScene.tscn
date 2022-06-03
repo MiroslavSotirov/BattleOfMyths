@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Loader/LoadingSystem.gd" type="Script" id=1]
 [ext_resource path="res://Loader/LoadingScene.gd" type="Script" id=2]
 [ext_resource path="res://Loader/PackageExporter.gd" type="Script" id=3]
 [ext_resource path="res://Loader/HeadlessExporter.gd" type="Script" id=4]
+[ext_resource path="res://Utils/SpineVisualizer.gd" type="Script" id=5]
+[ext_resource path="res://Main/Animations/Symbols/FATWILD.atlas" type="SpineAtlasResource" id=6]
+[ext_resource path="res://Main/Animations/Symbols/FATWILD.json" type="SpineSkeletonJsonDataResource" id=7]
+
+[sub_resource type="SpineSkeletonDataResource" id=1]
+atlas_res = ExtResource( 6 )
+skeleton_json_res = ExtResource( 7 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=2]
+skeleton = SubResource( 1 )
 
 [node name="LoadingScene" type="Node"]
 script = ExtResource( 2 )
@@ -24,6 +36,9 @@ is_loader = true
 script = ExtResource( 3 )
 targetpaths = [ "res://Main", "res://addons/visual_fsm", "res://addons/BitmapFontEasy" ]
 
-[node name="EN" type="Node" parent="PackageExporters"]
-script = ExtResource( 3 )
-is_translation = true
+[node name="SpineDebugVisualizer" type="SpineSprite" parent="."]
+animation_state_data_res = SubResource( 2 )
+script = ExtResource( 5 )
+skin = "default"
+startanimation = "appear"
+loop = false

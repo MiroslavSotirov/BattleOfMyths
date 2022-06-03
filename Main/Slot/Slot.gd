@@ -167,12 +167,12 @@ func add_data(data):
 
 	yield(Promise.all(promises), "completed");
 
-func replace_tile(reel, tile_index, new_id):
-	reels[reel].replace_tile(tile_index, new_id);
+func replace_tile(reel, tile_index, new_id, animation = null, animation_type = Tile.AnimationType.SPINE):
+	reels[reel].replace_tile(tile_index, new_id, animation, animation_type);
 
-func replace_tiles(data):
+func replace_tiles(data, animation = null, animation_type = Tile.AnimationType.SPINE):
 	for i in data.keys():
-		reels[i].replace_all_tiles(data[i]);
+		reels[i].replace_all_tiles(data[i], animation, animation_type);
 #		promises.push_back(reels[i].popup_tiles(data[i]));
 
 func get_tiles_with_id(id):
@@ -199,5 +199,6 @@ func remove_tiles(data):
 func get_tile_position(reelindex,tileindex):
 	return reels[reelindex].get_tile_position(tileindex);
 
-func get_tile_global_position(reelindex,tileindex):
-	return get_tile_position(reelindex, tileindex);
+func get_tile_global_position(reelindex, tileindex):
+	return reels[reelindex].get_tile_global_position(tileindex); 
+

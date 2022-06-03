@@ -2546,8 +2546,7 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
 script = ExtResource( 6 )
 __meta__ = {
-"_edit_horizontal_guides_": [  ],
-"_edit_use_anchors_": false
+"_edit_horizontal_guides_": [  ]
 }
 
 [node name="IntroContainer" type="Control" parent="."]
@@ -2714,9 +2713,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 reel_spin_sfx = "Spinning Reel"
 reel_stop_sfx = "Reels Stop"
 reel_stop_volume = 0.35
@@ -2786,9 +2782,6 @@ margin_top = -333.0
 margin_right = 624.0
 margin_bottom = 395.0
 rect_clip_content = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Reel1" type="Node2D" parent="SlotContainer/Slot/ReelContainer"]
 script = ExtResource( 3 )
