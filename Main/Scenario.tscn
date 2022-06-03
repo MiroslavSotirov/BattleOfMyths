@@ -481,9 +481,9 @@ func enter() -> void:
 	JS.output(\"linewin\", \"elysiumgamefeature\");
 	Globals.singletons[\"PopupTiles\"].unpop_all();
 	Globals.singletons[\"Audio\"].play(\"WinLine\")
-	Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
+	#Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
 
-	yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
+	#yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
 
 	if(line_wins > Globals.singletons[\"BigWin\"].big_win_limit):
 		JS.output(\"bigwin\", \"elysiumgamefeature\");

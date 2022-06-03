@@ -4678,7 +4678,7 @@ __meta__ = {
 
 [node name="Networking" type="Node" parent="."]
 script = ExtResource( 8 )
-init_sessionID = "test2"
+init_sessionID = "test3"
 game = "battle-of-myths"
 mode = "demo"
 operator = "mav"
