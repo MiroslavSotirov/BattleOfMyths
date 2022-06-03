@@ -11,7 +11,7 @@ signal export_completed;
 
 func _get_tool_buttons(): return ["export_pck"]
 
-func export_pck():
+func export_pck(distribution=false):
 	prints("Exporting", name);
 	
 	var valid_extensions = ["png", "jpg", "webp", "tscn", "tres", "gd", "ttf", "json", "atlas", "txt"];
@@ -38,8 +38,13 @@ func export_pck():
 
 	var packer = PCKPacker.new()
 	var pckname = "";
-	if(is_translation): pckname = "res://Translations/export/"+name+".pck";
-	else: pckname = "res://packages/"+name+".pck";
+	if(distribution):
+		if(is_translation): pckname = "res://dist/translations/"+name+".pck";
+		else: pckname = "res://dist/packages/"+name+".pck";
+		if(is_loader): pckname = "res://dist/"+name+".pck";
+	else:
+		if(is_translation): pckname = "res://Translations/export/"+name+".pck";
+		else: pckname = "res://packages/"+name+".pck";
 	packer.pck_start(pckname);
 			
 	for path in paths.keys(): 
