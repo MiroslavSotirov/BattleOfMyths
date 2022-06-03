@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Loader/LoadingSystem.gd" type="Script" id=1]
 [ext_resource path="res://Loader/LoadingScene.gd" type="Script" id=2]
 [ext_resource path="res://Loader/PackageExporter.gd" type="Script" id=3]
 [ext_resource path="res://Loader/HeadlessExporter.gd" type="Script" id=4]
-[ext_resource path="res://Utils/SpineVisualizer.gd" type="Script" id=5]
 
 [node name="LoadingScene" type="Node"]
 script = ExtResource( 2 )
@@ -24,6 +23,3 @@ is_loader = true
 [node name="main" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
 targetpaths = [ "res://Main", "res://addons/visual_fsm", "res://addons/BitmapFontEasy" ]
-
-[node name="SpineDebugVisualizer" type="SpineSprite" parent="."]
-script = ExtResource( 5 )
