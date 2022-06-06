@@ -206,7 +206,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 4
 name = "Spin error"
-position = Vector2( 1540, 120 )
+position = Vector2( 1360, 460 )
 trigger_ids = [ 4 ]
 custom_script = SubResource( 152 )
 
@@ -274,7 +274,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 5
 name = "Spin Start"
-position = Vector2( 1220, 220 )
+position = Vector2( 1080, 520 )
 trigger_ids = [ 1, 5 ]
 custom_script = SubResource( 154 )
 
@@ -405,7 +405,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 7
 name = "Close round"
-position = Vector2( 3000, 760 )
+position = Vector2( 3040, 780 )
 trigger_ids = [ 7, 8 ]
 custom_script = SubResource( 166 )
 
@@ -441,22 +441,33 @@ extends VFSMStateBase
 
 func enter() -> void:
 	print(\"### WIN STATE: ###\");
-	pass
-
+	var data = Globals.singletons[\"Networking\"].lastround;
+	var line_wins = calculate_line_wins(data[\"wins\"]);
+	data[\"wins_lines_total\"] = line_wins;
 
 func update(_object, _delta: float) -> void:
 	pass
 
-
 func exit() -> void:
 	pass
+	
+func calculate_line_wins(wins):
+	if(wins == null): return 0.0;
+	var n : float = 0.0;
+
+	for win in wins: 
+		if(win[\"index\"].findn(\"freespin\")>-1): continue;
+		if(!win.has(\"winline\")): n+=float(win[\"win\"]); #winline 0
+		elif(int(win[\"winline\"]) > -1): n+=float(win[\"win\"]);
+
+	return n;
 "
 
 [sub_resource type="Resource" id=184]
 script = ExtResource( 1 )
 vfsm_id = 11
 name = "Wins Check"
-position = Vector2( 2060, 640 )
+position = Vector2( 2080, 900 )
 trigger_ids = [ 14, 15 ]
 custom_script = SubResource( 183 )
 
@@ -476,9 +487,6 @@ func enter() -> void:
 	
 	Globals.singletons[\"WinMultiplier\"].set_multiplier(data.roundMultiplier);
 	
-	var line_wins = calculate_line_wins(data[\"wins\"]);
-	data[\"wins_lines_total\"] = line_wins;
-
 	JS.output(\"linewin\", \"elysiumgamefeature\");
 	Globals.singletons[\"PopupTiles\"].unpop_all();
 	Globals.singletons[\"Audio\"].play(\"WinLine\")
@@ -486,9 +494,9 @@ func enter() -> void:
 
 	#yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
 
-	if(line_wins > Globals.singletons[\"BigWin\"].big_win_limit):
+	if(data[\"wins_lines_total\"] > Globals.singletons[\"BigWin\"].big_win_limit):
 		JS.output(\"bigwin\", \"elysiumgamefeature\");
-		Globals.singletons[\"BigWin\"].show_win(line_wins);
+		Globals.singletons[\"BigWin\"].show_win(data[\"wins_lines_total\"]);
 		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
 		Globals.fsm_data[\"big_win_shown\"] = true;
 		if(\"cumulativeWin\" in data):
@@ -496,20 +504,11 @@ func enter() -> void:
 		elif(\"spinWin\" in data):
 			Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 	else:
-		bangup_wins(line_wins);
+		bangup_wins(data[\"wins_lines_total\"]);
 		
 	Globals.fsm_data[\"wins_shown\"] = true;
 	
-func calculate_line_wins(wins):
-	if(wins == null): return 0.0;
-	var n : float = 0.0;
 
-	for win in wins: 
-		if(win[\"index\"].findn(\"freespin\")>-1): continue;
-		if(!win.has(\"winline\")): n+=float(win[\"win\"]); #winline 0
-		elif(int(win[\"winline\"]) > -1): n+=float(win[\"win\"]);
-
-	return n;
 
 func update(_object, _delta: float) -> void:
 	pass
@@ -534,7 +533,7 @@ func bangup_wins(n):
 script = ExtResource( 1 )
 vfsm_id = 12
 name = "Show Line Wins"
-position = Vector2( 2340, 580 )
+position = Vector2( 2320, 780 )
 trigger_ids = [ 17 ]
 custom_script = SubResource( 189 )
 
@@ -732,9 +731,7 @@ extends VFSMStateBase
 
 
 func enter() -> void:
-	var data = Globals.singletons[\"Networking\"].lastround;
-	
-	
+	var data = Globals.singletons[\"Networking\"].lastround;	
 	Globals.fsm_data[\"slot_switch_completed\"] = true;
 
 
@@ -750,7 +747,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 16
 name = "Switch Slot State"
-position = Vector2( 2640, 720 )
+position = Vector2( 2580, 900 )
 trigger_ids = [ 23 ]
 custom_script = SubResource( 212 )
 
