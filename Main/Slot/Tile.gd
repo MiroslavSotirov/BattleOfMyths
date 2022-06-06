@@ -42,9 +42,23 @@ func set_tile(_id, initial_position):
 	else:
 		#TODO check for better approach
 		$SpineSprite.reset_pose();
+
 		
 	id = _id;
 	position = initial_position 
+	
+#	yield(get_tree(),"idle_frame");
+	var direction = sign(id);
+	var tile_width = _description.image_size.x / _description.size_x;
+	var tile_height = _description.image_size.y / _description.size_y;
+
+	var x = tile_width / 2 * (_description.size_x - 1) if _description.size_x > 1 else 0;
+	var y = tile_height / 2 * (_description.size_y - 1) if _description.size_y > 1 else 0;
+
+	$Image.offset.x = -direction * x;
+	$Image.offset.y = -direction * y;
+	$SpineSprite.position.x = (-direction * x) * _description.tile_scale.x;
+	$SpineSprite.position.y = (-direction * y) * _description.tile_scale.y;
 	
 func get_spine():
 	return $SpineSprite;
@@ -63,48 +77,13 @@ func reel_stopped(index):
 	pass
 
 func show_spine_sprite():
-	#print("showing the sprite sheet");
 	if ($SpineSprite.visible || _description.id == _invisible_tile): return;
-#	print(self._description.spine_data);
-#		$SpineSprite.position = self.tiledesc.image_offset;
-##		$SpineSprite.position.y += image_offset * reel.tileDistance;
+
 	$SpineSprite.visible = false;
 	yield(VisualServer,"frame_post_draw");
 	$SpineSprite.visible = true;
 	$Image.visible = false;
-#		$SpineSprite.visible = false;
-#	yield(VisualServer,"frame_post_draw");
-#		$SpineSprite.visible = true;
-#		$Image.visible = false;
-#		emit_signal("spinespriteshown");
-	
-#	_setScale($SpineSprite);
-#	if(underneath_fat_tile): 
-#		$SpineSprite.visible = false;
-#		$Image.visible = false;
-#	else:
-#		$SpineSprite.position = self.tiledesc.image_offset;
-##		$SpineSprite.position.y += image_offset * reel.tileDistance;
-#		$SpineSprite.set_new_state_data(self.tiledesc.spine_data);
-#		$SpineSprite.visible = true;
-#		$SpineSprite.visible = false;
-#		yield(VisualServer,"frame_post_draw");
-#		$SpineSprite.visible = true;
-#		$Image.visible = false;
-#		emit_signal("spinespriteshown");
 
-#func show_image():
-#	_setScale($Image);
-#	if(underneath_fat_tile):
-#		$Image.visible = false;
-#		$SpineSprite.visible = false;
-#	else:
-#		$SpineSprite.visible = false;
-#		$Image.visible = true;
-#		$Image.texture = self.tiledesc.static_image;
-#		$Image.position = self.tiledesc.image_offset;
-#		$Image.position.y += image_offset * reel.tileDistance;
-#		emit_signal("imageshown");
 
 #########################################################################
 func play_animation(type = AnimationType.SPINE, name = null, loop = false, timescale_override = null, has_delay = true):
@@ -115,21 +94,18 @@ func play_animation(type = AnimationType.SPINE, name = null, loop = false, times
 		push_error("no animation name provied");
 		return;
 
-	if (type == AnimationType.SPINE):
+	if (type == AnimationType.SPINE && $SpineSprite.has_animation(name)):
 #		print("I am playing spine animation....", name);
 		show_spine_sprite();
 		$SpineSprite.play_anim(name, loop, timescale_override, has_delay);
 		return;
 	
-	if (type == AnimationType.TIMELINE):
-		if ($AnimationPlayer.has_animation(name)):
-			$AnimationPlayer.play(name);
-		else:
-			call_deferred("_on_animation_finished", name);
+	if (type == AnimationType.TIMELINE && $AnimationPlayer.has_animation(name)):
+		$AnimationPlayer.play(name);
 	return;
 
 	print("I don't know what type of animation top play....");
-
+	return call_deferred("_on_animation_finished", name);
 func _on_animation_finished(name, track = null, __ = null):
 	if (track == null):
 		emit_signal("animation_finished", name);
@@ -145,17 +121,6 @@ func show_image():
 	
 #	$Image.texture = load("res://Textures/test-tiles/tile"+ _description.id as String + ".png");
 	$Image.texture = self._description.static_image;
-	var direction = sign(id);
-	var tile_width = _description.image_size.x / _description.size_x;
-	var tile_height = _description.image_size.y / _description.size_y;
-
-	var x = tile_width / 2 * (_description.size_x - 1) if _description.size_x > 1 else 0;
-	var y = tile_height / 2 * (_description.size_y - 1) if _description.size_y > 1 else 0;
-
-	$Image.offset.x = -direction * x;
-	$Image.offset.y = -direction * y;
-	$SpineSprite.position.x = (-direction * x) * _description.tile_scale.x;
-	$SpineSprite.position.y = (-direction * y) * _description.tile_scale.y;
 	
 #	$SpineSprite.visible = true;
 #	$Image.visible = false;
@@ -172,11 +137,6 @@ func update_position(pos):
 	
 	return position;
 
-func _setScale(element):
-	pass;
-#	element.scale = self.tiledesc.tile_scale * scale_multiplier;
-#	element.position = self.tiledesc.tile_offset;
-		
 func _setblur(val):
 	if(id == _invisible_tile): return;
 	blur = val;

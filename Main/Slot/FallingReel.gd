@@ -58,8 +58,12 @@ func get_tile_at(index):
 # returns the tile position relative to the slot
 func get_tile_position(index):
 	var tile = get_tile_at(index);
+
+	return Vector2(tile.position.x + position.x, tile.position.y);
+
+func get_tile_global_position(index):
+	var tile = get_tile_at(index);
 	return tile.global_position;
-	#return Vector2(tile.position.x + position.x, tile.position.y);
 
 func set_bluramount(val):
 #	for tile in currentTiles: tile.blur = val * blurMultiplier;
@@ -126,24 +130,26 @@ func stop_spin(server_data):
 	call_deferred("_fill");
 	yield(self, "onstopped");
 
-func replace_all_tiles(ids):
+func replace_all_tiles(ids, animation = null, animation_type = Tile.AnimationType.SPINE):
 	if (ids.size() != visibleTilesCount):
 		var err = "expected %s of new tile ids, got %s";
 		push_error(err % [visibleTilesCount, ids.size()]);
 		return;
 		
 	for i in range(ids.size()):
-		print("i ", i,  "id ", ids[i])
-		replace_tile(i, ids[i]);
+		replace_tile(i, ids[i], animation, animation_type);
 
-func replace_tile(index, newId):
+func replace_tile(index, newId, animation = null, animation_type = Tile.AnimationType.SPINE):
 	if (_spinning):
 		push_error("Tiles can be replaced only on a stopped reel");
 		return;
 		
 	var i = int(_position) - index;
+	var tile = self._visible_tiles[index];
 	_buffer[i] = newId;
-	_set_tile(self._visible_tiles[index], index);
+	_set_tile(tile, index, Vector2(0,0), animation, animation_type);
+
+
 	
 func add_tiles(data):
 	if (_removed_tiles.size() == 0): return Promise.resolve();
@@ -214,14 +220,19 @@ func _remove_from_buffer(indexes = []):
 	
 	return new_buffer;
 
-func _set_tile (tile, tile_index = 0, offest = Vector2.ZERO):
+func _set_tile (tile, tile_index = 0, offest = Vector2.ZERO, animation = null, animation_type = Tile.AnimationType.SPINE):
 	var pos = int(_position) - tile_index;
 	var id = Globals.singletons["Slot"].invisible_tile if pos >= _buffer.size() else _buffer[pos];
 	var x = tile_size.x / 2 + offest.x;
 	var y = tile_size.y / 2 + (tile_index) * tile_size.y + offest.y;
 
 	tile.set_tile(id, Vector2(x, y));
+	if (animation != null):
+		tile.play_animation(animation_type, animation);
+		yield(tile, "animation_finished");
+		
 	tile.show_image();
+
 
 func _process(delta):
 	if (!_spinning): return;

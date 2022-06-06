@@ -89,3 +89,6 @@ func reset_pose():
 	if(get_skeleton()): 
 		get_skeleton().set_bones_to_setup_pose();
 		get_skeleton().set_slots_to_setup_pose();
+
+func has_animation(name):
+	return !!animation_state_data_res.skeleton.find_animation("appear");
