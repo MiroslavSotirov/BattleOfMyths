@@ -348,7 +348,6 @@ extends VFSMStateBase
 
 func enter() -> void:
 	print(\"### CLOSE STATE: ###\");
-	
 	var data = Globals.singletons[\"Networking\"].lastround;
 	var slot = Globals.singletons.Slot;
 	var wins = data.wins if data.wins != null else [];
@@ -363,13 +362,12 @@ func enter() -> void:
 			win_tiles_positions[i] = [] if (not (i in win_tiles_positions)) else win_tiles_positions[i];
 			if (not(j in win_tiles_positions[i])):
 				win_tiles_positions[i].append(j);
-	print(1, win_tiles_positions.keys());
+
 	if (win_tiles_positions.keys().size() != 0):
 		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
-		print(2);
 		slot.remove_tiles(win_tiles_positions);
 		yield(Globals.singletons.Explosions.show_at(win_tiles_positions, slot.reels), \"completed\");
-	print(3);
+	
 	if(JS.enabled): 
 		print(\"JS is enabled\");
 		if (data.nextAction == \"finish\"):
@@ -493,13 +491,14 @@ func enter() -> void:
 		Globals.singletons[\"BigWin\"].show_win(line_wins);
 		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
 		Globals.fsm_data[\"big_win_shown\"] = true;
-		
-		if(\"cumulativeWin\" in data):
-			Globals.singletons[\"TotalWinBar\"].show_win(data[\"cumulativeWin\"], true);
-		elif(\"spinWin\" in data):
-			Globals.singletons[\"TotalWinBar\"].show_win(data[\"spinWin\"], true);
 	else:
-		bangup_wins(line_wins)
+		print(\"line\");
+		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
+	
+	if(\"cumulativeWin\" in data):
+		Globals.singletons[\"TotalWinBar\"].show_win(data[\"cumulativeWin\"]);
+	elif(\"spinWin\" in data):
+		Globals.singletons[\"TotalWinBar\"].show_win(data[\"spinWin\"]);
 
 	Globals.fsm_data[\"wins_shown\"] = true;
 	
@@ -519,17 +518,6 @@ func update(_object, _delta: float) -> void:
 
 func exit() -> void:
 	pass
-	
-func bangup_wins(n):
-	Globals.singletons[\"WinBar\"].show_win(float(n), false);
-	yield(Globals.singletons[\"WinBar\"], \"CountEnd\");
-	Globals.singletons[\"WinBar\"].hide(true);
-	
-	var data = Globals.singletons[\"Networking\"].lastround;
-	if(\"cumulativeWin\" in data):
-		Globals.singletons[\"TotalWinBar\"].set_text(data[\"cumulativeWin\"], true);
-	elif(\"spinWin\" in data):
-		Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 "
 
 [sub_resource type="Resource" id=190]
@@ -669,26 +657,48 @@ extends VFSMStateBase
 
 func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
+#	var json = '{\"features\":[{\"id\":0,\"type\":\"FatTile\",\"data\":{\"x\":2,\"y\":0,\"w\":4,\"h\":4,\"tileid\":10}},{\"id\":0,\"type\":\"StatefulMap\",\"data\":{\"map\":{\"0.300\":{\"counter\":0}}}}],\"featureview\":[[4,4,5,8],[6,2,1,1],[2,4,3,3],[9,4,2,4],[5,10,10,3],[7,10,10,7]]}'
+#	var data = JSON.parse(json).result;
+
 	var featuredata = null;
 	for feature in data.features: 
 		if(feature.type == \"FatTile\"):
 			featuredata = feature;
 			break;
-	
+#
 	if(featuredata == null):
 		Globals.fsm_data[\"tiger_feature_completed\"] = true;
 		return;
-	print(\"TIGER FEATURE\")
 	
-	var wildtiles = [];
-	for pos in featuredata.data.positions:
-		var y = int(pos)%Globals.visibleTilesCount;
-		var x = floor(pos/Globals.visibleTilesCount);		
-		Globals.singletons[\"Slot\"].replace_tile(x, y, featuredata.data.replacewithid);
+	print(\"TIGER FEATURE\");
+	var slot = Globals.singletons.Slot;
+	var tiger = load(\"res://Main/Slot/BonusScene/Tiger.tscn\").instance();
+	var id = 100 + (featuredata.data.w - 2);
+	var fatTile = featuredata.data;
+	var replace_data = {};
+	var pos = slot.get_tile_position(fatTile.x, fatTile.y);
 	
-	yield(Globals.get_tree().create_timer(1.0), \"timeout\");
-	Globals.fsm_data[\"tiger_feature_completed\"] = true;
+	slot.add_child(tiger);
+	tiger.show_on(fatTile);
+#	yield(tiger.show(), \"completed\");
+	yield(Globals.get_tree().create_timer(0.55), \"timeout\");
+	
+	# 100 is the id for fat tile 2x2, 101 - 3x3 and 102 - 4x4
 
+	for i in range (fatTile.x, fatTile.x + fatTile.w):
+		replace_data[i] = data.featureview[i];
+#		replace_data[i] = Globals.singletons[\"Networking\"].lastround.featureview[i];
+		for j in range (fatTile.y, fatTile.y + fatTile.h):
+			replace_data[i][j] = -id if i == fatTile.x && j == fatTile.y else 0;
+	
+#	slot.replace_tiles(replace_data, \"appear\");
+	Globals.get_tree().create_timer(0.1).connect(\"timeout\", slot, \"replace_tiles\", [replace_data, \"appear\"]);
+
+#	yield(tiger.hit(Vector2(pos.x - 612 + 203/2,  pos.y - 333 + 182/2)), \"completed\");
+	yield(tiger.hit(Vector2(pos.x - 612,  pos.y - 333), fatTile.w), \"completed\");
+	yield(tiger.hide(), \"completed\");
+	
+	Globals.fsm_data[\"tiger_feature_completed\"] = true;
 
 func update(_object, _delta: float) -> void:
 	pass
