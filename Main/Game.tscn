@@ -1,4 +1,4 @@
-[gd_scene load_steps=171 format=2]
+[gd_scene load_steps=179 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -80,6 +80,294 @@ skins = null
 
 [sub_resource type="SpineAnimationStateDataResource" id=312]
 skeleton = SubResource( 311 )
+
+[sub_resource type="Animation" id=368]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("FreeSpins/Dragon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("FreeSpins/Dragon:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Normal:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Normal:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("FreeSpins/Tiger:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("FreeSpins:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("FreeSpins:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=369]
+resource_name = "to_dragon"
+tracks/0/type = "value"
+tracks/0/path = NodePath("FreeSpins/Dragon:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Normal:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Normal:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FreeSpins/Tiger:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("FreeSpins:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("FreeSpins:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=370]
+resource_name = "to_normal"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Normal:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Normal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("FreeSpins:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FreeSpins:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=371]
+resource_name = "to_tiger"
+tracks/0/type = "value"
+tracks/0/path = NodePath("FreeSpins/Dragon:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Normal:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Normal:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("FreeSpins/Tiger:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("FreeSpins:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("FreeSpins:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [sub_resource type="StreamTexture" id=245]
 flags = 4
@@ -2893,6 +3181,282 @@ tracks/1/keys = {
 "values": [ Vector2( 30, 3 ) ]
 }
 
+[sub_resource type="Animation" id=364]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Normal:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Freespins:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Freespins:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Normal:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Freespins/DragonSlotFrame:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Freespins/TigerSlotFrame:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=365]
+resource_name = "to_dragon"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Normal:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Freespins:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Freespins:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Normal:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Freespins/DragonSlotFrame:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Freespins/TigerSlotFrame:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=366]
+resource_name = "to_normal"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Normal:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Freespins:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Freespins:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Normal:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=367]
+resource_name = "to_tiger"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Normal:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Freespins:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Freespins:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Normal:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Freespins/DragonSlotFrame:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Freespins/TigerSlotFrame:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [sub_resource type="SpineSkeletonDataResource" id=125]
 atlas_res = ExtResource( 29 )
 skeleton_json_res = ExtResource( 26 )
@@ -3292,7 +3856,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/1/path = NodePath("Slot/Overlap:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -3331,7 +3895,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=109]
 resource_name = "anticipation_to_normal"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/path = NodePath("Slot/Overlap:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -3367,7 +3931,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/3/path = NodePath("Slot/Overlap:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -3381,7 +3945,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=110]
 tracks/0/type = "value"
-tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/path = NodePath("Slot/Overlap:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -3417,7 +3981,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/3/path = NodePath("Slot/Overlap:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -3468,7 +4032,7 @@ tracks/6/keys = {
 [sub_resource type="Animation" id=111]
 resource_name = "normal_to_anticipation"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/path = NodePath("Slot/Overlap:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -3504,7 +4068,7 @@ tracks/2/keys = {
 "values": [ true, false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/3/path = NodePath("Slot/Overlap:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -3518,7 +4082,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id=112]
 tracks/0/type = "value"
-tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/path = NodePath("Slot/Overlap:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -3566,7 +4130,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/4/path = NodePath("Slot/Overlap:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -3593,7 +4157,7 @@ tracks/5/keys = {
 [sub_resource type="Animation" id=123]
 resource_name = "normal_to_transparent"
 tracks/0/type = "value"
-tracks/0/path = NodePath("Slot/NormalOverlap:visible")
+tracks/0/path = NodePath("Slot/Overlap:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -3629,7 +4193,7 @@ tracks/2/keys = {
 "values": [ true, false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Slot/NormalOverlap:modulate")
+tracks/3/path = NodePath("Slot/Overlap:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -3764,7 +4328,6 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -3795,13 +4358,21 @@ texture = ExtResource( 69 )
 position = Vector2( -816, 454 )
 texture = ExtResource( 63 )
 
-[node name="Dragon" type="Sprite" parent="SlotContainer/Background"]
+[node name="FreeSpins" type="Node2D" parent="SlotContainer/Background"]
+
+[node name="Dragon" type="Sprite" parent="SlotContainer/Background/FreeSpins"]
 visible = false
 texture = ExtResource( 9 )
 
-[node name="Tiger" type="Sprite" parent="SlotContainer/Background"]
+[node name="Tiger" type="Sprite" parent="SlotContainer/Background/FreeSpins"]
 visible = false
 texture = ExtResource( 48 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Background"]
+anims/RESET = SubResource( 368 )
+anims/to_dragon = SubResource( 369 )
+anims/to_normal = SubResource( 370 )
+anims/to_tiger = SubResource( 371 )
 
 [node name="Slot" type="Control" parent="SlotContainer"]
 anchor_left = 0.5
@@ -4056,315 +4627,317 @@ tile_size = Vector2( 203, 182 )
 anims/ReelSpinStartAnimation = SubResource( 307 )
 anims/ReelSpinStopAnimation = SubResource( 308 )
 
-[node name="NormalOverlap" type="Control" parent="SlotContainer/Slot"]
+[node name="Overlap" type="Control" parent="SlotContainer/Slot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NormalSlotFrame" type="Sprite" parent="SlotContainer/Slot/NormalOverlap"]
+[node name="Normal" type="Node2D" parent="SlotContainer/Slot/Overlap"]
+
+[node name="NormalSlotFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal"]
 position = Vector2( 0, -22 )
 texture = ExtResource( 83 )
 
-[node name="GameBar" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame"]
+[node name="GameBar" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( -371.304, -328.696 )
 script = ExtResource( 41 )
 nodecount = 18
 
-[node name="0" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="0" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( -7.62939e-06, 0 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/0"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/0"]
 texture = ExtResource( 79 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/0"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/0"]
 material = ExtResource( 39 )
 texture = ExtResource( 79 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/0"]
 anims/RESET = SubResource( 219 )
 anims/ShowGreen = SubResource( 262 )
 anims/ShowRed = SubResource( 261 )
 
-[node name="1" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="1" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 30, 0 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/1"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/1"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/1"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/1"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/1"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/1"]
 anims/RESET = SubResource( 313 )
 anims/ShowGreen = SubResource( 314 )
 anims/ShowRed = SubResource( 315 )
 
-[node name="2" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="2" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 60, 0 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/2"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/2"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/2"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/2"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/2"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/2"]
 anims/RESET = SubResource( 316 )
 anims/ShowGreen = SubResource( 317 )
 anims/ShowRed = SubResource( 318 )
 
-[node name="3" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="3" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 90, 0 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/3"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/3"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/3"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/3"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/3"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/3"]
 anims/RESET = SubResource( 319 )
 anims/ShowGreen = SubResource( 320 )
 anims/ShowRed = SubResource( 321 )
 
-[node name="4" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="4" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 120, 0 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/4"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/4"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/4"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/4"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/4"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/4"]
 anims/RESET = SubResource( 322 )
 anims/ShowGreen = SubResource( 323 )
 anims/ShowRed = SubResource( 324 )
 
-[node name="5" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="5" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 150, 0 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/5"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/5"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/5"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/5"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/5"]
 anims/RESET = SubResource( 325 )
 anims/ShowGreen = SubResource( 326 )
 anims/ShowRed = SubResource( 327 )
 
-[node name="6" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="6" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 180, 0 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/6"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/6"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/6"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/6"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/6"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/6"]
 anims/RESET = SubResource( 328 )
 anims/ShowGreen = SubResource( 329 )
 anims/ShowRed = SubResource( 330 )
 
-[node name="7" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="7" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 210, 0 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/7"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/7"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/7"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/7"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/7"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/7"]
 anims/RESET = SubResource( 331 )
 anims/ShowGreen = SubResource( 332 )
 anims/ShowRed = SubResource( 333 )
 
-[node name="8" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="8" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 240, 0 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/8"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/8"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/8"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/8"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/8"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/8"]
 anims/RESET = SubResource( 334 )
 anims/ShowGreen = SubResource( 335 )
 anims/ShowRed = SubResource( 336 )
 
-[node name="9" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="9" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 501.304, 1.52588e-05 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/9"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/9"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/9"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/9"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/9"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/9"]
 anims/RESET = SubResource( 337 )
 anims/ShowGreen = SubResource( 338 )
 anims/ShowRed = SubResource( 339 )
 
-[node name="10" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="10" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 531.304, 1.52588e-05 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/10"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/10"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/10"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/10"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/10"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/10"]
 anims/RESET = SubResource( 340 )
 anims/ShowGreen = SubResource( 341 )
 anims/ShowRed = SubResource( 342 )
 
-[node name="11" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="11" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 561.304, 1.52588e-05 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/11"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/11"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/11"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/11"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/11"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/11"]
 anims/RESET = SubResource( 343 )
 anims/ShowGreen = SubResource( 344 )
 anims/ShowRed = SubResource( 345 )
 
-[node name="12" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="12" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 591.304, 1.52588e-05 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/12"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/12"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/12"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/12"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/12"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/12"]
 anims/RESET = SubResource( 346 )
 anims/ShowGreen = SubResource( 347 )
 anims/ShowRed = SubResource( 348 )
 
-[node name="13" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="13" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 621.304, 1.52588e-05 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/13"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/13"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/13"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/13"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/13"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/13"]
 anims/RESET = SubResource( 349 )
 anims/ShowGreen = SubResource( 350 )
 anims/ShowRed = SubResource( 351 )
 
-[node name="14" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="14" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 651.304, 1.52588e-05 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/14"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/14"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/14"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/14"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/14"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/14"]
 anims/RESET = SubResource( 352 )
 anims/ShowGreen = SubResource( 353 )
 anims/ShowRed = SubResource( 354 )
 
-[node name="15" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="15" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 681.304, 1.52588e-05 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/15"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/15"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/15"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/15"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/15"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/15"]
 anims/RESET = SubResource( 355 )
 anims/ShowGreen = SubResource( 356 )
 anims/ShowRed = SubResource( 357 )
 
-[node name="16" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="16" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 711.304, -0.303985 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/16"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/16"]
 texture = ExtResource( 10 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/16"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/16"]
 material = ExtResource( 39 )
 texture = ExtResource( 10 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/16"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/16"]
 anims/RESET = SubResource( 358 )
 anims/ShowGreen = SubResource( 359 )
 anims/ShowRed = SubResource( 360 )
 
-[node name="17" type="Node2D" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar"]
+[node name="17" type="Node2D" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar"]
 position = Vector2( 741.304, -0.303985 )
 scale = Vector2( 0.5, 1 )
 
-[node name="Bar" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/17"]
+[node name="Bar" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/17"]
 texture = ExtResource( 60 )
 
-[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/17"]
+[node name="BarGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/17"]
 material = ExtResource( 39 )
 texture = ExtResource( 60 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/GameBar/17"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/GameBar/17"]
 anims/RESET = SubResource( 361 )
 anims/ShowGreen = SubResource( 362 )
 anims/ShowRed = SubResource( 363 )
 
-[node name="BarsShadowTop" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame"]
+[node name="BarsShadowTop" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( 0, -333.043 )
 texture = ExtResource( 55 )
 
-[node name="Backlight" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame"]
+[node name="Backlight" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 show_behind_parent = true
 material = ExtResource( 39 )
 position = Vector2( -10.4348, 36.5217 )
@@ -4372,57 +4945,60 @@ scale = Vector2( 2.25, 2.25 )
 z_as_relative = false
 texture = ExtResource( 51 )
 
-[node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame"]
+[node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( 0, -390 )
 texture = ExtResource( 57 )
 
-[node name="MultiplierFeature" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame/MultiplierFrame" instance=ExtResource( 2 )]
+[node name="MultiplierFeature" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/MultiplierFrame" instance=ExtResource( 2 )]
 position = Vector2( 0, -40 )
 
-[node name="BarsShadowOverlayDragon" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame"]
+[node name="BarsShadowOverlayDragon" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( -370.435, -321.739 )
 texture = ExtResource( 72 )
 
-[node name="BarsShadowOverlayTiger" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/NormalSlotFrame"]
+[node name="BarsShadowOverlayTiger" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( 378.261, -328.696 )
 texture = ExtResource( 58 )
 
-[node name="DragonSlotFrame" type="Sprite" parent="SlotContainer/Slot/NormalOverlap"]
+[node name="Freespins" type="Node2D" parent="SlotContainer/Slot/Overlap"]
+visible = false
+
+[node name="DragonSlotFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins"]
 visible = false
 position = Vector2( 0, -22 )
 texture = ExtResource( 40 )
 
-[node name="Backlight" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/DragonSlotFrame"]
+[node name="Backlight" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/DragonSlotFrame"]
 show_behind_parent = true
 material = ExtResource( 39 )
 scale = Vector2( 1.35, 1.4 )
 z_as_relative = false
 texture = ExtResource( 52 )
 
-[node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/DragonSlotFrame"]
+[node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/DragonSlotFrame"]
 position = Vector2( 0, -390 )
 texture = ExtResource( 62 )
 
-[node name="TigerSlotFrame" type="Sprite" parent="SlotContainer/Slot/NormalOverlap"]
+[node name="TigerSlotFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins"]
 visible = false
 position = Vector2( 0, 1 )
 texture = ExtResource( 49 )
 
-[node name="Backlight" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/TigerSlotFrame"]
+[node name="Backlight" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame"]
 show_behind_parent = true
 material = ExtResource( 39 )
 scale = Vector2( 1.6, 1.6 )
 z_as_relative = false
 texture = ExtResource( 50 )
 
-[node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/TigerSlotFrame"]
+[node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame"]
 position = Vector2( 0, -390 )
 texture = ExtResource( 59 )
 
-[node name="Light" type="Node2D" parent="SlotContainer/Slot/NormalOverlap"]
+[node name="Light" type="Node2D" parent="SlotContainer/Slot/Overlap"]
 visible = false
 
-[node name="Light2D" type="Light2D" parent="SlotContainer/Slot/NormalOverlap/Light"]
+[node name="Light2D" type="Light2D" parent="SlotContainer/Slot/Overlap/Light"]
 position = Vector2( -942, 625 )
 rotation = 0.523599
 scale = Vector2( 30, 3 )
@@ -4432,15 +5008,21 @@ range_height = 1.0
 range_z_min = -1121
 range_item_cull_mask = 2
 
-[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/NormalOverlap/Light"]
+[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Light"]
 light_mask = 2
 material = ExtResource( 65 )
 position = Vector2( 0, -22 )
 scale = Vector2( 2.3, 2.3 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/NormalOverlap/Light"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Light"]
 anims/Idle = SubResource( 134 )
 anims/RESET = SubResource( 135 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap"]
+anims/RESET = SubResource( 364 )
+anims/to_dragon = SubResource( 365 )
+anims/to_normal = SubResource( 366 )
+anims/to_tiger = SubResource( 367 )
 
 [node name="LogoMover" type="Node2D" parent="SlotContainer/Slot"]
 scale = Vector2( 0.65, 0.65 )
@@ -4727,7 +5309,7 @@ default = Color( 1, 1, 1, 1 )
 
 [connection signal="ready" from="SlotContainer/Slot/Background/ParticlesLeft/AnimationPlayer" to="SlotContainer/Slot/Background/ParticlesLeft/AnimationPlayer" method="play" binds= [ "Idle" ]]
 [connection signal="ready" from="SlotContainer/Slot/Background/ParticlesRight/AnimationPlayer" to="SlotContainer/Slot/Background/ParticlesRight/AnimationPlayer" method="play" binds= [ "Idle" ]]
-[connection signal="ready" from="SlotContainer/Slot/NormalOverlap/Light/AnimationPlayer" to="SlotContainer/Slot/NormalOverlap/Light/AnimationPlayer" method="play" binds= [ "Idle" ]]
+[connection signal="ready" from="SlotContainer/Slot/Overlap/Light/AnimationPlayer" to="SlotContainer/Slot/Overlap/Light/AnimationPlayer" method="play" binds= [ "Idle" ]]
 [connection signal="pressed" from="UIContainer/ErrorPopup/Button" to="UIContainer/ErrorPopup" method="_on_Button_pressed"]
 [connection signal="tween_completed" from="Fader/Tween" to="Fader" method="_tween_completed"]
 [connection signal="tween_completed" from="FaderBright/Tween" to="FaderBright" method="_tween_completed"]
