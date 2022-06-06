@@ -355,24 +355,7 @@ extends VFSMStateBase
 func enter() -> void:
 	print(\"### CLOSE STATE: ###\");
 	var data = Globals.singletons[\"Networking\"].lastround;
-	var slot = Globals.singletons.Slot;
-	var wins = data.wins if data.wins != null else [];
-	var tiles_count = slot.reels[0].visibleTilesCount;
-	var win_tiles_positions = {};
-	
-	for win in wins:
-		for position in win.symbol_positions:
-			var i = int(position / tiles_count);
-			var j = fmod(position, tiles_count);
 
-			win_tiles_positions[i] = [] if (not (i in win_tiles_positions)) else win_tiles_positions[i];
-			if (not(j in win_tiles_positions[i])):
-				win_tiles_positions[i].append(j);
-
-	if (win_tiles_positions.keys().size() != 0):
-		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
-		slot.remove_tiles(win_tiles_positions);
-		yield(Globals.singletons.Explosions.show_at(win_tiles_positions, slot.reels), \"completed\");
 	
 	if(JS.enabled): 
 		print(\"JS is enabled\");
@@ -490,11 +473,13 @@ func enter() -> void:
 #	Globals.singletons[\"PopupTiles\"].clear_all();
 #
 	var data = Globals.singletons[\"Networking\"].lastround;
+	var slot = Globals.singletons.Slot;
+	var win_tiles_positions = calcute_win_tiles_posiitons(data.wins, slot.reels[0].visibleTilesCount);
 	
 	Globals.singletons[\"WinMultiplier\"].set_multiplier(data.roundMultiplier);
 	
 	JS.output(\"linewin\", \"elysiumgamefeature\");
-	Globals.singletons[\"PopupTiles\"].unpop_all();
+#	Globals.singletons[\"PopupTiles\"].unpop_all();
 	Globals.singletons[\"Audio\"].play(\"WinLine\")
 	#Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
 	#yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
@@ -510,10 +495,13 @@ func enter() -> void:
 			Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 	else:
 		bangup_wins(data[\"wins_lines_total\"]);
-		
-	Globals.fsm_data[\"wins_shown\"] = true;
-	
 
+	if (win_tiles_positions.keys().size() != 0):
+		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
+		slot.remove_tiles(win_tiles_positions);
+		yield(Globals.singletons.Explosions.show_at(win_tiles_positions, slot.reels), \"completed\");
+
+	Globals.fsm_data[\"wins_shown\"] = true;
 
 func update(_object, _delta: float) -> void:
 	pass
@@ -532,6 +520,21 @@ func bangup_wins(n):
 		Globals.singletons[\"TotalWinBar\"].set_text(data[\"cumulativeWin\"], true);
 	elif(\"spinWin\" in data):
 		Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
+
+func calcute_win_tiles_posiitons(wins, tiles_count):
+	if (wins == null): return {}
+	var positions = {};
+	
+	for win in wins:
+		for position in win.symbol_positions:
+			var i = int(position / tiles_count);
+			var j = fmod(position, tiles_count);
+
+			positions[i] = [] if (not (i in positions)) else positions[i];
+			if (not(j in positions[i])):
+				positions[i].append(j);
+	
+	return positions;
 "
 
 [sub_resource type="Resource" id=190]

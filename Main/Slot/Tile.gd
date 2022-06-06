@@ -94,17 +94,17 @@ func play_animation(type = AnimationType.SPINE, name = null, loop = false, times
 		push_error("no animation name provied");
 		return;
 
-	if (type == AnimationType.SPINE && $SpineSprite.has_animation(name)):
-#		print("I am playing spine animation....", name);
+	if (type == AnimationType.SPINE ):
+		print("I am playing spine animation.... ", name);
 		show_spine_sprite();
 		$SpineSprite.play_anim(name, loop, timescale_override, has_delay);
 		return;
 	
 	if (type == AnimationType.TIMELINE && $AnimationPlayer.has_animation(name)):
 		$AnimationPlayer.play(name);
-	return;
+		return;
 
-	print("I don't know what type of animation top play....");
+	print("I don't know what type of animation top play.... ", name);
 	return call_deferred("_on_animation_finished", name);
 func _on_animation_finished(name, track = null, __ = null):
 	if (track == null):

@@ -12,7 +12,7 @@ func show_at(data, reels):
 	for index in data.keys():
 		var reel = reels[index];
 		for i in data[index]:
-			var position = reel.get_tile_position(i);
+			var position = reel.get_tile_global_position(i);
 			explosionPromises.append(_add_explosion(position));
 
 	return Promise.all(explosionPromises);

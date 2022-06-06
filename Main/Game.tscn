@@ -2546,8 +2546,7 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
 script = ExtResource( 6 )
 __meta__ = {
-"_edit_horizontal_guides_": [  ],
-"_edit_use_anchors_": false
+"_edit_horizontal_guides_": [  ]
 }
 
 [node name="IntroContainer" type="Control" parent="."]
