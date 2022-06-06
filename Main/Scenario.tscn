@@ -430,7 +430,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 8
 name = "Close Error"
-position = Vector2( 3460, 760 )
+position = Vector2( 3440, 820 )
 trigger_ids = [ 13 ]
 custom_script = SubResource( 175 )
 
@@ -492,6 +492,7 @@ func enter() -> void:
 		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
 		Globals.fsm_data[\"big_win_shown\"] = true;
 	else:
+		print(\"line\");
 		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
 	
 	if(\"cumulativeWin\" in data):

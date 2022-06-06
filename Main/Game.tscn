@@ -3183,11 +3183,11 @@ anims/Hide = SubResource( 98 )
 anims/Show = SubResource( 99 )
 
 [node name="WinBar" type="Control" parent="SlotContainer"]
-modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_top = -100.0
 margin_bottom = 550.0
 script = ExtResource( 99 )
 __meta__ = {

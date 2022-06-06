@@ -1,0 +1,2190 @@
+[gd_scene load_steps=60 format=2]
+
+[ext_resource path="res://Main/Textures/slot-bm/WhiteBar.png" type="Texture" id=1]
+[ext_resource path="res://Main/Misc/canvasadditive.tres" type="Material" id=2]
+[ext_resource path="res://Main/Misc/SegmentBar.gd" type="Script" id=3]
+[ext_resource path="res://Main/Textures/slot-bm/WhiteBarLeft.png" type="Texture" id=4]
+[ext_resource path="res://Main/Textures/slot-bm/WhiteBarRight.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=219]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=262]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=261]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=313]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=314]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=315]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=316]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=317]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=318]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=319]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=320]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=321]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=322]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=323]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=324]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=325]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=326]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=327]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=328]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=329]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=330]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=331]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=332]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=333]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=334]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=335]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=336]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=337]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=338]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=339]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=340]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=341]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=342]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=343]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=344]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=345]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=346]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=347]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=348]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=349]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=350]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=351]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=352]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=353]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=354]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=355]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=356]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=357]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=358]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=359]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=360]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[sub_resource type="Animation" id=361]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BarGlow:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Bar:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=362]
+resource_name = "ShowGreen"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 0.25098, 0.768627, 0.27451, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 0.5 ),
+"update": 0,
+"values": [ Color( 0.682353, 0.0588235, 0.0588235, 1 ), Color( 0.921569, 1, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=363]
+resource_name = "ShowRed"
+tracks/0/type = "value"
+tracks/0/path = NodePath("BarGlow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0.25098, 0.768627, 0.27451, 1 ), Color( 0.72549, 0.258824, 0.258824, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Bar:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Color( 0.921569, 1, 0, 1 ), Color( 0.470588, 0.0313726, 0.0313726, 1 ) ]
+}
+
+[node name="GameBar" type="Node2D"]
+position = Vector2( -371.304, -328.696 )
+script = ExtResource( 3 )
+nodecount = 18
+
+[node name="0" type="Node2D" parent="."]
+position = Vector2( -7.62939e-06, 0 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="0"]
+texture = ExtResource( 4 )
+
+[node name="BarGlow" type="Sprite" parent="0"]
+material = ExtResource( 2 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="0"]
+anims/RESET = SubResource( 219 )
+anims/ShowGreen = SubResource( 262 )
+anims/ShowRed = SubResource( 261 )
+
+[node name="1" type="Node2D" parent="."]
+position = Vector2( 30, 0 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="1"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="1"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="1"]
+anims/RESET = SubResource( 313 )
+anims/ShowGreen = SubResource( 314 )
+anims/ShowRed = SubResource( 315 )
+
+[node name="2" type="Node2D" parent="."]
+position = Vector2( 60, 0 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="2"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="2"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="2"]
+anims/RESET = SubResource( 316 )
+anims/ShowGreen = SubResource( 317 )
+anims/ShowRed = SubResource( 318 )
+
+[node name="3" type="Node2D" parent="."]
+position = Vector2( 90, 0 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="3"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="3"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="3"]
+anims/RESET = SubResource( 319 )
+anims/ShowGreen = SubResource( 320 )
+anims/ShowRed = SubResource( 321 )
+
+[node name="4" type="Node2D" parent="."]
+position = Vector2( 120, 0 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="4"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="4"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="4"]
+anims/RESET = SubResource( 322 )
+anims/ShowGreen = SubResource( 323 )
+anims/ShowRed = SubResource( 324 )
+
+[node name="5" type="Node2D" parent="."]
+position = Vector2( 150, 0 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="5"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="5"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="5"]
+anims/RESET = SubResource( 325 )
+anims/ShowGreen = SubResource( 326 )
+anims/ShowRed = SubResource( 327 )
+
+[node name="6" type="Node2D" parent="."]
+position = Vector2( 180, 0 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="6"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="6"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="6"]
+anims/RESET = SubResource( 328 )
+anims/ShowGreen = SubResource( 329 )
+anims/ShowRed = SubResource( 330 )
+
+[node name="7" type="Node2D" parent="."]
+position = Vector2( 210, 0 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="7"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="7"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="7"]
+anims/RESET = SubResource( 331 )
+anims/ShowGreen = SubResource( 332 )
+anims/ShowRed = SubResource( 333 )
+
+[node name="8" type="Node2D" parent="."]
+position = Vector2( 240, 0 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="8"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="8"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="8"]
+anims/RESET = SubResource( 334 )
+anims/ShowGreen = SubResource( 335 )
+anims/ShowRed = SubResource( 336 )
+
+[node name="9" type="Node2D" parent="."]
+position = Vector2( 501.304, 1.52588e-05 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="9"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="9"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="9"]
+anims/RESET = SubResource( 337 )
+anims/ShowGreen = SubResource( 338 )
+anims/ShowRed = SubResource( 339 )
+
+[node name="10" type="Node2D" parent="."]
+position = Vector2( 531.304, 1.52588e-05 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="10"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="10"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="10"]
+anims/RESET = SubResource( 340 )
+anims/ShowGreen = SubResource( 341 )
+anims/ShowRed = SubResource( 342 )
+
+[node name="11" type="Node2D" parent="."]
+position = Vector2( 561.304, 1.52588e-05 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="11"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="11"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="11"]
+anims/RESET = SubResource( 343 )
+anims/ShowGreen = SubResource( 344 )
+anims/ShowRed = SubResource( 345 )
+
+[node name="12" type="Node2D" parent="."]
+position = Vector2( 591.304, 1.52588e-05 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="12"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="12"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="12"]
+anims/RESET = SubResource( 346 )
+anims/ShowGreen = SubResource( 347 )
+anims/ShowRed = SubResource( 348 )
+
+[node name="13" type="Node2D" parent="."]
+position = Vector2( 621.304, 1.52588e-05 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="13"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="13"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="13"]
+anims/RESET = SubResource( 349 )
+anims/ShowGreen = SubResource( 350 )
+anims/ShowRed = SubResource( 351 )
+
+[node name="14" type="Node2D" parent="."]
+position = Vector2( 651.304, 1.52588e-05 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="14"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="14"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="14"]
+anims/RESET = SubResource( 352 )
+anims/ShowGreen = SubResource( 353 )
+anims/ShowRed = SubResource( 354 )
+
+[node name="15" type="Node2D" parent="."]
+position = Vector2( 681.304, 1.52588e-05 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="15"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="15"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="15"]
+anims/RESET = SubResource( 355 )
+anims/ShowGreen = SubResource( 356 )
+anims/ShowRed = SubResource( 357 )
+
+[node name="16" type="Node2D" parent="."]
+position = Vector2( 711.304, -0.303985 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="16"]
+texture = ExtResource( 1 )
+
+[node name="BarGlow" type="Sprite" parent="16"]
+material = ExtResource( 2 )
+texture = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="16"]
+anims/RESET = SubResource( 358 )
+anims/ShowGreen = SubResource( 359 )
+anims/ShowRed = SubResource( 360 )
+
+[node name="17" type="Node2D" parent="."]
+position = Vector2( 741.304, -0.303985 )
+scale = Vector2( 0.5, 1 )
+
+[node name="Bar" type="Sprite" parent="17"]
+texture = ExtResource( 5 )
+
+[node name="BarGlow" type="Sprite" parent="17"]
+material = ExtResource( 2 )
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="17"]
+anims/RESET = SubResource( 361 )
+anims/ShowGreen = SubResource( 362 )
+anims/ShowRed = SubResource( 363 )
