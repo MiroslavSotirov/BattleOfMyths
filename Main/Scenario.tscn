@@ -491,15 +491,13 @@ func enter() -> void:
 		Globals.singletons[\"BigWin\"].show_win(line_wins);
 		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
 		Globals.fsm_data[\"big_win_shown\"] = true;
+		if(\"cumulativeWin\" in data):
+			Globals.singletons[\"TotalWinBar\"].set_text(data[\"cumulativeWin\"], true);
+		elif(\"spinWin\" in data):
+			Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 	else:
-		print(\"line\");
-		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
-	
-	if(\"cumulativeWin\" in data):
-		Globals.singletons[\"TotalWinBar\"].show_win(data[\"cumulativeWin\"]);
-	elif(\"spinWin\" in data):
-		Globals.singletons[\"TotalWinBar\"].show_win(data[\"spinWin\"]);
-
+		bangup_wins(line_wins);
+		
 	Globals.fsm_data[\"wins_shown\"] = true;
 	
 func calculate_line_wins(wins):
@@ -518,6 +516,18 @@ func update(_object, _delta: float) -> void:
 
 func exit() -> void:
 	pass
+
+	
+func bangup_wins(n):
+	Globals.singletons[\"WinBar\"].show_win(float(n), false);
+	yield(Globals.singletons[\"WinBar\"], \"CountEnd\");
+	Globals.singletons[\"WinBar\"].hide(true);
+	
+	var data = Globals.singletons[\"Networking\"].lastround;
+	if(\"cumulativeWin\" in data):
+		Globals.singletons[\"TotalWinBar\"].set_text(data[\"cumulativeWin\"], true);
+	elif(\"spinWin\" in data):
+		Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 "
 
 [sub_resource type="Resource" id=190]
