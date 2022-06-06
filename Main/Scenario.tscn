@@ -236,14 +236,14 @@ func enter() -> void:
 	if(Globals.singletons[\"WinLines\"].shown):
 		Globals.singletons[\"WinLines\"].hide_lines();
 		
-	if(Globals.singletons[\"WinBar\"].shown):
-		Globals.singletons[\"WinBar\"].hide();
+	Globals.singletons[\"WinBar\"].hide();
 
 	var is_cascading = \\
 		Globals.singletons[\"Networking\"].lastround \\
 		&& Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
 	
 	if(!is_cascading):
+		Globals.singletons[\"TotalWinBar\"].hide();
 		Globals.singletons[\"Slot\"].start_spin();
 		
 func spin_data_received(data):
@@ -490,11 +490,15 @@ func enter() -> void:
 		JS.output(\"bigwin\", \"elysiumgamefeature\");
 		Globals.singletons[\"BigWin\"].show_win(line_wins);
 		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
-		Globals.singletons[\"WinBar\"].set_text(line_wins, false);
 		Globals.fsm_data[\"big_win_shown\"] = true;
 	else:
 		Globals.singletons[\"WinBar\"].set_text(float(line_wins), false);
 	
+	if(\"cumulativeWin\" in data):
+		Globals.singletons[\"TotalWinBar\"].show_win(data[\"cumulativeWin\"]);
+	elif(\"spinWin\" in data):
+		Globals.singletons[\"TotalWinBar\"].show_win(data[\"spinWin\"]);
+
 	Globals.fsm_data[\"wins_shown\"] = true;
 	
 func calculate_line_wins(wins):
@@ -510,7 +514,6 @@ func calculate_line_wins(wins):
 
 func update(_object, _delta: float) -> void:
 	pass
-
 
 func exit() -> void:
 	pass

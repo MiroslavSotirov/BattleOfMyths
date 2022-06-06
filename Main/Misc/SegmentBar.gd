@@ -11,6 +11,7 @@ func _ready():
 	set_amount(amount);
 	
 func get_bar(i):
+	i = clamp(i, 0, nodecount-1);
 	return get_node_or_null(str(i));
 
 func get_current_bar(direction):

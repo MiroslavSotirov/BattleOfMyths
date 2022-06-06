@@ -49,10 +49,10 @@ func set_tile(_id, initial_position):
 func get_spine():
 	return $SpineSprite;
 
-func hide(animationType = AnimationType.SPINE, animation = "hide"):
+func hide(animationType = AnimationType.SPINE, animation = "hide", timescale=1.0):
 	if (_hidden): return Promise.resolve();
 	_hidden = true;
-	play_animation(animationType, animation);
+	play_animation(animationType, animation, false, timescale);
 	return yield(self, "animation_finished");
 
 func popup(animationType = AnimationType.SPINE, animation = "popup", loop = true):

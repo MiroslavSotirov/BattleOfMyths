@@ -12,8 +12,8 @@ signal HideEnd;
 func _ready():
 	VisualServer.canvas_item_set_z_index(get_canvas_item(), 19);
 	amount = 0.0;
-	Globals.register_singleton("WinBar", self);
-
+	Globals.register_singleton(name, self);
+	
 func show_win(target, bottom = true):
 	if(float(target) == self.amount):
 		set_text(target, false)
