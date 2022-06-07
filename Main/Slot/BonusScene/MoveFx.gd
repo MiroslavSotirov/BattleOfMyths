@@ -1,9 +1,10 @@
 extends Node2D
 
-var target;
-
+var speed = 1.0;
 var f := 0.0;
 var points = [];
+
+signal move_complete;
 	
 func set_points(start,end):
 	points.append(start);
@@ -11,10 +12,11 @@ func set_points(start,end):
 	points.append(end);
 	
 func _process(delta):
-	f += delta;
+	f += delta/speed;
 	global_position = _quadratic_bezier(points[0], points[1], points[2], f);
 	
-	if(f >= 1.0):
+	if(f >= speed):
+		emit_signal("move_complete")
 		queue_free();
 
 func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):

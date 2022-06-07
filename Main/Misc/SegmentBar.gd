@@ -22,7 +22,7 @@ func set_amount(v):
 	if(get_parent()==null): return;
 	amount = v;
 	for i in range(nodecount):
-		if(!_bars.has(i) && get_node(str(i))): _bars[i] = true;
+		if(!_bars.has(i)): _bars[i] = i > amount;
 		var bar = get_bar(i);
 		if(bar == null): continue;
 		var player = bar.get_node("AnimationPlayer");

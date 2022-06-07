@@ -57,5 +57,3 @@ color_ramp = SubResource( 294 )
 modulate = Color( 0.211765, 1, 0.121569, 1 )
 material = ExtResource( 2 )
 texture = ExtResource( 4 )
-
-[node name="Tween" type="Tween" parent="."]

@@ -34,5 +34,5 @@ func hide():
 	
 	$AnimationPlayer.play("hide_effect");
 	yield($AnimationPlayer, "animation_finished");
-	
+	queue_free();
 

@@ -2546,7 +2546,8 @@ anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
 script = ExtResource( 6 )
 __meta__ = {
-"_edit_horizontal_guides_": [  ]
+"_edit_horizontal_guides_": [  ],
+"_edit_use_anchors_": false
 }
 
 [node name="IntroContainer" type="Control" parent="."]
@@ -2982,9 +2983,6 @@ texture = ExtResource( 51 )
 position = Vector2( 0, -390 )
 texture = ExtResource( 57 )
 
-[node name="MultiplierFeature" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/MultiplierFrame" instance=ExtResource( 2 )]
-position = Vector2( 0, -40 )
-
 [node name="BarsShadowOverlayDragon" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( -370.435, -321.739 )
 texture = ExtResource( 72 )
@@ -3050,6 +3048,12 @@ scale = Vector2( 2.3, 2.3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Light"]
 anims/Idle = SubResource( 134 )
 anims/RESET = SubResource( 135 )
+
+[node name="MultiplierContainer" type="Node2D" parent="SlotContainer/Slot/Overlap"]
+position = Vector2( 0, -393 )
+
+[node name="MultiplierFeature" parent="SlotContainer/Slot/Overlap/MultiplierContainer" instance=ExtResource( 2 )]
+position = Vector2( 0, -59 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap"]
 anims/RESET = SubResource( 364 )

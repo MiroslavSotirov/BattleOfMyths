@@ -15,8 +15,8 @@ func update_states(init=false):
 		if(current_state_key != null):
 			prints("New map", states)
 			emit_signal("new_state", _get_state(), init);
-		elif(init):
-			switch_to_state(Globals.singletons["Networking"].lastround.defaultTotal, true);
+	if(init):
+		switch_to_state(Globals.singletons["Networking"].lastround.defaultTotal, true);
 
 func generate_map():
 	var map = null
