@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Main/SpineSpriteExtension.gd" type="Script" id=1]
+[ext_resource path="res://Main/Animations/DragonFeature/BM_DragonFeature_EXPORT.atlas" type="SpineAtlasResource" id=2]
+[ext_resource path="res://Main/Animations/DragonFeature/BM_DragonFeature_EXPORT.json" type="SpineSkeletonJsonDataResource" id=3]
+[ext_resource path="res://Main/Slot/BonusScene/Dragon.gd" type="Script" id=4]
+
+[sub_resource type="SpineSkeletonDataResource" id=6]
+atlas_res = ExtResource( 2 )
+skeleton_json_res = ExtResource( 3 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=7]
+skeleton = SubResource( 6 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "hide_character"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("Character:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 0.353553, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Dragon" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Character" type="SpineSprite" parent="."]
+animation_state_data_res = SubResource( 7 )
+script = ExtResource( 1 )
+skin = "default"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/hide_character = SubResource( 5 )
