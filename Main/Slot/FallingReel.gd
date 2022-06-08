@@ -172,7 +172,7 @@ func remove_tiles(indexes):
 	var promises = [];
 	for index in indexes:
 		var tile = self._visible_tiles[index];
-		promises.push_back(tile.hide(animations.hide.type, animations.hide.name));
+		promises.push_back(tile.hide(animations.hide.type, animations.hide.name, 2.0));
 
 	yield(Promise.all(promises), "completed");
 
