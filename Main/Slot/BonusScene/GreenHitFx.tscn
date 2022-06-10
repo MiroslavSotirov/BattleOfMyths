@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Main/Misc/canvasadditive.tres" type="Material" id=2]
+[ext_resource path="res://Main/Textures/particles/PNG (Black background)/prah1.png" type="Texture" id=3]
+[ext_resource path="res://Main/Textures/particles/circle_05_s.png" type="Texture" id=4]
+
+[sub_resource type="Curve" id=295]
+_data = [ Vector2( 0, 0.536364 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=294]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Animation" id=296]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, 3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.211765, 1, 0.121569, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=297]
+resource_name = "Show"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1.51572, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 5, 5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Color( 0.211765, 1, 0.121569, 1 ), Color( 0.211765, 1, 0.121569, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[node name="GreenHitFx" type="Node2D"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = ExtResource( 2 )
+emitting = false
+amount = 20
+lifetime = 0.75
+one_shot = true
+explosiveness = 1.0
+randomness = 0.1
+lifetime_randomness = 0.5
+local_coords = false
+texture = ExtResource( 3 )
+emission_shape = 1
+emission_sphere_radius = 10.0
+spread = 180.0
+gravity = Vector2( 0, 10 )
+initial_velocity = 100.0
+orbit_velocity = 0.25
+orbit_velocity_random = 0.5
+angle = 360.0
+angle_random = 1.0
+scale_amount = 0.2
+scale_amount_curve = SubResource( 295 )
+color = Color( 0.784314, 0.964706, 0, 1 )
+color_ramp = SubResource( 294 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.211765, 1, 0.121569, 1 )
+material = ExtResource( 2 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 296 )
+anims/Show = SubResource( 297 )

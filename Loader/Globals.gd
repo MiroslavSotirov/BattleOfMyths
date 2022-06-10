@@ -40,7 +40,6 @@ func _ready():
 	JS.connect("focused", self, "on_focused");
 	JS.connect("unfocused", self, "on_unfocused");
 
-
 func on_focused(data):
 	print("Resuming")
 	get_tree().paused = false;
@@ -137,6 +136,7 @@ func configure_bets(bets, defaultbet):
 	update_win_configs(biggestbet);
 
 func update_win_configs(stake):
+	print("update_win_configs")
 	stake = float(stake);
 	singletons["WinBar"].bangup_factor = stake * 3;
 	

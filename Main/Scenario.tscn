@@ -765,10 +765,10 @@ func enter() -> void:
 	
 	if(Globals.singletons[\"Game\"].current_state == \"normal\"):
 		if(state[\"fstype\"] == \"freespinE1\"):
-			Globals.singletons[\"Game\"].switch_to_tiger_mode();
+			Globals.singletons[\"Game\"].switch_to_tiger_mode(true);
 			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
 		elif(state[\"fstype\"] == \"freespinE2\"): 
-			Globals.singletons[\"Game\"].switch_to_dragon_mode();
+			Globals.singletons[\"Game\"].switch_to_dragon_mode(true);
 			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
 	else:
 		Globals.singletons[\"Game\"].switch_to_normal_mode();

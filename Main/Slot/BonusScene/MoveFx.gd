@@ -1,5 +1,7 @@
 extends Node2D
 
+export (PackedScene) var hitFxScene;
+
 var speed = 1.0;
 var f := 0.0;
 var points = [];
@@ -17,6 +19,11 @@ func _process(delta):
 	
 	if(f >= speed):
 		emit_signal("move_complete")
+		if(hitFxScene != null):
+			var fx = hitFxScene.instance();
+			get_parent().add_child(fx);
+			fx.global_position = global_position;
+			fx.get_node("AnimationPlayer").play("Show");
 		queue_free();
 
 func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):

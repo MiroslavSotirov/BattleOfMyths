@@ -23,8 +23,11 @@ func _add_explosion(position):
 	var fx = load("res://Main/Slot/BonusScene/MultFx.tscn").instance();
 	var target = Globals.singletons["WinMultiplier"];
 	Globals.singletons["Slot"].add_child(fx);
-	fx.global_position = position;
-	fx.set_points(fx.global_position, target.global_position + Vector2(0, 50.0))
+	fx.speed += randf() * 0.1;
+	var startpos = position + Vector2((randf()*30.0)-15.0, (randf()*30.0)-15.0);
+	var endpos = target.global_position + Vector2(0, 50.0) + Vector2((randf()*30.0)-15.0, (randf()*30.0)-15.0);
+	fx.global_position = startpos;
+	fx.set_points(startpos, endpos)
 	yield(fx, "move_complete");
 
 func _explosion_fx(position):

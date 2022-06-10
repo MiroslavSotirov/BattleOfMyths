@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=2]
+[gd_scene load_steps=130 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -9,10 +9,12 @@
 [ext_resource path="res://Main/Misc/Fader.gd" type="Script" id=7]
 [ext_resource path="res://Main/Networking.gd" type="Script" id=8]
 [ext_resource path="res://Main/Textures/slot-bm/DragonSceenBackground.jpg" type="Texture" id=9]
+[ext_resource path="res://Main/Animations/FreeSpinsSplash/FSSplash.atlas" type="SpineAtlasResource" id=10]
 [ext_resource path="res://Main/Animations/Symbols/EXPLORE.json" type="SpineSkeletonJsonDataResource" id=11]
 [ext_resource path="res://Main/Animations/Symbols/EXPLORE.atlas" type="SpineAtlasResource" id=12]
 [ext_resource path="res://Main/Explosions.gd" type="Script" id=13]
 [ext_resource path="res://Main/Textures/particles/PNG (Black background)/prah1.png" type="Texture" id=14]
+[ext_resource path="res://Main/Animations/FreeSpinsSplash/FSSplash.json" type="SpineSkeletonJsonDataResource" id=16]
 [ext_resource path="res://Main/Animations/Logo/Logo.json" type="SpineSkeletonJsonDataResource" id=26]
 [ext_resource path="res://Main/Slot/Features/PopupTiles.gd" type="Script" id=27]
 [ext_resource path="res://Main/Animations/Logo/Logo.atlas" type="SpineAtlasResource" id=29]
@@ -1597,6 +1599,15 @@ _bundled = {
 "version": 2
 }
 
+[sub_resource type="SpineSkeletonDataResource" id=378]
+atlas_res = ExtResource( 10 )
+skeleton_json_res = ExtResource( 16 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=379]
+skeleton = SubResource( 378 )
+
 [sub_resource type="Animation" id=259]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Background:modulate")
@@ -2641,7 +2652,7 @@ easing = 1.7
 [node name="Logo" parent="IntroContainer/Centering/LogoMover" instance=ExtResource( 54 )]
 scale = Vector2( 1, 1 )
 animation_state_data_res = SubResource( 312 )
-timescale = 0.5
+timescale = 1.0
 
 [node name="LangSwap" type="Node" parent="IntroContainer/Centering/LogoMover/Logo"]
 script = ExtResource( 71 )
@@ -2659,7 +2670,6 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -3103,6 +3113,13 @@ script = ExtResource( 27 )
 
 [node name="Stateful" type="Node" parent="SlotContainer/Slot/Features"]
 script = ExtResource( 42 )
+
+[node name="FreeSpinsSplash" type="Node2D" parent="SlotContainer/Slot/Features"]
+script = ExtResource( 114 )
+
+[node name="Sprite" type="SpineSprite" parent="SlotContainer/Slot/Features/FreeSpinsSplash"]
+animation_state_data_res = SubResource( 379 )
+script = ExtResource( 44 )
 
 [node name="WinlinesFadeAnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot"]
 anims/To_Normal = SubResource( 259 )
