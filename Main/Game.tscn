@@ -1,4 +1,4 @@
-[gd_scene load_steps=141 format=2]
+[gd_scene load_steps=147 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -19,6 +19,12 @@
 [ext_resource path="res://Main/Textures/particles/circle_05_s.png" type="Texture" id=17]
 [ext_resource path="res://Main/Textures/slot-bm/SplashScreenContent1.png" type="Texture" id=18]
 [ext_resource path="res://Main/Textures/slot-bm/SplashPreloaderBG.jpg" type="Texture" id=19]
+[ext_resource path="res://Main/Textures/slot-bm/LogoForAnimation.png" type="Texture" id=20]
+[ext_resource path="res://Main/Textures/slot-bm/LogoNormalMap.png" type="Texture" id=21]
+[ext_resource path="res://Main/Textures/slot-bm/FrameGoldOrnamentsNormalMap.png" type="Texture" id=22]
+[ext_resource path="res://Main/Textures/slot-bm/FrameGoldOrnaments.png" type="Texture" id=23]
+[ext_resource path="res://Main/Textures/slot-bm/FrameGoldMultiplierMultiplier.png" type="Texture" id=24]
+[ext_resource path="res://Main/Textures/slot-bm/FrameGoldMultiplier.png" type="Texture" id=25]
 [ext_resource path="res://Main/Animations/Logo/Logo.json" type="SpineSkeletonJsonDataResource" id=26]
 [ext_resource path="res://Main/Slot/Features/PopupTiles.gd" type="Script" id=27]
 [ext_resource path="res://Main/Animations/Logo/Logo.atlas" type="SpineAtlasResource" id=29]
@@ -99,7 +105,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 2.4, 10 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
+"values": [ Color( 1, 0, 0, 0 ), Color( 0.709804, 0.133333, 0.0901961, 1 ), Color( 1, 0, 0, 0 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite/Circle05S2:modulate")
@@ -111,7 +117,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0.1, 2.4, 10.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0, 1, 0.133333, 0 ), Color( 0, 1, 0.133333, 1 ), Color( 0, 1, 0.133333, 0 ) ]
+"values": [ Color( 0, 1, 0.133333, 0 ), Color( 0.0745098, 0.858824, 0.180392, 1 ), Color( 0, 1, 0.133333, 0 ) ]
 }
 
 [sub_resource type="Animation" id=386]
@@ -203,7 +209,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1.5, 3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 30, 3 ), Vector2( 30, 5 ), Vector2( 30, 3 ) ]
+"values": [ Vector2( 30, 3 ), Vector2( 30, 30 ), Vector2( 30, 3 ) ]
 }
 
 [sub_resource type="Animation" id=388]
@@ -2871,10 +2877,13 @@ scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 17 )
 
 [node name="SsFrameGlow" type="Sprite" parent="IntroContainer/Centering/LogoMover/Sprite"]
+modulate = Color( 0.129412, 0.129412, 0.129412, 1 )
 light_mask = 2
 material = ExtResource( 65 )
-texture = ExtResource( 18 )
-normal_map = ExtResource( 18 )
+position = Vector2( -4.61536, 35 )
+scale = Vector2( 2.25, 2.25 )
+texture = ExtResource( 20 )
+normal_map = ExtResource( 21 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="IntroContainer/Centering/LogoMover"]
 anims/Idle = SubResource( 385 )
@@ -2907,7 +2916,6 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -3214,6 +3222,21 @@ __meta__ = {
 position = Vector2( 0, -22 )
 texture = ExtResource( 83 )
 
+[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
+light_mask = 2
+material = ExtResource( 65 )
+position = Vector2( 396, 22 )
+texture = ExtResource( 23 )
+normal_map = ExtResource( 22 )
+
+[node name="SsFrameGlow2" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
+light_mask = 2
+material = ExtResource( 65 )
+position = Vector2( -397, 22 )
+scale = Vector2( -1, 1 )
+texture = ExtResource( 23 )
+normal_map = ExtResource( 22 )
+
 [node name="GameBar" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame" instance=ExtResource( 5 )]
 
 [node name="BarsShadowTop" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
@@ -3231,6 +3254,12 @@ texture = ExtResource( 51 )
 [node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( 0, -390 )
 texture = ExtResource( 57 )
+
+[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/MultiplierFrame"]
+light_mask = 2
+material = ExtResource( 65 )
+texture = ExtResource( 25 )
+normal_map = ExtResource( 24 )
 
 [node name="BarsShadowOverlayDragon" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( -370.435, -321.739 )
@@ -3255,9 +3284,31 @@ scale = Vector2( 1.35, 1.4 )
 z_as_relative = false
 texture = ExtResource( 52 )
 
+[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/DragonSlotFrame"]
+light_mask = 2
+material = ExtResource( 65 )
+position = Vector2( 396, 22 )
+texture = ExtResource( 23 )
+normal_map = ExtResource( 22 )
+
+[node name="SsFrameGlow2" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/DragonSlotFrame"]
+light_mask = 2
+material = ExtResource( 65 )
+position = Vector2( -397, 22 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+texture = ExtResource( 23 )
+normal_map = ExtResource( 22 )
+
 [node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/DragonSlotFrame"]
 position = Vector2( 0, -390 )
 texture = ExtResource( 62 )
+
+[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/DragonSlotFrame/MultiplierFrame"]
+light_mask = 2
+material = ExtResource( 65 )
+texture = ExtResource( 25 )
+normal_map = ExtResource( 24 )
 
 [node name="TigerSlotFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins"]
 visible = false
@@ -3271,12 +3322,33 @@ scale = Vector2( 1.6, 1.6 )
 z_as_relative = false
 texture = ExtResource( 50 )
 
+[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame"]
+light_mask = 2
+material = ExtResource( 65 )
+position = Vector2( 396, 22 )
+texture = ExtResource( 23 )
+normal_map = ExtResource( 22 )
+
+[node name="SsFrameGlow2" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame"]
+light_mask = 2
+material = ExtResource( 65 )
+position = Vector2( -397, 22 )
+rotation = 3.14159
+scale = Vector2( 1, -1 )
+texture = ExtResource( 23 )
+normal_map = ExtResource( 22 )
+
 [node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame"]
 position = Vector2( 0, -390 )
 texture = ExtResource( 59 )
 
+[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame/MultiplierFrame"]
+light_mask = 2
+material = ExtResource( 65 )
+texture = ExtResource( 25 )
+normal_map = ExtResource( 24 )
+
 [node name="Light" type="Node2D" parent="SlotContainer/Slot/Overlap"]
-visible = false
 
 [node name="Light2D" type="Light2D" parent="SlotContainer/Slot/Overlap/Light"]
 position = Vector2( -942, 625 )
@@ -3287,12 +3359,6 @@ energy = 5.0
 range_height = 1.0
 range_z_min = -1121
 range_item_cull_mask = 2
-
-[node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Light"]
-light_mask = 2
-material = ExtResource( 65 )
-position = Vector2( 0, -22 )
-scale = Vector2( 2.3, 2.3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Overlap/Light"]
 anims/Idle = SubResource( 134 )
