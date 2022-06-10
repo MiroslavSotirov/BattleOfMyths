@@ -51,6 +51,7 @@ func show_win(target, is_total=false):
 	yield($Animation, "animation_complete");
 	Globals.singletons["Audio"].loop("CoinsEndless");
 	$CounterText.text = Globals.format_money(0);
+	$MoneyParticles.emitting = true
 	$CounterText.visible = true;
 	tween = Tween.new();
 	add_child(tween);
@@ -102,6 +103,7 @@ func switch_to_megawin():
 func hide():
 	Globals.singletons["Audio"].stop("CoinsEndless");
 	skippable = false;
+	$MoneyParticles.emitting = false;
 	tween.queue_free();
 	shown = false;
 	yield($Animation, "animation_complete");

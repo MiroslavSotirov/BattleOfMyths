@@ -118,7 +118,8 @@ func enter() -> void:
 	
 	#Globals.singletons[\"SegmentBar\"].set_amount();
 	
-	introcontainer.get_node(\"Centering/LogoMover/Logo\").play_anim_then_loop(\"popup\", \"idle\");
+#	introcontainer.get_node(\"Centering/LogoMover/Logo\").play_anim_then_loop(\"popup\", \"idle\");
+	introcontainer.get_node(\"Centering/LogoMover/AnimationPlayer\").play(\"Idle\")
 
 func clicked():	
 	Globals.singletons[\"Fader\"].tween(0.0,1.0,1.0);
@@ -479,6 +480,7 @@ func enter() -> void:
 	#Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
 	#yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
 
+	#if(data[\"wins_lines_total\"] > Globals.singletons[\"BigWin\"].big_win_limit):
 	if(data[\"wins_lines_total\"] > Globals.singletons[\"BigWin\"].big_win_limit):
 		JS.output(\"bigwin\", \"elysiumgamefeature\");
 		Globals.singletons[\"BigWin\"].show_win(data[\"wins_lines_total\"]);

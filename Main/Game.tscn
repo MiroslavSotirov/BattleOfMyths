@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=2]
+[gd_scene load_steps=141 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -14,7 +14,11 @@
 [ext_resource path="res://Main/Animations/Symbols/EXPLORE.atlas" type="SpineAtlasResource" id=12]
 [ext_resource path="res://Main/Explosions.gd" type="Script" id=13]
 [ext_resource path="res://Main/Textures/particles/PNG (Black background)/prah1.png" type="Texture" id=14]
+[ext_resource path="res://Main/Textures/coinspritesheet.png" type="Texture" id=15]
 [ext_resource path="res://Main/Animations/FreeSpinsSplash/FSSplash.json" type="SpineSkeletonJsonDataResource" id=16]
+[ext_resource path="res://Main/Textures/particles/circle_05_s.png" type="Texture" id=17]
+[ext_resource path="res://Main/Textures/slot-bm/SplashScreenContent1.png" type="Texture" id=18]
+[ext_resource path="res://Main/Textures/slot-bm/SplashPreloaderBG.jpg" type="Texture" id=19]
 [ext_resource path="res://Main/Animations/Logo/Logo.json" type="SpineSkeletonJsonDataResource" id=26]
 [ext_resource path="res://Main/Slot/Features/PopupTiles.gd" type="Script" id=27]
 [ext_resource path="res://Main/Animations/Logo/Logo.atlas" type="SpineAtlasResource" id=29]
@@ -71,14 +75,163 @@ colors = PoolColorArray( 0, 0, 0, 1, 0, 0, 0, 0 )
 gradient = SubResource( 1 )
 width = 128
 
-[sub_resource type="SpineSkeletonDataResource" id=311]
-atlas_res = ExtResource( 29 )
-skeleton_json_res = ExtResource( 26 )
-animations = null
-skins = null
+[sub_resource type="Animation" id=385]
+resource_name = "Idle"
+length = 10.0
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprite:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 2.6, 0.206419, -20, -3, 1, 2.9, 0, 0, -3.3, -0.597336, 0.25, 0 ),
+"times": PoolRealArray( 0, 5, 10.2 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/Circle05S:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2.4, 10 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 0 ), Color( 1, 0, 0, 1 ), Color( 1, 0, 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite/Circle05S2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.1, 2.4, 10.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 1, 0.133333, 0 ), Color( 0, 1, 0.133333, 1 ), Color( 0, 1, 0.133333, 0 ) ]
+}
 
-[sub_resource type="SpineAnimationStateDataResource" id=312]
-skeleton = SubResource( 311 )
+[sub_resource type="Animation" id=386]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprite:position:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Sprite:position:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite/Circle05S:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Sprite/Circle05S2:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 1, 0.133333, 1 ) ]
+}
+
+[sub_resource type="StreamTexture" id=292]
+flags = 4
+load_path = "res://.import/line.png-121b395c25b3d5fa6082d644729a06d3.stex"
+
+[sub_resource type="Animation" id=387]
+resource_name = "Idle"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1001, 650 ), Vector2( 1028, -650 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Light2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5, 3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 30, 3 ), Vector2( 30, 5 ), Vector2( 30, 3 ) ]
+}
+
+[sub_resource type="Animation" id=388]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -942, 625 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Light2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 30, 3 ) ]
+}
 
 [sub_resource type="Animation" id=368]
 length = 0.001
@@ -1230,10 +1383,6 @@ tracks/3/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="StreamTexture" id=292]
-flags = 4
-load_path = "res://.import/line.png-121b395c25b3d5fa6082d644729a06d3.stex"
-
 [sub_resource type="Animation" id=134]
 resource_name = "Idle"
 length = 3.0
@@ -1575,6 +1724,51 @@ skins = null
 [sub_resource type="SpineAnimationStateDataResource" id=126]
 skeleton = SubResource( 125 )
 
+[sub_resource type="Animation" id=380]
+resource_name = "Hide"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=381]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=382]
+resource_name = "Show"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 0.477273 ), 0.0, 0.666322, 0, 0, Vector2( 1, 0.990909 ), 0.0, 0.0, 0, 0 ]
 
@@ -1683,6 +1877,16 @@ skins = null
 [sub_resource type="SpineAnimationStateDataResource" id=97]
 skeleton = SubResource( 96 )
 
+[sub_resource type="CanvasItemMaterial" id=383]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 18
+particles_anim_loop = true
+
+[sub_resource type="Gradient" id=384]
+offsets = PoolRealArray( 0, 0.1, 0.9, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
 [sub_resource type="Animation" id=98]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -1758,7 +1962,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.4, 0.9 ),
 "transitions": PoolRealArray( 1, 2, 1 ),
 "update": 0,
-"values": [ -100.0, -100.0, 450 ]
+"values": [ -100.0, -100.0, 400 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("RedGlow:modulate")
@@ -1808,7 +2012,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 450 ]
+"values": [ 400 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath(".:rect_scale")
@@ -1932,7 +2136,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 450 ]
+"values": [ 400 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath(".:rect_scale")
@@ -1982,7 +2186,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.4, 0.9 ),
 "transitions": PoolRealArray( 1, 2, 1 ),
 "update": 0,
-"values": [ -100.0, -100.0, 450 ]
+"values": [ -100.0, -100.0, 400 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("RedGlow:modulate")
@@ -2032,7 +2236,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 450 ]
+"values": [ 400 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath(".:rect_scale")
@@ -2156,7 +2360,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 450 ]
+"values": [ 400 ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath(".:rect_scale")
@@ -2589,7 +2793,7 @@ __meta__ = {
 
 [node name="BG" type="Sprite" parent="IntroContainer/Centering"]
 scale = Vector2( 0.65, 0.65 )
-texture = ExtResource( 68 )
+texture = ExtResource( 19 )
 
 [node name="CornerFades" type="Node2D" parent="IntroContainer/Centering/BG"]
 
@@ -2649,15 +2853,48 @@ scaleoffset = Vector2( 0.7, 0.6 )
 yoffset = Vector2( 0, -150 )
 easing = 1.7
 
-[node name="Logo" parent="IntroContainer/Centering/LogoMover" instance=ExtResource( 54 )]
-scale = Vector2( 1, 1 )
-animation_state_data_res = SubResource( 312 )
-timescale = 1.0
+[node name="Sprite" type="Sprite" parent="IntroContainer/Centering/LogoMover"]
+texture = ExtResource( 18 )
 
-[node name="LangSwap" type="Node" parent="IntroContainer/Centering/LogoMover/Logo"]
-script = ExtResource( 71 )
-assetname = "Logo.tres"
-node = NodePath("..")
+[node name="Circle05S" type="Sprite" parent="IntroContainer/Centering/LogoMover/Sprite"]
+modulate = Color( 1, 0, 0, 1 )
+material = ExtResource( 39 )
+position = Vector2( -730.769, -58.4615 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 17 )
+
+[node name="Circle05S2" type="Sprite" parent="IntroContainer/Centering/LogoMover/Sprite"]
+modulate = Color( 0, 1, 0.133333, 1 )
+material = ExtResource( 39 )
+position = Vector2( 686.154, -33.8461 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 17 )
+
+[node name="SsFrameGlow" type="Sprite" parent="IntroContainer/Centering/LogoMover/Sprite"]
+light_mask = 2
+material = ExtResource( 65 )
+texture = ExtResource( 18 )
+normal_map = ExtResource( 18 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="IntroContainer/Centering/LogoMover"]
+anims/Idle = SubResource( 385 )
+anims/RESET = SubResource( 386 )
+
+[node name="Light" type="Node2D" parent="IntroContainer/Centering/LogoMover"]
+
+[node name="Light2D" type="Light2D" parent="IntroContainer/Centering/LogoMover/Light"]
+position = Vector2( -942, 625 )
+rotation = 0.523599
+scale = Vector2( 30, 3 )
+texture = SubResource( 292 )
+energy = 5.0
+range_height = 1.0
+range_z_min = -1121
+range_item_cull_mask = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="IntroContainer/Centering/LogoMover/Light"]
+anims/Idle = SubResource( 387 )
+anims/RESET = SubResource( 388 )
 
 [node name="Press-Anywhere-To-Continue" type="Sprite" parent="IntroContainer/Centering"]
 position = Vector2( 0, 350 )
@@ -2670,6 +2907,7 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -3087,6 +3325,11 @@ script = ExtResource( 71 )
 assetname = "Logo.tres"
 node = NodePath("..")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/LogoMover"]
+anims/Hide = SubResource( 380 )
+anims/RESET = SubResource( 381 )
+anims/Show = SubResource( 382 )
+
 [node name="Overlay" type="Control" parent="SlotContainer/Slot"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -3182,6 +3425,29 @@ position = Vector2( 0, 275 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 93 )
 
+[node name="MoneyParticles" type="CPUParticles2D" parent="SlotContainer/BigWin"]
+material = SubResource( 383 )
+position = Vector2( 0, 350 )
+scale = Vector2( 1.5, 1.5 )
+emitting = false
+amount = 30
+lifetime = 2.0
+texture = ExtResource( 15 )
+emission_shape = 1
+emission_sphere_radius = 100.0
+direction = Vector2( 0, -1 )
+spread = 25.0
+gravity = Vector2( 0, 980 )
+initial_velocity = 700.0
+initial_velocity_random = 0.25
+angular_velocity = 100.0
+angular_velocity_random = 1.0
+angle = 360.0
+angle_random = 1.0
+color_ramp = SubResource( 384 )
+anim_speed = 5.0
+anim_speed_random = 1.0
+
 [node name="CounterText" type="Label" parent="SlotContainer/BigWin"]
 margin_top = 174.5
 margin_bottom = 175.5
@@ -3198,13 +3464,15 @@ anims/Hide = SubResource( 98 )
 anims/Show = SubResource( 99 )
 
 [node name="WinBar" type="Control" parent="SlotContainer"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_top = -100.0
+margin_top = 400.0
 margin_bottom = 550.0
+rect_scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 99 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -3238,12 +3506,15 @@ show_behind_parent = true
 texture = ExtResource( 93 )
 
 [node name="TotalWinBar" type="Control" parent="SlotContainer"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_top = 400.0
 margin_bottom = 550.0
+rect_scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 99 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -3266,6 +3537,7 @@ anims/Show = SubResource( 374 )
 anims/ShowBottom = SubResource( 375 )
 
 [node name="RedGlow" type="Sprite" parent="SlotContainer/TotalWinBar"]
+modulate = Color( 1, 1, 1, 0 )
 show_behind_parent = true
 position = Vector2( 0, 100 )
 scale = Vector2( 3, 3 )
@@ -3402,6 +3674,7 @@ default = Color( 1, 1, 1, 1 )
 
 [node name="Scenario" parent="." instance=ExtResource( 1 )]
 
+[connection signal="ready" from="IntroContainer/Centering/LogoMover/Light/AnimationPlayer" to="IntroContainer/Centering/LogoMover/Light/AnimationPlayer" method="play" binds= [ "Idle" ]]
 [connection signal="ready" from="SlotContainer/Slot/Background/ParticlesLeft/AnimationPlayer" to="SlotContainer/Slot/Background/ParticlesLeft/AnimationPlayer" method="play" binds= [ "Idle" ]]
 [connection signal="ready" from="SlotContainer/Slot/Background/ParticlesRight/AnimationPlayer" to="SlotContainer/Slot/Background/ParticlesRight/AnimationPlayer" method="play" binds= [ "Idle" ]]
 [connection signal="ready" from="SlotContainer/Slot/Overlap/Light/AnimationPlayer" to="SlotContainer/Slot/Overlap/Light/AnimationPlayer" method="play" binds= [ "Idle" ]]

@@ -31,3 +31,9 @@ func switch_to_normal():
 	current_state = "normal"
 	$SlotContainer/Background/AnimationPlayer.play("to_normal")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_normal")
+
+func _input(event):
+	if(event is InputEventScreenTouch || event is InputEventMouseButton || event is InputEventKey):
+		if(event.pressed): 
+			Globals.emit_signal("skip")
+			print("Skip attempt");
