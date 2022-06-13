@@ -4,7 +4,7 @@
 [ext_resource path="res://Loader/LoadingScene.gd" type="Script" id=2]
 [ext_resource path="res://Loader/PackageExporter.gd" type="Script" id=3]
 [ext_resource path="res://Loader/HeadlessExporter.gd" type="Script" id=4]
-[ext_resource path="res://Main/Networking.gd" type="Script" id=5]
+[ext_resource path="res://Loader/Networking.gd" type="Script" id=5]
 
 [node name="LoadingScene" type="Node"]
 script = ExtResource( 2 )
