@@ -2,6 +2,7 @@ extends Node
 class_name PackageLoader
 
 var package_name : String;
+var translation : bool = false;
 var progress : float = 0.0;
 var time_max : int = 100; # msec
 var completed : bool = false;
@@ -16,7 +17,9 @@ func _ready():
 	#loader = ResourceLoader.load_interactive("res://Game.tscn")
 	prints("LOADING PACKAGE", package_name);
 	if(JS.enabled):
-		var path = JS.get_path()+"packages/"+package_name+".pck";
+		var path = "";
+		if(translation): path = JS.get_path()+"packages/"+package_name+".pck";
+		else: path = JS.get_path()+"translations/"+package_name+".pck";
 		loader = HTTPRequest.new();
 		add_child(loader);
 		loader.download_file = "res://"+package_name+".pck";

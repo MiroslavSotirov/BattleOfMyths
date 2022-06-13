@@ -45,6 +45,8 @@ func load_optional_packages():
 
 func load_package(pck_name):
 	var loader = PackageLoader.new(pck_name);
+	if(Globals.singletons["Networking"].default_lang in pck_name):
+		loader.translation = true;
 	add_child(loader);
 	loaders.append(loader);
 	loader.connect("loaded", self, "load_package_completed", [pck_name]);
