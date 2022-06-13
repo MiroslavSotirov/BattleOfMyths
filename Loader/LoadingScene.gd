@@ -16,7 +16,11 @@ func _ready():
 		Globals.singletons["Networking"].request_init();
 		
 	Globals.singletons["Networking"].connect("fail", self, "error_received");
-	yield(Globals.singletons["Networking"], "initcomplete");
+	yield(Globals.singletons["Networking"], "initreceived");
+	var initdata = Globals.singletons["Networking"].initdata;
+	if("language" in initdata):Globals.set_language(initdata["language"]);
+	else: Globals.set_language(Globals.singletons["Networking"].default_lang);
+
 	$LoadingSystem.required_packages.append(Globals.singletons["Networking"].default_lang)
 	$LoadingSystem.start();
 	yield($LoadingSystem, "required_packages_loaded");

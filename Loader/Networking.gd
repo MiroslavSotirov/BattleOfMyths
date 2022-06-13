@@ -64,8 +64,7 @@ func init_received(data):
 			lastround[key] = rounddata[key];
 		
 	lastround.defaultTotal = data.defaultTotal;
-	emit_signal("initcomplete");
-	
+		
 func apply_init():
 	
 	Globals.configure_bets(initdata["totalStakes"], initdata["defaultBet"]);
