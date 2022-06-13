@@ -12,9 +12,8 @@ func _ready():
 	Globals.singletons["Networking"].connect("fail", self, "error_received");
 	
 	if(JS.enabled): 
-		JS.connect("init", Globals.singletons["Networking"], "error_received");
+		JS.connect("init", Globals.singletons["Networking"], "init_received");
 		JS.output("", "elysiumgamerequestinit");
-		
 		yield(JS, "init");
 	else: 
 		Globals.singletons["Networking"].request_init();
