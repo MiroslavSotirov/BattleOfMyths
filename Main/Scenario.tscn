@@ -12,10 +12,11 @@ script/source = "# State: Initialize
 extends VFSMStateBase
 
 func enter() -> void:
-	Globals.singletons[\"Fader\"].tween(1,1,0);
 	yield(Globals, \"allready\")
+	Globals.singletons[\"Networking\"].apply_init();
 	Globals.singletons[\"Stateful\"].connect(\"new_state\", self, \"update_state\")
 	yield(Globals.get_tree(),\"idle_frame\")
+	Globals.singletons[\"Fader\"].tween(1,1,0);
 	JS.connect(\"set_stake\", self, \"set_stake\");
 	Globals.connect(\"configure_bets\", self, \"configure_bets\");
 	

@@ -64,6 +64,8 @@ func init_received(data):
 		
 	lastround.defaultTotal = data.defaultTotal;
 	
+func apply_init():
+
 	Globals.configure_bets(initdata["totalStakes"], initdata["defaultBet"]);
 		
 	Globals.emit_signal("update_view", 
