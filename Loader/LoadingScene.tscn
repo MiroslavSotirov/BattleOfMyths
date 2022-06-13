@@ -27,62 +27,62 @@ targetpaths = [ "res://Main", "res://addons/visual_fsm", "res://addons/BitmapFon
 
 [node name="translation_EN" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/EN" ]
 is_translation = true
 
 [node name="translation_DE" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/DE" ]
 is_translation = true
 
 [node name="translation_CN" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/CN" ]
 is_translation = true
 
 [node name="translation_ES" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/ES" ]
 is_translation = true
 
 [node name="translation_IT" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/IT" ]
 is_translation = true
 
 [node name="translation_JP" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/JP" ]
 is_translation = true
 
 [node name="translation_KO" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/KO" ]
 is_translation = true
 
 [node name="translation_NL" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/NL" ]
 is_translation = true
 
 [node name="translation_PT" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/PT" ]
 is_translation = true
 
 [node name="translation_RO" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/RO" ]
 is_translation = true
 
 [node name="translation_RU" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/RU" ]
 is_translation = true
 
 [node name="translation_SV" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/SV" ]
 is_translation = true
 
 [node name="translation_TH" type="Node" parent="PackageExporters"]
@@ -92,7 +92,7 @@ is_translation = true
 
 [node name="translation_TR" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
-targetpaths = [ "res://Translations/TH" ]
+targetpaths = [ "res://Translations/TR" ]
 is_translation = true
 
 [node name="Networking" type="Node" parent="."]
