@@ -12,9 +12,9 @@ func switch_to_dragon_mode(splash=false):
 	if(splash): 
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
 		sprite.set_skin("Dragon");
-		sprite.play_anim("popup");
+		sprite.play_anim("popup", false);
 		yield(sprite, "animation_complete");
-		sprite.play_anim("close");
+		sprite.play_anim("close", false);
 		
 func switch_to_tiger_mode(splash=false):
 	current_state = "tiger"

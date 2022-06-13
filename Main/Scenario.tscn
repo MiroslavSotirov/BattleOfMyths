@@ -12,11 +12,11 @@ script/source = "# State: Initialize
 extends VFSMStateBase
 
 func enter() -> void:
+	Globals.singletons[\"Fader\"].tween(1,1,0);
 	yield(Globals, \"allready\")
 	Globals.singletons[\"Networking\"].apply_init();
 	Globals.singletons[\"Stateful\"].connect(\"new_state\", self, \"update_state\")
 	yield(Globals.get_tree(),\"idle_frame\")
-	Globals.singletons[\"Fader\"].tween(1,1,0);
 	JS.connect(\"set_stake\", self, \"set_stake\");
 	Globals.connect(\"configure_bets\", self, \"configure_bets\");
 	
@@ -67,7 +67,7 @@ func update_state(state, init):
 script = ExtResource( 1 )
 vfsm_id = 0
 name = "Initialize"
-position = Vector2( 120, 40 )
+position = Vector2( 140, 100 )
 trigger_ids = [ 0, 8 ]
 custom_script = SubResource( 139 )
 
@@ -407,7 +407,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 8
 name = "Close Error"
-position = Vector2( 3440, 820 )
+position = Vector2( 3440, 860 )
 trigger_ids = [ 13 ]
 custom_script = SubResource( 175 )
 
@@ -546,10 +546,12 @@ extends VFSMStateBase
 func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
 	var featuredata = null;
-	for feature in data.features: 
-		if(feature.type == \"ReplaceTile\" && feature.data.tileid == 9):
-			featuredata = feature;
-			break;
+	
+	if(\"features\" in data):
+		for feature in data.features: 
+			if(feature.type == \"ReplaceTile\" && feature.data.tileid == 9):
+				featuredata = feature;
+				break;
 	
 	if(featuredata == null):
 		Globals.fsm_data[\"princess_feature_completed\"] = true;
@@ -597,11 +599,11 @@ func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
 	var featuredata = null;
 	#var featuredata = {\"data\":{\"positions\":[0, 5, 8, 13], \"replacewithid\":10, \"tileid\":10}, \"id\":5, \"type\":\"ReplaceTile\"};
-	
-	for feature in data.features: 
-		if(feature.type == \"ReplaceTile\" && feature.data.tileid == 10):
-			featuredata = feature;
-			break;
+	if(\"features\" in data):
+		for feature in data.features: 
+			if(feature.type == \"ReplaceTile\" && feature.data.tileid == 10):
+				featuredata = feature;
+				break;
 	
 	if(featuredata == null):
 		Globals.fsm_data[\"dragon_feature_completed\"] = true;
@@ -687,12 +689,12 @@ func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
 #	var json = '{\"features\":[{\"id\":0,\"type\":\"FatTile\",\"data\":{\"x\":2,\"y\":0,\"w\":4,\"h\":4,\"tileid\":10}},{\"id\":0,\"type\":\"StatefulMap\",\"data\":{\"map\":{\"0.300\":{\"counter\":0}}}}],\"featureview\":[[4,4,5,8],[6,2,1,1],[2,4,3,3],[9,4,2,4],[5,10,10,3],[7,10,10,7]]}'
 #	var data = JSON.parse(json).result;
-
 	var featuredata = null;
-	for feature in data.features: 
-		if(feature.type == \"FatTile\"):
-			featuredata = feature;
-			break;
+	if(\"features\" in data):
+		for feature in data.features: 
+			if(feature.type == \"FatTile\"):
+				featuredata = feature;
+				break;
 #
 	if(featuredata == null):
 		Globals.fsm_data[\"tiger_feature_completed\"] = true;
@@ -1188,7 +1190,7 @@ custom_script = SubResource( 214 )
 [sub_resource type="Resource" id=147]
 script = ExtResource( 2 )
 start_state_vfsm_id = 0
-start_position = Vector2( -40, 40 )
+start_position = Vector2( -40, 120 )
 states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ), SubResource( 190 ), SubResource( 201 ), SubResource( 205 ), SubResource( 207 ), SubResource( 213 ) ]
 triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ), SubResource( 195 ), SubResource( 197 ), SubResource( 199 ), SubResource( 203 ), SubResource( 209 ), SubResource( 211 ), SubResource( 215 ) ]
 transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 13, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 14, 12, 11, 15, 16, 12, 17, 16, 13, 20, 14, 14, 21, 15, 15, 22, 11, 16, 23, 7 ]
