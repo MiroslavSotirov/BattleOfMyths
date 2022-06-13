@@ -9,6 +9,7 @@ signal resolutionchanged(landscape, portrait, ratio, zoom);
 signal configure_bets(bets, defaultbet);
 signal update_balance(new, currency);
 signal update_view(view);
+signal apply_language();
 signal skip;
 
 var round_closed : bool = false;
@@ -55,6 +56,8 @@ func loading_done():
 	emit_signal("allready");
 	all_ready = true;
 	yield(get_tree(),"idle_frame")
+	singletons["Networking"].apply_init();
+	emit_signal("apply_language");
 	yield(get_tree(),"idle_frame")
 	_resolution_changed(resolution);
 	JS.output("", "elysiumgameloadingcomplete");
@@ -87,7 +90,7 @@ func _resolution_changed(newres : Vector2):
 	prints("New screen ratio ", newres, landscape, portrait, screenratio, zoom)
 
 func check_can_spin():
-	return all_ready && !singletons["Fader"].visible && !singletons["Slot"].spinning && singletons["Game"].round_ended;
+	return all_ready && !singletons["Fader"].visible && !singletons["Slot"].spinning;
 
 func format_money(v):
 	v = float(v);

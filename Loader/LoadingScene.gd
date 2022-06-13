@@ -36,8 +36,7 @@ func _ready():
 			JS.output(progress, "elysiumgameloadingprogress")
 		yield(get_tree(), "idle_frame");
 		
-	get_tree().root.add_child(sceneloader.asset.instance())	
-	Globals.singletons["Networking"].apply_init();
+	get_tree().root.add_child(sceneloader.asset.instance())
 	
 	Globals.loading_done();
 	print("Load successfull");
