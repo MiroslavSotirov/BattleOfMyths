@@ -6,17 +6,18 @@ func _ready():
 	for argument in OS.get_cmdline_args():
 		if(argument == "-export_pck"): 
 			return;
-			
-	#var lang = "translations_EN.pck";
-	#$LoadingSystem.required_packages.append(lang);
+
+	yield(get_tree(), "idle_frame");
+	
+	Globals.singletons["Networking"].connect("fail", self, "error_received");
 	
 	if(JS.enabled): 
+		JS.connect("init", Globals.singletons["Networking"], "init_received");
 		JS.output("", "elysiumgamerequestinit");
 	else: 
 		Globals.singletons["Networking"].request_init();
-		
-	Globals.singletons["Networking"].connect("fail", self, "error_received");
 	yield(Globals.singletons["Networking"], "initreceived");
+
 	var initdata = Globals.singletons["Networking"].initdata;
 	if("language" in initdata):Globals.set_language(initdata["language"]);
 	else: Globals.set_language(Globals.singletons["Networking"].default_lang);

@@ -34,7 +34,6 @@ var _error : String = "";
 var _response : Dictionary;
 
 func _ready():
-	print(get_parent().name);
 	set_token(init_sessionID);
 	connect("fail",self,"on_fail")
 	Globals.register_singleton("Networking", self);
