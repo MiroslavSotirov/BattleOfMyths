@@ -88,11 +88,6 @@ func apply_init():
 	if("featureview" in lastround): screen = lastround["featureview"];
 	else: screen = lastround["view"];
 	
-	if("language" in initdata):
-		Globals.set_language(initdata["language"]);
-	else:
-		Globals.set_language(default_lang);
-
 	if("currency" in initdata):
 		Globals.currency_symbol = initdata["currency"]["symbol"];
 		Globals.currency_position = initdata["currency"]["position"] == "left";

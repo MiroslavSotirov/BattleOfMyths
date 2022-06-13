@@ -42,26 +42,6 @@ func _process(delta):
 	for i in range(JavaScript.eval("""window.Elysium.Game.InputArray.length""", true)):
 		_process_js_input();
 		
-func process_params(params):
-	yield(Globals,"allready");
-	for param in params:
-		if(param[0] == "token"):
-			Globals.singletons["Networking"].set_token(param[1]);
-		elif(param[0]=="language"):
-			Globals.set_language(param[1]);
-		elif(param[0]=="mode"):
-			Globals.singletons["Networking"].set_mode(param[1]);
-		elif(param[0]=="wallet"):
-			Globals.singletons["Networking"].set_wallet(param[1]);
-		elif(param[0]=="currency"):
-			Globals.set_currency(param[1]);
-		elif(param[0]=="operator"):
-			Globals.singletons["Networking"].set_operator(param[1]);
-		elif(param[0]=="debug"):
-			Globals.set_debug(param[1]);
-		elif(param[0]=="jurisdiction"):
-			Globals.set_jurisdiction(param[1]);
-		
 func output(data, event="elysiumgameoutput"):
 	if(!enabled): return;
 	prints(data, event);
