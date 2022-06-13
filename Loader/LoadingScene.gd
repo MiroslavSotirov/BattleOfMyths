@@ -14,9 +14,10 @@ func _ready():
 	if(JS.enabled): 
 		JS.connect("init", Globals.singletons["Networking"], "init_received");
 		JS.output("", "elysiumgamerequestinit");
+		yield(JS, "init");
 	else: 
 		Globals.singletons["Networking"].request_init();
-	yield(Globals.singletons["Networking"], "initreceived");
+		yield(Globals.singletons["Networking"], "initreceived");
 
 	var initdata = Globals.singletons["Networking"].initdata;
 	if("language" in initdata):Globals.set_language(initdata["language"]);
