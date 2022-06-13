@@ -16,18 +16,9 @@ func enter() -> void:
 	yield(Globals, \"allready\")
 	Globals.singletons[\"Stateful\"].connect(\"new_state\", self, \"update_state\")
 	yield(Globals.get_tree(),\"idle_frame\")
-	JS.connect(\"init\", Globals.singletons[\"Networking\"], \"init_received\", [], CONNECT_ONESHOT);
-	Globals.singletons[\"Networking\"].connect(\"initcomplete\", self, \"init_data_received\", [], CONNECT_ONESHOT);
-	Globals.singletons[\"Networking\"].connect(\"fail\", self, \"error_received\");
 	JS.connect(\"set_stake\", self, \"set_stake\");
 	Globals.connect(\"configure_bets\", self, \"configure_bets\");
 	
-	if(JS.enabled): 
-		JS.output(\"\", \"elysiumgamerequestinit\");
-	else: 
-		Globals.singletons[\"Networking\"].request_init();
-	
-func init_data_received():
 	Globals.round_closed = true; #Init should close previous round if open
 	var data = Globals.singletons[\"Networking\"].lastround;
 	if(\"featureConfigs\" in data):
@@ -44,8 +35,6 @@ func init_data_received():
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
 	
-func error_received(error_id=-1):
-	Globals.fsm_data[\"network_error\"] = true;
 
 func update(_object, _delta: float) -> void:
 	pass
@@ -766,12 +755,13 @@ func enter() -> void:
 		return;
 	
 	if(Globals.singletons[\"Game\"].current_state == \"normal\"):
-		if(state[\"fstype\"] == \"freespinE1\"):
-			Globals.singletons[\"Game\"].switch_to_tiger_mode(true);
-			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
-		elif(state[\"fstype\"] == \"freespinE2\"): 
-			Globals.singletons[\"Game\"].switch_to_dragon_mode(true);
-			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
+		if(\"fstype\" in state):
+			if(state[\"fstype\"] == \"freespinE1\"):
+				Globals.singletons[\"Game\"].switch_to_tiger_mode(true);
+				yield(Globals.get_tree().create_timer(1.0), \"timeout\");
+			elif(state[\"fstype\"] == \"freespinE2\"): 
+				Globals.singletons[\"Game\"].switch_to_dragon_mode(true);
+				yield(Globals.get_tree().create_timer(1.0), \"timeout\");
 	else:
 		Globals.singletons[\"Game\"].switch_to_normal_mode();
 		yield(Globals.get_tree().create_timer(1.0), \"timeout\");

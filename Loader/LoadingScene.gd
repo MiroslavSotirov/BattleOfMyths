@@ -9,6 +9,15 @@ func _ready():
 			
 	#var lang = "translations_EN.pck";
 	#$LoadingSystem.required_packages.append(lang);
+	
+	if(JS.enabled): 
+		JS.output("", "elysiumgamerequestinit");
+	else: 
+		Globals.singletons["Networking"].request_init();
+		
+	Globals.singletons["Networking"].connect("fail", self, "error_received");
+	yield(Globals.singletons["Networking"], "initcomplete");
+	$LoadingSystem.required_packages.append(Globals.singletons["Networking"].default_lang)
 	$LoadingSystem.start();
 	yield($LoadingSystem, "required_packages_loaded");
 	print("Required packages Loaded.");
@@ -28,9 +37,11 @@ func _ready():
 		yield(get_tree(), "idle_frame");
 		
 	get_tree().root.add_child(sceneloader.asset.instance())	
+	Globals.singletons["Networking"].apply_init();
 	
 	Globals.loading_done();
 	print("Load successfull");
+	
 	#queue_free();
 
 func generate_tile_images():
@@ -60,3 +71,6 @@ func generate_tile_images():
 		
 	viewport.queue_free();
 	emit_signal("tiles_generated");
+	
+func error_received(error_id=-1):
+	Globals.fsm_data["network_error"] = true;

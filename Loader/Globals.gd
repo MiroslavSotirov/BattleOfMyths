@@ -12,6 +12,7 @@ signal update_view(view);
 signal skip;
 
 var round_closed : bool = false;
+var all_ready : bool = false;
 
 var currentBet : float;
 
@@ -52,9 +53,11 @@ func loading_done():
 	print("loading done");
 	yield(get_tree(),"idle_frame")
 	emit_signal("allready");
+	all_ready = true;
 	yield(get_tree(),"idle_frame")
 	yield(get_tree(),"idle_frame")
 	_resolution_changed(resolution);
+	JS.output("", "elysiumgameloadingcomplete");
 	
 func register_singleton(name, obj):
 	singletons[name] = obj;
@@ -84,7 +87,7 @@ func _resolution_changed(newres : Vector2):
 	prints("New screen ratio ", newres, landscape, portrait, screenratio, zoom)
 
 func check_can_spin():
-	return !singletons["Fader"].visible && !singletons["Slot"].spinning && singletons["Game"].round_ended;
+	return all_ready && !singletons["Fader"].visible && !singletons["Slot"].spinning && singletons["Game"].round_ended;
 
 func format_money(v):
 	v = float(v);

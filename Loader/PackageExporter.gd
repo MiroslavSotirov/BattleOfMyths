@@ -14,6 +14,10 @@ func _get_tool_buttons(): return ["export_pck"]
 func export_pck(distribution=false):
 	prints("Exporting", name);
 	
+	if(is_translation):
+		if(!targetpaths.has("res://Translations/"+name)):
+			targetpaths.append("res://Translations/"+name);
+	
 	var valid_extensions = ["png", "jpg", "webp", "tscn", "tres", "gd", "ttf", "json", "atlas", "txt"];
 	var paths = {};
 	

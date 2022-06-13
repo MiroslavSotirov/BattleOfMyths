@@ -23,6 +23,7 @@ var waiting_for_response : bool = false;
 
 var next_action : String;
 var lastround = {};
+var initdata = {};
 
 const ERROR = 1
 const OK = 0
@@ -55,6 +56,7 @@ func request_init():
 		
 func init_received(data):
 	lastround = {};
+	initdata = data;
 
 	for rounddata in data["lastRound"].values():
 		for key in rounddata.keys():
@@ -62,8 +64,11 @@ func init_received(data):
 			lastround[key] = rounddata[key];
 		
 	lastround.defaultTotal = data.defaultTotal;
-					
-	Globals.configure_bets(data["totalStakes"], data["defaultBet"]);
+	emit_signal("initcomplete");
+	
+func apply_init():
+	
+	Globals.configure_bets(initdata["totalStakes"], initdata["defaultBet"]);
 		
 	Globals.emit_signal("update_view", 
 		lastround["view"]);
@@ -85,37 +90,20 @@ func init_received(data):
 	if("featureview" in lastround): screen = lastround["featureview"];
 	else: screen = lastround["view"];
 	
-	if("language" in data):
-		Globals.set_language(data["language"]);
+	if("language" in initdata):
+		Globals.set_language(initdata["language"]);
 	else:
 		Globals.set_language(default_lang);
 
-	if("currency" in data):
-		Globals.currency_symbol = data["currency"]["symbol"];
-		Globals.currency_position = data["currency"]["position"] == "left";
-		Globals.currency_code = data["currency"]["code"];
+	if("currency" in initdata):
+		Globals.currency_symbol = initdata["currency"]["symbol"];
+		Globals.currency_position = initdata["currency"]["position"] == "left";
+		Globals.currency_code = initdata["currency"]["code"];
 		
-	if("featureConfigs" in data): 
-		lastround["featureConfigs"] = data.featureConfigs;
+	if("featureConfigs" in initdata): 
+		lastround["featureConfigs"] = initdata.featureConfigs;
 		
-#	yield(Globals.singletons["AssetLoader"], "lang_downloaded");
-		
-#	Globals.singletons["AssetLoader"].generate_tile_images();
-	
-#	yield(Globals.singletons["AssetLoader"], "tiles_generated");
-	
-	# TODO: heisenbug generator
-#	if("init" in lastround["stateID"]):
-#		for i in range(len(screen)):
-#			screen[i].push_front(screen[i].pop_back());
-
-
-#	Globals.singletons["Slot"].assign_tiles(screen);
 	Globals.singletons["Slot"].set_initial_screen(lastround);
-
-		
-	JS.output("", "elysiumgameloadingcomplete");
-	emit_signal("initcomplete");
 	
 func request_spin(sig = "spinreceived"):
 	if(waiting_for_response): return printerr("Trying to request while waiting for response");

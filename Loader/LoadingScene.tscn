@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Loader/LoadingSystem.gd" type="Script" id=1]
 [ext_resource path="res://Loader/LoadingScene.gd" type="Script" id=2]
 [ext_resource path="res://Loader/PackageExporter.gd" type="Script" id=3]
 [ext_resource path="res://Loader/HeadlessExporter.gd" type="Script" id=4]
+[ext_resource path="res://Main/Networking.gd" type="Script" id=5]
 
 [node name="LoadingScene" type="Node"]
 script = ExtResource( 2 )
@@ -26,4 +27,79 @@ targetpaths = [ "res://Main", "res://addons/visual_fsm", "res://addons/BitmapFon
 
 [node name="EN" type="Node" parent="PackageExporters"]
 script = ExtResource( 3 )
+targetpaths = [ "res://Translations/EN" ]
 is_translation = true
+
+[node name="DE" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/DE" ]
+is_translation = true
+
+[node name="CN" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/CN" ]
+is_translation = true
+
+[node name="ES" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/ES" ]
+is_translation = true
+
+[node name="IT" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/IT" ]
+is_translation = true
+
+[node name="JP" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/JP" ]
+is_translation = true
+
+[node name="KO" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/KO" ]
+is_translation = true
+
+[node name="NL" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/NL" ]
+is_translation = true
+
+[node name="PT" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/PT" ]
+is_translation = true
+
+[node name="RO" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/RO" ]
+is_translation = true
+
+[node name="RU" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/RU" ]
+is_translation = true
+
+[node name="SV" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/SV" ]
+is_translation = true
+
+[node name="TH" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/TH" ]
+is_translation = true
+
+[node name="TR" type="Node" parent="PackageExporters"]
+script = ExtResource( 3 )
+targetpaths = [ "res://Translations/TR" ]
+is_translation = true
+
+[node name="Networking" type="Node" parent="."]
+script = ExtResource( 5 )
+init_sessionID = "test3"
+game = "battle-of-myths"
+mode = "demo"
+operator = "mav"
+currency = "USD"
+default_lang = "EN"

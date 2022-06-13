@@ -15,7 +15,7 @@ func export_all_pck(quit=false):
 	print("EXPORTING PCK...")
 	var children = get_children();
 	for child in children:
-		child.export_pck(true);
+		child.export_pck(quit);
 		#yield(child, "export_completed")
 	
 	print("COMPLETED")
