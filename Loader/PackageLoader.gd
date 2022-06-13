@@ -18,8 +18,8 @@ func _ready():
 	prints("LOADING PACKAGE", package_name);
 	if(JS.enabled):
 		var path = "";
-		if(translation): path = JS.get_path()+"packages/"+package_name+".pck";
-		else: path = JS.get_path()+"translations/"+package_name+".pck";
+		if(translation): path = JS.get_path()+"translations/"+package_name+".pck"; 
+		else: path = JS.get_path()+"packages/"+package_name+".pck";
 		loader = HTTPRequest.new();
 		add_child(loader);
 		loader.download_file = "res://"+package_name+".pck";
