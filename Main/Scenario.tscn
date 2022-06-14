@@ -239,9 +239,7 @@ func enter() -> void:
 		Globals.singletons[\"Networking\"].lastround \\
 		&& Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
 	
-	is_cascading = is_cascading;
-	
-	if(!is_cascading || (\"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction)):
+	if(!is_cascading && !(\"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction)):
 		Globals.singletons[\"TotalWinBar\"].hide();
 		Globals.singletons[\"Slot\"].start_spin();
 		
