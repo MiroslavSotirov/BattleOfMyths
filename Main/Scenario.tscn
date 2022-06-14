@@ -287,7 +287,7 @@ func enter() -> void:
 	Globals.fsm_data[\"reels_stopped\"] = false;
 	var data = Globals.singletons[\"Networking\"].lastround;
 	
-	if (data.action == \"cascade\"):
+	if (data.action == \"cascade\" || \"freespin\" in data.action):
 		yield(Globals.singletons[\"Slot\"].add_data(data), \"completed\");
 	else:
 		yield(Globals.singletons[\"Slot\"].stop_spin(data), \"completed\");
