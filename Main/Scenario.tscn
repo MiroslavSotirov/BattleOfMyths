@@ -249,14 +249,11 @@ func enter() -> void:
 func spin_data_received(data):
 	print(\"SPIN DATA WAS RECIEVED\")
 	if(\"code\" in data || \"hasError\" in data): return;
-
-	print(\"IS CASCADING \", Globals.fsm_data[\"is_cascading\"] )
 	
-	if(Globals.singletons[\"Networking\"].lastround.nextAction != \"finish\"):
-		Globals.fsm_data[\"in_freespins\"] = \"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction;
-		
-	Globals.fsm_data[\"last_freespin\"] = Globals.fsm_data[\"in_freespins\"] && Globals.singletons[\"Networking\"].lastround.nextAction == \"finish\";
-	prints(\"IN FS\", Globals.fsm_data[\"in_freespins\"], \"LAST?\", Globals.fsm_data[\"last_freespin\"]);
+	Globals.fsm_data[\"in_freespins\"] = \"freespin\" in data.action;
+	Globals.fsm_data[\"last_freespin\"] = Globals.fsm_data[\"in_freespins\"] && \"finish\" in data.nextAction;
+	
+	prints(\"IS CASCADING \", Globals.fsm_data[\"is_cascading\"], \"IN FS\", Globals.fsm_data[\"in_freespins\"], \"LAST?\", Globals.fsm_data[\"last_freespin\"]);
 	
 	if(data.roundMultiplier < Globals.singletons[\"WinMultiplier\"].multiplier):
 		Globals.singletons[\"WinMultiplier\"].set_multiplier(data.roundMultiplier);
@@ -471,7 +468,7 @@ func enter() -> void:
 #
 	var data = Globals.singletons[\"Networking\"].lastround;
 	var slot = Globals.singletons.Slot;
-	var win_tiles_positions = calcute_win_tiles_posiitons(data.wins, slot.reels[0].visibleTilesCount);
+	var win_tiles_positions = calcute_win_tiles_positions(data.wins, slot.reels[0].visibleTilesCount);
 	
 	JS.output(\"linewin\", \"elysiumgamefeature\");
 #	Globals.singletons[\"PopupTiles\"].unpop_all();
@@ -519,7 +516,7 @@ func bangup_wins(n):
 	elif(\"spinWin\" in data):
 		Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 
-func calcute_win_tiles_posiitons(wins, tiles_count):
+func calcute_win_tiles_positions(wins, tiles_count):
 	if (wins == null): return {}
 	var positions = {};
 	
