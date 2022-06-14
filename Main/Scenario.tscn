@@ -239,9 +239,9 @@ func enter() -> void:
 		Globals.singletons[\"Networking\"].lastround \\
 		&& Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
 	
-	is_cascading = is_cascading || (\"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction);
+	is_cascading = is_cascading;
 	
-	if(!is_cascading):
+	if(!is_cascading || (\"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction)):
 		Globals.singletons[\"TotalWinBar\"].hide();
 		Globals.singletons[\"Slot\"].start_spin();
 		
@@ -249,7 +249,7 @@ func spin_data_received(data):
 	print(\"SPIN DATA WAS RECIEVED\")
 	if(\"code\" in data || \"hasError\" in data): return;
 	var is_cascading = Globals.singletons[\"Networking\"].lastround && Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
-	is_cascading = is_cascading || (\"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction);
+	is_cascading = is_cascading;
 	print(\"IS CASCADNIG \", is_cascading)
 	
 	if(data.roundMultiplier < Globals.singletons[\"WinMultiplier\"].multiplier):
@@ -287,7 +287,7 @@ func enter() -> void:
 	Globals.fsm_data[\"reels_stopped\"] = false;
 	var data = Globals.singletons[\"Networking\"].lastround;
 	
-	if (data.action == \"cascade\" || \"freespin\" in data.action):
+	if (data.action == \"cascade\"):
 		yield(Globals.singletons[\"Slot\"].add_data(data), \"completed\");
 	else:
 		yield(Globals.singletons[\"Slot\"].stop_spin(data), \"completed\");
