@@ -32,6 +32,8 @@ func enter() -> void:
 		print(\"NO FEATURE CONFIGS!!! STATEFUL MIGHT NOT WORK CORRECTLY\")
 		
 	Globals.update_win_configs(Globals.singletons[\"Networking\"].lastround.defaultTotal);
+	Globals.fsm_data[\"in_freespins\"] = \"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction;
+	Globals.fsm_data[\"last_freespin\"] = false;
 	
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
@@ -249,6 +251,12 @@ func spin_data_received(data):
 	var is_cascading = Globals.singletons[\"Networking\"].lastround && Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
 	is_cascading = is_cascading;
 	print(\"IS CASCADNIG \", is_cascading)
+	
+	if(Globals.singletons[\"Networking\"].lastround.nextAction != \"finish\"):
+		Globals.fsm_data[\"in_freespins\"] = \"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction;
+		
+	Globals.fsm_data[\"last_freespin\"] = Globals.fsm_data[\"in_freespins\"] && Globals.singletons[\"Networking\"].lastround.nextAction == \"finish\";
+
 	
 	if(data.roundMultiplier < Globals.singletons[\"WinMultiplier\"].multiplier):
 		Globals.singletons[\"WinMultiplier\"].set_multiplier(data.roundMultiplier);
@@ -759,18 +767,20 @@ func enter() -> void:
 	if(state == null):
 		Globals.fsm_data[\"slot_switch_completed\"] = true;
 		return;
-	
+	var data = Globals.singletons[\"Networking\"].lastround;
 	if(Globals.singletons[\"Game\"].current_state == \"normal\"):
 		if(\"fstype\" in state):
-			if(state[\"fstype\"] == \"freespinE1\"):
+			if(state[\"fstype\"] == \"freespinE1\" && Globals.singletons[\"Game\"].current_state != \"tiger\"):
 				Globals.singletons[\"Game\"].switch_to_tiger_mode(true);
-				yield(Globals.get_tree().create_timer(1.0), \"timeout\");
-			elif(state[\"fstype\"] == \"freespinE2\"): 
+				yield(Globals.get_tree().create_timer(3.0), \"timeout\");
+			elif(state[\"fstype\"] == \"freespinE2\" && Globals.singletons[\"Game\"].current_state != \"dragon\"): 
 				Globals.singletons[\"Game\"].switch_to_dragon_mode(true);
-				yield(Globals.get_tree().create_timer(1.0), \"timeout\");
-	else:
+				yield(Globals.get_tree().create_timer(3.0), \"timeout\");
+	elif(Globals.fsm_data[\"last_freespin\"]):
 		Globals.singletons[\"Game\"].switch_to_normal_mode();
-		yield(Globals.get_tree().create_timer(1.0), \"timeout\");
+		Globals.singletons[\"BigWin\"].show_win(data[\"cumulativeWin\"], true);
+		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
+
 		
 	Globals.fsm_data[\"slot_switch_completed\"] = true;
 

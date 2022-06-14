@@ -20,7 +20,7 @@ func switch_to_dragon_mode(splash=false):
 		animplayer.play("Show")
 		yield(get_tree().create_timer(1.0), "timeout");
 		animplayer.play("Hide")
-		sprite.play_anim("close");
+		sprite.play_anim("close", false);
 		yield(get_tree().create_timer(2.0), "timeout");
 		Globals.singletons["FreeSpinsSplash"].visible = false;
 		
@@ -39,7 +39,7 @@ func switch_to_tiger_mode(splash=false):
 		animplayer.play("Show")
 		yield(get_tree().create_timer(1.0), "timeout");
 		animplayer.play("Hide")
-		sprite.play_anim("close");
+		sprite.play_anim("close", false);
 		yield(get_tree().create_timer(2.0), "timeout");
 		Globals.singletons["FreeSpinsSplash"].visible = false;
 		

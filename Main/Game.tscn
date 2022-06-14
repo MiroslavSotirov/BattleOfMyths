@@ -1795,62 +1795,6 @@ _bundled = {
 "version": 2
 }
 
-[sub_resource type="SpineSkeletonDataResource" id=378]
-atlas_res = ExtResource( 10 )
-skeleton_json_res = ExtResource( 16 )
-animations = null
-skins = null
-
-[sub_resource type="SpineAnimationStateDataResource" id=379]
-skeleton = SubResource( 378 )
-
-[sub_resource type="Animation" id=389]
-resource_name = "Hide"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Root:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=390]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath("Root:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=391]
-resource_name = "Show"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/path = NodePath("Root:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
-}
-
 [sub_resource type="SpineSkeletonDataResource" id=392]
 atlas_res = ExtResource( 29 )
 skeleton_json_res = ExtResource( 37 )
@@ -1949,6 +1893,62 @@ resource_name = "ShowTiger"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Tiger:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="SpineSkeletonDataResource" id=378]
+atlas_res = ExtResource( 10 )
+skeleton_json_res = ExtResource( 16 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=379]
+skeleton = SubResource( 378 )
+
+[sub_resource type="Animation" id=389]
+resource_name = "Hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=390]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=391]
+resource_name = "Show"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -3074,7 +3074,6 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -3607,6 +3606,34 @@ script = ExtResource( 27 )
 [node name="Stateful" type="Node" parent="SlotContainer/Slot/Features"]
 script = ExtResource( 42 )
 
+[node name="SideCharacters" type="Node2D" parent="SlotContainer/Slot/Features"]
+script = ExtResource( 43 )
+
+[node name="Dragon" type="SpineSprite" parent="SlotContainer/Slot/Features/SideCharacters"]
+position = Vector2( -834, 24 )
+scale = Vector2( 0.75, 0.75 )
+animation_state_data_res = SubResource( 393 )
+script = ExtResource( 44 )
+skin = "default"
+startanimation = "idle"
+timescale = 0.5
+
+[node name="Tiger" type="SpineSprite" parent="SlotContainer/Slot/Features/SideCharacters"]
+position = Vector2( 859, 24 )
+scale = Vector2( 0.75, 0.75 )
+animation_state_data_res = SubResource( 395 )
+script = ExtResource( 44 )
+skin = "default"
+startanimation = "idle"
+timescale = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Features/SideCharacters"]
+anims/HideDragon = SubResource( 396 )
+anims/HideTiger = SubResource( 397 )
+anims/RESET = SubResource( 398 )
+anims/ShowDragon = SubResource( 399 )
+anims/ShowTiger = SubResource( 400 )
+
 [node name="FreeSpinsSplash" type="Node2D" parent="SlotContainer/Slot/Features"]
 visible = false
 script = ExtResource( 114 )
@@ -3639,34 +3666,6 @@ __meta__ = {
 anims/Hide = SubResource( 389 )
 anims/RESET = SubResource( 390 )
 anims/Show = SubResource( 391 )
-
-[node name="SideCharacters" type="Node2D" parent="SlotContainer/Slot/Features"]
-script = ExtResource( 43 )
-
-[node name="Dragon" type="SpineSprite" parent="SlotContainer/Slot/Features/SideCharacters"]
-position = Vector2( -834, 24 )
-scale = Vector2( 0.75, 0.75 )
-animation_state_data_res = SubResource( 393 )
-script = ExtResource( 44 )
-skin = "default"
-startanimation = "idle"
-timescale = 0.5
-
-[node name="Tiger" type="SpineSprite" parent="SlotContainer/Slot/Features/SideCharacters"]
-position = Vector2( 859, 24 )
-scale = Vector2( 0.75, 0.75 )
-animation_state_data_res = SubResource( 395 )
-script = ExtResource( 44 )
-skin = "default"
-startanimation = "idle"
-timescale = 0.5
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Features/SideCharacters"]
-anims/HideDragon = SubResource( 396 )
-anims/HideTiger = SubResource( 397 )
-anims/RESET = SubResource( 398 )
-anims/ShowDragon = SubResource( 399 )
-anims/ShowTiger = SubResource( 400 )
 
 [node name="WinlinesFadeAnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot"]
 anims/To_Normal = SubResource( 259 )
