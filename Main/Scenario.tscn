@@ -616,6 +616,7 @@ func enter() -> void:
 	var dragonfx = load(\"res://Main/Slot/BonusScene/Dragon.tscn\").instance();	
 	slot.add_child(dragonfx);
 	dragonfx.show();
+	Globals.singletons[\"SideCharacter\"].play(\"HideDragon\");
 	yield(dragonfx, \"popup_end\")
 	
 	var positions = [];
@@ -648,6 +649,7 @@ func enter() -> void:
 		yield(Globals.get_tree(), \"idle_frame\");
 		
 	dragon.queue_free();
+	Globals.singletons[\"SideCharacter\"].play(\"ShowDragon\");
 	Globals.fsm_data[\"dragon_feature_completed\"] = true;
 
 
@@ -708,7 +710,7 @@ func enter() -> void:
 	var fatTile = featuredata.data;
 	var replace_data = {};
 	var pos = slot.get_tile_position(fatTile.x, fatTile.y);
-	
+	Globals.singletons[\"SideCharacter\"].play(\"HideTiger\");
 	slot.add_child(tiger);
 	tiger.show_on(fatTile);
 #	yield(tiger.show(), \"completed\");
@@ -728,7 +730,7 @@ func enter() -> void:
 #	yield(tiger.hit(Vector2(pos.x - 612 + 203/2,  pos.y - 333 + 182/2)), \"completed\");
 	yield(tiger.hit(Vector2(pos.x - 612,  pos.y - 333), fatTile.w), \"completed\");
 	yield(tiger.hide(), \"completed\");
-	
+	Globals.singletons[\"SideCharacter\"].play(\"ShowTiger\");
 	Globals.fsm_data[\"tiger_feature_completed\"] = true;
 
 func update(_object, _delta: float) -> void:
