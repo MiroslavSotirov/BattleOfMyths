@@ -3549,6 +3549,7 @@ script = ExtResource( 46 )
 scaleoffset = Vector2( 1, 2 )
 yoffset = Vector2( -393, -550 )
 easing = 4.0
+autohide = false
 
 [node name="MultiplierFeature" parent="SlotContainer/Slot/Overlap/MultiplierContainer" instance=ExtResource( 2 )]
 position = Vector2( 0, -59 )
