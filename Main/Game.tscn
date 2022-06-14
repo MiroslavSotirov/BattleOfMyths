@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=2]
+[gd_scene load_steps=162 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -27,6 +27,8 @@
 [ext_resource path="res://Main/Textures/slot-bm/FrameGoldMultiplier.png" type="Texture" id=25]
 [ext_resource path="res://Translations/EN/PAC.png" type="Texture" id=26]
 [ext_resource path="res://Main/Slot/Features/PopupTiles.gd" type="Script" id=27]
+[ext_resource path="res://Main/MultiplierFeature/MultiplierFont.tres" type="BitmapFont" id=28]
+[ext_resource path="res://Main/Animations/DragonFeature/BM_DragonFeature_EXPORT.atlas" type="SpineAtlasResource" id=29]
 [ext_resource path="res://Main/Animations/Wins/WinScenes.json" type="SpineSkeletonJsonDataResource" id=30]
 [ext_resource path="res://Main/Animations/Wins/WinScenes.atlas" type="SpineAtlasResource" id=31]
 [ext_resource path="res://Main/Misc/SlotContainerZoom.gd" type="Script" id=32]
@@ -34,9 +36,13 @@
 [ext_resource path="res://Main/UI/default_dynfont_big.tres" type="DynamicFont" id=34]
 [ext_resource path="res://Main/ErrorPopup.gd" type="Script" id=35]
 [ext_resource path="res://Main/Slot/Features/Nudger.gd" type="Script" id=36]
+[ext_resource path="res://Main/Animations/DragonFeature/BM_DragonFeature_EXPORT.json" type="SpineSkeletonJsonDataResource" id=37]
+[ext_resource path="res://Main/Animations/TigerFeature/TigerFeature.json" type="SpineSkeletonJsonDataResource" id=38]
 [ext_resource path="res://Main/Misc/canvasadditive.tres" type="Material" id=39]
 [ext_resource path="res://Main/Textures/slot-bm/DSceenFrame.png" type="Texture" id=40]
+[ext_resource path="res://Main/Animations/TigerFeature/TigerFeature.atlas" type="SpineAtlasResource" id=41]
 [ext_resource path="res://Main/Slot/Features/Stateful.gd" type="Script" id=42]
+[ext_resource path="res://Main/Slot/Features/SideCharacters.gd" type="Script" id=43]
 [ext_resource path="res://Main/SpineSpriteExtension.gd" type="Script" id=44]
 [ext_resource path="res://Main/UI/BackgroundResizer.gd" type="Script" id=45]
 [ext_resource path="res://Main/Misc/LogoResizer.gd" type="Script" id=46]
@@ -1798,6 +1804,162 @@ skins = null
 [sub_resource type="SpineAnimationStateDataResource" id=379]
 skeleton = SubResource( 378 )
 
+[sub_resource type="Animation" id=389]
+resource_name = "Hide"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=390]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=391]
+resource_name = "Show"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Root:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="SpineSkeletonDataResource" id=392]
+atlas_res = ExtResource( 29 )
+skeleton_json_res = ExtResource( 37 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=393]
+skeleton = SubResource( 392 )
+
+[sub_resource type="SpineSkeletonDataResource" id=394]
+atlas_res = ExtResource( 41 )
+skeleton_json_res = ExtResource( 38 )
+animations = null
+skins = null
+
+[sub_resource type="SpineAnimationStateDataResource" id=395]
+skeleton = SubResource( 394 )
+
+[sub_resource type="Animation" id=396]
+resource_name = "HideDragon"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Dragon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=397]
+resource_name = "HideTiger"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Tiger:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=398]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Dragon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Tiger:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=399]
+resource_name = "ShowDragon"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Dragon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=400]
+resource_name = "ShowTiger"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Tiger:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="Animation" id=259]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Background:modulate")
@@ -2912,7 +3074,6 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -2923,7 +3084,7 @@ script = ExtResource( 32 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-zoomamount = Vector2( 0.52, 0.725 )
+zoomamount = Vector2( 0.85, 0.725 )
 yoffset = Vector2( 0, 200 )
 
 [node name="Background" type="Node2D" parent="SlotContainer"]
@@ -2968,6 +3129,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 reel_spin_sfx = "Spinning Reel"
 reel_stop_sfx = "Reels Stop"
 reel_stop_volume = 0.35
@@ -3254,6 +3418,11 @@ texture = ExtResource( 51 )
 [node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( 0, -390 )
 texture = ExtResource( 57 )
+script = ExtResource( 46 )
+scaleoffset = Vector2( 1, 2 )
+yoffset = Vector2( -390, -557 )
+easing = 4.0
+autohide = false
 
 [node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame/MultiplierFrame"]
 light_mask = 2
@@ -3303,6 +3472,11 @@ normal_map = ExtResource( 22 )
 [node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/DragonSlotFrame"]
 position = Vector2( 0, -390 )
 texture = ExtResource( 62 )
+script = ExtResource( 46 )
+scaleoffset = Vector2( 1, 2 )
+yoffset = Vector2( -390, -557 )
+easing = 4.0
+autohide = false
 
 [node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/DragonSlotFrame/MultiplierFrame"]
 light_mask = 2
@@ -3341,6 +3515,11 @@ normal_map = ExtResource( 22 )
 [node name="MultiplierFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame"]
 position = Vector2( 0, -390 )
 texture = ExtResource( 59 )
+script = ExtResource( 46 )
+scaleoffset = Vector2( 1, 2 )
+yoffset = Vector2( -390, -557 )
+easing = 4.0
+autohide = false
 
 [node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame/MultiplierFrame"]
 light_mask = 2
@@ -3366,6 +3545,10 @@ anims/RESET = SubResource( 135 )
 
 [node name="MultiplierContainer" type="Node2D" parent="SlotContainer/Slot/Overlap"]
 position = Vector2( 0, -393 )
+script = ExtResource( 46 )
+scaleoffset = Vector2( 1, 2 )
+yoffset = Vector2( -393, -550 )
+easing = 4.0
 
 [node name="MultiplierFeature" parent="SlotContainer/Slot/Overlap/MultiplierContainer" instance=ExtResource( 2 )]
 position = Vector2( 0, -59 )
@@ -3430,6 +3613,59 @@ script = ExtResource( 114 )
 animation_state_data_res = SubResource( 379 )
 script = ExtResource( 44 )
 
+[node name="Root" type="Node2D" parent="SlotContainer/Slot/Features/FreeSpinsSplash"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 0, -447 )
+scale = Vector2( 2, 2 )
+
+[node name="Label" type="Label" parent="SlotContainer/Slot/Features/FreeSpinsSplash/Root"]
+margin_left = -30.0
+margin_top = -0.5
+margin_right = 30.0
+margin_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = ExtResource( 28 )
+text = "8"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Features/FreeSpinsSplash"]
+anims/Hide = SubResource( 389 )
+anims/RESET = SubResource( 390 )
+anims/Show = SubResource( 391 )
+
+[node name="SideCharacters" type="Node2D" parent="SlotContainer/Slot/Features"]
+script = ExtResource( 43 )
+
+[node name="Dragon" type="SpineSprite" parent="SlotContainer/Slot/Features/SideCharacters"]
+position = Vector2( -834, 24 )
+scale = Vector2( 0.75, 0.75 )
+animation_state_data_res = SubResource( 393 )
+script = ExtResource( 44 )
+skin = "default"
+startanimation = "idle"
+timescale = 0.5
+
+[node name="Tiger" type="SpineSprite" parent="SlotContainer/Slot/Features/SideCharacters"]
+position = Vector2( 859, 24 )
+scale = Vector2( 0.75, 0.75 )
+animation_state_data_res = SubResource( 395 )
+script = ExtResource( 44 )
+skin = "default"
+startanimation = "idle"
+timescale = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Features/SideCharacters"]
+anims/HideDragon = SubResource( 396 )
+anims/HideTiger = SubResource( 397 )
+anims/RESET = SubResource( 398 )
+anims/ShowDragon = SubResource( 399 )
+anims/ShowTiger = SubResource( 400 )
+
 [node name="WinlinesFadeAnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot"]
 anims/To_Normal = SubResource( 259 )
 anims/To_Winline = SubResource( 11 )
@@ -3460,6 +3696,9 @@ margin_top = -333.0
 margin_right = 624.0
 margin_bottom = 395.0
 script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 spine_data = SubResource( 310 )
 
 [node name="BigWin" type="Control" parent="SlotContainer"]
