@@ -1,4 +1,4 @@
-[gd_scene load_steps=142 format=2]
+[gd_scene load_steps=144 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Main/GameBar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Main/Game.gd" type="Script" id=6]
 [ext_resource path="res://Main/Misc/Fader.gd" type="Script" id=7]
+[ext_resource path="res://Main/Textures/slot-bm/PASBacklight.png" type="Texture" id=8]
 [ext_resource path="res://Main/Textures/slot-bm/DragonSceenBackground.jpg" type="Texture" id=9]
 [ext_resource path="res://Main/Animations/FreeSpinsSplash/FSSplash.atlas" type="SpineAtlasResource" id=10]
 [ext_resource path="res://Main/Animations/Symbols/EXPLORE.json" type="SpineSkeletonJsonDataResource" id=11]
@@ -24,6 +25,7 @@
 [ext_resource path="res://Main/Textures/slot-bm/FrameGoldOrnaments.png" type="Texture" id=23]
 [ext_resource path="res://Main/Textures/slot-bm/FrameGoldMultiplierMultiplier.png" type="Texture" id=24]
 [ext_resource path="res://Main/Textures/slot-bm/FrameGoldMultiplier.png" type="Texture" id=25]
+[ext_resource path="res://Translations/EN/PAC.png" type="Texture" id=26]
 [ext_resource path="res://Main/Slot/Features/PopupTiles.gd" type="Script" id=27]
 [ext_resource path="res://Main/Animations/Wins/WinScenes.json" type="SpineSkeletonJsonDataResource" id=30]
 [ext_resource path="res://Main/Animations/Wins/WinScenes.atlas" type="SpineAtlasResource" id=31]
@@ -2893,9 +2895,15 @@ range_item_cull_mask = 2
 anims/Idle = SubResource( 387 )
 anims/RESET = SubResource( 388 )
 
-[node name="Press-Anywhere-To-Continue" type="Sprite" parent="IntroContainer/Centering"]
+[node name="PasBacklight" type="Sprite" parent="IntroContainer/Centering"]
 position = Vector2( 0, 350 )
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 3, 1 )
+texture = ExtResource( 8 )
+
+[node name="Press-Anywhere-To-Continue" type="Sprite" parent="IntroContainer/Centering"]
+modulate = Color( 0.321569, 0.0745098, 0, 1 )
+position = Vector2( 0, 350 )
+texture = ExtResource( 26 )
 
 [node name="SpriteLangSwap" type="Node" parent="IntroContainer/Centering/Press-Anywhere-To-Continue"]
 script = ExtResource( 87 )

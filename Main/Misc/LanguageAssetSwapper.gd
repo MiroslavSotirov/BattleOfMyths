@@ -5,7 +5,6 @@ export (NodePath) var node;
 signal asset_swapped
 
 func _ready():
-	return
 	yield(Globals, "allready");
 	on_lang_changed(Globals.current_language);
 	
