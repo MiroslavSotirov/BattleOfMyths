@@ -10,7 +10,7 @@ func switch_to_dragon_mode(splash=false):
 	$SlotContainer/Background/AnimationPlayer.play("to_dragon")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_dragon")
 	Globals.singletons["FreeSpinsSplash"].visible = true
-	Globals.singletons["SideCharacter"].play("HideTiger");
+	Globals.singletons["SideCharacters"].play("HideTiger");
 	if(splash): 
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
 		sprite.set_skin("Dragon");
@@ -29,7 +29,7 @@ func switch_to_tiger_mode(splash=false):
 	$SlotContainer/Background/AnimationPlayer.play("to_tiger")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_tiger")
 	Globals.singletons["FreeSpinsSplash"].visible = true
-	Globals.singletons["SideCharacter"].play("HideDragon");
+	Globals.singletons["SideCharacters"].play("HideDragon");
 	if(splash): 
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
 		sprite.set_skin("Tiger");
@@ -44,12 +44,12 @@ func switch_to_tiger_mode(splash=false):
 		Globals.singletons["FreeSpinsSplash"].visible = false;
 		
 func switch_to_normal():
-	if(current_state == "dragon"): 	Globals.singletons["SideCharacter"].play("ShowTiger");
-	if(current_state == "tiger"): 	Globals.singletons["SideCharacter"].play("ShowDragon");
+	if(current_state == "dragon"): 	Globals.singletons["SideCharacters"].play("ShowTiger");
+	if(current_state == "tiger"): 	Globals.singletons["SideCharacters"].play("ShowDragon");
 	current_state = "normal"
 	$SlotContainer/Background/AnimationPlayer.play("to_normal")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_normal")
-	Globals.singletons["SideCharacter"].play("HideDragon");
+	Globals.singletons["SideCharacters"].play("HideDragon");
 		
 func _input(event):
 	if(event is InputEventScreenTouch || event is InputEventMouseButton || event is InputEventKey):
