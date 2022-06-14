@@ -43,7 +43,7 @@ func switch_to_tiger_mode(splash=false):
 		yield(get_tree().create_timer(2.0), "timeout");
 		Globals.singletons["FreeSpinsSplash"].visible = false;
 		
-func switch_to_normal():
+func switch_to_normal_mode():
 	if(current_state == "dragon"): 	Globals.singletons["SideCharacters"].play("ShowTiger");
 	if(current_state == "tiger"): 	Globals.singletons["SideCharacters"].play("ShowDragon");
 	current_state = "normal"

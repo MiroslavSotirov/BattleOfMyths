@@ -69,7 +69,7 @@ func update_state(state, init):
 script = ExtResource( 1 )
 vfsm_id = 0
 name = "Initialize"
-position = Vector2( 140, 100 )
+position = Vector2( -20, 180 )
 trigger_ids = [ 0, 8 ]
 custom_script = SubResource( 139 )
 
@@ -94,7 +94,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 1
 name = "Init Error"
-position = Vector2( 460, 220 )
+position = Vector2( 300, 300 )
 trigger_ids = [  ]
 custom_script = SubResource( 141 )
 
@@ -140,7 +140,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 2
 name = "Show Intro"
-position = Vector2( 460, 60 )
+position = Vector2( 300, 140 )
 trigger_ids = [ 2 ]
 custom_script = SubResource( 148 )
 
@@ -277,7 +277,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 5
 name = "Spin Start"
-position = Vector2( 1080, 520 )
+position = Vector2( 1060, 480 )
 trigger_ids = [ 1, 5 ]
 custom_script = SubResource( 154 )
 
@@ -388,7 +388,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 7
 name = "Close round"
-position = Vector2( 2980, 780 )
+position = Vector2( 2980, 760 )
 trigger_ids = [ 7, 8 ]
 custom_script = SubResource( 166 )
 
@@ -483,7 +483,7 @@ func enter() -> void:
 		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
 		Globals.fsm_data[\"big_win_shown\"] = true;
 		if(\"cumulativeWin\" in data):
-			Globals.singletons[\"TotalWinBar\"].set_text(data[\"cumulativeWin\"], true);
+			Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]), true);
 		elif(\"spinWin\" in data):
 			Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 	else:
@@ -512,7 +512,7 @@ func bangup_wins(n):
 	
 	var data = Globals.singletons[\"Networking\"].lastround;
 	if(\"cumulativeWin\" in data):
-		Globals.singletons[\"TotalWinBar\"].set_text(data[\"cumulativeWin\"], true);
+		Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(n), true);
 	elif(\"spinWin\" in data):
 		Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 
@@ -540,7 +540,7 @@ func explosion_fx(pos):
 script = ExtResource( 1 )
 vfsm_id = 12
 name = "Show Line Wins"
-position = Vector2( 2320, 780 )
+position = Vector2( 2340, 780 )
 trigger_ids = [ 17 ]
 custom_script = SubResource( 189 )
 
@@ -592,7 +592,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 13
 name = "Princess Feature"
-position = Vector2( 1660, 600 )
+position = Vector2( 1660, 640 )
 trigger_ids = [ 20 ]
 custom_script = SubResource( 200 )
 
@@ -684,7 +684,7 @@ func change_tile(pos, targetid):
 script = ExtResource( 1 )
 vfsm_id = 14
 name = "Dragon Feature"
-position = Vector2( 1660, 740 )
+position = Vector2( 1660, 780 )
 trigger_ids = [ 21 ]
 custom_script = SubResource( 204 )
 
@@ -750,7 +750,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 15
 name = "Tiger Feature"
-position = Vector2( 1660, 880 )
+position = Vector2( 1660, 920 )
 trigger_ids = [ 22 ]
 custom_script = SubResource( 206 )
 
@@ -1200,7 +1200,7 @@ custom_script = SubResource( 214 )
 [sub_resource type="Resource" id=147]
 script = ExtResource( 2 )
 start_state_vfsm_id = 0
-start_position = Vector2( -40, 120 )
+start_position = Vector2( -200, 200 )
 states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ), SubResource( 190 ), SubResource( 201 ), SubResource( 205 ), SubResource( 207 ), SubResource( 213 ) ]
 triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ), SubResource( 195 ), SubResource( 197 ), SubResource( 199 ), SubResource( 203 ), SubResource( 209 ), SubResource( 211 ), SubResource( 215 ) ]
 transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 13, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 14, 12, 11, 15, 16, 12, 17, 16, 13, 20, 14, 14, 21, 15, 15, 22, 11, 16, 23, 7 ]
