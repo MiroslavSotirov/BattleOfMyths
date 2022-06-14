@@ -250,7 +250,8 @@ func spin_data_received(data):
 	print(\"SPIN DATA WAS RECIEVED\")
 	if(\"code\" in data || \"hasError\" in data): return;
 	
-	Globals.fsm_data[\"in_freespins\"] = \"freespin\" in data.action;
+	if(data.action != \"cascade\"):
+		Globals.fsm_data[\"in_freespins\"] = \"freespin\" in data.action;
 	Globals.fsm_data[\"last_freespin\"] = Globals.fsm_data[\"in_freespins\"] && \"finish\" in data.nextAction;
 	
 	prints(\"IS CASCADING \", Globals.fsm_data[\"is_cascading\"], \"IN FS\", Globals.fsm_data[\"in_freespins\"], \"LAST?\", Globals.fsm_data[\"last_freespin\"]);
