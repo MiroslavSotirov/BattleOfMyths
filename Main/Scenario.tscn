@@ -171,6 +171,9 @@ custom_script = SubResource( 148 )
 script/source = "# State: Ready
 extends VFSMStateBase
 
+var last_spin_time = 0.0;
+var melody_playing = false;
+
 func enter() -> void:
 	print(\"### READY STATE ###\");
 
@@ -185,11 +188,22 @@ func enter() -> void:
 	#prints(\"PREVIOUS ROUND:::\", data);
 
 func start_spin(data):
+	last_spin_time = 0.0;
+	if(!melody_playing && !Globals.fsm_data[\"in_freespins\"]):
+		Globals.singletons[\"Audio\"].fade_track(\"melody\", 0, 1, 2000, 0);
+		melody_playing = true;
 	Globals.fsm_data[\"spin_start_command\"] = true;
 
-func update(_object, _delta: float) -> void:
+func update(_object, delta: float) -> void:
 	if(!JS.enabled):
 		if(Input.is_action_pressed(\"spin\")): start_spin({});
+	
+	if(!Globals.fsm_data[\"in_freespins\"]):
+		last_spin_time += delta;
+		if(melody_playing && last_spin_time > 5.0):
+			Globals.singletons[\"Audio\"].fade_track(\"melody\", 1, 0, 2000, 0);
+			melody_playing = false;
+	
 
 func exit() -> void:
 	pass
@@ -339,6 +353,7 @@ func enter() -> void:
 		var target = Globals.singletons[\"SegmentBar\"].get_current_bar(-1);
 		if(!tiger_tiles.empty()): 
 			Globals.singletons[\"Audio\"].play(\"Tiger Head\");
+			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
 		for tigertile in tiger_tiles:
 			if(Globals.fsm_data[\"activated_special_tiles\"].has(tigertile)): continue;
 			var fx = load(\"res://Main/Slot/BonusScene/RedFx.tscn\").instance();
@@ -351,6 +366,7 @@ func enter() -> void:
 		target = Globals.singletons[\"SegmentBar\"].get_current_bar(1);
 		if(!dragon_tiles.empty()): 
 			Globals.singletons[\"Audio\"].play(\"Dragon Head\");
+			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
 		for dragontile in dragon_tiles:
 			if(Globals.fsm_data[\"activated_special_tiles\"].has(dragontile)): continue;
 			var fx = load(\"res://Main/Slot/BonusScene/GreenFx.tscn\").instance();

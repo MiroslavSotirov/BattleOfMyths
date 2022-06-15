@@ -10,6 +10,7 @@ func switch_to_dragon_mode(splash=false):
 	$SlotContainer/Background/AnimationPlayer.play("to_dragon")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_dragon")
 	Globals.singletons["Audio"].change_track("background", "Dragon Theme", 1000, 1, 1, 1);
+	Globals.singletons["Audio"].fade_track("melody", 1, 0, 1000, 0);
 	Globals.singletons["FreeSpinsSplash"].visible = true
 	Globals.singletons["SideCharacters"].play("HideTiger");
 	if(splash): 
@@ -31,6 +32,7 @@ func switch_to_tiger_mode(splash=false):
 	$SlotContainer/Background/AnimationPlayer.play("to_tiger")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_tiger")
 	Globals.singletons["Audio"].change_track("background", "Tiger Theme", 1000, 1, 1, 1);
+	Globals.singletons["Audio"].fade_track("melody", 1, 0, 1000, 0);
 	Globals.singletons["FreeSpinsSplash"].visible = true
 	Globals.singletons["SideCharacters"].play("HideDragon");
 	if(splash): 

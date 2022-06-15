@@ -14,7 +14,7 @@ func play_after(sfx, delay, vol=1.0):
 
 func play_time_rate(sfx, vol=1.0, mintime=100):
 	if(sfx_times.has(sfx)):
-		if(sfx_times[sfx] > OS.get_ticks_msec()+mintime): 
+		if(sfx_times[sfx] > OS.get_ticks_msec()): 
 			return
 			
 	JS.play_sound(sfx, vol);
