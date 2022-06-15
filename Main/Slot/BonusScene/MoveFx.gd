@@ -24,6 +24,7 @@ func _process(delta):
 			get_parent().add_child(fx);
 			fx.global_position = global_position;
 			fx.get_node("AnimationPlayer").play("Show");
+
 		queue_free();
 
 func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, t: float):

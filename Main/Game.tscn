@@ -3133,8 +3133,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-reel_spin_sfx = "Spinning Reel"
-reel_stop_sfx = "Reels Stop"
 reel_stop_volume = 0.35
 availableTiles = [ 1, 2, 3, 4, 5, 6, 7 ]
 reels = [ NodePath("ReelContainer/Reel1"), NodePath("ReelContainer/Reel2"), NodePath("ReelContainer/Reel3"), NodePath("ReelContainer/Reel4"), NodePath("ReelContainer/Reel5"), NodePath("ReelContainer/Reel6") ]

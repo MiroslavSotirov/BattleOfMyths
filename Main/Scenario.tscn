@@ -73,7 +73,12 @@ func update_state(state, init):
 				Globals.singletons[\"Game\"].switch_to_tiger_mode();
 			elif(state[\"fstype\"] == \"freespinE2\"): 
 				Globals.singletons[\"Game\"].switch_to_dragon_mode();
-	
+
+	if(Globals.singletons[\"SegmentBar\"].amount > bar):
+		Globals.singletons[\"Audio\"].play(\"Dragon Feature Chord\");
+	elif(Globals.singletons[\"SegmentBar\"].amount < bar):
+		Globals.singletons[\"Audio\"].play(\"Tiger Feature Chord\");
+		
 	Globals.singletons[\"SegmentBar\"].amount = bar-1;
 	#Globals.singletons[\"BarBlue\"].target_amount = bar2;
 
@@ -127,7 +132,10 @@ func enter() -> void:
 	
 #	introcontainer.get_node(\"Centering/LogoMover/Logo\").play_anim_then_loop(\"popup\", \"idle\");
 	introcontainer.get_node(\"Centering/LogoMover/AnimationPlayer\").play(\"Idle\")
-
+	Globals.singletons[\"Audio\"].change_track(\"background\", \"Foundation\", 1000, 1, 1, 1);
+	Globals.singletons[\"Audio\"].change_track(\"melody\", \"Melody\", 0, 1, 1, 1);
+	Globals.singletons[\"Audio\"].fade_track(\"melody\", 0, 0, 0, 0);
+	
 func clicked():	
 	Globals.singletons[\"Fader\"].tween(0.0,1.0,1.0);
 	yield(Globals.singletons[\"Fader\"], \"done\")
@@ -329,6 +337,8 @@ func enter() -> void:
 	var special_tiles_count = len(tiger_tiles) + len(dragon_tiles);
 	if(len(Globals.fsm_data[\"activated_special_tiles\"]) != special_tiles_count):
 		var target = Globals.singletons[\"SegmentBar\"].get_current_bar(-1);
+		if(!tiger_tiles.empty()): 
+			Globals.singletons[\"Audio\"].play(\"Tiger Head\");
 		for tigertile in tiger_tiles:
 			if(Globals.fsm_data[\"activated_special_tiles\"].has(tigertile)): continue;
 			var fx = load(\"res://Main/Slot/BonusScene/RedFx.tscn\").instance();
@@ -339,6 +349,8 @@ func enter() -> void:
 			tigertile.popup(Tile.AnimationType.SPINE,\"popup\",false);
 		
 		target = Globals.singletons[\"SegmentBar\"].get_current_bar(1);
+		if(!dragon_tiles.empty()): 
+			Globals.singletons[\"Audio\"].play(\"Dragon Head\");
 		for dragontile in dragon_tiles:
 			if(Globals.fsm_data[\"activated_special_tiles\"].has(dragontile)): continue;
 			var fx = load(\"res://Main/Slot/BonusScene/GreenFx.tscn\").instance();
@@ -519,9 +531,12 @@ func enter() -> void:
 		bangup_wins(data[\"wins_lines_total\"]);
 
 	if (win_tiles_positions.keys().size() != 0):
+		Globals.singletons[\"Audio\"].play(\"Win Line\")
 		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
 		slot.remove_tiles(win_tiles_positions);
+		Globals.singletons[\"Audio\"].play(\"Shaking Symbol\")
 		yield(slot, \"ontilesremoved\");
+		Globals.singletons[\"Audio\"].play(\"Explosion\")
 		yield(Globals.singletons.Explosions.show_at(win_tiles_positions, slot.reels), \"completed\");
 		if(data[\"wins_lines_total\"] > 0.0 ):
 			Globals.singletons[\"WinMultiplier\"].set_multiplier(int(data.roundMultiplier)+1);
@@ -597,7 +612,9 @@ func enter() -> void:
 	var princesstiles = Globals.singletons[\"Slot\"].get_tiles_with_id(9);
 	for tile in princesstiles:
 		tile.popup(Tile.AnimationType.SPINE,\"popup\",false);
-		
+
+	Globals.singletons[\"Audio\"].play(\"Princess\")
+	
 	yield(Globals.get_tree().create_timer(0.5), \"timeout\");
 
 	var wildtiles = [];
@@ -606,7 +623,10 @@ func enter() -> void:
 		var x = floor(pos/Globals.visibleTilesCount);		
 		var tile = Globals.singletons[\"Slot\"].replace_tile(x, y, featuredata.data.replacewithid);
 	
-	yield(Globals.get_tree().create_timer(2.0), \"timeout\");
+	if(!featuredata.data.positions.empty()):
+		Globals.singletons[\"Audio\"].play(\"Wild\");
+	
+	yield(Globals.get_tree().create_timer(1.5), \"timeout\");
 	Globals.fsm_data[\"princess_feature_completed\"] = true;
 
 func update(_object, _delta: float) -> void:
@@ -646,7 +666,7 @@ func enter() -> void:
 		
 	print(\"DRAGON FEATURE\")
 	var slot = Globals.singletons.Slot;
-	
+	Globals.singletons[\"Audio\"].play(\"Dragon Feature v2\")
 	var dragonfx = load(\"res://Main/Slot/BonusScene/Dragon.tscn\").instance();	
 	slot.add_child(dragonfx);
 	dragonfx.show();
@@ -663,11 +683,11 @@ func enter() -> void:
 
 	var lastpos = slot.get_tile_global_position(Globals.visibleReelsCount-1,randi()%Globals.visibleTilesCount)+Vector2(200.0, 0.0);
 	positions.append(lastpos)
-	
+
 	var dragon = load(\"res://Main/Slot/BonusScene/DragonFollower.tscn\").instance();
 	slot.add_child(dragon);
 	dragon.global_position = positions[0];
-	
+	Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\")
 	dragon.init(positions);
 	dragon.play(\"Show\");
 	
@@ -677,7 +697,8 @@ func enter() -> void:
 			yield(Globals.get_tree(), \"idle_frame\");
 		if(i == 0): continue;
 		change_tile(featuredata.data.positions[i-1], featuredata.data.replacewithid);
-		
+	
+	Globals.singletons[\"Audio\"].play(\"Dragon Feature Disappear\")
 	dragon.play(\"Hide\");
 	while(dragon.global_position.distance_to(lastpos) > 10.0):
 		yield(Globals.get_tree(), \"idle_frame\");
@@ -694,7 +715,8 @@ func exit() -> void:
 	pass
 	
 func change_tile(pos, targetid):
-
+	Globals.singletons[\"Audio\"].play(\"Wild\") 
+	Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\")
 	var y = int(pos)%Globals.visibleTilesCount;
 	var x = floor(pos/Globals.visibleTilesCount);
 	Globals.singletons[\"Slot\"].replace_tile(x, y, targetid);
@@ -738,6 +760,8 @@ func enter() -> void:
 		return;
 	
 	print(\"TIGER FEATURE\");
+	Globals.singletons[\"Audio\"].play(\"Tiger Feature v2\")
+	
 	var slot = Globals.singletons.Slot;
 	var tiger = load(\"res://Main/Slot/BonusScene/Tiger.tscn\").instance();
 	var id = 100 + (featuredata.data.w - 2);
@@ -757,12 +781,15 @@ func enter() -> void:
 #		replace_data[i] = Globals.singletons[\"Networking\"].lastround.featureview[i];
 		for j in range (fatTile.y, fatTile.y + fatTile.h):
 			replace_data[i][j] = -id if i == fatTile.x && j == fatTile.y else 0;
-	
+
 #	slot.replace_tiles(replace_data, \"appear\");
 	Globals.get_tree().create_timer(0.1).connect(\"timeout\", slot, \"replace_tiles\", [replace_data, \"appear\"]);
 
 #	yield(tiger.hit(Vector2(pos.x - 612 + 203/2,  pos.y - 333 + 182/2)), \"completed\");
+	Globals.singletons[\"Audio\"].play(\"Wild\")
 	yield(tiger.hit(Vector2(pos.x - 612,  pos.y - 333), fatTile.w), \"completed\");
+	
+	Globals.singletons[\"Audio\"].play(\"Tiger Feature Disappear\")
 	yield(tiger.hide(), \"completed\");
 	Globals.singletons[\"SideCharacters\"].play(\"ShowTiger\");
 	Globals.fsm_data[\"tiger_feature_completed\"] = true;

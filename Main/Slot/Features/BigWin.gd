@@ -30,9 +30,6 @@ func _ready():
 func show_win(target, is_total=false):
 	if(shown): return;
 	
-	Globals.singletons["Audio"].fade("MainThemeMelody", 1, 0, 500, 0);
-	Globals.singletons["Audio"].change_track("background", "BigWin", 500, 1, 1, 0);
-	
 	shown = true;
 	in_big_win = !is_total;
 	in_super_win = false;
@@ -44,6 +41,9 @@ func show_win(target, is_total=false):
 	$CounterText.visible = false;
 	$Animation.visible = false;
 	$AnimationPlayer.play("Show");
+	Globals.singletons["Audio"].change_track("bigwin", "Big Win", 500, 1, 1);
+	Globals.singletons["Audio"].fade_track("background", 1, 0, 500, 0);
+	
 	yield($AnimationPlayer, "animation_finished");
 	$Animation.visible = true;
 	if(is_total): $Animation.play_anim_then_loop("start_totalwin", "loop_totalwin");
@@ -80,9 +80,10 @@ func set_text(v):
 			if(v >= mega_win_limit): switch_to_megawin();
 
 func switch_to_superwin():
-	Globals.singletons["Audio"].change_track("background", "SuperWin", 500, 1, 1);
+	print("switch to superwin");
 	transition = true;
 	yield($Animation, "animation_complete");
+	Globals.singletons["Audio"].change_track("bigwin", "Super Win", 500, 1, 1);
 	$Animation.play_anim_then_loop("start_superwin", "loop_superwin");
 	yield($Animation, "animation_complete");
 	in_big_win = false;
@@ -92,8 +93,8 @@ func switch_to_superwin():
 func switch_to_megawin():
 	print("switch to megawin");
 	transition = true;
-	Globals.singletons["Audio"].change_track("background", "MegaWin", 500, 1, 1);
 	yield($Animation, "animation_complete");
+	Globals.singletons["Audio"].change_track("bigwin", "Mega Win", 500, 1, 1);
 	$Animation.play_anim_then_loop("start_megawin", "loop_megawin");
 	yield($Animation, "animation_complete");
 	in_super_win = false;
@@ -112,7 +113,9 @@ func hide():
 	elif(in_super_win): $Animation.play_anim("end_superwin", false);
 	elif(in_mega_win): $Animation.play_anim("end_megawin", false);
 	elif(in_total_win): $Animation.play_anim("end_totalwin", false);
-	Globals.singletons["Audio"].change_track("background", "MainTheme", 1500, 1, 1);
+	Globals.singletons["Audio"].fade_track("bigwin", 1, 0, 1500, 1);
+	Globals.singletons["Audio"].fade_track("background", 0, 1, 1500, 1);
+	
 	yield($Animation, "animation_complete");
 	$AnimationPlayer.play("Hide");
 	
