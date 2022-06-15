@@ -539,6 +539,7 @@ func enter() -> void:
 		Globals.singletons[\"Audio\"].play(\"Explosion\")
 		yield(Globals.singletons.Explosions.show_at(win_tiles_positions, slot.reels), \"completed\");
 		if(data[\"wins_lines_total\"] > 0.0 ):
+			Globals.singletons[\"Audio\"].play(\"Wild\")
 			Globals.singletons[\"WinMultiplier\"].set_multiplier(int(data.roundMultiplier)+1);
 	
 	Globals.fsm_data[\"wins_shown\"] = true;

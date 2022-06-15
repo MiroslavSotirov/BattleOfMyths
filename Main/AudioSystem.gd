@@ -1,6 +1,7 @@
 extends Node
 
 var current_music : String = "";
+var sfx_times = {};
 
 func _ready():
 	Globals.register_singleton("Audio", self);
@@ -10,7 +11,15 @@ func play(sfx, vol=1.0):
 	
 func play_after(sfx, delay, vol=1.0):
 	JS.play_sound_after(sfx, delay, vol);
-	
+
+func play_time_rate(sfx, vol=1.0, mintime=100):
+	if(sfx_times.has(sfx)):
+		if(sfx_times[sfx] > OS.get_ticks_msec()+mintime): 
+			return
+			
+	JS.play_sound(sfx, vol);
+	sfx_times[sfx] = OS.get_ticks_msec()+mintime;
+
 func stop(sfx):
 	JS.stop_sound(sfx);
 
