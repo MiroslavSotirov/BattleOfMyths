@@ -258,7 +258,7 @@ func _process(delta):
 func _on_drop(tile, i):
 	if (_filling && tile.speed > initialSpeed): 
 		tile.play_animation(animations.drop.type, animations.drop.name);
-		Globals.singletons["Audio"].play_time_rate("Reel Stop 3", 0.5, 300);
+		Globals.singletons["Audio"].play_time_rate("Reel Stop 3", 0.5, 100);
 	tile.speed = initialSpeed;
 	
 func _on_stoppped():
