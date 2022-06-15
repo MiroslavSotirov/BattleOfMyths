@@ -12,8 +12,22 @@ script/source = "# State: Initialize
 extends VFSMStateBase
 
 func enter() -> void:
+	print(\"### INIT STATE ###\");
 	Globals.singletons[\"Fader\"].tween(1,1,0);
 	yield(Globals, \"allready\")
+	var data = Globals.singletons[\"Networking\"].lastround;
+	var bartilesdata = null;
+	if(\"features\" in data):
+		for feature in data.features: 
+			if(feature.type == \"ReplaceTile\" && int(feature.data.tileid) == 0):
+				bartilesdata = feature;
+				break;
+	if(bartilesdata != null):		
+		for pos in bartilesdata.data.positions:
+			var y = int(pos)%Globals.visibleTilesCount;
+			var x = floor(pos/Globals.visibleTilesCount);
+			data.view[x][y] = int(bartilesdata.data.replacewithid);
+		
 	Globals.singletons[\"Networking\"].apply_init();
 	Globals.singletons[\"Stateful\"].connect(\"new_state\", self, \"update_state\")
 	yield(Globals.get_tree(),\"idle_frame\")
@@ -21,7 +35,7 @@ func enter() -> void:
 	Globals.connect(\"configure_bets\", self, \"configure_bets\");
 	
 	Globals.round_closed = true; #Init should close previous round if open
-	var data = Globals.singletons[\"Networking\"].lastround;
+
 	if(\"featureConfigs\" in data):
 		for cfg in data.featureConfigs:
 			if(\"ScatterMax\" in cfg.data): Globals.fsm_data[\"barMax\"] = int(cfg.data.ScatterMax);
@@ -37,7 +51,7 @@ func enter() -> void:
 	
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
-	
+
 
 func update(_object, _delta: float) -> void:
 	pass
@@ -47,7 +61,7 @@ func exit() -> void:
 
 func update_state(state, init):
 	var bar = 0;
-	
+	print(\"STATE UPDATED\");
 	if(state.has(\"counter\")):
 		bar = state[\"counter\"]-Globals.fsm_data[\"barMin\"];
 	else:
@@ -103,6 +117,7 @@ script/source = "# State: Show Intro
 extends VFSMStateBase
 
 func enter() -> void:
+	print(\"### INTRO STATE ###\");
 	var introcontainer = Globals.singletons[\"Game\"].get_node(\"IntroContainer\");
 	var clickwaiter = introcontainer.get_node(\"ClickWaiter\");
 	clickwaiter.connect(\"pressed\", self, \"clicked\", [], CONNECT_ONESHOT);
@@ -158,8 +173,8 @@ func enter() -> void:
 	if(JS.enabled):
 		JS.connect(\"spinstart\", self, \"start_spin\", [], CONNECT_ONESHOT);
 #	else:
-	var data = Globals.singletons[\"Networking\"].lastround;
-	prints(\"PREVIOUS ROUND:::\", data);
+	#var data = Globals.singletons[\"Networking\"].lastround;
+	#prints(\"PREVIOUS ROUND:::\", data);
 
 func start_spin(data):
 	Globals.fsm_data[\"spin_start_command\"] = true;
@@ -250,6 +265,18 @@ func spin_data_received(data):
 	print(\"SPIN DATA WAS RECIEVED\")
 	if(\"code\" in data || \"hasError\" in data): return;
 	
+	var bartilesdata = null;
+	if(\"features\" in data):
+		for feature in data.features: 
+			if(feature.type == \"ReplaceTile\" && int(feature.data.tileid) == 0):
+				bartilesdata = feature;
+				break;
+	if(bartilesdata != null):	
+		for pos in bartilesdata.data.positions:
+			var y = int(pos)%Globals.visibleTilesCount;
+			var x = floor(pos/Globals.visibleTilesCount);
+			data.view[x][y] = int(bartilesdata.data.replacewithid);
+	
 	if(data.action != \"cascade\"):
 		Globals.fsm_data[\"in_freespins\"] = \"freespin\" in data.action;
 	Globals.fsm_data[\"last_freespin\"] = Globals.fsm_data[\"in_freespins\"] && \"finish\" in data.nextAction;
@@ -322,7 +349,8 @@ func enter() -> void:
 			dragontile.popup(Tile.AnimationType.SPINE,\"popup\",false);
 			
 		yield(Globals.get_tree().create_timer(1.0), \"timeout\");
-		
+	
+	prints(\"SHOULD UPDATE STATE?\", Globals.singletons[\"Stateful\"].should_update_state());
 	if(Globals.singletons[\"Stateful\"].should_update_state()):
 		Globals.singletons[\"Stateful\"].update_states();	
 		

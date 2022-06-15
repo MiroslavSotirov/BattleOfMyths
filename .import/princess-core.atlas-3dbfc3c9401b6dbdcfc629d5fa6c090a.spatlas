@@ -1,1 +1,1 @@
-{"atlas_data":"princess-core.png\nsize:106,106\nfilter:Linear,Linear\ncore\nbounds:2,2,102,102\noffsets:74,75,250,250\n","normal_texture_prefix":"n","source_path":"res://Main/Animations/Symbols/princess-core.atlas"}
+{"atlas_data":"princess-core.png\r\nsize:106,106\r\nfilter:Linear,Linear\r\ncore\r\nbounds:2,2,102,102\r\noffsets:74,75,250,250\r\n","normal_texture_prefix":"n","source_path":"res://Main/Animations/Symbols/princess-core.atlas"}
