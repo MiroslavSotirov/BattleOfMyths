@@ -28,13 +28,13 @@ func set_amount(v):
 		var player = bar.get_node("AnimationPlayer");
 		if(_bars[i]):
 			if( i > amount ): 
-				player.play("ShowGreen");
+				player.play("ShowRed");
 				_bars[i] = false;
 			elif( i <= amount ): pass; #player.play("Show");
 		else:
 			if( i > amount ): pass; #player.play("Show");
 			elif( i <= amount ): 
-				player.play("ShowRed");
+				player.play("ShowGreen");
 				_bars[i] = true;
 	
 func get_amount():

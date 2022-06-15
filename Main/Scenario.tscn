@@ -328,7 +328,7 @@ func enter() -> void:
 		
 	var special_tiles_count = len(tiger_tiles) + len(dragon_tiles);
 	if(len(Globals.fsm_data[\"activated_special_tiles\"]) != special_tiles_count):
-		var target = Globals.singletons[\"SegmentBar\"].get_current_bar(1);
+		var target = Globals.singletons[\"SegmentBar\"].get_current_bar(-1);
 		for tigertile in tiger_tiles:
 			if(Globals.fsm_data[\"activated_special_tiles\"].has(tigertile)): continue;
 			var fx = load(\"res://Main/Slot/BonusScene/RedFx.tscn\").instance();
@@ -338,7 +338,7 @@ func enter() -> void:
 			Globals.fsm_data[\"activated_special_tiles\"].append(tigertile);
 			tigertile.popup(Tile.AnimationType.SPINE,\"popup\",false);
 		
-		target = Globals.singletons[\"SegmentBar\"].get_current_bar(-1);
+		target = Globals.singletons[\"SegmentBar\"].get_current_bar(1);
 		for dragontile in dragon_tiles:
 			if(Globals.fsm_data[\"activated_special_tiles\"].has(dragontile)): continue;
 			var fx = load(\"res://Main/Slot/BonusScene/GreenFx.tscn\").instance();
