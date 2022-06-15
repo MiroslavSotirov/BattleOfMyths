@@ -134,7 +134,7 @@ func enter() -> void:
 	introcontainer.get_node(\"Centering/LogoMover/AnimationPlayer\").play(\"Idle\")
 	Globals.singletons[\"Audio\"].change_track(\"background\", \"Foundation\", 1000, 1, 1, 1);
 	Globals.singletons[\"Audio\"].change_track(\"melody\", \"Melody\", 0, 1, 1, 1);
-	Globals.singletons[\"Audio\"].fade_track(\"melody\", 0, 0, 0, 0);
+	Globals.singletons[\"Audio\"].fade_track(\"melody\", 1, 0, 1, 0);
 	
 func clicked():	
 	Globals.singletons[\"Fader\"].tween(0.0,1.0,1.0);
