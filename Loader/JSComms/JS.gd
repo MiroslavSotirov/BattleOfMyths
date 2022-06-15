@@ -118,7 +118,7 @@ func fade_sound_to(sfx, to, duration, stopOnZero):
 func fade_track(track, from, to, duration, stopOnZero):
 	if(!enabled): return;
 	JavaScript.eval("""
-		window.Elysium.SoundEngine.fadeTrack("%s", %s, %s, %s);
+		window.Elysium.SoundEngine.fadeTrack("%s", %s, %s, %s, %s);
 	""" % [track, from, to, duration, stopOnZero], true);
 
 func fade_to_track(track, to, duration, stopOnZero):

@@ -513,7 +513,7 @@ func enter() -> void:
 	
 	JS.output(\"linewin\", \"elysiumgamefeature\");
 #	Globals.singletons[\"PopupTiles\"].unpop_all();
-	Globals.singletons[\"Audio\"].play(\"WinLine\")
+	Globals.singletons[\"Audio\"].play(\"Win Line\")
 	#Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
 	#yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
 
@@ -537,6 +537,7 @@ func enter() -> void:
 		Globals.singletons[\"Audio\"].play(\"Shaking Symbol\")
 		yield(slot, \"ontilesremoved\");
 		Globals.singletons[\"Audio\"].play(\"Explosion\")
+		Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\")
 		yield(Globals.singletons.Explosions.show_at(win_tiles_positions, slot.reels), \"completed\");
 		if(data[\"wins_lines_total\"] > 0.0 ):
 			Globals.singletons[\"Audio\"].play(\"Wild\")
