@@ -14,8 +14,8 @@ dest_files=[ "res://.import/line_green2.png-fef2fc47fb879550cff9eeac1027c68f.ste
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.5
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

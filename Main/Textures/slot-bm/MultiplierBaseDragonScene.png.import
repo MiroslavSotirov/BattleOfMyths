@@ -14,8 +14,8 @@ dest_files=[ "res://.import/MultiplierBaseDragonScene.png-f420b901d1509cdd8aa228
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.5
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

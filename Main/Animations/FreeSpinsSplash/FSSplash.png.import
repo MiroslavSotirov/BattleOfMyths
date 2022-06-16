@@ -14,8 +14,8 @@ dest_files=[ "res://.import/FSSplash.png-969abd4d7309ff4d48b4becf4e4fec1a.stex" 
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.65
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

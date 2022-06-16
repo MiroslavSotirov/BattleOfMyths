@@ -14,8 +14,8 @@ dest_files=[ "res://.import/SplashPreloaderBG.jpg-b74b38c270b85eb76781c1b08ca7d3
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.5
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

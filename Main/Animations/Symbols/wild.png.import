@@ -14,8 +14,8 @@ dest_files=[ "res://.import/wild.png-1d5d144c586bdbcd4913e8cb78f2932c.stex" ]
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.65
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

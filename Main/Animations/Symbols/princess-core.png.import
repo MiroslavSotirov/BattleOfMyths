@@ -14,8 +14,8 @@ dest_files=[ "res://.import/princess-core.png-87c8e444b8e467da49b01be9ad84dedd.s
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.65
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

@@ -29,8 +29,8 @@
 [ext_resource path="res://Main/Slot/Features/PopupTiles.gd" type="Script" id=27]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFont.tres" type="BitmapFont" id=28]
 [ext_resource path="res://Main/Animations/DragonFeature/BM_DragonFeature_EXPORT.atlas" type="SpineAtlasResource" id=29]
-[ext_resource path="res://Main/Animations/Wins/WinScenes.json" type="SpineSkeletonJsonDataResource" id=30]
-[ext_resource path="res://Main/Animations/Wins/WinScenes.atlas" type="SpineAtlasResource" id=31]
+[ext_resource path="res://Main/Animations/WinScenes/winscene.atlas" type="SpineAtlasResource" id=30]
+[ext_resource path="res://Main/Animations/WinScenes/winscene.json" type="SpineSkeletonJsonDataResource" id=31]
 [ext_resource path="res://Main/Misc/SlotContainerZoom.gd" type="Script" id=32]
 [ext_resource path="res://Main/UI/UI.gd" type="Script" id=33]
 [ext_resource path="res://Main/UI/default_dynfont_big.tres" type="DynamicFont" id=34]
@@ -2027,8 +2027,8 @@ skins = null
 skeleton = SubResource( 309 )
 
 [sub_resource type="SpineSkeletonDataResource" id=96]
-atlas_res = ExtResource( 31 )
-skeleton_json_res = ExtResource( 30 )
+atlas_res = ExtResource( 30 )
+skeleton_json_res = ExtResource( 31 )
 animations = null
 skins = null
 

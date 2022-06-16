@@ -14,8 +14,8 @@ dest_files=[ "res://.import/FrameBacklightWhite.png-3f7e317012e3f289b12f5bd47544
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.5
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

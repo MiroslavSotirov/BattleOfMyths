@@ -14,8 +14,8 @@ dest_files=[ "res://.import/TigerSceneFrame.png-59f17e09eb2ee101525174c0cd471cbe
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.5
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

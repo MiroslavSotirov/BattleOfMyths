@@ -14,8 +14,8 @@ dest_files=[ "res://.import/princess-popup.png-04875e61366e6beb73db8e072cae7f7b.
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.65
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0

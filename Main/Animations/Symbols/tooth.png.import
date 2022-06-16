@@ -14,8 +14,8 @@ dest_files=[ "res://.import/tooth.png-ff94a93dd15bae33b5f4868caf16823e.stex" ]
 
 [params]
 
-compress/mode=0
-compress/lossy_quality=0.8
+compress/mode=1
+compress/lossy_quality=0.65
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
