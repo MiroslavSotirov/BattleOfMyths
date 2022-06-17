@@ -63,3 +63,17 @@ func _input(event):
 		if(event.pressed): 
 			Globals.emit_signal("skip")
 			print("Skip attempt");
+			
+func tiles_change_color(color, duration, without_tiles=null):
+	var alltiles = Globals.singletons["Slot"].get_all_tiles();
+	if(without_tiles != null):
+		for tile in without_tiles: alltiles.erase(tile);
+	var tween = Tween.new();
+	Globals.singletons["Game"].add_child(tween);
+	for tile in alltiles:
+		tween.interpolate_property(tile, "modulate",
+				tile.modulate, color, duration,
+				Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween, "tween_all_completed");	
+	tween.queue_free();

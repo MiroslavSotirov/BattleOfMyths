@@ -22,8 +22,6 @@ var spinning : bool setget , _get_spinning;
 var targetdata : Array = [];
 var reels_spinning : int = 0;
 
-var all_tiles : Array = [];
-
 signal apply_tile_features(spindata, reeldata);
 signal onstartspin;
 signal onstopping;
@@ -202,3 +200,7 @@ func get_tile_position(reelindex,tileindex):
 func get_tile_global_position(reelindex, tileindex):
 	return reels[reelindex].get_tile_global_position(tileindex); 
 
+func get_all_tiles():
+	var tiles := [];
+	for reel in reels: tiles.append_array(reel._visible_tiles);
+	return tiles;

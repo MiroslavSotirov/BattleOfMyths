@@ -2,20 +2,20 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FrameDropShadow1.png-ff5b846a9a95d623dc98e6e8967fa654.stex"
+path="res://.import/Ł.webp-cff85d21b34be2fc61b69da1ff66d8be.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Main/Textures/slot-bm/FrameDropShadow1.png"
-dest_files=[ "res://.import/FrameDropShadow1.png-ff5b846a9a95d623dc98e6e8967fa654.stex" ]
+source_file="res://Main/Textures/font/Ł.webp"
+dest_files=[ "res://.import/Ł.webp-cff85d21b34be2fc61b69da1ff66d8be.stex" ]
 
 [params]
 
-compress/mode=1
-compress/lossy_quality=0.5
+compress/mode=0
+compress/lossy_quality=0.8
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
