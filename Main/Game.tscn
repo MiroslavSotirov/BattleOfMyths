@@ -2765,7 +2765,6 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -2830,8 +2829,8 @@ __meta__ = {
 }
 
 [node name="DSceenReels" type="Sprite" parent="SlotContainer/Slot/Background"]
-position = Vector2( -7, 29 )
-scale = Vector2( 3.98, 3.94 )
+position = Vector2( 0, 25 )
+scale = Vector2( 4, 4.15 )
 texture = ExtResource( 56 )
 
 [node name="ReelContainer" type="Control" parent="SlotContainer/Slot"]
@@ -3139,14 +3138,14 @@ texture = ExtResource( 50 )
 [node name="SsFrameGlow" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame"]
 light_mask = 2
 material = ExtResource( 65 )
-position = Vector2( 396, 22 )
+position = Vector2( 396, 1.50089 )
 texture = ExtResource( 23 )
 normal_map = ExtResource( 22 )
 
 [node name="SsFrameGlow2" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame"]
 light_mask = 2
 material = ExtResource( 65 )
-position = Vector2( -397, 22 )
+position = Vector2( -397, 1.50089 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
 texture = ExtResource( 23 )
