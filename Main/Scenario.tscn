@@ -392,7 +392,6 @@ func enter() -> void:
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	prints(\"SHOULD UPDATE STATE?\", Globals.singletons[\"Stateful\"].should_update_state());
 	if(Globals.singletons[\"Stateful\"].should_update_state()):
-		print(\"DO UPDATE STATE\");
 		Globals.singletons[\"Stateful\"].update_states();	
 		
 	Globals.fsm_data[\"reels_stopped\"] = true;
@@ -569,7 +568,7 @@ func enter() -> void:
 		
 		Globals.singletons[\"Audio\"].play(\"Win Line\")
 		Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5, win_tiles);
-		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
+		yield(slot .popup_tiles(win_tiles_positions), \"completed\");
 		slot.remove_tiles(win_tiles_positions);
 		Globals.singletons[\"Audio\"].play(\"Shaking Symbol\")
 		Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
@@ -650,24 +649,29 @@ func enter() -> void:
 	
 	#TODO: How to figure out which princessess participate???
 	var princesstiles = Globals.singletons[\"Slot\"].get_tiles_with_id(9);
+	Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5, princesstiles);
+	
 	for tile in princesstiles:
 		tile.popup(Tile.AnimationType.SPINE,\"popup\",false);
+		
 
 	Globals.singletons[\"Audio\"].play(\"Princess\")
 	
 	yield(Globals.get_tree().create_timer(0.5), \"timeout\");
-
+	
 	var wildtiles = [];
 	for pos in featuredata.data.positions:
 		var y = int(pos)%Globals.visibleTilesCount;
 		var x = floor(pos/Globals.visibleTilesCount);		
 		Globals.singletons[\"Slot\"].replace_tile(x, y, featuredata.data.replacewithid);
 		Globals.singletons[\"Slot\"].get_tile_at(x, y).play_animation(Tile.AnimationType.SPINE, \"appear\")
+		Globals.singletons[\"Slot\"].get_tile_at(x, y).modulate = Color.white;
 		
 	if(!featuredata.data.positions.empty()):
 		Globals.singletons[\"Audio\"].play(\"Wild\");
 	
 	yield(Globals.get_tree().create_timer(1.5), \"timeout\");
+	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	Globals.fsm_data[\"princess_feature_completed\"] = true;
 
 func update(_object, _delta: float) -> void:
@@ -704,8 +708,10 @@ func enter() -> void:
 	if(featuredata == null):
 		Globals.fsm_data[\"dragon_feature_completed\"] = true;
 		return;
-		
+	
 	print(\"DRAGON FEATURE\")
+	Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5);
+	
 	var slot = Globals.singletons.Slot;
 	Globals.singletons[\"Audio\"].play(\"Dragon Feature v2\")
 	var dragonfx = load(\"res://Main/Slot/BonusScene/Dragon.tscn\").instance();	
@@ -721,7 +727,7 @@ func enter() -> void:
 		var y = int(pos)%Globals.visibleTilesCount;
 		var x = floor(pos/Globals.visibleTilesCount);
 		positions.append(slot.get_tile_global_position(x,y));
-
+	
 	var lastpos = slot.get_tile_global_position(Globals.visibleReelsCount-1,randi()%Globals.visibleTilesCount)+Vector2(200.0, 0.0);
 	positions.append(lastpos)
 
@@ -743,7 +749,8 @@ func enter() -> void:
 	dragon.play(\"Hide\");
 	while(dragon.global_position.distance_to(lastpos) > 10.0):
 		yield(Globals.get_tree(), \"idle_frame\");
-		
+	
+	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	dragon.queue_free();
 	Globals.singletons[\"SideCharacters\"].play(\"ShowDragon\");
 	Globals.fsm_data[\"dragon_feature_completed\"] = true;
@@ -762,6 +769,7 @@ func change_tile(pos, targetid):
 	var x = floor(pos/Globals.visibleTilesCount);
 	Globals.singletons[\"Slot\"].replace_tile(x, y, targetid);
 	Globals.singletons[\"Slot\"].get_tile_at(x, y).play_animation(Tile.AnimationType.SPINE, \"appear\")
+	Globals.singletons[\"Slot\"].get_tile_at(x, y).modulate = Color.white;
 	
 	var worldpos = Globals.singletons[\"Slot\"].get_tile_global_position(x,y);
 	
@@ -804,6 +812,7 @@ func enter() -> void:
 	
 	print(\"TIGER FEATURE\");
 	Globals.singletons[\"Audio\"].play(\"Tiger Feature v2\")
+	Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5);
 	
 	var slot = Globals.singletons.Slot;
 	var tiger = load(\"res://Main/Slot/BonusScene/Tiger.tscn\").instance();
@@ -834,6 +843,7 @@ func enter() -> void:
 	
 	Globals.singletons[\"Audio\"].play(\"Tiger Feature Disappear\")
 	yield(tiger.hide(), \"completed\");
+	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	Globals.singletons[\"SideCharacters\"].play(\"ShowTiger\");
 	Globals.fsm_data[\"tiger_feature_completed\"] = true;
 
