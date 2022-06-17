@@ -50,13 +50,17 @@ func switch_to_tiger_mode(splash=false):
 		Globals.singletons["FreeSpinsSplash"].visible = false;
 		
 func switch_to_normal_mode():
-	if(current_state == "dragon"): 	Globals.singletons["SideCharacters"].play("ShowTiger");
-	if(current_state == "tiger"): 	Globals.singletons["SideCharacters"].play("ShowDragon");
+	if(current_state == "dragon"): 	
+		Globals.singletons["SideCharacters"].play("ShowTiger");
+	if(current_state == "tiger"):
+		Globals.singletons["SideCharacters"].play("ShowDragon");
+	
+	Globals.singletons["SegmentBar"].amount = -Globals.fsm_data["barMin"]-1;
 	Globals.singletons["Audio"].change_track("background", "Foundation", 1000, 1, 1, 1);
 	current_state = "normal"
 	$SlotContainer/Background/AnimationPlayer.play("to_normal")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_normal")
-	Globals.singletons["SideCharacters"].play("HideDragon");
+
 		
 func _input(event):
 	if(event is InputEventScreenTouch || event is InputEventMouseButton || event is InputEventKey):
