@@ -14,17 +14,19 @@ func switch_to_dragon_mode(splash=false):
 	Globals.singletons["FreeSpinsSplash"].visible = true
 	Globals.singletons["SideCharacters"].play("HideTiger");
 	Globals.singletons["FreeSpinsLabel"] = "8";
-	if(splash): 
+	if(splash):
 		Globals.singletons["Audio"].play("Dragon Free Spins");
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
+		var animplayer = Globals.singletons["FreeSpinsSplash"].get_node("AnimationPlayer")
+		animplayer.play("ShowBgDragon");
 		sprite.set_skin("Dragon");
 		sprite.play_anim_then_loop("popup","idle");
 		yield(sprite, "animation_complete");
-		var animplayer = Globals.singletons["FreeSpinsSplash"].get_node("AnimationPlayer")
+
 		animplayer.play("Show")
 		yield(get_tree().create_timer(3.0), "timeout");
-		animplayer.play("Hide")
 		sprite.play_anim("close", false);
+		animplayer.play("HideBg");
 		yield(get_tree().create_timer(2.0), "timeout");
 		Globals.singletons["FreeSpinsSplash"].visible = false;
 		
@@ -40,13 +42,14 @@ func switch_to_tiger_mode(splash=false):
 	if(splash): 
 		Globals.singletons["Audio"].play("Tiger Free Spins");
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
+		var animplayer = Globals.singletons["FreeSpinsSplash"].get_node("AnimationPlayer")
+		animplayer.play("ShowBgTiger")
 		sprite.set_skin("Tiger");
 		sprite.play_anim_then_loop("popup","idle");
 		yield(sprite, "animation_complete");
-		var animplayer = Globals.singletons["FreeSpinsSplash"].get_node("AnimationPlayer")
 		animplayer.play("Show")
 		yield(get_tree().create_timer(3.0), "timeout");
-		animplayer.play("Hide")
+		animplayer.play("HideBg");
 		sprite.play_anim("close", false);
 		yield(get_tree().create_timer(2.0), "timeout");
 		Globals.singletons["FreeSpinsSplash"].visible = false;

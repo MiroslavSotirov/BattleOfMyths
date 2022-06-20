@@ -1,4 +1,4 @@
-[gd_scene load_steps=158 format=2]
+[gd_scene load_steps=161 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -1653,6 +1653,33 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
+[sub_resource type="Animation" id=403]
+resource_name = "HideBg"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Root:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [sub_resource type="Animation" id=390]
 length = 0.001
 tracks/0/type = "value"
@@ -1666,6 +1693,54 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Background/Dragon:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 9 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Background/Tiger:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Background/Dragon:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=391]
@@ -1682,6 +1757,84 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=404]
+resource_name = "ShowBgDragon"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Tiger:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Background/Dragon:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=405]
+resource_name = "ShowBgTiger"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Background/Tiger:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Background/Dragon:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
 [sub_resource type="Animation" id=259]
@@ -2798,7 +2951,6 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -3334,6 +3486,21 @@ anims/TigerHit = SubResource( 402 )
 visible = false
 script = ExtResource( 114 )
 
+[node name="Background" type="Node2D" parent="SlotContainer/Slot/Features/FreeSpinsSplash"]
+modulate = Color( 1, 1, 1, 0 )
+script = ExtResource( 45 )
+scale_offset = 0.1
+min_scale = 0.5
+reference = NodePath("../../../..")
+
+[node name="Dragon" type="Sprite" parent="SlotContainer/Slot/Features/FreeSpinsSplash/Background"]
+visible = false
+texture = ExtResource( 9 )
+
+[node name="Tiger" type="Sprite" parent="SlotContainer/Slot/Features/FreeSpinsSplash/Background"]
+visible = false
+texture = ExtResource( 48 )
+
 [node name="Sprite" type="SpineSprite" parent="SlotContainer/Slot/Features/FreeSpinsSplash"]
 animation_state_data_res = SubResource( 379 )
 script = ExtResource( 44 )
@@ -3360,8 +3527,11 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Features/FreeSpinsSplash"]
 anims/Hide = SubResource( 389 )
+anims/HideBg = SubResource( 403 )
 anims/RESET = SubResource( 390 )
 anims/Show = SubResource( 391 )
+anims/ShowBgDragon = SubResource( 404 )
+anims/ShowBgTiger = SubResource( 405 )
 
 [node name="WinlinesFadeAnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot"]
 anims/To_Normal = SubResource( 259 )
