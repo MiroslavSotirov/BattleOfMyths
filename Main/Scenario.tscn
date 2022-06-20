@@ -370,13 +370,14 @@ func enter() -> void:
 				fx.set_points(fx.global_position, target.global_position)
 				Globals.fsm_data[\"activated_special_tiles\"].append(tigertile);
 				tigertile.popup(Tile.AnimationType.SPINE,\"popup\",false);
-				
+				tigertile.set_layer(0);
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"hit\");
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"popup\");
 			Globals.singletons[\"SideCharacters\"].play(\"DragonHit\", 0.75);
 			Globals.singletons[\"Audio\"].play(\"Tiger Head\");
 			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
 			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
+			for tigertile in tiger_tiles: tigertile.set_layer(0);
 			
 		target = Globals.singletons[\"SegmentBar\"].get_current_bar(1);
 		if(!dragon_tiles.empty()): 
@@ -389,13 +390,14 @@ func enter() -> void:
 				fx.set_points(fx.global_position, target.global_position)
 				Globals.fsm_data[\"activated_special_tiles\"].append(dragontile);
 				dragontile.popup(Tile.AnimationType.SPINE,\"popup\",false);
-
+				dragontile.set_layer(1);
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"hit\");
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"popup\");
 			Globals.singletons[\"SideCharacters\"].play(\"TigerHit\", 0.75);
 			Globals.singletons[\"Audio\"].play(\"Dragon Head\");
 			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
 			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
+			for dragontile in dragon_tiles: dragontile.set_layer(0);
 	
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	prints(\"SHOULD UPDATE STATE?\", Globals.singletons[\"Stateful\"].should_update_state());
