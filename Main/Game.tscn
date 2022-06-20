@@ -1,4 +1,4 @@
-[gd_scene load_steps=155 format=2]
+[gd_scene load_steps=158 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -46,6 +46,7 @@
 [ext_resource path="res://Main/SpineSpriteExtension.gd" type="Script" id=44]
 [ext_resource path="res://Main/UI/BackgroundResizer.gd" type="Script" id=45]
 [ext_resource path="res://Main/Misc/LogoResizer.gd" type="Script" id=46]
+[ext_resource path="res://Main/Textures/slot-bm/FreeSpinsTXTOnReels.png" type="Texture" id=47]
 [ext_resource path="res://Main/Textures/slot-bm/TigerSceneBackground.jpg" type="Texture" id=48]
 [ext_resource path="res://Main/Textures/slot-bm/TigerSceneFrame.png" type="Texture" id=49]
 [ext_resource path="res://Main/Textures/slot-bm/TigerSceneFrameBackligh.png" type="Texture" id=50]
@@ -1504,6 +1505,22 @@ skins = null
 [sub_resource type="SpineAnimationStateDataResource" id=395]
 skeleton = SubResource( 394 )
 
+[sub_resource type="Animation" id=401]
+resource_name = "DragonHit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Dragon:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.15, 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="Animation" id=396]
 resource_name = "HideDragon"
 length = 0.5
@@ -1593,6 +1610,22 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=402]
+resource_name = "TigerHit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Tiger:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Color( 0, 1, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="SpineSkeletonDataResource" id=378]
@@ -3167,6 +3200,26 @@ material = ExtResource( 65 )
 texture = ExtResource( 25 )
 normal_map = ExtResource( 24 )
 
+[node name="FreeSpinsTxtonReels" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins"]
+position = Vector2( 0, 421 )
+texture = ExtResource( 47 )
+
+[node name="FreeSpinsLabel" type="Label" parent="SlotContainer/Slot/Overlap/Freespins/FreeSpinsTxtonReels"]
+margin_left = -36.0
+margin_top = -91.0
+margin_right = 24.0
+margin_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = ExtResource( 28 )
+text = "8"
+align = 1
+valign = 1
+script = ExtResource( 114 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Light" type="Node2D" parent="SlotContainer/Slot/Overlap"]
 
 [node name="Light2D" type="Light2D" parent="SlotContainer/Slot/Overlap/Light"]
@@ -3269,11 +3322,13 @@ startanimation = "idle"
 timescale = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Features/SideCharacters"]
+anims/DragonHit = SubResource( 401 )
 anims/HideDragon = SubResource( 396 )
 anims/HideTiger = SubResource( 397 )
 anims/RESET = SubResource( 398 )
 anims/ShowDragon = SubResource( 399 )
 anims/ShowTiger = SubResource( 400 )
+anims/TigerHit = SubResource( 402 )
 
 [node name="FreeSpinsSplash" type="Node2D" parent="SlotContainer/Slot/Features"]
 visible = false
@@ -3314,6 +3369,7 @@ anims/To_Winline = SubResource( 11 )
 script = ExtResource( 114 )
 
 [node name="WinLines" type="Control" parent="SlotContainer/Slot"]
+visible = false
 script = ExtResource( 100 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -3442,6 +3498,7 @@ anims/Show = SubResource( 102 )
 anims/ShowBottom = SubResource( 103 )
 
 [node name="RedGlow" type="Sprite" parent="SlotContainer/WinBar"]
+modulate = Color( 1, 1, 1, 0 )
 show_behind_parent = true
 position = Vector2( 0, 100 )
 scale = Vector2( 3, 3 )

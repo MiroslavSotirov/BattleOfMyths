@@ -13,6 +13,7 @@ func switch_to_dragon_mode(splash=false):
 	Globals.singletons["Audio"].fade_track("melody", 1, 0, 1000, 0);
 	Globals.singletons["FreeSpinsSplash"].visible = true
 	Globals.singletons["SideCharacters"].play("HideTiger");
+	Globals.singletons["FreeSpinsLabel"] = "8";
 	if(splash): 
 		Globals.singletons["Audio"].play("Dragon Free Spins");
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
@@ -35,6 +36,7 @@ func switch_to_tiger_mode(splash=false):
 	Globals.singletons["Audio"].fade_track("melody", 1, 0, 1000, 0);
 	Globals.singletons["FreeSpinsSplash"].visible = true
 	Globals.singletons["SideCharacters"].play("HideDragon");
+	Globals.singletons["FreeSpinsLabel"] = "8";
 	if(splash): 
 		Globals.singletons["Audio"].play("Tiger Free Spins");
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");

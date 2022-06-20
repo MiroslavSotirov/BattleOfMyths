@@ -48,6 +48,7 @@ func enter() -> void:
 	Globals.update_win_configs(Globals.singletons[\"Networking\"].lastround.defaultTotal);
 	Globals.fsm_data[\"in_freespins\"] = \"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction;
 	Globals.fsm_data[\"last_freespin\"] = false;
+	Globals.fsm_data[\"activated_special_tiles\"] = [];
 	
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
@@ -182,7 +183,7 @@ func enter() -> void:
 
 	Globals.fsm_data[\"spin_start_command\"] = false;
 	Globals.fsm_data[\"wins_shown\"] = false;
-	Globals.fsm_data[\"activated_special_tiles\"] = [];
+	
 	
 	if(JS.enabled):
 		JS.connect(\"spinstart\", self, \"start_spin\", [], CONNECT_ONESHOT);
@@ -276,15 +277,20 @@ func enter() -> void:
 		Globals.singletons[\"WinLines\"].hide_lines();
 		
 	Globals.singletons[\"WinBar\"].hide();
+	
+	var data = Globals.singletons[\"Networking\"].lastround;
 
-	Globals.fsm_data[\"is_cascading\"]  = \\
-		Globals.singletons[\"Networking\"].lastround \\
-		&& Globals.singletons[\"Networking\"].lastround.nextAction == \"cascade\";
+	Globals.fsm_data[\"is_cascading\"]  = data && data.nextAction == \"cascade\";
 			
 	if(!Globals.fsm_data[\"is_cascading\"]):
-		if(!(\"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction)):
+		Globals.fsm_data[\"activated_special_tiles\"] = [];
+		if(!(\"freespin\" in data.nextAction)):
 			Globals.singletons[\"TotalWinBar\"].hide();
+		if(\"freeSpinsRemaining\" in data):
+			if(data[\"freeSpinsRemaining\"]>0):
+				Globals.singletons[\"FreeSpinsLabel\"].text = str(data[\"freeSpinsRemaining\"]);
 		Globals.singletons[\"Slot\"].start_spin();
+
 		
 func spin_data_received(data):
 	print(\"SPIN DATA WAS RECIEVED\")
@@ -350,12 +356,12 @@ func enter() -> void:
 	
 	var tiger_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(11);
 	var dragon_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(12);
-		
 	var special_tiles_count = len(tiger_tiles) + len(dragon_tiles);
+	prints(\"ASP\", len(Globals.fsm_data[\"activated_special_tiles\"]), \"ST\", special_tiles_count);
 	if(len(Globals.fsm_data[\"activated_special_tiles\"]) != special_tiles_count):
 		var target = Globals.singletons[\"SegmentBar\"].get_current_bar(-1);
 		if(!tiger_tiles.empty()): 
-			Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5, tiger_tiles);
+			Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, tiger_tiles);
 			for tigertile in tiger_tiles:
 				if(Globals.fsm_data[\"activated_special_tiles\"].has(tigertile)): continue;
 				var fx = load(\"res://Main/Slot/BonusScene/RedFx.tscn\").instance();
@@ -367,6 +373,7 @@ func enter() -> void:
 				
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"hit\");
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"popup\");
+			Globals.singletons[\"SideCharacters\"].play(\"DragonHit\", 0.75);
 			Globals.singletons[\"Audio\"].play(\"Tiger Head\");
 			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
 			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
@@ -385,6 +392,7 @@ func enter() -> void:
 
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"hit\");
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"popup\");
+			Globals.singletons[\"SideCharacters\"].play(\"TigerHit\", 0.75);
 			Globals.singletons[\"Audio\"].play(\"Dragon Head\");
 			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
 			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
@@ -567,7 +575,7 @@ func enter() -> void:
 				win_tiles.append(Globals.singletons[\"Slot\"].get_tile_at(x, y))
 		
 		Globals.singletons[\"Audio\"].play(\"Win Line\")
-		Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5, win_tiles);
+		Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, win_tiles);
 		yield(slot .popup_tiles(win_tiles_positions), \"completed\");
 		slot.remove_tiles(win_tiles_positions);
 		Globals.singletons[\"Audio\"].play(\"Shaking Symbol\")
@@ -649,15 +657,24 @@ func enter() -> void:
 	
 	#TODO: How to figure out which princessess participate???
 	var princesstiles = Globals.singletons[\"Slot\"].get_tiles_with_id(9);
-	Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5, princesstiles);
+	Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, princesstiles);
+	
+	var fxtiles = [];
 	
 	for tile in princesstiles:
-		tile.popup(Tile.AnimationType.SPINE,\"popup\",false);
-		
-
+		var fxtile = load(\"res://Main/Slot/BonusScene/PrincessTileFx.tscn\").instance()
+		fxtiles.append(fxtile);
+		Globals.singletons[\"Game\"].add_child(fxtile);
+		fxtile.global_transform = tile.get_node(\"SpineSprite\").global_transform;
+		tile.visible = false;
+		#tile.popup(Tile.AnimationType.SPINE,\"popup\",false);
+	var lasttile = fxtiles[len(fxtiles)-1];
+	for fxtile in fxtiles: fxtile.play_anim(\"step1\", false, null, false);
+	yield(lasttile, \"animation_complete\");
 	Globals.singletons[\"Audio\"].play(\"Princess\")
-	
-	yield(Globals.get_tree().create_timer(0.5), \"timeout\");
+	for fxtile in fxtiles: fxtile.play_anim(\"step2\", false, null, false);
+	yield(lasttile, \"animation_complete\");
+	for fxtile in fxtiles: fxtile.play_anim_then_loop(\"step3\", \"step4\");
 	
 	var wildtiles = [];
 	for pos in featuredata.data.positions:
@@ -671,6 +688,14 @@ func enter() -> void:
 		Globals.singletons[\"Audio\"].play(\"Wild\");
 	
 	yield(Globals.get_tree().create_timer(1.5), \"timeout\");
+	for fxtile in fxtiles: fxtile.play_anim(\"step5\", false, null, false);
+	yield(lasttile, \"animation_complete\");
+	for fxtile in fxtiles: fxtile.play_anim(\"step6\", false, null, false);
+	yield(lasttile, \"animation_complete\");
+	
+	for fxtile in fxtiles: fxtile.queue_free();
+	for tile in princesstiles: tile.visible = true;
+	
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	Globals.fsm_data[\"princess_feature_completed\"] = true;
 
@@ -710,7 +735,7 @@ func enter() -> void:
 		return;
 	
 	print(\"DRAGON FEATURE\")
-	Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5);
+	Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5);
 	
 	var slot = Globals.singletons.Slot;
 	Globals.singletons[\"Audio\"].play(\"Dragon Feature v2\")
@@ -812,7 +837,7 @@ func enter() -> void:
 	
 	print(\"TIGER FEATURE\");
 	Globals.singletons[\"Audio\"].play(\"Tiger Feature v2\")
-	Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5);
+	Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5);
 	
 	var slot = Globals.singletons.Slot;
 	var tiger = load(\"res://Main/Slot/BonusScene/Tiger.tscn\").instance();

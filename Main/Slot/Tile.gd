@@ -87,6 +87,9 @@ func show_spine_sprite():
 func spine_play_then_loop(anim, loopanim):
 	show_spine_sprite();
 	$SpineSprite.play_anim_then_loop(anim, loopanim)
+	
+func set_layer(i):
+	z_index = i;
 
 #########################################################################
 func play_animation(type = AnimationType.SPINE, name = null, loop = false, timescale_override = null, has_delay = true):
@@ -98,7 +101,7 @@ func play_animation(type = AnimationType.SPINE, name = null, loop = false, times
 		return;
 
 	if (type == AnimationType.SPINE ):
-		print("I am playing spine animation.... ", name);
+		#print("I am playing spine animation.... ", name);
 		show_spine_sprite();
 		$SpineSprite.play_anim(name, loop, timescale_override, has_delay);
 		return;
@@ -107,7 +110,7 @@ func play_animation(type = AnimationType.SPINE, name = null, loop = false, times
 		$AnimationPlayer.play(name);
 		return;
 
-	print("I don't know what type of animation top play.... ", name);
+	print("I don't know what type of animation to play.... ", name);
 	return call_deferred("_on_animation_finished", name);
 	
 func _on_animation_finished(name, track = null, __ = null):
