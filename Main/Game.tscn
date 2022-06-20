@@ -3412,6 +3412,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DSceenReels" type="Sprite" parent="SlotContainer/BigWin"]
+modulate = Color( 1, 1, 1, 0.784314 )
+scale = Vector2( 20, 20 )
+texture = ExtResource( 56 )
+
 [node name="Sprite" type="Sprite" parent="SlotContainer/BigWin"]
 scale = Vector2( 100, 100 )
 
