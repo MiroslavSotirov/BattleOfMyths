@@ -5,6 +5,7 @@ var tween : Tween;
 var amount : float;
 var target : float;
 var bangup_factor : float = 1;
+var auto_go_down : bool;
 
 signal CountEnd
 signal HideEnd;
@@ -14,12 +15,14 @@ func _ready():
 	amount = 0.0;
 	Globals.register_singleton(name, self);
 	
-func show_win(target, bottom = true):
+func show_win(target, bottom = true, auto_go_down=true):
 	if(float(target) == self.amount):
 		set_text(target, false)
 		yield(get_tree(), "idle_frame");
 		return emit_signal("CountEnd");
 		
+	self.auto_go_down = auto_go_down;
+	
 	self.target = target;
 
 	if(!shown):
@@ -61,7 +64,7 @@ func set_text(v, instantshow=true):
 
 func count_end():
 	Globals.singletons["Audio"].stop("CoinsEndless")
-	if($AnimationPlayer.assigned_animation == "Show"):
+	if(auto_go_down && $AnimationPlayer.assigned_animation == "Show"):
 		$AnimationPlayer.play("GoDown");
 		yield($AnimationPlayer,"animation_finished")
 	emit_signal("CountEnd");

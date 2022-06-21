@@ -1,15 +1,15 @@
 extends Node2D
 
-func show_on(fat_tile):
-	var x = (fat_tile.x * 2 + fat_tile.w);
-	var positions = x if x <= 6 else 6 - (x - 6);
-	var direction = 1 if x <= 6 else -1;
-	$Character.position = Vector2(direction * positions * 108, 0)
+signal show_end;
+
+func show():
+	$Character.position = Vector2(0, 0)
 	$Character.play_anim("popup_appear", false);
-	$Character.scale.x = direction;
-	yield($Character, "animation_complete");
+	yield(get_tree().create_timer(1.0), "timeout");
 	$AnimationPlayer.play("hide_character");
-	
+	yield($AnimationPlayer, "animation_finished");
+	emit_signal("show_end");
+		
 func hit(pos, size = 2):
 #	203 x 182
 	var scale = size / 2.0;
@@ -30,9 +30,7 @@ func hit(pos, size = 2):
 
 func hide():
 	$TilesEffect.play_anim("closemouth", false);
-#	yield($TilesEffect, "animation_complete");
-	
 	$AnimationPlayer.play("hide_effect");
-	yield($AnimationPlayer, "animation_finished");
+	yield($AnimationPlayer, "animation_finished");	
 	queue_free();
 

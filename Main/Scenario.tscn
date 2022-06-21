@@ -545,6 +545,7 @@ custom_script = SubResource( 183 )
 script/source = "# State: Show Wins
 extends VFSMStateBase
 
+signal bangup_end;
 
 func enter() -> void:
 	print(\"### SHOW LINE WINS STATE: ###\");
@@ -559,25 +560,9 @@ func enter() -> void:
 
 	JS.output(\"linewin\", \"elysiumgamefeature\");
 #	Globals.singletons[\"PopupTiles\"].unpop_all();
-	Globals.singletons[\"Audio\"].play(\"Win Line\")
 	#Globals.singletons[\"WinLines\"].show_lines(data[\"wins\"]);
 	#yield(Globals.singletons[\"WinLines\"], \"ShowEnd\")
-
-	#if(data[\"wins_lines_total\"] > Globals.singletons[\"BigWin\"].big_win_limit):
-	if(data[\"wins_lines_total\"] > Globals.singletons[\"BigWin\"].big_win_limit):
-		JS.output(\"bigwin\", \"elysiumgamefeature\");
-		Globals.singletons[\"BigWin\"].show_win(data[\"wins_lines_total\"]);
-		yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
-		Globals.fsm_data[\"big_win_shown\"] = true;
-		if(\"cumulativeWin\" in data):
-			Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]), true);
-		elif(\"spinWin\" in data):
-			Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
-	else:
-		print(\"BANGUP \", data[\"spinWin\"]);
-		bangup_wins(data[\"spinWin\"]);
-
-	if (win_tiles_positions.keys().size() != 0):
+	if (data[\"wins_lines_total\"] > 0.0):
 		var win_tiles = [];
 		for x in win_tiles_positions.keys():
 			for y in win_tiles_positions[x]:
@@ -586,6 +571,21 @@ func enter() -> void:
 		Globals.singletons[\"Audio\"].play(\"Win Line\")
 		Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, win_tiles);
 		yield(slot .popup_tiles(win_tiles_positions), \"completed\");
+
+		if(data[\"wins_lines_total\"] > Globals.singletons[\"BigWin\"].big_win_limit):
+			JS.output(\"bigwin\", \"elysiumgamefeature\");
+			Globals.singletons[\"BigWin\"].show_win(data[\"wins_lines_total\"]);
+			yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
+			Globals.fsm_data[\"big_win_shown\"] = true;
+			if(\"cumulativeWin\" in data):
+				Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]), true);
+			elif(\"spinWin\" in data):
+				Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
+		else:
+			print(\"BANGUP \", data[\"wins_lines_total\"]);
+			bangup_wins(data[\"wins_lines_total\"], int(data.roundMultiplier));
+			yield(self, \"bangup_end\");
+		
 		slot.remove_tiles(win_tiles_positions);
 		Globals.singletons[\"Audio\"].play(\"Shaking Symbol\")
 		Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
@@ -605,8 +605,15 @@ func update(_object, _delta: float) -> void:
 func exit() -> void:
 	pass
 	
-func bangup_wins(n):
-	Globals.singletons[\"WinBar\"].show_win(float(n), false);
+func bangup_wins(n, multiplier):
+	if(multiplier > 1):
+		Globals.singletons[\"WinBar\"].show_win(float(n)/float(multiplier), false, false);
+		yield(Globals.singletons[\"WinBar\"], \"CountEnd\");
+		Globals.singletons[\"MultiplayerAnimator\"].play(\"Multiply\");
+		yield(Globals.get_tree().create_timer(0.8), \"timeout\");
+		Globals.singletons[\"WinBar\"].show_win(float(n), false);
+	else:
+		Globals.singletons[\"WinBar\"].show_win(float(n), false);
 	yield(Globals.singletons[\"WinBar\"], \"CountEnd\");
 	Globals.singletons[\"WinBar\"].hide(true);
 	
@@ -615,7 +622,8 @@ func bangup_wins(n):
 		Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(n), true);
 	elif(\"spinWin\" in data):
 		Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
-
+	emit_signal(\"bangup_end\");
+	
 func calcute_win_tiles_positions(wins, tiles_count):
 	if (wins == null): return {}
 	var positions = {};
@@ -744,7 +752,7 @@ func enter() -> void:
 		return;
 	
 	print(\"DRAGON FEATURE\")
-	Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5);
+	Globals.singletons[\"Game\"].tiles_change_color(Color(0.3,0.3,0.3,1.0), 0.5);
 	
 	var slot = Globals.singletons.Slot;
 	Globals.singletons[\"Audio\"].play(\"Dragon Feature v2\")
@@ -831,8 +839,8 @@ extends VFSMStateBase
 
 func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
-#	var json = '{\"features\":[{\"id\":0,\"type\":\"FatTile\",\"data\":{\"x\":2,\"y\":0,\"w\":4,\"h\":4,\"tileid\":10}},{\"id\":0,\"type\":\"StatefulMap\",\"data\":{\"map\":{\"0.300\":{\"counter\":0}}}}],\"featureview\":[[4,4,5,8],[6,2,1,1],[2,4,3,3],[9,4,2,4],[5,10,10,3],[7,10,10,7]]}'
-#	var data = JSON.parse(json).result;
+	#var json = '{\"features\":[{\"id\":0,\"type\":\"FatTile\",\"data\":{\"x\":2,\"y\":0,\"w\":4,\"h\":4,\"tileid\":10}},{\"id\":0,\"type\":\"StatefulMap\",\"data\":{\"map\":{\"0.300\":{\"counter\":0}}}}],\"featureview\":[[4,4,5,8],[6,2,1,1],[2,4,3,3],[9,4,2,4],[5,10,10,3],[7,10,10,7]]}'
+	#var data = JSON.parse(json).result;
 	var featuredata = null;
 	if(\"features\" in data):
 		for feature in data.features: 
@@ -846,7 +854,7 @@ func enter() -> void:
 	
 	print(\"TIGER FEATURE\");
 	Globals.singletons[\"Audio\"].play(\"Tiger Feature v2\")
-	Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5);
+	Globals.singletons[\"Game\"].tiles_change_color(Color(0.3,0.3,0.3,1.0), 0.5);
 	
 	var slot = Globals.singletons.Slot;
 	var tiger = load(\"res://Main/Slot/BonusScene/Tiger.tscn\").instance();
@@ -856,10 +864,8 @@ func enter() -> void:
 	var pos = slot.get_tile_position(fatTile.x, fatTile.y);
 	Globals.singletons[\"SideCharacters\"].play(\"HideTiger\");
 	slot.add_child(tiger);
-	tiger.show_on(fatTile);
-#	yield(tiger.show(), \"completed\");
-	yield(Globals.get_tree().create_timer(0.55), \"timeout\");
-	
+	tiger.show();
+	yield(tiger, \"show_end\");
 	# 100 is the id for fat tile 2x2, 101 - 3x3 and 102 - 4x4
 
 	for i in range (fatTile.x, fatTile.x + fatTile.w):
@@ -868,8 +874,8 @@ func enter() -> void:
 		for j in range (fatTile.y, fatTile.y + fatTile.h):
 			replace_data[i][j] = -id if i == fatTile.x && j == fatTile.y else 0;
 
-#	slot.replace_tiles(replace_data, \"appear\");
-	Globals.get_tree().create_timer(0.1).connect(\"timeout\", slot, \"replace_tiles\", [replace_data, \"appear\"]);
+	slot.replace_tiles(replace_data, \"popup\");
+	#Globals.get_tree().create_timer(0.1).connect(\"timeout\", slot, \"replace_tiles\", [replace_data, \"popup\"]);
 
 #	yield(tiger.hit(Vector2(pos.x - 612 + 203/2,  pos.y - 333 + 182/2)), \"completed\");
 	Globals.singletons[\"Audio\"].play(\"Wild\")
