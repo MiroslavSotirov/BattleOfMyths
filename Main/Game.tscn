@@ -2781,10 +2781,6 @@ __meta__ = {
 
 [node name="LogoMover" type="Node2D" parent="IntroContainer/Centering"]
 scale = Vector2( 0.65, 0.65 )
-script = ExtResource( 46 )
-scaleoffset = Vector2( 0.7, 0.6 )
-yoffset = Vector2( 0, -150 )
-easing = 1.7
 
 [node name="Sprite" type="Sprite" parent="IntroContainer/Centering/LogoMover"]
 texture = ExtResource( 18 )

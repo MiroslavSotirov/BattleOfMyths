@@ -55,6 +55,9 @@ func enter() -> void:
 	
 	if(\"cumulativeWin\" in data && float(data.cumulativeWin) > 0.0):
 		Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]));
+		Globals.singletons[\"WinMultiplier\"].set_multiplier(int(data.roundMultiplier)+1);
+	else:		
+		Globals.singletons[\"WinMultiplier\"].set_multiplier(int(data.roundMultiplier));
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
 
