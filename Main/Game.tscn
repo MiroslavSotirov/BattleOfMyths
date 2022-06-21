@@ -3363,7 +3363,6 @@ animation_state_data_res = SubResource( 393 )
 script = ExtResource( 44 )
 skin = "default"
 startanimation = "idle"
-timescale = 0.5
 
 [node name="Tiger" type="SpineSprite" parent="SlotContainer/Slot/Features/SideCharacters"]
 position = Vector2( 859, 24 )
@@ -3372,7 +3371,6 @@ animation_state_data_res = SubResource( 395 )
 script = ExtResource( 44 )
 skin = "default"
 startanimation = "idle"
-timescale = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Slot/Features/SideCharacters"]
 anims/DragonHit = SubResource( 401 )

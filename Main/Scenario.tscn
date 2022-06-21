@@ -383,7 +383,7 @@ func enter() -> void:
 				tigertile.set_layer(0);
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"hit\");
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"popup\");
-			Globals.singletons[\"SideCharacters\"].play(\"DragonHit\", 0.75);
+			Globals.singletons[\"SideCharacters\"].play(\"DragonHit\", 0.25);
 			Globals.singletons[\"Audio\"].play(\"Tiger Head\");
 			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
 			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
@@ -403,7 +403,7 @@ func enter() -> void:
 				dragontile.set_layer(1);
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"hit\");
 			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"popup\");
-			Globals.singletons[\"SideCharacters\"].play(\"TigerHit\", 0.75);
+			Globals.singletons[\"SideCharacters\"].play(\"TigerHit\", 0.25);
 			Globals.singletons[\"Audio\"].play(\"Dragon Head\");
 			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
 			yield(Globals.get_tree().create_timer(1.0), \"timeout\");
