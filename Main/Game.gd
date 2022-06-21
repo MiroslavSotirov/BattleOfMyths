@@ -8,12 +8,13 @@ func _ready():
 func switch_to_dragon_mode(splash=false):
 	current_state = "dragon";
 	$SlotContainer/Background/AnimationPlayer.play("to_dragon")
-	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_dragon")
+	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_dragon");
+	$SlotContainer/AnimationPlayer.play("winbar_fs");
 	Globals.singletons["Audio"].change_track("background", "Dragon Theme", 1000, 1, 1, 1);
 	Globals.singletons["Audio"].fade_track("melody", 1, 0, 1000, 0);
 	Globals.singletons["FreeSpinsSplash"].visible = true
-	Globals.singletons["SideCharacters"].play("HideTiger");
-	Globals.singletons["FreeSpinsLabel"] = "8";
+	Globals.singletons["SideCharacters"].play("HideCharacters");
+	#Globals.singletons["FreeSpinsLabel"].text = "8";
 	if(splash):
 		Globals.singletons["Audio"].play("Dragon Free Spins");
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
@@ -34,11 +35,13 @@ func switch_to_tiger_mode(splash=false):
 	current_state = "tiger"
 	$SlotContainer/Background/AnimationPlayer.play("to_tiger")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_tiger")
+	$SlotContainer/AnimationPlayer.play("winbar_fs");
 	Globals.singletons["Audio"].change_track("background", "Tiger Theme", 1000, 1, 1, 1);
 	Globals.singletons["Audio"].fade_track("melody", 1, 0, 1000, 0);
 	Globals.singletons["FreeSpinsSplash"].visible = true
-	Globals.singletons["SideCharacters"].play("HideDragon");
-	Globals.singletons["FreeSpinsLabel"] = "8";
+	Globals.singletons["SideCharacters"].play("HideCharacters");
+	
+	#Globals.singletons["FreeSpinsLabel"].text = "8";
 	if(splash): 
 		Globals.singletons["Audio"].play("Tiger Free Spins");
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
@@ -55,14 +58,11 @@ func switch_to_tiger_mode(splash=false):
 		Globals.singletons["FreeSpinsSplash"].visible = false;
 		
 func switch_to_normal_mode():
-	if(current_state == "dragon"): 	
-		Globals.singletons["SideCharacters"].play("ShowTiger");
-	if(current_state == "tiger"):
-		Globals.singletons["SideCharacters"].play("ShowDragon");
-	
+	Globals.singletons["SideCharacters"].play("ShowCharacters");
 	Globals.singletons["SegmentBar"].amount = -Globals.fsm_data["barMin"]-1;
 	Globals.singletons["Audio"].change_track("background", "Foundation", 1000, 1, 1, 1);
 	current_state = "normal"
+	$SlotContainer/AnimationPlayer.play("winbar_normal");
 	$SlotContainer/Background/AnimationPlayer.play("to_normal")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_normal")
 

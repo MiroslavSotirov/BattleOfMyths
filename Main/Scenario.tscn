@@ -44,11 +44,17 @@ func enter() -> void:
 		Globals.singletons[\"Stateful\"].update_states(true);
 	else:
 		print(\"NO FEATURE CONFIGS!!! STATEFUL MIGHT NOT WORK CORRECTLY\")
+	
+	if(\"freeSpinsRemaining\" in data && int(data.freeSpinsRemaining) > 0):
+		Globals.singletons[\"FreeSpinsLabel\"].text = str(data.freeSpinsRemaining);
 		
 	Globals.update_win_configs(Globals.singletons[\"Networking\"].lastround.defaultTotal);
 	Globals.fsm_data[\"in_freespins\"] = \"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction;
 	Globals.fsm_data[\"last_freespin\"] = false;
 	Globals.fsm_data[\"activated_special_tiles\"] = [];
+	
+	if(\"cumulativeWin\" in data && float(data.cumulativeWin) > 0.0):
+		Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]));
 	
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
@@ -150,8 +156,6 @@ func clicked():
 	Globals.singletons[\"Fader\"].tween(1.0,0.0,0.5);
 	Globals.singletons[\"Game\"].get_node(\"SlotContainer/Slot/LogoMover/Logo\").play_anim_then_loop(\"popup\", \"idle\");
 	yield(Globals.singletons[\"Fader\"], \"done\");
-
-	
 		
 	Globals.fsm_data[\"intro_clicked\"] = true;
 	JS.output(\"\", \"elysiumgameshowui\");
@@ -288,7 +292,7 @@ func enter() -> void:
 			Globals.singletons[\"TotalWinBar\"].hide();
 		if(\"freeSpinsRemaining\" in data):
 			if(data[\"freeSpinsRemaining\"]>0):
-				Globals.singletons[\"FreeSpinsLabel\"].text = str(data[\"freeSpinsRemaining\"]);
+				Globals.singletons[\"FreeSpinsLabel\"].text = String(data[\"freeSpinsRemaining\"]);
 		Globals.singletons[\"Slot\"].start_spin();
 
 		
@@ -317,6 +321,9 @@ func spin_data_received(data):
 	if(data.roundMultiplier < Globals.singletons[\"WinMultiplier\"].multiplier):
 		Globals.singletons[\"WinMultiplier\"].set_multiplier(data.roundMultiplier);
 	
+	if(int(data.freeSpinsRemaining) > 0):
+		Globals.singletons[\"FreeSpinsLabel\"].text = str(data.freeSpinsRemaining);
+		
 	if(JS.enabled): Globals.singletons[\"Networking\"].lastround = data;
 	if(!Globals.fsm_data[\"is_cascading\"]  && !Globals.singletons[\"Slot\"].allspinning):
 		yield(Globals.singletons[\"Slot\"], \"onstartspin\");
@@ -568,7 +575,8 @@ func enter() -> void:
 		elif(\"spinWin\" in data):
 			Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 	else:
-		bangup_wins(data[\"wins_lines_total\"]);
+		print(\"BANGUP \", data[\"win\"]);
+		bangup_wins(data[\"win\"]);
 
 	if (win_tiles_positions.keys().size() != 0):
 		var win_tiles = [];
@@ -900,6 +908,7 @@ func enter() -> void:
 	if(state == null):
 		Globals.fsm_data[\"slot_switch_completed\"] = true;
 		return;
+		
 	var data = Globals.singletons[\"Networking\"].lastround;
 	if(Globals.singletons[\"Game\"].current_state == \"normal\"):
 		if(\"fstype\" in state):

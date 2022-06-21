@@ -22,6 +22,7 @@ _data = [ Vector2( 0, 0.536364 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [node name="GreenFx" type="Node2D"]
+z_index = 2
 script = ExtResource( 6 )
 hitFxScene = ExtResource( 7 )
 
