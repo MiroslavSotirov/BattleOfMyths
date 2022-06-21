@@ -41,7 +41,6 @@ func enter() -> void:
 			if(\"ScatterMax\" in cfg.data): Globals.fsm_data[\"barMax\"] = int(cfg.data.ScatterMax);
 			if(\"ScatterMin\" in cfg.data): Globals.fsm_data[\"barMin\"] = int(cfg.data.ScatterMin);
 		
-		Globals.singletons[\"Stateful\"].update_states(true);
 	else:
 		print(\"NO FEATURE CONFIGS!!! STATEFUL MIGHT NOT WORK CORRECTLY\")
 	
@@ -82,11 +81,11 @@ func update_state(state, init=false):
 				Globals.singletons[\"Game\"].switch_to_tiger_mode();
 			elif(state[\"fstype\"] == \"freespinE2\"): 
 				Globals.singletons[\"Game\"].switch_to_dragon_mode();
-
-	if(Globals.singletons[\"SegmentBar\"].amount > bar):
-		Globals.singletons[\"Audio\"].play(\"Dragon Feature Chord\");
-	elif(Globals.singletons[\"SegmentBar\"].amount < bar):
-		Globals.singletons[\"Audio\"].play(\"Tiger Feature Chord\");
+	else:
+		if(Globals.singletons[\"SegmentBar\"].amount > bar):
+			Globals.singletons[\"Audio\"].play(\"Dragon Feature Chord\");
+		elif(Globals.singletons[\"SegmentBar\"].amount < bar):
+			Globals.singletons[\"Audio\"].play(\"Tiger Feature Chord\");
 		
 	Globals.singletons[\"SegmentBar\"].amount = bar-1;
 	#Globals.singletons[\"BarBlue\"].target_amount = bar2;
@@ -158,6 +157,7 @@ func clicked():
 		
 	Globals.singletons[\"Fader\"].tween(1.0,0.0,0.5);
 	Globals.singletons[\"Game\"].get_node(\"SlotContainer/Slot/LogoMover/Logo\").play_anim_then_loop(\"popup\", \"idle\");
+	Globals.singletons[\"Stateful\"].update_states(true);	
 	yield(Globals.singletons[\"Fader\"], \"done\");
 		
 	Globals.fsm_data[\"intro_clicked\"] = true;
