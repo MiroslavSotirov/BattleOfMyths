@@ -15,46 +15,6 @@ func enter() -> void:
 	print(\"### INIT STATE ###\");
 	Globals.singletons[\"Fader\"].tween(1,1,0);
 	yield(Globals, \"allready\")
-	var data = Globals.singletons[\"Networking\"].lastround;
-	var bartilesdata = null;
-	if(\"features\" in data):
-		for feature in data.features: 
-			if(feature.type == \"ReplaceTile\" && int(feature.data.tileid) == 0):
-				bartilesdata = feature;
-				break;
-	if(bartilesdata != null):		
-		for pos in bartilesdata.data.positions:
-			var y = int(pos)%Globals.visibleTilesCount;
-			var x = floor(pos/Globals.visibleTilesCount);
-			data.view[x][y] = int(bartilesdata.data.replacewithid);
-		
-	Globals.singletons[\"Networking\"].apply_init();
-	Globals.singletons[\"Stateful\"].connect(\"new_state\", self, \"update_state\")
-	yield(Globals.get_tree(),\"idle_frame\")
-	JS.connect(\"set_stake\", self, \"set_stake\");
-	Globals.connect(\"configure_bets\", self, \"configure_bets\");
-	
-	Globals.round_closed = true; #Init should close previous round if open
-
-	if(\"featureConfigs\" in data):
-		for cfg in data.featureConfigs:
-			if(\"ScatterMax\" in cfg.data): Globals.fsm_data[\"barMax\"] = int(cfg.data.ScatterMax);
-			if(\"ScatterMin\" in cfg.data): Globals.fsm_data[\"barMin\"] = int(cfg.data.ScatterMin);
-		
-		Globals.singletons[\"Stateful\"].update_states(true);
-	else:
-		print(\"NO FEATURE CONFIGS!!! STATEFUL MIGHT NOT WORK CORRECTLY\")
-	
-	if(\"freeSpinsRemaining\" in data && int(data.freeSpinsRemaining) > 0):
-		Globals.singletons[\"FreeSpinsLabel\"].text = str(data.freeSpinsRemaining);
-		
-	Globals.update_win_configs(Globals.singletons[\"Networking\"].lastround.defaultTotal);
-	Globals.fsm_data[\"in_freespins\"] = \"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction;
-	Globals.fsm_data[\"last_freespin\"] = false;
-	Globals.fsm_data[\"activated_special_tiles\"] = [];
-	
-	if(\"cumulativeWin\" in data && float(data.cumulativeWin) > 0.0):
-		Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]));
 	
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
@@ -150,7 +110,53 @@ func clicked():
 	var lastround = Globals.singletons[\"Networking\"].lastround;
 	
 	Globals.singletons[\"Game\"].get_node(\"IntroContainer\").queue_free();	
-	Globals.singletons[\"Game\"].get_node(\"SlotContainer\").visible = true;
+	Globals.singletons[\"Game\"].add_child(load(\"res://Main/SlotContainer.tscn\").instance());
+	yield(Globals.get_tree(),\"idle_frame\")
+	Globals.emit_signal(\"allready\");
+	yield(Globals.get_tree(),\"idle_frame\")
+	yield(Globals.get_tree(),\"idle_frame\")
+	var data = Globals.singletons[\"Networking\"].lastround;
+	var bartilesdata = null;
+	if(\"features\" in data):
+		for feature in data.features: 
+			if(feature.type == \"ReplaceTile\" && int(feature.data.tileid) == 0):
+				bartilesdata = feature;
+				break;
+	if(bartilesdata != null):		
+		for pos in bartilesdata.data.positions:
+			var y = int(pos)%Globals.visibleTilesCount;
+			var x = floor(pos/Globals.visibleTilesCount);
+			data.view[x][y] = int(bartilesdata.data.replacewithid);
+		
+	Globals.singletons[\"Networking\"].apply_init();
+	Globals.singletons[\"Stateful\"].connect(\"new_state\", self, \"update_state\")
+	yield(Globals.get_tree(),\"idle_frame\")
+	JS.connect(\"set_stake\", self, \"set_stake\");
+	Globals.connect(\"configure_bets\", self, \"configure_bets\");
+	
+	Globals.round_closed = true; #Init should close previous round if open
+
+	if(\"featureConfigs\" in data):
+		for cfg in data.featureConfigs:
+			if(\"ScatterMax\" in cfg.data): Globals.fsm_data[\"barMax\"] = int(cfg.data.ScatterMax);
+			if(\"ScatterMin\" in cfg.data): Globals.fsm_data[\"barMin\"] = int(cfg.data.ScatterMin);
+		
+		Globals.singletons[\"Stateful\"].update_states(true);
+	else:
+		print(\"NO FEATURE CONFIGS!!! STATEFUL MIGHT NOT WORK CORRECTLY\")
+	
+	if(\"freeSpinsRemaining\" in data && int(data.freeSpinsRemaining) > 0):
+		Globals.singletons[\"FreeSpinsLabel\"].text = str(data.freeSpinsRemaining);
+		
+	Globals.update_win_configs(Globals.singletons[\"Networking\"].lastround.defaultTotal);
+	Globals.fsm_data[\"in_freespins\"] = \"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction;
+	Globals.fsm_data[\"last_freespin\"] = false;
+	Globals.fsm_data[\"activated_special_tiles\"] = [];
+	
+	if(\"cumulativeWin\" in data && float(data.cumulativeWin) > 0.0):
+		Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]));
+		
+	
 	Globals.singletons[\"Game\"].get_node(\"UIContainer\").visible = true;
 		
 	Globals.singletons[\"Fader\"].tween(1.0,0.0,0.5);
@@ -575,8 +581,8 @@ func enter() -> void:
 		elif(\"spinWin\" in data):
 			Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 	else:
-		print(\"BANGUP \", data[\"win\"]);
-		bangup_wins(data[\"win\"]);
+		print(\"BANGUP \", data[\"spinWin\"]);
+		bangup_wins(data[\"spinWin\"]);
 
 	if (win_tiles_positions.keys().size() != 0):
 		var win_tiles = [];

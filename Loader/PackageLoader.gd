@@ -44,7 +44,7 @@ func _ready():
 func _process(time):
 	if(loader != null):
 		var maxsize : float = float(loader.get_body_size());
-		if(maxsize < 0): maxsize = float(1024*1024*64);
+		if(maxsize < 0): maxsize = float(1024*1024*12);
 		if(progress < 1.0):
 			progress = float(loader.get_downloaded_bytes()) / maxsize;
 
