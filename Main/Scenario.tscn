@@ -52,7 +52,7 @@ func enter() -> void:
 	Globals.fsm_data[\"in_freespins\"] = \"freespin\" in Globals.singletons[\"Networking\"].lastround.nextAction;
 	Globals.fsm_data[\"last_freespin\"] = false;
 	Globals.fsm_data[\"activated_special_tiles\"] = [];
-	
+	if(int(data.roundMultiplier) == 0): data.roundMultiplier = 1;
 	if(\"cumulativeWin\" in data && float(data.cumulativeWin) > 0.0):
 		Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]));
 		Globals.singletons[\"WinMultiplier\"].set_multiplier(int(data.roundMultiplier)+1);
@@ -141,6 +141,7 @@ func enter() -> void:
 	
 #	introcontainer.get_node(\"Centering/LogoMover/Logo\").play_anim_then_loop(\"popup\", \"idle\");
 	introcontainer.get_node(\"Centering/LogoMover/AnimationPlayer\").play(\"Idle\")
+	introcontainer.get_node(\"Centering/LogoMover/Light/AnimationPlayer\").play(\"Idle\")
 	Globals.singletons[\"Audio\"].change_track(\"background\", \"Foundation\", 1000, 1, 1, 1);
 	Globals.singletons[\"Audio\"].change_track(\"melody\", \"Melody\", 0, 1, 1, 1);
 	Globals.singletons[\"Audio\"].fade_track(\"melody\", 1, 0, 1, 0);

@@ -2823,6 +2823,7 @@ energy = 5.0
 range_height = 1.0
 range_z_min = -1121
 range_item_cull_mask = 2
+shadow_color = Color( 1, 1, 1, 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="IntroContainer/Centering/LogoMover/Light"]
 anims/Idle = SubResource( 387 )
@@ -3744,7 +3745,6 @@ default = Color( 1, 1, 1, 1 )
 
 [node name="Scenario" parent="." instance=ExtResource( 1 )]
 
-[connection signal="ready" from="IntroContainer/Centering/LogoMover/Light/AnimationPlayer" to="IntroContainer/Centering/LogoMover/Light/AnimationPlayer" method="play" binds= [ "Idle" ]]
 [connection signal="ready" from="SlotContainer/Slot/Overlap/Light/AnimationPlayer" to="SlotContainer/Slot/Overlap/Light/AnimationPlayer" method="play" binds= [ "Idle" ]]
 [connection signal="pressed" from="UIContainer/ErrorPopup/Button" to="UIContainer/ErrorPopup" method="_on_Button_pressed"]
 [connection signal="tween_completed" from="Fader/Tween" to="Fader" method="_tween_completed"]
