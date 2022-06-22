@@ -3122,6 +3122,7 @@ texture = ExtResource( 23 )
 normal_map = ExtResource( 22 )
 
 [node name="GameBar" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame" instance=ExtResource( 5 )]
+amount = 0
 
 [node name="BarsShadowTop" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( 0, -333.043 )

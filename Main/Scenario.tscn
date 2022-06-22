@@ -60,12 +60,14 @@ func enter() -> void:
 	Globals.singletons[\"Fader\"].tween(1,0,0.5);
 	Globals.fsm_data[\"initialized\"] = true;
 
-
 func update(_object, _delta: float) -> void:
 	pass
 
 func exit() -> void:
 	pass
+	
+func set_stake(newstake):
+	Globals.singletons[\"Stateful\"].switch_to_state(newstake);
 
 func update_state(state, init=false):
 	var bar = 0;
@@ -905,15 +907,13 @@ func enter() -> void:
 		for j in range (fatTile.y, fatTile.y + fatTile.h):
 			replace_data[i][j] = -id if i == fatTile.x && j == fatTile.y else 0;
 
-	slot.replace_tiles(replace_data, \"popup\");
 	#Globals.get_tree().create_timer(0.1).connect(\"timeout\", slot, \"replace_tiles\", [replace_data, \"popup\"]);
-
 #	yield(tiger.hit(Vector2(pos.x - 612 + 203/2,  pos.y - 333 + 182/2)), \"completed\");
 	Globals.singletons[\"Audio\"].play(\"Wild\")
 	yield(tiger.hit(Vector2(pos.x - 612,  pos.y - 333), fatTile.w), \"completed\");
-	
 	Globals.singletons[\"Audio\"].play(\"Tiger Feature Disappear\")
 	yield(tiger.hide(), \"completed\");
+	slot.replace_tiles(replace_data, \"appear\");
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	Globals.singletons[\"SideCharacters\"].play(\"ShowTiger\");
 	Globals.fsm_data[\"tiger_feature_completed\"] = true;
