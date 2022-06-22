@@ -2846,7 +2846,6 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -3122,7 +3121,6 @@ texture = ExtResource( 23 )
 normal_map = ExtResource( 22 )
 
 [node name="GameBar" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame" instance=ExtResource( 5 )]
-amount = 0
 
 [node name="BarsShadowTop" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 position = Vector2( 0, -333.043 )
@@ -3130,7 +3128,6 @@ texture = ExtResource( 55 )
 
 [node name="Backlight" type="Sprite" parent="SlotContainer/Slot/Overlap/Normal/NormalSlotFrame"]
 show_behind_parent = true
-material = ExtResource( 39 )
 position = Vector2( -10.4348, 36.5217 )
 scale = Vector2( 2.25, 2.25 )
 z_as_relative = false
@@ -3169,7 +3166,6 @@ texture = ExtResource( 40 )
 
 [node name="Backlight" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/DragonSlotFrame"]
 show_behind_parent = true
-material = ExtResource( 39 )
 scale = Vector2( 1.35, 1.4 )
 z_as_relative = false
 texture = ExtResource( 52 )
@@ -3212,7 +3208,6 @@ texture = ExtResource( 49 )
 
 [node name="Backlight" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins/TigerSlotFrame"]
 show_behind_parent = true
-material = ExtResource( 39 )
 scale = Vector2( 1.6, 1.6 )
 z_as_relative = false
 texture = ExtResource( 50 )
