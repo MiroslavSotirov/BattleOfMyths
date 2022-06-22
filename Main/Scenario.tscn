@@ -66,8 +66,8 @@ func update(_object, _delta: float) -> void:
 func exit() -> void:
 	pass
 	
-func set_stake(newstake):
-	Globals.singletons[\"Stateful\"].switch_to_state(newstake);
+func set_stake(data):
+	Globals.singletons[\"Stateful\"].switch_to_state(data.stake);
 
 func update_state(state, init=false):
 	var bar = 0;
