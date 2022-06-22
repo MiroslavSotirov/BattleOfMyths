@@ -665,6 +665,7 @@ custom_script = SubResource( 189 )
 script/source = "# State: Princess Feature
 extends VFSMStateBase
 
+signal princess_end;
 
 func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
@@ -695,6 +696,7 @@ func enter() -> void:
 		princesstiles.append(endtile);
 	
 	Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, princesstiles);
+	yield(self, \"princess_end\");
 	
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	Globals.fsm_data[\"princess_feature_completed\"] = true;
@@ -742,6 +744,7 @@ func princess_animation(start, end, wildpositions):
 	endfxtile.queue_free();
 	start.visible = true;
 	end.visible = true;
+	emit_signal(\"princess_end\");
 	
 func create_fx_tile(tile):
 	var fxtile = load(\"res://Main/Slot/BonusScene/PrincessTileFx.tscn\").instance()
@@ -914,6 +917,7 @@ func enter() -> void:
 	Globals.singletons[\"Audio\"].play(\"Tiger Feature Disappear\")
 	yield(tiger.hide(), \"completed\");
 	slot.replace_tiles(replace_data, \"appear\");
+	yield(Globals.get_tree().create_timer(1.0), \"timeout\");
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	Globals.singletons[\"SideCharacters\"].play(\"ShowTiger\");
 	Globals.fsm_data[\"tiger_feature_completed\"] = true;
