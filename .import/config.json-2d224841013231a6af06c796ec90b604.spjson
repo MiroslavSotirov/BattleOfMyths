@@ -2,5 +2,6 @@
   "title": "Battle Of Myths",
   "name": "battle-of-myths",
   "location": "./",
-  "rgsApi": "origin"
+  "rgsApi": "origin",
+  "engineVersion": 2,
 }

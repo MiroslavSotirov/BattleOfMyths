@@ -57,7 +57,6 @@ func generate_tile_images():
 	viewport.transparent_bg = true;
 	add_child(viewport);
 	for tile in Globals.tiles:
-		print(tile.id)
 		var tilescene = tile_image_generation_scene.instance();
 		tilescene.set_new_state_data(tile.spine_data);
 		tilescene.play_anim(tile.image_creation_animation, false);
