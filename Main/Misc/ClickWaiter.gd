@@ -16,3 +16,4 @@ func _on_pressed():
 	if(!is_visible_in_tree()): return;
 	emit_signal("pressed");
 	enabled = false;
+	

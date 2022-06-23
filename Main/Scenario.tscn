@@ -954,10 +954,11 @@ func enter() -> void:
 		if(\"fstype\" in state):
 			if(state[\"fstype\"] == \"freespinE1\" && Globals.singletons[\"Game\"].current_state != \"tiger\"):
 				Globals.singletons[\"Game\"].switch_to_tiger_mode(true);
-				yield(Globals.get_tree().create_timer(3.0), \"timeout\");
+				yield(Globals.singletons[\"Game\"], \"splash_end\");
 			elif(state[\"fstype\"] == \"freespinE2\" && Globals.singletons[\"Game\"].current_state != \"dragon\"): 
 				Globals.singletons[\"Game\"].switch_to_dragon_mode(true);
-				yield(Globals.get_tree().create_timer(3.0), \"timeout\");
+				yield(Globals.singletons[\"Game\"], \"splash_end\");
+				
 	elif(Globals.fsm_data[\"last_freespin\"]):
 		Globals.singletons[\"Game\"].switch_to_normal_mode();
 		Globals.singletons[\"BigWin\"].show_win(data[\"cumulativeWin\"], true);

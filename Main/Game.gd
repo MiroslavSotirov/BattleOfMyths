@@ -2,6 +2,8 @@ extends Node
 class_name Game
 var current_state : String = "normal";
 
+signal splash_end;
+
 func _ready():
 	Globals.register_singleton("Game", self);
 
@@ -19,17 +21,20 @@ func switch_to_dragon_mode(splash=false):
 		Globals.singletons["Audio"].play("Dragon Free Spins");
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
 		var animplayer = Globals.singletons["FreeSpinsSplash"].get_node("AnimationPlayer")
+		var waiter = Globals.singletons["FreeSpinsSplash"].get_node("ClickWaiter");
 		animplayer.play("ShowBgDragon");
 		sprite.set_skin("Dragon");
 		sprite.play_anim_then_loop("popup","idle");
 		yield(sprite, "animation_complete");
-
 		animplayer.play("Show")
-		yield(get_tree().create_timer(3.0), "timeout");
+		yield(animplayer, "animation_finished");
+		waiter.enabled = true;
+		yield(waiter, "pressed");
 		sprite.play_anim("close", false);
 		animplayer.play("HideBg");
 		yield(get_tree().create_timer(2.0), "timeout");
 		Globals.singletons["FreeSpinsSplash"].visible = false;
+		emit_signal("splash_end");
 		
 func switch_to_tiger_mode(splash=false):
 	current_state = "tiger"
@@ -46,16 +51,20 @@ func switch_to_tiger_mode(splash=false):
 		Globals.singletons["Audio"].play("Tiger Free Spins");
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
 		var animplayer = Globals.singletons["FreeSpinsSplash"].get_node("AnimationPlayer")
+		var waiter = Globals.singletons["FreeSpinsSplash"].get_node("ClickWaiter");
 		animplayer.play("ShowBgTiger")
 		sprite.set_skin("Tiger");
 		sprite.play_anim_then_loop("popup","idle");
 		yield(sprite, "animation_complete");
 		animplayer.play("Show")
-		yield(get_tree().create_timer(3.0), "timeout");
+		yield(animplayer, "animation_finished");
+		waiter.enabled = true;
+		yield(waiter, "pressed");
 		animplayer.play("HideBg");
 		sprite.play_anim("close", false);
 		yield(get_tree().create_timer(2.0), "timeout");
 		Globals.singletons["FreeSpinsSplash"].visible = false;
+		emit_signal("splash_end");
 		
 func switch_to_normal_mode():
 	Globals.singletons["SideCharacters"].play("ShowCharacters");
@@ -65,7 +74,6 @@ func switch_to_normal_mode():
 	$SlotContainer/AnimationPlayer.play("winbar_normal");
 	$SlotContainer/Background/AnimationPlayer.play("to_normal")
 	$SlotContainer/Slot/Overlap/AnimationPlayer.play("to_normal")
-
 		
 func _input(event):
 	if(event is InputEventScreenTouch || event is InputEventMouseButton || event is InputEventKey):

@@ -26,7 +26,7 @@ signal apply_tile_features(spindata, reeldata);
 signal onstartspin;
 signal onstopping;
 signal onstopped;
-signal ontilesremoved
+signal ontilesremoved;
 
 func _ready():
 	Globals.register_singleton("Slot", self);
@@ -91,7 +91,7 @@ func stop_spin(data = null):
 	for i in range(len(reels)):
 #		yield(get_tree().create_timer(reelStopDelay), "timeout");
 		promises.push_back(reels[i].stop_spin(end_data[i]));
-
+		
 	yield(Promise.all(promises), "completed");
 	emit_signal("onstopped");
 
