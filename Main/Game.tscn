@@ -3953,7 +3953,7 @@ texture = SubResource( 424 )
 scale = Vector2( 100, 100 )
 
 [node name="Animation" type="SpineSprite" parent="SlotContainer/BigWin"]
-scale = Vector2( 0.9, 0.9 )
+scale = Vector2( 0.8, 0.8 )
 animation_state_data_res = SubResource( 97 )
 script = ExtResource( 44 )
 skin = "default"
