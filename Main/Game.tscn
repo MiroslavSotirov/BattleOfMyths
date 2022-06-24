@@ -3743,8 +3743,8 @@ anims/to_tiger = SubResource( 367 )
 [node name="LogoMover" type="Node2D" parent="SlotContainer/Slot"]
 scale = Vector2( 0.65, 0.65 )
 script = ExtResource( 46 )
-scaleoffset = Vector2( 1.2, 2 )
-yoffset = Vector2( 450, 950 )
+scaleoffset = Vector2( 1.2, 1.5 )
+yoffset = Vector2( 450, 475 )
 easing = 3.5
 
 [node name="Logo" parent="SlotContainer/Slot/LogoMover" instance=ExtResource( 54 )]

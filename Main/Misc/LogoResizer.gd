@@ -17,16 +17,11 @@ func on_resolution_changed(landscape, portrait, screenratio, zoom):
 
 func _process(delta):
 	if(!autohide): return;
-	if(_value < 0.5):
-		var infs = "in_freespins" in Globals.fsm_data && Globals.fsm_data["in_freespins"];
-		if(Globals.singletons["WinBar"].shown || Globals.singletons["TotalWinBar"].shown || infs):
-			if(shown): 
-				$AnimationPlayer.play("Hide");
-				shown = false;
-		else:
-			if(!shown):
-				$AnimationPlayer.play("Show");
-				shown = true;
+	var infs = "in_freespins" in Globals.fsm_data && Globals.fsm_data["in_freespins"];
+	if(Globals.singletons["WinBar"].shown || Globals.singletons["TotalWinBar"].shown || infs):
+		if(shown): 
+			$AnimationPlayer.play("Hide");
+			shown = false;
 	else:
 		if(!shown):
 			$AnimationPlayer.play("Show");
