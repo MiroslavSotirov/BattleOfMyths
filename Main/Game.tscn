@@ -3787,7 +3787,6 @@ script = ExtResource( 27 )
 script = ExtResource( 42 )
 
 [node name="SideCharacters" type="Node2D" parent="SlotContainer/Slot/Features"]
-visible = false
 script = ExtResource( 43 )
 
 [node name="Dragon" type="SpineSprite" parent="SlotContainer/Slot/Features/SideCharacters"]
