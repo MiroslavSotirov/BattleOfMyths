@@ -4,6 +4,7 @@ signal show_end;
 
 func show():
 	if(!Globals.fsm_data["in_freespins"]):
+		$Character.visible = true;
 		$Character.position = Vector2(0, 0)
 		$Character.play_anim("popup_appear", false);
 		yield(get_tree().create_timer(1.0), "timeout");

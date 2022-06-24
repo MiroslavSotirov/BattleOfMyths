@@ -78,6 +78,7 @@ animation_state_data_res = SubResource( 4 )
 script = ExtResource( 1 )
 
 [node name="Character" type="SpineSprite" parent="."]
+visible = false
 animation_state_data_res = SubResource( 2 )
 script = ExtResource( 1 )
 
