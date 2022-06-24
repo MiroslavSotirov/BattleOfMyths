@@ -746,8 +746,8 @@ func enter() -> void:
 	Globals.singletons[\"Game\"].tiles_change_color(Color(0.3,0.3,0.3,1.0), 0.5);
 	
 	var slot = Globals.singletons.Slot;
-	Globals.singletons[\"Audio\"].play(\"Dragon Feature v2\")
 	if(!Globals.fsm_data[\"in_freespins\"]):
+		Globals.singletons[\"Audio\"].play(\"Dragon Feature v2\")
 		var dragonfx = load(\"res://Main/Slot/BonusScene/Dragon.tscn\").instance();	
 		slot.add_child(dragonfx);
 		dragonfx.show();
@@ -847,7 +847,6 @@ func enter() -> void:
 		return;
 	
 	print(\"TIGER FEATURE\");
-	Globals.singletons[\"Audio\"].play(\"Tiger Feature v2\")
 	Globals.singletons[\"Game\"].tiles_change_color(Color(0.3,0.3,0.3,1.0), 0.5);
 	
 	var slot = Globals.singletons.Slot;
@@ -856,7 +855,9 @@ func enter() -> void:
 	var fatTile = featuredata.data;
 	var replace_data = {};
 	var pos = slot.get_tile_position(fatTile.x, fatTile.y);
-	if(!Globals.fsm_data[\"in_freespins\"]): Globals.singletons[\"SideCharacters\"].play(\"HideTiger\");
+	if(!Globals.fsm_data[\"in_freespins\"]): 
+		Globals.singletons[\"Audio\"].play(\"Tiger Feature v2\")
+		Globals.singletons[\"SideCharacters\"].play(\"HideTiger\");
 	slot.add_child(tiger);
 	tiger.show();
 	yield(tiger, \"show_end\");
@@ -951,6 +952,12 @@ extends VFSMStateBase
 
 
 func enter() -> void:
+	if(!Globals.fsm_data[\"in_freespins\"]): 
+		if(Globals.singletons[\"Stateful\"].should_update_state()):
+			Globals.singletons[\"Stateful\"].update_states();
+			
+		Globals.fsm_data[\"bar_fill_completed\"] = true;
+		return;
 	
 	var tiger_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(11);
 	var dragon_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(12);
