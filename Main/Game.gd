@@ -16,6 +16,7 @@ func switch_to_dragon_mode(splash=false):
 	Globals.singletons["Audio"].fade_track("melody", 1, 0, 1000, 0);
 	Globals.singletons["FreeSpinsSplash"].visible = true
 	Globals.singletons["SideCharacters"].play("HideCharacters");
+	Globals.fsm_data["in_freespins"] = true;
 	#Globals.singletons["FreeSpinsLabel"].text = "8";
 	if(splash):
 		Globals.singletons["Audio"].play("Dragon Free Spins");
@@ -45,6 +46,7 @@ func switch_to_tiger_mode(splash=false):
 	Globals.singletons["Audio"].fade_track("melody", 1, 0, 1000, 0);
 	Globals.singletons["FreeSpinsSplash"].visible = true
 	Globals.singletons["SideCharacters"].play("HideCharacters");
+	Globals.fsm_data["in_freespins"] = true;
 	
 	#Globals.singletons["FreeSpinsLabel"].text = "8";
 	if(splash): 

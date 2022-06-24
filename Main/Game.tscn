@@ -1,4 +1,4 @@
-[gd_scene load_steps=161 format=2]
+[gd_scene load_steps=160 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -26,7 +26,6 @@
 [ext_resource path="res://Main/Textures/slot-bm/FrameGoldMultiplier.png" type="Texture" id=25]
 [ext_resource path="res://Translations/EN/PAC.png" type="Texture" id=26]
 [ext_resource path="res://Main/Slot/Features/PopupTiles.gd" type="Script" id=27]
-[ext_resource path="res://Main/MultiplierFeature/MultiplierFont.tres" type="BitmapFont" id=28]
 [ext_resource path="res://Main/Animations/DragonFeature/BM_DragonFeature_EXPORT.atlas" type="SpineAtlasResource" id=29]
 [ext_resource path="res://Main/Animations/WinScenes/winscene.atlas" type="SpineAtlasResource" id=30]
 [ext_resource path="res://Main/Animations/WinScenes/winscene.json" type="SpineSkeletonJsonDataResource" id=31]
@@ -2677,7 +2676,7 @@ tracks/4/keys = {
 [sub_resource type="Animation" id=408]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("TotalWinBar:margin_top")
+tracks/0/path = NodePath("TotalWinbarContainer:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -2686,13 +2685,13 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 400.0 ]
+"values": [ Vector2( 0, 512 ) ]
 }
 
 [sub_resource type="Animation" id=409]
 resource_name = "winbar_fs"
 tracks/0/type = "value"
-tracks/0/path = NodePath("TotalWinBar:margin_top")
+tracks/0/path = NodePath("TotalWinbarContainer:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -2701,13 +2700,13 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 400.0, 450 ]
+"values": [ Vector2( 0, 512 ), Vector2( 0, 562 ) ]
 }
 
 [sub_resource type="Animation" id=410]
 resource_name = "winbar_normal"
 tracks/0/type = "value"
-tracks/0/path = NodePath("TotalWinBar:margin_top")
+tracks/0/path = NodePath("TotalWinbarContainer:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -2716,7 +2715,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ 450, 400.0 ]
+"values": [ Vector2( 0, 562 ), Vector2( 0, 512 ) ]
 }
 
 [sub_resource type="CanvasItemMaterial" id=113]
@@ -3284,11 +3283,12 @@ texture = ExtResource( 47 )
 
 [node name="FreeSpinsLabel" type="Label" parent="SlotContainer/Slot/Overlap/Freespins/FreeSpinsTxtonReels"]
 margin_left = -36.0
-margin_top = -91.0
-margin_right = 24.0
-margin_bottom = -90.0
+margin_top = -85.0
+margin_right = 94.0
+margin_bottom = -84.0
 grow_horizontal = 2
 grow_vertical = 2
+rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 89 )
 text = "8"
 align = 1
@@ -3447,8 +3447,7 @@ script = ExtResource( 44 )
 
 [node name="Root" type="Node2D" parent="SlotContainer/Slot/Features/FreeSpinsSplash"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, -447 )
-scale = Vector2( 2, 2 )
+position = Vector2( 0, -348 )
 
 [node name="Label" type="Label" parent="SlotContainer/Slot/Features/FreeSpinsSplash/Root"]
 margin_left = -30.0
@@ -3457,7 +3456,7 @@ margin_right = 30.0
 margin_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-custom_fonts/font = ExtResource( 28 )
+custom_fonts/font = ExtResource( 89 )
 text = "8"
 align = 1
 valign = 1
@@ -3635,22 +3634,27 @@ modulate = Color( 0, 0, 0, 1 )
 show_behind_parent = true
 texture = ExtResource( 93 )
 
-[node name="TotalWinBar" type="Control" parent="SlotContainer"]
+[node name="TotalWinbarContainer" type="Node2D" parent="SlotContainer"]
+position = Vector2( 0, 512 )
+
+[node name="TotalWinBar" type="Control" parent="SlotContainer/TotalWinbarContainer"]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_left = 512.0
 margin_top = 400.0
-margin_bottom = 550.0
+margin_right = 512.0
+margin_bottom = 1062.0
 rect_scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 99 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CounterText" type="Label" parent="SlotContainer/TotalWinBar"]
+[node name="CounterText" type="Label" parent="SlotContainer/TotalWinbarContainer/TotalWinBar"]
 grow_horizontal = 2
 grow_vertical = 2
 custom_fonts/font = ExtResource( 89 )
@@ -3660,20 +3664,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/TotalWinBar"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/TotalWinbarContainer/TotalWinBar"]
 anims/GoDown = SubResource( 372 )
 anims/Hide = SubResource( 373 )
 anims/Show = SubResource( 374 )
 anims/ShowBottom = SubResource( 375 )
 
-[node name="RedGlow" type="Sprite" parent="SlotContainer/TotalWinBar"]
-modulate = Color( 1, 1, 1, 0 )
+[node name="RedGlow" type="Sprite" parent="SlotContainer/TotalWinbarContainer/TotalWinBar"]
 show_behind_parent = true
 position = Vector2( 0, 100 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 93 )
 
-[node name="RedGlow2" type="Sprite" parent="SlotContainer/TotalWinBar/RedGlow"]
+[node name="RedGlow2" type="Sprite" parent="SlotContainer/TotalWinbarContainer/TotalWinBar/RedGlow"]
 modulate = Color( 0, 0, 0, 1 )
 show_behind_parent = true
 texture = ExtResource( 93 )
