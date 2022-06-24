@@ -2676,7 +2676,7 @@ tracks/4/keys = {
 [sub_resource type="Animation" id=408]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("TotalWinbarContainer:position")
+tracks/0/path = NodePath("TotalWinbarContainer:margin_top")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -2685,13 +2685,13 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 512 ) ]
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=409]
 resource_name = "winbar_fs"
 tracks/0/type = "value"
-tracks/0/path = NodePath("TotalWinbarContainer:position")
+tracks/0/path = NodePath("TotalWinbarContainer:margin_top")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -2699,14 +2699,14 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 512 ), Vector2( 0, 562 ) ]
+"update": 1,
+"values": [ 0.0, 60 ]
 }
 
 [sub_resource type="Animation" id=410]
 resource_name = "winbar_normal"
 tracks/0/type = "value"
-tracks/0/path = NodePath("TotalWinbarContainer:position")
+tracks/0/path = NodePath("TotalWinbarContainer:margin_top")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -2714,8 +2714,8 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 562 ), Vector2( 0, 512 ) ]
+"update": 1,
+"values": [ 60.0, 0 ]
 }
 
 [sub_resource type="CanvasItemMaterial" id=113]
@@ -2854,6 +2854,7 @@ rotation = 0.523599
 scale = Vector2( 30, 3 )
 texture = SubResource( 292 )
 energy = 5.0
+mode = 2
 range_height = 1.0
 range_z_min = -1121
 range_item_cull_mask = 2
@@ -3635,21 +3636,23 @@ modulate = Color( 0, 0, 0, 1 )
 show_behind_parent = true
 texture = ExtResource( 93 )
 
-[node name="TotalWinbarContainer" type="Node2D" parent="SlotContainer"]
-position = Vector2( 0, 512 )
-
-[node name="TotalWinBar" type="Control" parent="SlotContainer/TotalWinbarContainer"]
-visible = false
-modulate = Color( 1, 1, 1, 0 )
+[node name="TotalWinbarContainer" type="Control" parent="SlotContainer"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+margin_left = -512.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TotalWinBar" type="Control" parent="SlotContainer/TotalWinbarContainer"]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 512.0
-margin_top = 400.0
+margin_top = -100.0
 margin_right = 512.0
 margin_bottom = 1062.0
-rect_scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 99 )
 __meta__ = {
 "_edit_use_anchors_": false
