@@ -39,9 +39,10 @@ func show_win(target, bottom = true, auto_go_down=true):
 #   returns falseand target - amount is equal to -0,
 #   so they are first changed to strings and then compared
 	if(bottom || String(self.target) == String(self.amount)):
+		print("TEST");
 		duration = 0;
 	else:
-		duration = min(3.5, self.target / self.bangup_factor);
+		duration = min(3.5, 0.5+(self.target / self.bangup_factor));
 
 	tween.interpolate_method(self, "set_text", 
 		amount, self.target, duration, 

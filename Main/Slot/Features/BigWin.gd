@@ -10,7 +10,7 @@ var big_win_limit : float = 50;
 var super_win_limit : float = 100;
 var mega_win_limit : float = 200;
 
-var bangup_factor : float = 2;
+var bangup_factor : float = 1;
 
 var shown = false;
 var tween : Tween;
@@ -55,8 +55,9 @@ func show_win(target, is_total=false):
 	$CounterText.visible = true;
 	tween = Tween.new();
 	add_child(tween);
+	var time = min(1.0+(self.target / self.bangup_factor), 20.0);
 	tween.interpolate_method ( self, "set_text", 
-		0, self.target, self.target / self.bangup_factor, 
+		0, self.target, time, 
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start();
 	tween.connect("tween_all_completed", self, "hide");
