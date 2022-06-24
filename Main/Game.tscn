@@ -3252,7 +3252,6 @@ anims/to_normal = SubResource( 370 )
 anims/to_tiger = SubResource( 371 )
 
 [node name="Slot" type="Control" parent="SlotContainer"]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

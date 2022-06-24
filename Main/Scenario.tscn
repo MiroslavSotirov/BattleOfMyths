@@ -533,7 +533,8 @@ func enter() -> void:
 		Globals.singletons[\"Audio\"].play(\"Win Line\")
 		Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, win_tiles);
 		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
-
+		for tile in win_tiles: tile.set_layer(0);
+		
 		if(data[\"wins_lines_total\"] > Globals.singletons[\"BigWin\"].big_win_limit):
 			JS.output(\"bigwin\", \"elysiumgamefeature\");
 			Globals.singletons[\"BigWin\"].show_win(data[\"wins_lines_total\"]);
@@ -855,7 +856,7 @@ func enter() -> void:
 	var fatTile = featuredata.data;
 	var replace_data = {};
 	var pos = slot.get_tile_position(fatTile.x, fatTile.y);
-	Globals.singletons[\"SideCharacters\"].play(\"HideTiger\");
+	if(!Globals.fsm_data[\"in_freespins\"]): Globals.singletons[\"SideCharacters\"].play(\"HideTiger\");
 	slot.add_child(tiger);
 	tiger.show();
 	yield(tiger, \"show_end\");
