@@ -3637,7 +3637,7 @@ position = Vector2( 0, -413 )
 texture = ExtResource( 59 )
 script = ExtResource( 46 )
 scaleoffset = Vector2( 1, 2 )
-yoffset = Vector2( -390, -557 )
+yoffset = Vector2( -413, -557 )
 easing = 4.0
 autohide = false
 
