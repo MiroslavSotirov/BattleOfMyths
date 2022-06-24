@@ -952,7 +952,7 @@ extends VFSMStateBase
 
 
 func enter() -> void:
-	if(!Globals.fsm_data[\"in_freespins\"]): 
+	if(Globals.fsm_data[\"in_freespins\"]): 
 		if(Globals.singletons[\"Stateful\"].should_update_state()):
 			Globals.singletons[\"Stateful\"].update_states();
 			
