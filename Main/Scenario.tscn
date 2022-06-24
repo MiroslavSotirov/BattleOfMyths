@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://addons/visual_fsm/fsm/vfsm_state.gd" type="Script" id=1]
 [ext_resource path="res://addons/visual_fsm/fsm/vfsm.gd" type="Script" id=2]
@@ -271,6 +271,7 @@ func enter() -> void:
 	Globals.fsm_data[\"dragon_feature_completed\"] = false;
 	Globals.fsm_data[\"tiger_feature_completed\"] = false;
 	Globals.fsm_data[\"slot_switch_completed\"] = false;
+	Globals.fsm_data[\"bar_fill_completed\"] = false;
 	
 	print('### SPIN START STATE ###');
 	if(JS.enabled):
@@ -299,7 +300,6 @@ func enter() -> void:
 			if(data[\"freeSpinsRemaining\"]>0):
 				Globals.singletons[\"FreeSpinsLabel\"].text = String(data[\"freeSpinsRemaining\"]);
 		Globals.singletons[\"Slot\"].start_spin();
-
 		
 func spin_data_received(data):
 	print(\"SPIN DATA WAS RECIEVED\")
@@ -365,59 +365,6 @@ func enter() -> void:
 		yield(Globals.singletons[\"Slot\"].add_data(data), \"completed\");
 	else:
 		yield(Globals.singletons[\"Slot\"].stop_spin(data), \"completed\");
-	
-	var tiger_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(11);
-	var dragon_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(12);
-	var special_tiles_count = len(tiger_tiles) + len(dragon_tiles);
-	prints(\"ASP\", len(Globals.fsm_data[\"activated_special_tiles\"]), \"ST\", special_tiles_count);
-	if(len(Globals.fsm_data[\"activated_special_tiles\"]) != special_tiles_count):
-		var target = Globals.singletons[\"SegmentBar\"].get_current_bar(-1);
-		if(!tiger_tiles.empty()): 
-			Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, tiger_tiles);
-			for tigertile in tiger_tiles:
-				if(Globals.fsm_data[\"activated_special_tiles\"].has(tigertile)): continue;
-				var fx = load(\"res://Main/Slot/BonusScene/RedFx.tscn\").instance();
-				Globals.singletons[\"Slot\"].add_child(fx);
-				fx.global_position = tigertile.global_position;
-				fx.set_points(fx.global_position, target.global_position)
-				Globals.fsm_data[\"activated_special_tiles\"].append(tigertile);
-				tigertile.popup(Tile.AnimationType.SPINE,\"popup\",false);
-				tigertile.set_layer(0);
-				
-			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"popup\");
-			Globals.singletons[\"Audio\"].play(\"Tiger Head\");
-			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
-			yield(Globals.get_tree().create_timer(0.25), \"timeout\");
-			Globals.singletons[\"SideCharacters\"].play(\"DragonHit\", 0.25);
-			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"hit\");
-			yield(Globals.get_tree().create_timer(0.75), \"timeout\");
-			for tigertile in tiger_tiles: tigertile.set_layer(0);
-			
-		target = Globals.singletons[\"SegmentBar\"].get_current_bar(1);
-		if(!dragon_tiles.empty()): 
-			Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5, dragon_tiles);
-			for dragontile in dragon_tiles:
-				if(Globals.fsm_data[\"activated_special_tiles\"].has(dragontile)): continue;
-				var fx = load(\"res://Main/Slot/BonusScene/GreenFx.tscn\").instance();
-				Globals.singletons[\"Slot\"].add_child(fx);
-				fx.global_position = dragontile.global_position;
-				fx.set_points(fx.global_position, target.global_position)
-				Globals.fsm_data[\"activated_special_tiles\"].append(dragontile);
-				dragontile.popup(Tile.AnimationType.SPINE,\"popup\",false);
-				dragontile.set_layer(1);
-			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"popup\");
-			Globals.singletons[\"Audio\"].play(\"Dragon Head\");
-			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
-			yield(Globals.get_tree().create_timer(0.25), \"timeout\");
-			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"hit\");
-			Globals.singletons[\"SideCharacters\"].play(\"TigerHit\", 0.25);
-			yield(Globals.get_tree().create_timer(0.75), \"timeout\");
-			for dragontile in dragon_tiles: dragontile.set_layer(0);
-	
-	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
-	prints(\"SHOULD UPDATE STATE?\", Globals.singletons[\"Stateful\"].should_update_state());
-	if(Globals.singletons[\"Stateful\"].should_update_state()):
-		Globals.singletons[\"Stateful\"].update_states();	
 		
 	Globals.fsm_data[\"reels_stopped\"] = true;
 	
@@ -546,7 +493,7 @@ func calculate_line_wins(wins):
 script = ExtResource( 1 )
 vfsm_id = 11
 name = "Wins Check"
-position = Vector2( 2080, 900 )
+position = Vector2( 2060, 1080 )
 trigger_ids = [ 14, 15 ]
 custom_script = SubResource( 183 )
 
@@ -590,6 +537,7 @@ func enter() -> void:
 				Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]), true);
 			elif(\"spinWin\" in data):
 				Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
+			
 		else:
 			print(\"BANGUP \", data[\"wins_lines_total\"]);
 			bangup_wins(data[\"wins_lines_total\"], int(data.roundMultiplier));
@@ -764,7 +712,7 @@ func create_hit_fx(x, y):
 script = ExtResource( 1 )
 vfsm_id = 13
 name = "Princess Feature"
-position = Vector2( 1660, 640 )
+position = Vector2( 1660, 760 )
 trigger_ids = [ 20 ]
 custom_script = SubResource( 200 )
 
@@ -822,7 +770,7 @@ func enter() -> void:
 			yield(Globals.get_tree(), \"idle_frame\");
 		if(i == 0): continue;
 		change_tile(featuredata.data.positions[i-1], featuredata.data.replacewithid);
-	
+		
 	Globals.singletons[\"Audio\"].play(\"Dragon Feature Disappear\")
 	dragon.play(\"Hide\");
 	while(dragon.global_position.distance_to(lastpos) > 10.0):
@@ -830,7 +778,7 @@ func enter() -> void:
 	
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	dragon.queue_free();
-	Globals.singletons[\"SideCharacters\"].play(\"ShowDragon\");
+	if(!Globals.fsm_data[\"in_freespins\"]): Globals.singletons[\"SideCharacters\"].play(\"ShowDragon\");
 	Globals.fsm_data[\"dragon_feature_completed\"] = true;
 
 
@@ -864,7 +812,7 @@ func change_tile(pos, targetid):
 script = ExtResource( 1 )
 vfsm_id = 14
 name = "Dragon Feature"
-position = Vector2( 1660, 780 )
+position = Vector2( 1660, 900 )
 trigger_ids = [ 21 ]
 custom_script = SubResource( 204 )
 
@@ -909,7 +857,7 @@ func enter() -> void:
 #		replace_data[i] = Globals.singletons[\"Networking\"].lastround.featureview[i];
 		for j in range (fatTile.y, fatTile.y + fatTile.h):
 			replace_data[i][j] = -id if i == fatTile.x && j == fatTile.y else 0;
-
+			
 	#Globals.get_tree().create_timer(0.1).connect(\"timeout\", slot, \"replace_tiles\", [replace_data, \"popup\"]);
 #	yield(tiger.hit(Vector2(pos.x - 612 + 203/2,  pos.y - 333 + 182/2)), \"completed\");
 	Globals.singletons[\"Audio\"].play(\"Wild\")
@@ -917,9 +865,13 @@ func enter() -> void:
 	Globals.singletons[\"Audio\"].play(\"Tiger Feature Disappear\")
 	yield(tiger.hide(), \"completed\");
 	slot.replace_tiles(replace_data, \"appear\");
+	var fat_tile = slot.get_tile_at(fatTile.x, fatTile.y);
+	fat_tile.modulate = Color.white;
+	fat_tile.set_layer(1);
 	yield(Globals.get_tree().create_timer(1.0), \"timeout\");
+	fat_tile.set_layer(0);
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
-	Globals.singletons[\"SideCharacters\"].play(\"ShowTiger\");
+	if(!Globals.fsm_data[\"in_freespins\"]): Globals.singletons[\"SideCharacters\"].play(\"ShowTiger\");
 	Globals.fsm_data[\"tiger_feature_completed\"] = true;
 
 func update(_object, _delta: float) -> void:
@@ -934,7 +886,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 15
 name = "Tiger Feature"
-position = Vector2( 1660, 920 )
+position = Vector2( 1660, 1040 )
 trigger_ids = [ 22 ]
 custom_script = SubResource( 206 )
 
@@ -979,9 +931,88 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 16
 name = "Switch Slot State"
-position = Vector2( 2620, 900 )
+position = Vector2( 2620, 880 )
 trigger_ids = [ 23 ]
 custom_script = SubResource( 212 )
+
+[sub_resource type="GDScript" id=216]
+script/source = "# State: Bar Fill
+extends VFSMStateBase
+
+
+func enter() -> void:
+	
+	var tiger_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(11);
+	var dragon_tiles = Globals.singletons[\"Slot\"].get_tiles_with_id(12);
+	var special_tiles_count = len(tiger_tiles) + len(dragon_tiles);
+	
+	prints(\"ASP\", len(Globals.fsm_data[\"activated_special_tiles\"]), \"ST\", special_tiles_count);
+	if(len(Globals.fsm_data[\"activated_special_tiles\"]) != special_tiles_count):
+		var target = Globals.singletons[\"SegmentBar\"].get_current_bar(-1);
+		if(!tiger_tiles.empty()): 
+			Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, tiger_tiles);
+			for tigertile in tiger_tiles:
+				if(Globals.fsm_data[\"activated_special_tiles\"].has(tigertile)): continue;
+				var fx = load(\"res://Main/Slot/BonusScene/RedFx.tscn\").instance();
+				Globals.singletons[\"Slot\"].add_child(fx);
+				fx.global_position = tigertile.global_position;
+				fx.set_points(fx.global_position, target.global_position)
+				Globals.fsm_data[\"activated_special_tiles\"].append(tigertile);
+				tigertile.popup(Tile.AnimationType.SPINE,\"popup\",false);
+				tigertile.set_layer(1);
+				
+			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"popup\");
+			Globals.singletons[\"Audio\"].play(\"Tiger Head\");
+			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
+			yield(Globals.get_tree().create_timer(0.25), \"timeout\");
+			Globals.singletons[\"SideCharacters\"].play(\"DragonHit\", 0.25);
+			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"hit\");
+			yield(Globals.get_tree().create_timer(0.75), \"timeout\");
+			for tigertile in tiger_tiles: tigertile.set_layer(0);
+			
+		target = Globals.singletons[\"SegmentBar\"].get_current_bar(1);
+		if(!dragon_tiles.empty()): 
+			Globals.singletons[\"Game\"].tiles_change_color(Color(0.6,0.6,0.6,1.0), 0.5, dragon_tiles);
+			for dragontile in dragon_tiles:
+				if(Globals.fsm_data[\"activated_special_tiles\"].has(dragontile)): continue;
+				var fx = load(\"res://Main/Slot/BonusScene/GreenFx.tscn\").instance();
+				Globals.singletons[\"Slot\"].add_child(fx);
+				fx.global_position = dragontile.global_position;
+				fx.set_points(fx.global_position, target.global_position)
+				Globals.fsm_data[\"activated_special_tiles\"].append(dragontile);
+				dragontile.popup(Tile.AnimationType.SPINE,\"popup\",false);
+				dragontile.set_layer(1);
+				
+			Globals.singletons[\"SideCharacters\"].spine_play(\"Dragon\", \"popup\");
+			Globals.singletons[\"Audio\"].play(\"Dragon Head\");
+			Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\");
+			yield(Globals.get_tree().create_timer(0.25), \"timeout\");
+			Globals.singletons[\"SideCharacters\"].spine_play(\"Tiger\", \"hit\");
+			Globals.singletons[\"SideCharacters\"].play(\"TigerHit\", 0.25);
+			yield(Globals.get_tree().create_timer(0.75), \"timeout\");
+			for dragontile in dragon_tiles: dragontile.set_layer(0);
+	
+	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
+	prints(\"SHOULD UPDATE STATE?\", Globals.singletons[\"Stateful\"].should_update_state());
+	if(Globals.singletons[\"Stateful\"].should_update_state()):
+		Globals.singletons[\"Stateful\"].update_states();	
+		
+	Globals.fsm_data[\"bar_fill_completed\"] = true;
+
+func update(_object, _delta: float) -> void:
+	pass
+
+func exit() -> void:
+	pass
+"
+
+[sub_resource type="Resource" id=217]
+script = ExtResource( 1 )
+vfsm_id = 17
+name = "Bar Fill"
+position = Vector2( 1660, 620 )
+trigger_ids = [ 24 ]
+custom_script = SubResource( 216 )
 
 [sub_resource type="GDScript" id=143]
 script/source = "# Trigger: Initialized
@@ -1383,13 +1414,32 @@ vfsm_id = 23
 name = "Switch slot completed"
 custom_script = SubResource( 214 )
 
+[sub_resource type="GDScript" id=218]
+script/source = "# Trigger: Bar Fill Done
+extends VFSMTriggerBase
+
+
+func enter() -> void:
+	pass
+
+
+func is_triggered(_object, _delta: float) -> bool:
+	return Globals.get_fsm_data(\"bar_fill_completed\");
+"
+
+[sub_resource type="Resource" id=219]
+script = ExtResource( 5 )
+vfsm_id = 24
+name = "Bar Fill Done"
+custom_script = SubResource( 218 )
+
 [sub_resource type="Resource" id=147]
 script = ExtResource( 2 )
 start_state_vfsm_id = 0
 start_position = Vector2( -200, 200 )
-states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ), SubResource( 190 ), SubResource( 201 ), SubResource( 205 ), SubResource( 207 ), SubResource( 213 ) ]
-triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ), SubResource( 195 ), SubResource( 197 ), SubResource( 199 ), SubResource( 203 ), SubResource( 209 ), SubResource( 211 ), SubResource( 215 ) ]
-transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 13, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 14, 12, 11, 15, 16, 12, 17, 16, 13, 20, 14, 14, 21, 15, 15, 22, 11, 16, 23, 7 ]
+states = [ SubResource( 140 ), SubResource( 142 ), SubResource( 149 ), SubResource( 151 ), SubResource( 153 ), SubResource( 155 ), SubResource( 157 ), SubResource( 167 ), SubResource( 176 ), SubResource( 184 ), SubResource( 190 ), SubResource( 201 ), SubResource( 205 ), SubResource( 207 ), SubResource( 213 ), SubResource( 217 ) ]
+triggers = [ SubResource( 144 ), SubResource( 146 ), SubResource( 159 ), SubResource( 161 ), SubResource( 163 ), SubResource( 165 ), SubResource( 169 ), SubResource( 171 ), SubResource( 173 ), SubResource( 174 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ), SubResource( 182 ), SubResource( 186 ), SubResource( 188 ), SubResource( 191 ), SubResource( 195 ), SubResource( 197 ), SubResource( 199 ), SubResource( 203 ), SubResource( 209 ), SubResource( 211 ), SubResource( 215 ), SubResource( 219 ) ]
+transitions = [ 0, 8, 1, 0, 0, 2, 2, 2, 3, 3, 10, 5, 4, 4, 3, 5, 5, 6, 5, 1, 4, 6, 6, 17, 7, 7, 3, 7, 8, 8, 8, 13, 3, 11, 14, 12, 11, 15, 16, 12, 17, 16, 13, 20, 14, 14, 21, 15, 15, 22, 11, 16, 23, 7, 17, 24, 13 ]
 
 [node name="Scenario" type="Node"]
 script = ExtResource( 3 )
