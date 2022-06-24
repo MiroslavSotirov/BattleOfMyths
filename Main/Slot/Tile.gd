@@ -59,6 +59,7 @@ func set_tile(_id, initial_position):
 	$Image.offset.y = -direction * y;
 	$SpineSprite.position.x = (-direction * x) * _description.tile_scale.x;
 	$SpineSprite.position.y = (-direction * y) * _description.tile_scale.y;
+	set_layer(0);
 	
 func get_spine():
 	return $SpineSprite;

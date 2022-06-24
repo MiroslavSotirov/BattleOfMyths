@@ -2949,7 +2949,7 @@ texture = ExtResource( 56 )
 
 [node name="ReelContainer" type="Control" parent="SlotContainer/Slot"]
 margin_left = -612.0
-margin_top = -351.0
+margin_top = -333.0
 margin_right = 624.0
 margin_bottom = 395.0
 rect_clip_content = true
