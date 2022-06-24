@@ -1421,7 +1421,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 1.5, 3, 7 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 30, 3 ), Vector2( 30, 5 ), Vector2( 30, 3 ), Vector2( 30, 3 ) ]
+"values": [ Vector2( 30, 3 ), Vector2( 30, 10 ), Vector2( 30, 3 ), Vector2( 30, 3 ) ]
 }
 
 [sub_resource type="Animation" id=135]
@@ -3197,7 +3197,6 @@ propertyname = "texture"
 node = NodePath("..")
 
 [node name="SlotContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( 512, 512 )
@@ -3709,8 +3708,8 @@ position = Vector2( -942, 625 )
 rotation = 0.523599
 scale = Vector2( 30, 3 )
 texture = ExtResource( 60 )
-energy = 5.0
-range_height = 1.0
+energy = 2.0
+range_height = 10.0
 range_z_min = -1121
 range_item_cull_mask = 2
 
