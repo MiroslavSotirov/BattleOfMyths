@@ -752,6 +752,8 @@ func enter() -> void:
 		dragonfx.show();
 		Globals.singletons[\"SideCharacters\"].play(\"HideDragon\");
 		yield(dragonfx, \"popup_end\")
+	else:
+		yield(Globals.get_tree().create_timer(0.5), \"timeout\");
 	
 	var positions = [];
 	var startpos = slot.get_tile_global_position(0,randi()%Globals.visibleTilesCount)-Vector2(200.0, 0.0);
