@@ -3930,6 +3930,7 @@ spine_data = SubResource( 310 )
 
 [node name="BigWin" type="Control" parent="SlotContainer"]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

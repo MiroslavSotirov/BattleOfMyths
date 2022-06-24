@@ -46,9 +46,10 @@ func show_win(target, is_total=false):
 	
 	yield($AnimationPlayer, "animation_finished");
 	$Animation.visible = true;
-	if(is_total): $Animation.play_anim_then_loop("start_totalwin", "loop_totalwin");
+	if(is_total): $Animation.play_anim("start_totalwin", false, 0.8);
 	else: $Animation.play_anim_then_loop("start_bigwin", "loop_bigwin");
 	yield($Animation, "animation_complete");
+	if(is_total): $Animation.play_anim("loop_totalwin", true);
 	Globals.singletons["Audio"].loop("CoinsEndless");
 	$CounterText.text = Globals.format_money(0);
 	$MoneyParticles.emitting = true
