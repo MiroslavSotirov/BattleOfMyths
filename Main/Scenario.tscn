@@ -630,7 +630,7 @@ func enter() -> void:
 		for feature in data.features: 
 			if(feature.type == \"Princess\"):
 				featuredata.append(feature);
-				break;
+				
 	print(featuredata);
 	if(len(featuredata) == 0):
 		Globals.fsm_data[\"princess_feature_completed\"] = true;
