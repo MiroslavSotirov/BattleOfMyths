@@ -746,11 +746,12 @@ func enter() -> void:
 	
 	var slot = Globals.singletons.Slot;
 	Globals.singletons[\"Audio\"].play(\"Dragon Feature v2\")
-	var dragonfx = load(\"res://Main/Slot/BonusScene/Dragon.tscn\").instance();	
-	slot.add_child(dragonfx);
-	dragonfx.show();
-	Globals.singletons[\"SideCharacters\"].play(\"HideDragon\");
-	yield(dragonfx, \"popup_end\")
+	if(!Globals.fsm_data[\"in_freespins\"]):
+		var dragonfx = load(\"res://Main/Slot/BonusScene/Dragon.tscn\").instance();	
+		slot.add_child(dragonfx);
+		dragonfx.show();
+		Globals.singletons[\"SideCharacters\"].play(\"HideDragon\");
+		yield(dragonfx, \"popup_end\")
 	
 	var positions = [];
 	var startpos = slot.get_tile_global_position(0,randi()%Globals.visibleTilesCount)-Vector2(200.0, 0.0);

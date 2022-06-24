@@ -25,8 +25,9 @@ func switch_to_dragon_mode(splash=false):
 		var waiter = Globals.singletons["FreeSpinsSplash"].get_node("ClickWaiter");
 		animplayer.play("ShowBgDragon");
 		sprite.set_skin("Dragon");
-		sprite.play_anim_then_loop("popup","idle");
+		sprite.play_anim("popup", false, 0.8);
 		yield(sprite, "animation_complete");
+		sprite.play_anim("idle", true);
 		animplayer.play("Show")
 		yield(animplayer, "animation_finished");
 		waiter.enabled = true;
@@ -56,8 +57,9 @@ func switch_to_tiger_mode(splash=false):
 		var waiter = Globals.singletons["FreeSpinsSplash"].get_node("ClickWaiter");
 		animplayer.play("ShowBgTiger")
 		sprite.set_skin("Tiger");
-		sprite.play_anim_then_loop("popup","idle");
+		sprite.play_anim("popup", false, 0.8);
 		yield(sprite, "animation_complete");
+		sprite.play_anim("idle", true);
 		animplayer.play("Show")
 		yield(animplayer, "animation_finished");
 		waiter.enabled = true;

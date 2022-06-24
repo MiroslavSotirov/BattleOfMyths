@@ -3,11 +3,14 @@ extends Node2D
 signal show_end;
 
 func show():
-	$Character.position = Vector2(0, 0)
-	$Character.play_anim("popup_appear", false);
-	yield(get_tree().create_timer(1.0), "timeout");
-	$AnimationPlayer.play("hide_character");
-	yield($AnimationPlayer, "animation_finished");
+	if(!Globals.fsm_data["in_freespins"]):
+		$Character.position = Vector2(0, 0)
+		$Character.play_anim("popup_appear", false);
+		yield(get_tree().create_timer(1.0), "timeout");
+		$AnimationPlayer.play("hide_character");
+		yield($AnimationPlayer, "animation_finished");
+	else:
+		yield(get_tree(), "idle_frame");
 	emit_signal("show_end");
 		
 func hit(pos, size = 2):
