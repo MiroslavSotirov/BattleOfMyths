@@ -1406,10 +1406,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 3, 7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -1001, 650 ), Vector2( 1028, -650 ) ]
+"values": [ Vector2( -1001, 650 ), Vector2( 1028, -650 ), Vector2( 1028, -650 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Light2D:scale")
@@ -1418,10 +1418,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5, 3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 1.5, 3, 7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 30, 3 ), Vector2( 30, 5 ), Vector2( 30, 3 ) ]
+"values": [ Vector2( 30, 3 ), Vector2( 30, 5 ), Vector2( 30, 3 ), Vector2( 30, 3 ) ]
 }
 
 [sub_resource type="Animation" id=135]
@@ -3858,7 +3858,7 @@ script = ExtResource( 44 )
 
 [node name="Root" type="Node2D" parent="SlotContainer/Slot/Features/FreeSpinsSplash"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, -380 )
+position = Vector2( 0, -500 )
 
 [node name="Label" type="Label" parent="SlotContainer/Slot/Features/FreeSpinsSplash/Root"]
 margin_left = -30.0
