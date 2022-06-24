@@ -299,6 +299,7 @@ func enter() -> void:
 		if(\"freeSpinsRemaining\" in data):
 			if(data[\"freeSpinsRemaining\"]>0):
 				Globals.singletons[\"FreeSpinsLabel\"].text = String(data[\"freeSpinsRemaining\"]);
+		Globals.singletons[\"Slot\"].get_node(\"ReelContainer\").rect_clip_content = true;
 		Globals.singletons[\"Slot\"].start_spin();
 		
 func spin_data_received(data):
@@ -311,6 +312,7 @@ func spin_data_received(data):
 			if(feature.type == \"ReplaceTile\" && int(feature.data.tileid) == 0):
 				bartilesdata = feature;
 				break;
+				
 	if(bartilesdata != null):	
 		for pos in bartilesdata.data.positions:
 			var y = int(pos)%Globals.visibleTilesCount;
@@ -334,6 +336,7 @@ func spin_data_received(data):
 		yield(Globals.singletons[\"Slot\"], \"onstartspin\");
 	
 	Globals.singletons[\"Networking\"].update_state(data)
+	Globals.singletons[\"Slot\"].get_node(\"ReelContainer\").rect_clip_content = true;
 	Globals.fsm_data[\"data_received\"] = true;
 	
 func update(_object, _delta: float) -> void:
@@ -365,7 +368,8 @@ func enter() -> void:
 		yield(Globals.singletons[\"Slot\"].add_data(data), \"completed\");
 	else:
 		yield(Globals.singletons[\"Slot\"].stop_spin(data), \"completed\");
-		
+	
+	Globals.singletons[\"Slot\"].get_node(\"ReelContainer\").rect_clip_content = false;
 	Globals.fsm_data[\"reels_stopped\"] = true;
 	
 func update(_object, _delta: float) -> void:
@@ -522,11 +526,13 @@ func enter() -> void:
 		var win_tiles = [];
 		for x in win_tiles_positions.keys():
 			for y in win_tiles_positions[x]:
-				win_tiles.append(Globals.singletons[\"Slot\"].get_tile_at(x, y))
+				var tile = Globals.singletons[\"Slot\"].get_tile_at(x, y);
+				tile.set_layer(1);
+				win_tiles.append(tile)
 		
 		Globals.singletons[\"Audio\"].play(\"Win Line\")
 		Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, win_tiles);
-		yield(slot .popup_tiles(win_tiles_positions), \"completed\");
+		yield(slot.popup_tiles(win_tiles_positions), \"completed\");
 
 		if(data[\"wins_lines_total\"] > Globals.singletons[\"BigWin\"].big_win_limit):
 			JS.output(\"bigwin\", \"elysiumgamefeature\");
