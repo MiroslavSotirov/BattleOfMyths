@@ -22,7 +22,7 @@ func switch_to_dragon_mode(splash=false):
 		Globals.singletons["Audio"].play("Dragon Free Spins");
 		var sprite = Globals.singletons["FreeSpinsSplash"].get_node("Sprite");
 		var animplayer = Globals.singletons["FreeSpinsSplash"].get_node("AnimationPlayer")
-		var waiter = Globals.singletons["FreeSpinsSplash"].get_node("ClickWaiter");
+		var waiter "res://Main/MultiplierFeature/font/1.png", "res://Main/MultiplierFeature/font/2.png", "res://Main/MultiplierFeature/font/3.png", "res://Main/MultiplierFeature/font/4.png", "res://Main/MultiplierFeature/font/5.png", "res://Main/MultiplierFeature/font/6.png", "res://Main/MultiplierFeature/font/7.png", "res://Main/MultiplierFeature/font/8.png", "res://Main/MultiplierFeature/font/9.png", "res://Main/MultiplierFeature/font/o.png"= Globals.singletons["FreeSpinsSplash"].get_node("ClickWaiter");
 		animplayer.play("ShowBgDragon");
 		sprite.set_skin("Dragon");
 		sprite.play_anim("popup", false, 0.8);

@@ -240,6 +240,10 @@ tracks/1/keys = {
 "values": [ Vector2( 30, 3 ) ]
 }
 
+[sub_resource type="Gradient" id=422]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1 )
+
 [sub_resource type="Animation" id=368]
 length = 0.001
 tracks/0/type = "value"
@@ -1082,10 +1086,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
-
-[sub_resource type="Gradient" id=422]
-offsets = PoolRealArray( 0, 0.5, 1 )
-colors = PoolColorArray( 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1 )
 
 [sub_resource type="Animation" id=417]
 resource_name = "Idle"
@@ -3230,6 +3230,22 @@ texture = ExtResource( 9 )
 visible = false
 texture = ExtResource( 48 )
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="SlotContainer/Background/FreeSpins"]
+material = ExtResource( 39 )
+scale = Vector2( 5, 5 )
+amount = 4
+lifetime = 5.0
+texture = ExtResource( 28 )
+emission_shape = 2
+emission_rect_extents = Vector2( 204, 204 )
+direction = Vector2( 0, 1 )
+spread = 180.0
+gravity = Vector2( 0, -2.5 )
+initial_velocity = 10.0
+initial_velocity_random = 1.0
+color = Color( 0.431373, 0.431373, 0.431373, 1 )
+color_ramp = SubResource( 422 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SlotContainer/Background"]
 anims/RESET = SubResource( 368 )
 anims/to_dragon = SubResource( 369 )
@@ -3510,22 +3526,6 @@ texture = ExtResource( 58 )
 
 [node name="Freespins" type="Node2D" parent="SlotContainer/Slot/Overlap"]
 visible = false
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="SlotContainer/Slot/Overlap/Freespins"]
-material = ExtResource( 39 )
-scale = Vector2( 5, 5 )
-amount = 4
-lifetime = 5.0
-texture = ExtResource( 28 )
-emission_shape = 2
-emission_rect_extents = Vector2( 204, 204 )
-direction = Vector2( 0, 1 )
-spread = 180.0
-gravity = Vector2( 0, -2.5 )
-initial_velocity = 10.0
-initial_velocity_random = 1.0
-color = Color( 0.431373, 0.431373, 0.431373, 1 )
-color_ramp = SubResource( 422 )
 
 [node name="DragonSlotFrame" type="Sprite" parent="SlotContainer/Slot/Overlap/Freespins"]
 visible = false
