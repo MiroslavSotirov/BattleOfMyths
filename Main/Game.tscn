@@ -1397,7 +1397,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id=134]
 resource_name = "Idle"
-length = 3.0
+length = 7.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Light2D:position")
@@ -3820,6 +3820,7 @@ anims/TigerHit = SubResource( 402 )
 [node name="FreeSpinsSplash" type="Node2D" parent="SlotContainer/Slot/Features"]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
+scale = Vector2( 0.6, 0.6 )
 z_index = 30
 script = ExtResource( 114 )
 
@@ -3857,7 +3858,7 @@ script = ExtResource( 44 )
 
 [node name="Root" type="Node2D" parent="SlotContainer/Slot/Features/FreeSpinsSplash"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, -348 )
+position = Vector2( 0, -380 )
 
 [node name="Label" type="Label" parent="SlotContainer/Slot/Features/FreeSpinsSplash/Root"]
 margin_left = -30.0
