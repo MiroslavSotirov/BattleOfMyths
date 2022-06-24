@@ -351,7 +351,7 @@ func exit() -> void:
 script = ExtResource( 1 )
 vfsm_id = 5
 name = "Spin Start"
-position = Vector2( 1060, 480 )
+position = Vector2( 1060, 520 )
 trigger_ids = [ 1, 5 ]
 custom_script = SubResource( 154 )
 
