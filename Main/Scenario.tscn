@@ -639,22 +639,33 @@ func enter() -> void:
 		
 	print(\"PRINCESS FEATURE\")
 	# {data:{endpos:18, positions:[14], replacewithid:10, startpos:10}, id:4, type:Princess}
-	var princesstiles = [];
 	for princessdata in featuredata:
-		var starty = int(princessdata.data.startpos)%Globals.visibleTilesCount;
-		var startx = floor(princessdata.data.startpos/Globals.visibleTilesCount);
-		var starttile = Globals.singletons[\"Slot\"].get_tile_at(startx, starty);
-		var endy = int(princessdata.data.endpos)%Globals.visibleTilesCount;
-		var endx = floor(princessdata.data.endpos/Globals.visibleTilesCount);
-		var endtile = Globals.singletons[\"Slot\"].get_tile_at(endx, endy);
-		princess_animation(starttile, endtile, princessdata.data.positions);
-		princesstiles.append(starttile);
-		princesstiles.append(endtile);
+		var allwild = true;
+		for pos in princessdata.data.positions:
+			var y = int(pos)%Globals.visibleTilesCount;
+			var x = floor(pos/Globals.visibleTilesCount);		
+			if(Globals.singletons[\"Slot\"].get_tile_at(x, y).id != 10): 
+				allwild = false;
+				break;
+		if(allwild): featuredata.erase(princessdata);
+		
+	if(len(featuredata) > 0):
+		var princesstiles = [];
+		for princessdata in featuredata:
+			var starty = int(princessdata.data.startpos)%Globals.visibleTilesCount;
+			var startx = floor(princessdata.data.startpos/Globals.visibleTilesCount);
+			var starttile = Globals.singletons[\"Slot\"].get_tile_at(startx, starty);
+			var endy = int(princessdata.data.endpos)%Globals.visibleTilesCount;
+			var endx = floor(princessdata.data.endpos/Globals.visibleTilesCount);
+			var endtile = Globals.singletons[\"Slot\"].get_tile_at(endx, endy);
+			princess_animation(starttile, endtile, princessdata.data.positions);
+			princesstiles.append(starttile);
+			princesstiles.append(endtile);
 	
-	Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, princesstiles);
-	yield(self, \"princess_end\");
-	
-	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
+		Globals.singletons[\"Game\"].tiles_change_color(Color(0.4,0.4,0.4,1.0), 0.5, princesstiles);
+		
+		yield(self, \"princess_end\");	
+		Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	Globals.fsm_data[\"princess_feature_completed\"] = true;
 
 func update(_object, _delta: float) -> void:
@@ -663,22 +674,15 @@ func update(_object, _delta: float) -> void:
 func exit() -> void:
 	pass
 	
-func princess_animation(start, end, wildpositions):
-	var startfxtile = create_fx_tile(start);
-	var endfxtile = create_fx_tile(end);
-	startfxtile.play_anim(\"step1\", false, null, false);
-	endfxtile.play_anim(\"step1\", false, null, false);
-	yield(endfxtile, \"animation_complete\");
+func princess_animation(start, end, wildpositions):		
+	start.play_animation(Tile.AnimationType.SPINE, \"popup2\");
+	end.play_animation(Tile.AnimationType.SPINE, \"popup2\");
 	Globals.singletons[\"Audio\"].play(\"Princess\")
-	startfxtile.play_anim(\"step2\", false, null, false);
-	endfxtile.play_anim(\"step2\", false, null, false);
-	yield(endfxtile, \"animation_complete\");
-	startfxtile.play_anim_then_loop(\"step3\", \"step4\");
-	endfxtile.play_anim_then_loop(\"step3\", \"step4\");
-	
+
+	yield(Globals.get_tree().create_timer(0.55), \"timeout\");
 	if(!wildpositions.empty()):
 		Globals.singletons[\"Audio\"].play(\"Wild\");
-		
+				
 	for pos in wildpositions:
 		var y = int(pos)%Globals.visibleTilesCount;
 		var x = floor(pos/Globals.visibleTilesCount);		
@@ -688,27 +692,11 @@ func princess_animation(start, end, wildpositions):
 		create_hit_fx(x, y);		
 		yield(Globals.get_tree().create_timer(0.1), \"timeout\");
 		
-	yield(Globals.get_tree().create_timer(1.0), \"timeout\");
-	yield(endfxtile, \"animation_complete\");
-	startfxtile.play_anim(\"step5\", false, null, false);
-	endfxtile.play_anim(\"step5\", false, null, false);
-	yield(endfxtile, \"animation_complete\");
-	startfxtile.play_anim(\"step6\", false, null, false);
-	endfxtile.play_anim(\"step6\", false, null, false);
-	yield(endfxtile, \"animation_complete\");
-	startfxtile.queue_free();
-	endfxtile.queue_free();
+	yield(Globals.get_tree().create_timer(0.4), \"timeout\");
 	start.visible = true;
 	end.visible = true;
 	emit_signal(\"princess_end\");
 	
-func create_fx_tile(tile):
-	var fxtile = load(\"res://Main/Slot/BonusScene/PrincessTileFx.tscn\").instance()
-	Globals.singletons[\"Game\"].add_child(fxtile);
-	fxtile.global_transform = tile.get_node(\"SpineSprite\").global_transform;
-	tile.visible = false;
-	return fxtile;
-
 func create_hit_fx(x, y):
 	var fx = load(\"res://Main/Slot/BonusScene/PrincessHitFx.tscn\").instance()
 	Globals.singletons[\"Game\"].add_child(fx);
@@ -731,8 +719,8 @@ extends VFSMStateBase
 
 func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
-	#var featuredata = null;
-	var featuredata = {\"data\":{\"positions\":[0, 5, 8, 13, 16, 21], \"replacewithid\":10, \"tileid\":10}, \"id\":5, \"type\":\"ReplaceTile\"};
+	var featuredata = null;
+	featuredata = {\"data\":{\"positions\":[0, 5, 8, 13, 16], \"replacewithid\":10, \"tileid\":10}, \"id\":5, \"type\":\"ReplaceTile\"};
 	if(\"features\" in data):
 		for feature in data.features: 
 			if(feature.type == \"ReplaceTile\" && feature.data.tileid == 10):

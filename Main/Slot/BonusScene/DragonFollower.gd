@@ -2,15 +2,16 @@ extends Node2D
 
 var duration : float = 2.0;
 var targetpos : Array = [];
+var popuppos : Array = [];
 var t : float = 0.0
 var headrot : float;
-var lastid = -1;
 
 signal hit;
 signal hide_end;
 
 func init(targetpos):
 	self.targetpos = targetpos;
+	popuppos = targetpos.duplicate();
 
 func _process(delta):
 	#print(global_position.distance_to(targetpos))
@@ -23,11 +24,10 @@ func _process(delta):
 	global_position.y = get_y_pos_tweened(n);
 	global_position.x = lerp(startx, endx, n);
 	
-	var id = floor(n*len(targetpos));
-	if(id == lastid+1):
-		lastid = id;
+	if(!popuppos.empty() && global_position.x > popuppos[0].global_position.x):
+		popuppos.pop_front();
 		emit_signal("hit");
-		print("hit ",lastid);
+
 		
 	for i in len($Line2D.gradient.colors):
 		var c = $Line2D.gradient.colors[i];
