@@ -275,6 +275,7 @@ func enter() -> void:
 	Globals.fsm_data[\"bar_fill_completed\"] = false;
 	
 	print('### SPIN START STATE ###');
+	
 	if(JS.enabled):
 		JS.connect(\"spindata\", self, \"spin_data_received\", [], CONNECT_ONESHOT);
 		JS.output(\"\", \"elysiumgamespinstart\");
@@ -720,7 +721,7 @@ extends VFSMStateBase
 func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
 	var featuredata = null;
-	featuredata = {\"data\":{\"positions\":[0, 5, 8, 13, 16], \"replacewithid\":10, \"tileid\":10}, \"id\":5, \"type\":\"ReplaceTile\"};
+	#featuredata = {\"data\":{\"positions\":[0, 5, 8, 13, 16, 21], \"replacewithid\":10, \"tileid\":10}, \"id\":5, \"type\":\"ReplaceTile\"};
 	if(\"features\" in data):
 		for feature in data.features: 
 			if(feature.type == \"ReplaceTile\" && feature.data.tileid == 10):
