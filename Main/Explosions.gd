@@ -24,10 +24,11 @@ func _add_explosion(position):
 	var target = Globals.singletons["WinMultiplier"];
 	Globals.singletons["Slot"].add_child(fx);
 	fx.speed += randf() * 0.1;
-	var startpos = position + Vector2((randf()*30.0)-15.0, (randf()*30.0)-15.0);
-	var endpos = target.global_position + Vector2(0, 50.0) + Vector2((randf()*30.0)-15.0, (randf()*30.0)-15.0);
-	fx.global_position = startpos;
-	fx.set_points(startpos, endpos)
+	var startoffset = Vector2((randf()*30.0)-15.0, (randf()*30.0)-15.0)
+	fx.global_position = position + startoffset;
+	fx.set_points(fx, target);
+	fx.offsets[0] = startoffset;
+	fx.offsets[2] = Vector2(0, 50.0) + Vector2((randf()*30.0)-15.0, (randf()*30.0)-15.0);
 	yield(fx, "move_complete");
 
 func _explosion_fx(position):

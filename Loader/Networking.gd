@@ -56,16 +56,17 @@ func request_init():
 func init_received(data):
 	lastround = {};
 	initdata = data;
-
+	
+	for datakey in data.keys():
+		lastround[datakey] = data[datakey];
+			
 	for rounddata in data["lastRound"].values():
 		for key in rounddata.keys():
-			#if(lastround.has(key)): prints("Duplicate round data key ", key, rounddata[key]);
 			lastround[key] = rounddata[key];
 		
 	lastround.defaultTotal = data.defaultTotal;
 	
 func apply_init():
-
 	Globals.configure_bets(initdata["totalStakes"], initdata["defaultBet"]);
 		
 	Globals.emit_signal("update_view", 

@@ -22,7 +22,8 @@ func enter() -> void:
 			if(feature.type == \"ReplaceTile\" && int(feature.data.tileid) == 0):
 				bartilesdata = feature;
 				break;
-	if(bartilesdata != null):		
+				
+	if(bartilesdata != null):
 		for pos in bartilesdata.data.positions:
 			var y = int(pos)%Globals.visibleTilesCount;
 			var x = floor(pos/Globals.visibleTilesCount);
@@ -730,8 +731,8 @@ extends VFSMStateBase
 
 func enter() -> void:
 	var data = Globals.singletons[\"Networking\"].lastround;
-	var featuredata = null;
-	#var featuredata = {\"data\":{\"positions\":[0, 5, 8, 13], \"replacewithid\":10, \"tileid\":10}, \"id\":5, \"type\":\"ReplaceTile\"};
+	#var featuredata = null;
+	var featuredata = {\"data\":{\"positions\":[0, 5, 8, 13, 16, 21], \"replacewithid\":10, \"tileid\":10}, \"id\":5, \"type\":\"ReplaceTile\"};
 	if(\"features\" in data):
 		for feature in data.features: 
 			if(feature.type == \"ReplaceTile\" && feature.data.tileid == 10):
@@ -757,34 +758,34 @@ func enter() -> void:
 		yield(Globals.get_tree().create_timer(0.5), \"timeout\");
 	
 	var positions = [];
-	var startpos = slot.get_tile_global_position(0,randi()%Globals.visibleTilesCount)-Vector2(200.0, 0.0);
-	positions.append(startpos)
 	for pos in featuredata.data.positions:
 		var y = int(pos)%Globals.visibleTilesCount;
 		var x = floor(pos/Globals.visibleTilesCount);
-		positions.append(slot.get_tile_global_position(x,y));
-		
-	var lastpos = slot.get_tile_global_position(Globals.visibleReelsCount-1,randi()%Globals.visibleTilesCount)+Vector2(200.0, 0.0);
-	positions.append(lastpos)
+		if(pos==featuredata.data.positions[0]):
+			var startpos = slot.get_tile_at(0,y);
+			positions.append(startpos);
+		elif(pos==featuredata.data.positions[len(featuredata.data.positions)-1]):
+			var lastpos = slot.get_tile_at(Globals.visibleReelsCount-1,y);
+			positions.append(lastpos)
+		positions.append(slot.get_tile_at(x,y));
 
 	var dragon = load(\"res://Main/Slot/BonusScene/DragonFollower.tscn\").instance();
 	slot.add_child(dragon);
-	dragon.global_position = positions[0];
+	dragon.global_position = positions[0].global_position;
 	Globals.singletons[\"Audio\"].play(\"Dragon Head Magic\")
 	dragon.init(positions);
 	dragon.play(\"Show\");
 	
 	for i in len(positions)-1:
-		prints(\"Dragon targetpos\", dragon.global_position)
-		while(dragon.global_position.distance_to(positions[i]) > 10.0):
-			yield(Globals.get_tree(), \"idle_frame\");
+		prints(\"Dragon targetpos\", dragon.global_position, dragon.global_position.distance_to(positions[i].global_position))
+		yield(dragon, \"hit\");
 		if(i == 0): continue;
 		change_tile(featuredata.data.positions[i-1], featuredata.data.replacewithid);
-		
+	
+	yield(dragon, \"hit\");
 	Globals.singletons[\"Audio\"].play(\"Dragon Feature Disappear\")
-	dragon.play(\"Hide\");
-	while(dragon.global_position.distance_to(lastpos) > 10.0):
-		yield(Globals.get_tree(), \"idle_frame\");
+	dragon.hide();
+	yield(dragon, \"hide_end\");
 	
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
 	dragon.queue_free();
@@ -974,7 +975,7 @@ func enter() -> void:
 				var fx = load(\"res://Main/Slot/BonusScene/RedFx.tscn\").instance();
 				Globals.singletons[\"Slot\"].add_child(fx);
 				fx.global_position = tigertile.global_position;
-				fx.set_points(fx.global_position, target.global_position)
+				fx.set_points(fx, target)
 				Globals.fsm_data[\"activated_special_tiles\"].append(tigertile);
 				tigertile.popup(Tile.AnimationType.SPINE,\"popup\",false);
 				tigertile.set_layer(1);
@@ -996,7 +997,7 @@ func enter() -> void:
 				var fx = load(\"res://Main/Slot/BonusScene/GreenFx.tscn\").instance();
 				Globals.singletons[\"Slot\"].add_child(fx);
 				fx.global_position = dragontile.global_position;
-				fx.set_points(fx.global_position, target.global_position)
+				fx.set_points(fx, target)
 				Globals.fsm_data[\"activated_special_tiles\"].append(dragontile);
 				dragontile.popup(Tile.AnimationType.SPINE,\"popup\",false);
 				dragontile.set_layer(1);

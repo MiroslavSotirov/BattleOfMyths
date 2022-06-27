@@ -23,7 +23,7 @@ func _ready():
 	if("language" in initdata): Globals.set_language(initdata["language"]);
 	else: Globals.set_language(Globals.singletons["Networking"].default_lang);
 
-	$LoadingSystem.required_packages.append("translation_"+Globals.singletons["Networking"].current_language)
+	$LoadingSystem.required_packages.append("translation_"+Globals.current_language)
 	$LoadingSystem.start();
 	yield($LoadingSystem, "required_packages_loaded");
 	print("Required packages Loaded.");

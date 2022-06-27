@@ -1,4 +1,4 @@
-[gd_scene load_steps=170 format=2]
+[gd_scene load_steps=171 format=2]
 
 [ext_resource path="res://Main/Scenario.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main/MultiplierFeature/MultiplierFeature.tscn" type="PackedScene" id=2]
@@ -3040,6 +3040,11 @@ tracks/0/keys = {
 blend_mode = 1
 light_mode = 1
 
+[sub_resource type="Curve2D" id=425]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 41, 451, -115.153, 30.204, 115.153, -30.204, 589, 362, -154.795, 33.9795, 154.795, -33.9795, 678, 87, -35.8672, -139.693, 35.8672, 139.693, 1046, 415, -105.714, 20.7652, 105.714, -20.7652, 1059, 574, -75.5099, 75.5099, 75.5099, -75.5099, 1253, 655, -60.408, 83.0609, 60.408, -83.0609, 1404, 491, 9.43874, 101.938, -9.43874, -101.938, 1453, 304 )
+}
+
 [node name="Game" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -4208,6 +4213,9 @@ default = Color( 1, 1, 1, 1 )
 [node name="Tween" type="Tween" parent="FaderBright"]
 
 [node name="Scenario" parent="." instance=ExtResource( 1 )]
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 425 )
 
 [connection signal="ready" from="SlotContainer/Slot/Overlap/Light/AnimationPlayer" to="SlotContainer/Slot/Overlap/Light/AnimationPlayer" method="play" binds= [ "Idle" ]]
 [connection signal="pressed" from="UIContainer/ErrorPopup/Button" to="UIContainer/ErrorPopup" method="_on_Button_pressed"]
