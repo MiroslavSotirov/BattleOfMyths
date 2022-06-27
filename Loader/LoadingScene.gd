@@ -20,10 +20,10 @@ func _ready():
 		yield(Globals.singletons["Networking"], "initreceived");
 
 	var initdata = Globals.singletons["Networking"].initdata;
-	if("language" in initdata):Globals.set_language(initdata["language"]);
+	if("language" in initdata): Globals.set_language(initdata["language"]);
 	else: Globals.set_language(Globals.singletons["Networking"].default_lang);
 
-	$LoadingSystem.required_packages.append("translation_"+Globals.singletons["Networking"].default_lang)
+	$LoadingSystem.required_packages.append("translation_"+Globals.singletons["Networking"].current_language)
 	$LoadingSystem.start();
 	yield($LoadingSystem, "required_packages_loaded");
 	print("Required packages Loaded.");
