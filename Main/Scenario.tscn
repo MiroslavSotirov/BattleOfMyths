@@ -242,7 +242,6 @@ func enter() -> void:
 	Globals.fsm_data[\"reels_stopped\"] = false;
 	Globals.singletons[\"Slot\"].stop_spin();
 	yield(Globals.singletons[\"Slot\"], \"onstopped\");
-	JS.output(\"\", \"elysiumgameroundend\");
 	Globals.fsm_data[\"reels_stopped\"] = true;
 
 func update(_object, _delta: float) -> void:
@@ -306,10 +305,8 @@ func enter() -> void:
 		Globals.singletons[\"Slot\"].start_spin();
 		
 func spin_data_received(data):
-	print(\"SPIN DATA WAS RECIEVED\");
-	if(\"code\" in data || \"hasError\" in data): 
-		Globals.fsm_data[\"network_error\"] = true;
-		return;
+	print(\"SPIN DATA WAS RECIEVED\")
+	if(\"code\" in data || \"hasError\" in data): return;
 	
 	var bartilesdata = null;
 	if(\"features\" in data):
@@ -545,8 +542,8 @@ func enter() -> void:
 			Globals.singletons[\"BigWin\"].show_win(data[\"wins_lines_total\"]);
 			yield(Globals.singletons[\"BigWin\"], \"HideEnd\")
 			Globals.fsm_data[\"big_win_shown\"] = true;
-			if(\"cumulativeWin\" in data):
-				Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(data[\"spinWin\"]), true);
+			if(\"roundWin\" in data):
+				Globals.singletons[\"TotalWinBar\"].set_text(data[\"roundWin\"], true);
 			elif(\"spinWin\" in data):
 				Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 			
@@ -587,8 +584,8 @@ func bangup_wins(n, multiplier):
 	Globals.singletons[\"WinBar\"].hide(true);
 	
 	var data = Globals.singletons[\"Networking\"].lastround;
-	if(\"cumulativeWin\" in data):
-		Globals.singletons[\"TotalWinBar\"].set_text(float(data[\"cumulativeWin\"])+float(n), true);
+	if(\"roundWin\" in data):
+		Globals.singletons[\"TotalWinBar\"].set_text(data[\"roundWin\"], true);
 	elif(\"spinWin\" in data):
 		Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
 	emit_signal(\"bangup_end\");
@@ -691,7 +688,9 @@ func princess_animation(start, end, wildpositions):
 		var y = int(pos)%Globals.visibleTilesCount;
 		var x = floor(pos/Globals.visibleTilesCount);		
 		Globals.singletons[\"Slot\"].replace_tile(x, y, 10);
+		Globals.singletons[\"Slot\"].get_tile_at(x, y).modulate = Color.transparent;
 		Globals.singletons[\"Slot\"].get_tile_at(x, y).play_animation(Tile.AnimationType.SPINE, \"popup\")
+		yield(Globals.get_tree(), \"idle_frame\");
 		Globals.singletons[\"Slot\"].get_tile_at(x, y).modulate = Color.white;
 		create_hit_fx(x, y);		
 		yield(Globals.get_tree().create_timer(0.1), \"timeout\");
@@ -797,7 +796,9 @@ func change_tile(pos, targetid):
 	var y = int(pos)%Globals.visibleTilesCount;
 	var x = floor(pos/Globals.visibleTilesCount);
 	Globals.singletons[\"Slot\"].replace_tile(x, y, targetid);
-	Globals.singletons[\"Slot\"].get_tile_at(x, y).play_animation(Tile.AnimationType.SPINE, \"appear\")
+	Globals.singletons[\"Slot\"].get_tile_at(x, y).modulate = Color.transparent;
+	Globals.singletons[\"Slot\"].get_tile_at(x, y).play_animation(Tile.AnimationType.SPINE, \"popup\")
+	yield(Globals.get_tree(), \"idle_frame\");
 	Globals.singletons[\"Slot\"].get_tile_at(x, y).modulate = Color.white;
 	
 	var worldpos = Globals.singletons[\"Slot\"].get_tile_global_position(x,y);
@@ -870,9 +871,12 @@ func enter() -> void:
 	yield(tiger.hide(), \"completed\");
 	slot.replace_tiles(replace_data);
 	var fat_tile = slot.get_tile_at(fatTile.x, fatTile.y);
-	fat_tile.modulate = Color.white;
+
 	fat_tile.set_layer(1);
-	fat_tile.popup(Tile.AnimationType.SPINE, \"appear\")
+	fat_tile.modulate = Color.transparent;
+	fat_tile.play_animation(Tile.AnimationType.SPINE, \"appear\")
+	yield(Globals.get_tree(), \"idle_frame\");
+	fat_tile.modulate = Color.white;
 	yield(Globals.get_tree().create_timer(1.0), \"timeout\");
 	fat_tile.set_layer(0);
 	Globals.singletons[\"Game\"].tiles_change_color(Color.white, 0.5);
@@ -1108,7 +1112,7 @@ func enter() -> void:
 
 
 func is_triggered(_object, _delta: float) -> bool:
-	return Globals.get_fsm_data(\"reels_stopped\");
+	return false
 "
 
 [sub_resource type="Resource" id=163]
