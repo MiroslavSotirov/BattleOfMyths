@@ -133,9 +133,8 @@ func parse_spin_data(data):
 			var i = feature.data.x;
 			var j = feature.data.y + feature.data.h - 1 if direction == 1 else max(0, feature.data.y);
 			
-			if (view[i][j] != feature.data.tileid):
-				push_error("wrong fat tile data");
-				continue;
+			# it is possible that the fat tiles are not in the initial tile view but added as a special feature
+			if (view[i][j] != feature.data.tileid): continue;
 
 			for k in range(height):
 				for l in range(width):
