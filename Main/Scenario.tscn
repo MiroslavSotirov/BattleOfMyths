@@ -242,6 +242,7 @@ func enter() -> void:
 	Globals.fsm_data[\"reels_stopped\"] = false;
 	Globals.singletons[\"Slot\"].stop_spin();
 	yield(Globals.singletons[\"Slot\"], \"onstopped\");
+	JS.output(\"\", \"elysiumgameroundend\");
 	Globals.fsm_data[\"reels_stopped\"] = true;
 
 func update(_object, _delta: float) -> void:
@@ -305,9 +306,11 @@ func enter() -> void:
 		Globals.singletons[\"Slot\"].start_spin();
 		
 func spin_data_received(data):
-	print(\"SPIN DATA WAS RECIEVED\")
-	if(\"code\" in data || \"hasError\" in data): return;
-	
+	print(\"SPIN DATA WAS RECIEVED\");
+	if(\"code\" in data || \"hasError\" in data):
+		Globals.fsm_data[\"network_error\"] = true;
+		return;
+
 	var bartilesdata = null;
 	if(\"features\" in data):
 		for feature in data.features: 
@@ -1112,7 +1115,7 @@ func enter() -> void:
 
 
 func is_triggered(_object, _delta: float) -> bool:
-	return false
+	return Globals.get_fsm_data(\"reels_stopped\");
 "
 
 [sub_resource type="Resource" id=163]
