@@ -591,6 +591,7 @@ func bangup_wins(n, multiplier):
 		Globals.singletons[\"TotalWinBar\"].set_text(data[\"roundWin\"], true);
 	elif(\"spinWin\" in data):
 		Globals.singletons[\"TotalWinBar\"].set_text(data[\"spinWin\"], true);
+	Globals.singletons[\"Audio\"].play(\"CoinsEndlessHit\")
 	emit_signal(\"bangup_end\");
 	
 func calcute_win_tiles_positions(wins, tiles_count):
