@@ -52,7 +52,7 @@ jobs:
       - name: Get version
         id: tag
         run: |
-          packageVersion=$(cat BattleOfMyths/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+          packageVersion=$(cat BattleOfMyths/package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]') && ((packageVersion++))
           echo "::set-output name=new_tag::$packageVersion"
       - name: Build docker image and push to docker repo
         run: |
