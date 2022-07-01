@@ -48,10 +48,6 @@ var _time = 0;
 var _edges = { tiles = [], slot = 0 }; # the farthest a tile can fall
 var _filling: bool = false; # true when the screen is being filled with the new tiles /the spin result/
 
-#var spinning : bool = false;
-#var stopped : bool = true;
-#var stopping : bool = false;
-
 func get_tile_at(index):
 	return self.tiles[topTileCount + index];
 
