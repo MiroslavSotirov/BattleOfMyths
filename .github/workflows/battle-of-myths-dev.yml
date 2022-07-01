@@ -46,7 +46,9 @@ jobs:
           find BattleOfMyths/Audio/ -name '*.wav' -exec cp {} BattleOfMyths/dist/audio \;
           cd BattleOfMyths/dist/audio && python3 ../../generate_audio_data.py && cd ../../..
           ./Godot_v3.4.2-stable_linux_headless.64 -export_pck --path BattleOfMyths/;
-          node generate_index.js cdn="https://elysium-games.s3.eu-west-1.amazonaws.com/" && mv index.html config.json BattleOfMyths/dist/
+      - name: Generate index.html
+      - run: |
+          cd BattleOfMyths && node generate_index.js cdn="https://elysium-games.s3.eu-west-1.amazonaws.com/" && mv index.html config.json dist/;
       - name: Get version
         id: tag
         run: |
