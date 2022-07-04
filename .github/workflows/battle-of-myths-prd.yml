@@ -40,6 +40,7 @@ jobs:
       - run: |
           unzip Godot_v3.4.2-stable_linux_headless.64.zip
       - name: Build BattleOfMyths
+        continue-on-error: true
         run: |
           mkdir -p BattleOfMyths/dist/audio; mkdir -p BattleOfMyths/dist/translations && cp game-manager/scripts/* BattleOfMyths/
           find BattleOfMyths/Audio/ -name '*.wav' -exec cp {} BattleOfMyths/dist/audio \;
