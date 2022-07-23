@@ -11,6 +11,9 @@ jobs:
       BUILDER_TOKEN: ${{ secrets.BUILDER_TOKEN  }}
       HARBOR_PASSWORD: ${{ secrets.HARBOR_PASSWORD }}
       HARBOR_USERNAME: ${{ secrets.HARBOR_USERNAME }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: eu-west-1
     steps:
       - uses: actions/checkout@v2
         with:
@@ -57,8 +60,7 @@ jobs:
       - name: Build docker image and push to docker repo
         run: |
           docker login harbor.elysiumstudios.se -u ${{ env.HARBOR_USERNAME }} -p ${{ env.HARBOR_PASSWORD }}
-          docker pull harbor.elysiumstudios.se/elysium/nginx-game:latest || true
-          docker build --cache-from "harbor.elysiumstudios.se/elysium/nginx-game:latest" --build-arg "IMAGE_BASE_TAG=latest" --build-arg "BUILD_GAME_NAME=${{ env.GAME_NAME }}" --build-arg "BUILD_GAME_VERSION=${{ steps.tag.outputs.new_tag }}" --pull -t "harbor.elysiumstudios.se/elysium/${{ env.GAME_NAME }}-stg:${{ steps.tag.outputs.new_tag }}" --file BattleOfMyths/Dockerfile BattleOfMyths/dist/
+          docker build -t "harbor.elysiumstudios.se/elysium/${{ env.GAME_NAME }}-stg:${{ steps.tag.outputs.new_tag }}" -f BattleOfMyths/Dockerfile2 BattleOfMyths/
           docker push "harbor.elysiumstudios.se/elysium/${{ env.GAME_NAME }}-stg:${{ steps.tag.outputs.new_tag }}"
       - uses: azure/setup-helm@v1
         with:
@@ -88,3 +90,14 @@ jobs:
           git add stg/apps-infra/deployments/battle-of-myths/release.yaml
           git commit -m "Deploy BattleOfMyths ${{ steps.tag.outputs.new_tag }}"
           git push
+
+      - name: Setup AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Invalidate Cloudfront cache
+        run: | 
+          aws cloudfront create-invalidation --distribution-id E1YLA9PGJWS1B6 --paths "/*"
